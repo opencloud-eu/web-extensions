@@ -35,11 +35,12 @@ services:
       - traefik
 
   companion:
-    image: owncloud/uppy-companion:3.12.13-owncloud
+    image: transloadit/companion:5.3.0
     extra_hosts:
       - host.docker.internal:${DOCKER_HOST:-host-gateway}
     environment:
       NODE_TLS_REJECT_UNAUTHORIZED: 0
+      COMPANION_CLIENT_ORIGINS: 'true'
       COMPANION_ALLOW_LOCAL_URLS: 'true'
       COMPANION_DATADIR: /tmp/companion/
       COMPANION_DOMAIN: host.docker.internal:9200
@@ -47,6 +48,9 @@ services:
       COMPANION_PATH: /companion
       COMPANION_ONEDRIVE_KEY: '${COMPANION_ONEDRIVE_KEY}'
       COMPANION_ONEDRIVE_SECRET: '${COMPANION_ONEDRIVE_SECRET}'
+      # FIXME: upload doesn't work in 5.3.0, c.f. https://github.com/owncloud/ocis/issues/10794
+      # assuming https://github.com/transloadit/uppy/pull/5561 is merged as it is right now, we need the following setting:
+      COMPANION_DEFERRED_UPLOAD_LENGTH: 'false'
     volumes:
       - uppy_companion_datadir:/tmp/companion/
     labels:
@@ -103,6 +107,3 @@ services:
 volumes:
   ocis-config:
   uppy_companion_datadir:
-
-networks:
-  traefik:

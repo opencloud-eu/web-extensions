@@ -4,23 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  '@uppy/companion-client': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-companion-client.tgz
-  '@uppy/core': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz
-  '@uppy/dashboard': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-dashboard.tgz
-  '@uppy/drop-target': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-drop-target.tgz
-  '@uppy/google-drive': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-google-drive.tgz
-  '@uppy/informer': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-informer.tgz
-  '@uppy/onedrive': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-onedrive.tgz
-  '@uppy/provider-views': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-provider-views.tgz
-  '@uppy/status-bar': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-status-bar.tgz
-  '@uppy/store-default': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-store-default.tgz
-  '@uppy/thumbnail-generator': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-thumbnail-generator.tgz
-  '@uppy/tus': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-tus.tgz
-  '@uppy/utils': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-utils.tgz
-  '@uppy/webdav': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-webdav.tgz
-  '@uppy/xhr-upload': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-xhr-upload.tgz
-
 importers:
 
   .:
@@ -140,17 +123,17 @@ importers:
   packages/web-app-importer:
     dependencies:
       '@uppy/dashboard':
-        specifier: https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-dashboard.tgz
-        version: https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-dashboard.tgz(@uppy/core@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz)
+        specifier: 4.1.3
+        version: 4.1.3(@uppy/core@3.3.0)
       '@uppy/google-drive':
-        specifier: https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-google-drive.tgz
-        version: https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-google-drive.tgz(@uppy/core@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz)
+        specifier: 4.2.0
+        version: 4.2.0(@uppy/core@3.3.0)
       '@uppy/onedrive':
-        specifier: https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-onedrive.tgz
-        version: https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-onedrive.tgz(@uppy/core@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz)
+        specifier: 4.1.2
+        version: 4.1.2(@uppy/core@3.3.0)
       '@uppy/webdav':
-        specifier: https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-webdav.tgz
-        version: https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-webdav.tgz(@uppy/core@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz)
+        specifier: 0.1.0
+        version: 0.1.0(@uppy/core@3.3.0)
     devDependencies:
       '@ownclouders/web-client':
         specifier: ^11.0.0
@@ -159,8 +142,8 @@ importers:
         specifier: ^11.0.0
         version: 11.0.4(@vue/compiler-sfc@3.5.13)(typescript@5.6.3)(vue@3.5.13(typescript@5.6.3))
       '@uppy/core':
-        specifier: https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz
-        version: https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz
+        specifier: ^3.3.0
+        version: 3.3.0
       pinia:
         specifier: ^2.2.6
         version: 2.2.6(typescript@5.6.3)(vue@3.5.13(typescript@5.6.3))
@@ -218,8 +201,8 @@ importers:
         specifier: ^11.0.0
         version: 11.0.4(@vue/compiler-sfc@3.5.13)(typescript@5.6.3)(vue@3.5.13(typescript@5.6.3))
       '@uppy/core':
-        specifier: https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz
-        version: https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz
+        specifier: ^4.0.0
+        version: 4.3.1
       p-queue:
         specifier: ^8.0.0
         version: 8.0.1
@@ -1068,11 +1051,11 @@ packages:
   '@toast-ui/editor@3.2.2':
     resolution: {integrity: sha512-ASX7LFjN2ZYQJrwmkUajPs7DRr9FsM1+RQ82CfTO0Y5ZXorBk1VZS4C2Dpxinx9kl55V4F8/A2h2QF4QMDtRbA==}
 
-  '@transloadit/prettier-bytes@0.0.7':
-    resolution: {integrity: sha512-VeJbUb0wEKbcwaSlj5n+LscBl9IPgLPkHVGBkh00cztv6X4L/TJXK58LzFuBKX7/GAfiGhIwH67YTLTlzvIzBA==}
-
   '@transloadit/prettier-bytes@0.0.9':
     resolution: {integrity: sha512-pCvdmea/F3Tn4hAtHqNXmjcixSaroJJ+L3STXlYJdir1g1m2mRQpWbN8a4SvgQtaw2930Ckhdx8qXdXBFMKbAA==}
+
+  '@transloadit/prettier-bytes@0.3.5':
+    resolution: {integrity: sha512-xF4A3d/ZyX2LJWeQZREZQw+qFX4TGQ8bGVP97OLRt6sPO6T0TNHBFTuRHOJh7RNmYOBmQ9MHxpolD9bXihpuVA==}
 
   '@tsconfig/node10@1.0.11':
     resolution: {integrity: sha512-DcRjDCujK/kCk/cUe8Xz8ZSpm8mS3mNNpta+jGCA6USEDfktlNvm1+IuZ9eTcDbNk41BHwpHHeW+N1lKCz4zOw==}
@@ -1121,6 +1104,9 @@ packages:
 
   '@types/parse5@5.0.3':
     resolution: {integrity: sha512-kUNnecmtkunAoQ3CnjmMkzNU/gtxG8guhi+Fk2U/kOpIKjIMKnXGp4IJCgQJrXSgMsWYimYG4TGjz/UzbGEBTw==}
+
+  '@types/retry@0.12.2':
+    resolution: {integrity: sha512-XISRgDJ2Tc5q4TRqvgJtzsRkFYNJzZrhTdtMoGVBttwzzQJkPnS3WWTFc7kuDRoPtPakl+T+OfdEUjYJj7Jbow==}
 
   '@types/trusted-types@2.0.7':
     resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
@@ -1202,87 +1188,102 @@ packages:
   '@ucast/mongo@2.4.3':
     resolution: {integrity: sha512-XcI8LclrHWP83H+7H2anGCEeDq0n+12FU2mXCTz6/Tva9/9ddK/iacvvhCyW6cijAAOILmt0tWplRyRhVyZLsA==}
 
+  '@uppy/companion-client@4.3.0':
+    resolution: {integrity: sha512-S8Fs7KgLE8CEf225S/j28yZTMqVaqvmesX5mrd/I1H0dHzIoruLYC/3q3QnihGbQRxyobUpnBmo67o24+mAc7g==}
+    peerDependencies:
+      '@uppy/core': ^4.3.1
+
   '@uppy/companion-client@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-companion-client.tgz':
     resolution: {tarball: https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-companion-client.tgz}
     version: 3.2.0
+
+  '@uppy/core@3.3.0':
+    resolution: {integrity: sha512-LrVplQwFEc1s+rTitLywpf1tjy7ELAIag4Ejrvkij1yEOIRHCXYYVHf8ln761jRwqJ1JDY3Hr6Y+BFnCV2OSIg==}
+
+  '@uppy/core@4.3.1':
+    resolution: {integrity: sha512-vov6agqmZrbmkG6E5LpSGNOeVXP4u0pe3UXCqVBZvU+WPInA264d4+X7NUnD6cF/BHPfckbfKh+60Tm1A40VEg==}
 
   '@uppy/core@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz':
     resolution: {tarball: https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz}
     version: 3.3.0
 
-  '@uppy/dashboard@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-dashboard.tgz':
-    resolution: {tarball: https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-dashboard.tgz}
-    version: 3.4.1
+  '@uppy/dashboard@4.1.3':
+    resolution: {integrity: sha512-2gNBRp4IVlsxJ1Twsub4KcudZ+I3ETnsukKs8xfk1F/0D0jZrqIZtsEQxL9PtGLOKQpNlnhN3UjXb/okWJRCUQ==}
     peerDependencies:
-      '@uppy/core': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz
+      '@uppy/core': ^4.3.0
 
   '@uppy/drop-target@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-drop-target.tgz':
     resolution: {tarball: https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-drop-target.tgz}
     version: 2.0.1
     peerDependencies:
-      '@uppy/core': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz
+      '@uppy/core': ^3.3.0
 
-  '@uppy/google-drive@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-google-drive.tgz':
-    resolution: {tarball: https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-google-drive.tgz}
-    version: 3.1.1
+  '@uppy/google-drive@4.2.0':
+    resolution: {integrity: sha512-b9cVJFm6/BE0pffysB45aJ414Ou0NGt3ZivsVTAXJYCItJdxHodxSjwHOJ2r3Vr535Z0/fWTWzuM58hGNq50Kw==}
     peerDependencies:
-      '@uppy/core': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz
+      '@uppy/core': ^4.3.0
 
-  '@uppy/informer@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-informer.tgz':
-    resolution: {tarball: https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-informer.tgz}
-    version: 3.0.2
+  '@uppy/informer@4.1.2':
+    resolution: {integrity: sha512-+fsDuuAivHlF+AXOQpiJMIbavGbAhBfn36SF5q52DlFr9151lWUe2sQ3wR3yCyyRkcq006Xx7oeWnOI+mM/10A==}
     peerDependencies:
-      '@uppy/core': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz
+      '@uppy/core': ^4.3.0
 
-  '@uppy/onedrive@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-onedrive.tgz':
-    resolution: {tarball: https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-onedrive.tgz}
-    version: 3.1.1
+  '@uppy/onedrive@4.1.2':
+    resolution: {integrity: sha512-0YzIN6xbHzEMF6mBKuJM7XNwsPFznfC5tppi2mhNWCBj0bJjEUJzADKS8mgri4yNHGg5mlAfIUn6FYaYyHBNqQ==}
     peerDependencies:
-      '@uppy/core': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz
+      '@uppy/core': ^4.3.0
 
-  '@uppy/provider-views@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-provider-views.tgz':
-    resolution: {tarball: https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-provider-views.tgz}
-    version: 3.3.1
+  '@uppy/provider-views@4.2.0':
+    resolution: {integrity: sha512-0em+bAUvcZFV4kHIq154LK1d53rDyiN6cfhXCBQSb65erLlaKX/rmsbiMzvy2/pOhcWltaGlQwVWIoS+tF1G1A==}
     peerDependencies:
-      '@uppy/core': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz
+      '@uppy/core': ^4.3.1
 
-  '@uppy/status-bar@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-status-bar.tgz':
-    resolution: {tarball: https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-status-bar.tgz}
-    version: 3.2.1
+  '@uppy/status-bar@4.0.6':
+    resolution: {integrity: sha512-FuRtew70hfCCQE4sJmMkMGsokIpoU9B4q78L2iF496y531oJ3chhaywgLZhKgIDub2Xiyj2gCPUREi7W3sbA5g==}
     peerDependencies:
-      '@uppy/core': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz
+      '@uppy/core': ^4.3.1
+
+  '@uppy/store-default@3.0.3':
+    resolution: {integrity: sha512-/zlvQNj4HjkthI+7dNdj/8mOlTg1Zb1gJ/ZsOxof0g3xXD+OAwm7asRnOwpfj2dos+lExdW/zMn8XsRGsuvb6Q==}
+
+  '@uppy/store-default@4.1.2':
+    resolution: {integrity: sha512-1Zi4S9rZiiEzDw/7TDNtwCWP8Y/6aBtWzKwP6EWH7NHBKX8yGFlQMRDwAXCKaxDxb46L0RNK8nWjOzHM+0Farg==}
 
   '@uppy/store-default@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-store-default.tgz':
     resolution: {tarball: https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-store-default.tgz}
     version: 3.0.3
 
-  '@uppy/thumbnail-generator@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-thumbnail-generator.tgz':
-    resolution: {tarball: https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-thumbnail-generator.tgz}
-    version: 3.0.3
+  '@uppy/thumbnail-generator@4.0.2':
+    resolution: {integrity: sha512-5viK5dxekUTmEaHwRwN3qTBU2bu2uDxMr91gwVoT2niL37erkNau0fFwFpZYuc5V0A9PacP27Jcs7R5a6giTCA==}
     peerDependencies:
-      '@uppy/core': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz
+      '@uppy/core': ^4.3.0
 
   '@uppy/tus@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-tus.tgz':
     resolution: {tarball: https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-tus.tgz}
     version: 3.1.2
     peerDependencies:
-      '@uppy/core': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz
+      '@uppy/core': ^3.3.0
+
+  '@uppy/utils@5.4.0':
+    resolution: {integrity: sha512-X9f43OvTcymhoiDEzA2CqH7W5pADTVv2bhQ/9NUaVwYRLUadDjZc27ZgnNraKSYgnOhKFJlC63nyCwcd0yaQIQ==}
+
+  '@uppy/utils@6.0.6':
+    resolution: {integrity: sha512-7/4jrJTSEth7DKCOZiOEY3JWGTUlwV9Gnrtlp25yJvJ7HbOVQ0ToJUuDz9wCZJ3V2++zfj30JbvBynbOH40WxA==}
 
   '@uppy/utils@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-utils.tgz':
     resolution: {tarball: https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-utils.tgz}
     version: 5.4.0
 
-  '@uppy/webdav@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-webdav.tgz':
-    resolution: {tarball: https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-webdav.tgz}
-    version: 3.1.1
+  '@uppy/webdav@0.1.0':
+    resolution: {integrity: sha512-PIWHAM58ZrGgwv/kFCRIqpbWOjLNb/WXp9XU62EROTtABYTnb0/Uc2YOyKJUJYYasD7JtKF3R2Oty3X3jPHtlw==}
     peerDependencies:
-      '@uppy/core': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz
+      '@uppy/core': ^4.3.1
 
   '@uppy/xhr-upload@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-xhr-upload.tgz':
     resolution: {tarball: https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-xhr-upload.tgz}
     version: 3.3.1
     peerDependencies:
-      '@uppy/core': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz
+      '@uppy/core': ^3.3.0
 
   '@vitejs/plugin-vue@5.2.0':
     resolution: {integrity: sha512-7n7KdUEtx/7Yl7I/WVAMZ1bEb0eVvXF3ummWTeLcs/9gvo9pJhuLdouSXGjdZ/MKD1acf1I272+X0RMua4/R3g==}
@@ -2121,15 +2122,16 @@ packages:
     resolution: {integrity: sha512-xelSayHH36ZgE7ZWhli7pW34hNbNl8Ojv5KVmkJD4hBdD3th8Tfk9vYasLM+mXWOZhFkgZfxhLSnrwRr4elSSg==}
     engines: {node: '>=0.10.0'}
 
+  is-network-error@1.1.0:
+    resolution: {integrity: sha512-tUdRRAnhT+OtCZR/LxZelH/C7QtjtFrTu5tXCA8pl55eTUElUHT+GPYV8MBMBvea/j+NxQqVt3LbWMRir7Gx9g==}
+    engines: {node: '>=16'}
+
   is-number@7.0.0:
     resolution: {integrity: sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==}
     engines: {node: '>=0.12.0'}
 
   is-reference@3.0.3:
     resolution: {integrity: sha512-ixkJoqQvAP88E6wLydLGGqCJsrFUnqoH6HnaczB8XmDH1oaWU+xxdptvikTgaEhtZ53Ky6YXiBuUI2WXLMCwjw==}
-
-  is-shallow-equal@1.0.1:
-    resolution: {integrity: sha512-lq5RvK+85Hs5J3p4oA4256M1FEffzmI533ikeDHvJd42nouRRx5wBzt36JuviiGe5dIPyHON/d0/Up+PBo6XkQ==}
 
   is-stream@2.0.1:
     resolution: {integrity: sha512-hFoiJiTl63nn+kstHGBtewWSKnQLpyb155KHheA1l39uvtO9nWIop1p3udqPcUd/xbF1VLMO4n7OI6p7RbngDg==}
@@ -2355,6 +2357,11 @@ packages:
     engines: {node: ^14 || ^16 || >=18}
     hasBin: true
 
+  nanoid@5.0.9:
+    resolution: {integrity: sha512-Aooyr6MXU6HpvvWXKoVoXwKMs/KyVakWwg7xQfv5/S/RIgJMy0Ifa45H9qqYy7pTCszrHzP21Uk4PZq2HpEM8Q==}
+    engines: {node: ^18 || >=20}
+    hasBin: true
+
   natural-compare-lite@1.4.0:
     resolution: {integrity: sha512-Tj+HTDSJJKaZnfiuw+iaF9skdPpTo2GtEly5JHnWV/hfv2Qj/9RKsGISQtLh2ox3l5EAGw487hnBee0sIJ6v2g==}
 
@@ -2416,17 +2423,13 @@ packages:
     resolution: {integrity: sha512-LaNjtRWUBY++zB5nE/NwcaoMylSPk+S+ZHNB1TzdbMJMny6dynpAGt7X/tl/QYq3TIeE6nxHppbo2LGymrG5Pw==}
     engines: {node: '>=10'}
 
-  p-queue@7.4.1:
-    resolution: {integrity: sha512-vRpMXmIkYF2/1hLBKisKeVYJZ8S2tZ0zEAmIJgdVKP2nq0nh4qCdf8bgw+ZgKrkh71AOCaqzwbJJk1WtdcF3VA==}
-    engines: {node: '>=12'}
-
   p-queue@8.0.1:
     resolution: {integrity: sha512-NXzu9aQJTAzbBqOt2hwsR63ea7yvxJc0PwN/zobNAudYfb1B7R08SzB4TsLeSbUCuG467NhnoT0oO6w1qRO+BA==}
     engines: {node: '>=18'}
 
-  p-timeout@5.1.0:
-    resolution: {integrity: sha512-auFDyzzzGZZZdHz3BtET9VEz0SE/uMEAx7uWfGPucfzEwwe/xH0iVeZibQmANYE/hp9T2+UUZT5m+BKyrDp3Ew==}
-    engines: {node: '>=12'}
+  p-retry@6.2.1:
+    resolution: {integrity: sha512-hEt02O4hUct5wtwg4H4KcWgDdm+l1bOaEy/hWzd8xtXB9BqxTWBBhb+2ImAtH4Cv4rPjV76xN3Zumqk3k3AhhQ==}
+    engines: {node: '>=16.17'}
 
   p-timeout@6.1.3:
     resolution: {integrity: sha512-UJUyfKbwvr/uZSV6btANfb+0t/mOhKV/KXcCUTp8FcQI+v/0d+wXqH4htrW0E4rR6WiEO/EPvUFiV9D5OI4vlw==}
@@ -2631,6 +2634,10 @@ packages:
     resolution: {integrity: sha512-9LkiTwjUh6rT555DtE9rTX+BKByPfrMzEAtnlEtdEwr3Nkffwiihqe2bWADg+OQRjt9gl6ICdmB/ZFDCGAtSow==}
     engines: {node: '>= 4'}
 
+  retry@0.13.1:
+    resolution: {integrity: sha512-XQBQ3I8W1Cge0Seh+6gjj03LbmRFWuoszgK9ooCpwYIrhhoO80pfq4cUkU5DkknwfOfFteRwlZ56PYOGYyFWdg==}
+    engines: {node: '>= 4'}
+
   reusify@1.0.4:
     resolution: {integrity: sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==}
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
@@ -2669,6 +2676,9 @@ packages:
   set-function-length@1.2.2:
     resolution: {integrity: sha512-pgRc4hJ4/sNjWCSS9AmnS40x3bNMDTknHgL5UaMBTMyJnU90EgWh1Rz+MC9eFu4BuN/UwZjKQuY/1v3rM7HMfg==}
     engines: {node: '>= 0.4'}
+
+  shallow-equal@3.1.0:
+    resolution: {integrity: sha512-pfVOw8QZIXpMbhBWvzBISicvToTiM5WBF1EeAUZDDSb5Dt29yl4AYbyywbJFSEsRUMr7gJaxqCdr4L3tQf9wVg==}
 
   shebang-command@2.0.0:
     resolution: {integrity: sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==}
@@ -3943,9 +3953,9 @@ snapshots:
       prosemirror-state: 1.4.3
       prosemirror-view: 1.36.0
 
-  '@transloadit/prettier-bytes@0.0.7': {}
-
   '@transloadit/prettier-bytes@0.0.9': {}
+
+  '@transloadit/prettier-bytes@0.3.5': {}
 
   '@tsconfig/node10@1.0.11': {}
 
@@ -3990,6 +4000,8 @@ snapshots:
   '@types/parse-json@4.0.2': {}
 
   '@types/parse5@5.0.3': {}
+
+  '@types/retry@0.12.2': {}
 
   '@types/trusted-types@2.0.7':
     optional: true
@@ -4094,10 +4106,39 @@ snapshots:
     dependencies:
       '@ucast/core': 1.10.2
 
+  '@uppy/companion-client@4.3.0(@uppy/core@3.3.0)':
+    dependencies:
+      '@uppy/core': 3.3.0
+      '@uppy/utils': 6.0.6
+      namespace-emitter: 2.0.1
+      p-retry: 6.2.1
+
   '@uppy/companion-client@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-companion-client.tgz':
     dependencies:
       '@uppy/utils': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-utils.tgz
       namespace-emitter: 2.0.1
+
+  '@uppy/core@3.3.0':
+    dependencies:
+      '@transloadit/prettier-bytes': 0.0.9
+      '@uppy/store-default': 3.0.3
+      '@uppy/utils': 5.4.0
+      lodash: 4.17.21
+      mime-match: 1.0.2
+      namespace-emitter: 2.0.1
+      nanoid: 4.0.2
+      preact: 10.24.3
+
+  '@uppy/core@4.3.1':
+    dependencies:
+      '@transloadit/prettier-bytes': 0.3.5
+      '@uppy/store-default': 4.1.2
+      '@uppy/utils': 6.0.6
+      lodash: 4.17.21
+      mime-match: 1.0.2
+      namespace-emitter: 2.0.1
+      nanoid: 5.0.9
+      preact: 10.24.3
 
   '@uppy/core@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz':
     dependencies:
@@ -4110,72 +4151,76 @@ snapshots:
       nanoid: 4.0.2
       preact: 10.24.3
 
-  '@uppy/dashboard@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-dashboard.tgz(@uppy/core@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz)':
+  '@uppy/dashboard@4.1.3(@uppy/core@3.3.0)':
     dependencies:
-      '@transloadit/prettier-bytes': 0.0.7
-      '@uppy/core': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz
-      '@uppy/informer': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-informer.tgz(@uppy/core@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz)
-      '@uppy/provider-views': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-provider-views.tgz(@uppy/core@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz)
-      '@uppy/status-bar': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-status-bar.tgz(@uppy/core@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz)
-      '@uppy/thumbnail-generator': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-thumbnail-generator.tgz(@uppy/core@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz)
-      '@uppy/utils': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-utils.tgz
+      '@transloadit/prettier-bytes': 0.3.5
+      '@uppy/core': 3.3.0
+      '@uppy/informer': 4.1.2(@uppy/core@3.3.0)
+      '@uppy/provider-views': 4.2.0(@uppy/core@3.3.0)
+      '@uppy/status-bar': 4.0.6(@uppy/core@3.3.0)
+      '@uppy/thumbnail-generator': 4.0.2(@uppy/core@3.3.0)
+      '@uppy/utils': 6.0.6
       classnames: 2.5.1
-      is-shallow-equal: 1.0.1
       lodash: 4.17.21
       memoize-one: 6.0.0
-      nanoid: 4.0.2
+      nanoid: 5.0.9
       preact: 10.24.3
+      shallow-equal: 3.1.0
 
   '@uppy/drop-target@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-drop-target.tgz(@uppy/core@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz)':
     dependencies:
       '@uppy/core': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz
       '@uppy/utils': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-utils.tgz
 
-  '@uppy/google-drive@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-google-drive.tgz(@uppy/core@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz)':
+  '@uppy/google-drive@4.2.0(@uppy/core@3.3.0)':
     dependencies:
-      '@uppy/companion-client': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-companion-client.tgz
-      '@uppy/core': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz
-      '@uppy/provider-views': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-provider-views.tgz(@uppy/core@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz)
-      '@uppy/utils': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-utils.tgz
+      '@uppy/companion-client': 4.3.0(@uppy/core@3.3.0)
+      '@uppy/core': 3.3.0
+      '@uppy/provider-views': 4.2.0(@uppy/core@3.3.0)
+      '@uppy/utils': 6.0.6
       preact: 10.24.3
 
-  '@uppy/informer@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-informer.tgz(@uppy/core@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz)':
+  '@uppy/informer@4.1.2(@uppy/core@3.3.0)':
     dependencies:
-      '@uppy/core': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz
-      '@uppy/utils': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-utils.tgz
+      '@uppy/core': 3.3.0
+      '@uppy/utils': 6.0.6
       preact: 10.24.3
 
-  '@uppy/onedrive@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-onedrive.tgz(@uppy/core@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz)':
+  '@uppy/onedrive@4.1.2(@uppy/core@3.3.0)':
     dependencies:
-      '@uppy/companion-client': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-companion-client.tgz
-      '@uppy/core': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz
-      '@uppy/provider-views': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-provider-views.tgz(@uppy/core@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz)
-      '@uppy/utils': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-utils.tgz
+      '@uppy/companion-client': 4.3.0(@uppy/core@3.3.0)
+      '@uppy/core': 3.3.0
+      '@uppy/provider-views': 4.2.0(@uppy/core@3.3.0)
+      '@uppy/utils': 6.0.6
       preact: 10.24.3
 
-  '@uppy/provider-views@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-provider-views.tgz(@uppy/core@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz)':
+  '@uppy/provider-views@4.2.0(@uppy/core@3.3.0)':
     dependencies:
-      '@uppy/core': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz
-      '@uppy/utils': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-utils.tgz
+      '@uppy/core': 3.3.0
+      '@uppy/utils': 6.0.6
       classnames: 2.5.1
-      nanoid: 4.0.2
-      p-queue: 7.4.1
+      nanoid: 5.0.9
+      p-queue: 8.0.1
       preact: 10.24.3
 
-  '@uppy/status-bar@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-status-bar.tgz(@uppy/core@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz)':
+  '@uppy/status-bar@4.0.6(@uppy/core@3.3.0)':
     dependencies:
-      '@transloadit/prettier-bytes': 0.0.9
-      '@uppy/core': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz
-      '@uppy/utils': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-utils.tgz
+      '@transloadit/prettier-bytes': 0.3.5
+      '@uppy/core': 3.3.0
+      '@uppy/utils': 6.0.6
       classnames: 2.5.1
       preact: 10.24.3
+
+  '@uppy/store-default@3.0.3': {}
+
+  '@uppy/store-default@4.1.2': {}
 
   '@uppy/store-default@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-store-default.tgz': {}
 
-  '@uppy/thumbnail-generator@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-thumbnail-generator.tgz(@uppy/core@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz)':
+  '@uppy/thumbnail-generator@4.0.2(@uppy/core@3.3.0)':
     dependencies:
-      '@uppy/core': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz
-      '@uppy/utils': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-utils.tgz
+      '@uppy/core': 3.3.0
+      '@uppy/utils': 6.0.6
       exifr: 7.1.3
 
   '@uppy/tus@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-tus.tgz(@uppy/core@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz)':
@@ -4185,16 +4230,25 @@ snapshots:
       '@uppy/utils': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-utils.tgz
       tus-js-client: 3.1.3
 
+  '@uppy/utils@5.4.0':
+    dependencies:
+      lodash: 4.17.21
+
+  '@uppy/utils@6.0.6':
+    dependencies:
+      lodash: 4.17.21
+      preact: 10.24.3
+
   '@uppy/utils@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-utils.tgz':
     dependencies:
       lodash: 4.17.21
 
-  '@uppy/webdav@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-webdav.tgz(@uppy/core@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz)':
+  '@uppy/webdav@0.1.0(@uppy/core@3.3.0)':
     dependencies:
-      '@uppy/companion-client': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-companion-client.tgz
-      '@uppy/core': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz
-      '@uppy/provider-views': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-provider-views.tgz(@uppy/core@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz)
-      '@uppy/utils': https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-utils.tgz
+      '@uppy/companion-client': 4.3.0(@uppy/core@3.3.0)
+      '@uppy/core': 3.3.0
+      '@uppy/provider-views': 4.2.0(@uppy/core@3.3.0)
+      '@uppy/utils': 6.0.6
       preact: 10.24.3
 
   '@uppy/xhr-upload@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-xhr-upload.tgz(@uppy/core@https://github.com/owncloud/uppy/releases/download/v3.12.13-owncloud/uppy-core.tgz)':
@@ -5106,13 +5160,13 @@ snapshots:
     dependencies:
       is-extglob: 2.1.1
 
+  is-network-error@1.1.0: {}
+
   is-number@7.0.0: {}
 
   is-reference@3.0.3:
     dependencies:
       '@types/estree': 1.0.6
-
-  is-shallow-equal@1.0.1: {}
 
   is-stream@2.0.1: {}
 
@@ -5296,6 +5350,8 @@ snapshots:
 
   nanoid@4.0.2: {}
 
+  nanoid@5.0.9: {}
+
   natural-compare-lite@1.4.0: {}
 
   natural-compare@1.4.0: {}
@@ -5354,17 +5410,16 @@ snapshots:
     dependencies:
       p-limit: 3.1.0
 
-  p-queue@7.4.1:
-    dependencies:
-      eventemitter3: 5.0.1
-      p-timeout: 5.1.0
-
   p-queue@8.0.1:
     dependencies:
       eventemitter3: 5.0.1
       p-timeout: 6.1.3
 
-  p-timeout@5.1.0: {}
+  p-retry@6.2.1:
+    dependencies:
+      '@types/retry': 0.12.2
+      is-network-error: 1.1.0
+      retry: 0.13.1
 
   p-timeout@6.1.3: {}
 
@@ -5538,6 +5593,8 @@ snapshots:
 
   retry@0.12.0: {}
 
+  retry@0.13.1: {}
+
   reusify@1.0.4: {}
 
   rollup-plugin-serve@3.0.0:
@@ -5597,6 +5654,8 @@ snapshots:
       get-intrinsic: 1.2.4
       gopd: 1.0.1
       has-property-descriptors: 1.0.2
+
+  shallow-equal@3.1.0: {}
 
   shebang-command@2.0.0:
     dependencies:
