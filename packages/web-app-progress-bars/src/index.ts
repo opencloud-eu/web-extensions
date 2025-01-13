@@ -13,7 +13,7 @@ export default defineWebApplication({
       id: 'progress-bars'
     }
 
-    const nyanCatId = 'com.github.owncloud.web.app.progress-bars.nyan-cat'
+    const nyanCatId = 'com.github.opencloud-eu.web.app.progress-bars.nyan-cat'
     const extensions = computed<Extension[]>(() => [
       {
         id: nyanCatId,

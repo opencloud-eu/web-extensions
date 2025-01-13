@@ -1,8 +1,8 @@
 {
   "name": "external-sites",
-  "version": "0.3.0",
+  "version": "0.0.0",
   "private": true,
-  "description": "add external sites to the ownCloud Web app menu",
+  "description": "add external sites to the OpenCloud Web app menu",
   "license": "AGPL-3.0",
   "type": "module",
   "scripts": {

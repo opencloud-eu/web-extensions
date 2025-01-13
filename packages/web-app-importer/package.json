@@ -1,8 +1,8 @@
 {
   "name": "web-app-importer",
-  "version": "0.2.0",
+  "version": "0.0.0",
   "private": true,
-  "description": "ownCloud Web importer",
+  "description": "OpenCloud Web importer",
   "license": "AGPL-3.0",
   "type": "module",
   "scripts": {

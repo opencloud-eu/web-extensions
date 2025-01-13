@@ -125,7 +125,7 @@ export const useExtensions = ({ applicationConfig }: ApplicationSetupOptions) =>
 
   return computed<Extension[]>(() => [
     {
-      id: 'com.github.owncloud.web.import-file',
+      id: 'com.github.opencloud-eu.web.import-file',
       type: 'action',
       extensionPointIds: ['app.files.upload-menu'],
       action: {

@@ -7,7 +7,7 @@ export const useExtensions = () => {
 
   const actionExtension = computed<ActionExtension>(() => {
     return {
-      id: 'com.github.owncloud.web-extensions.unzip-archive',
+      id: 'com.github.opencloud-eu.web-extensions.unzip-archive',
       type: 'action',
       extensionPointIds: ['global.files.context-actions'],
       action: unref(action)

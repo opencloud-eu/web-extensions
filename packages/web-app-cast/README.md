@@ -1,6 +1,6 @@
 # web-app-cast
 
-This application adds Google Cast functionality to ownCloud Web.
+This application adds Google Cast functionality to OpenCloud Web.
 
 ## Privacy Notice
 

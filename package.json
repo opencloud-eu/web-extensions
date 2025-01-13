@@ -1,11 +1,11 @@
 {
   "name": "web-extensions",
   "version": "0.0.0",
-  "description": "Collection of ownCloud Web Extensions",
+  "description": "Collection of OpenCloud Web Extensions",
   "license": "AGPL-3.0",
-  "author": "ownCloud",
+  "author": "OpenCloud",
   "private": true,
-  "homepage": "https://github.com/owncloud/web-extensions",
+  "homepage": "https://github.com/opencloud-eu/web-extensions",
   "type": "module",
   "scripts": {
     "build": "pnpm -r build",

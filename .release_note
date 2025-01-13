@@ -1,5 +1,5 @@
 {{ .Product }}-{{ .Version }}
 
 ## How to use
-Download the attached release artifact "{{ .Product }}-{{ .Version }}.zip" and extract it to your oCIS apps folder.
-Please refer to [our documentation](https://owncloud.dev/services/web/#loading-applications) for more information.
+Download the attached release artifact "{{ .Product }}-{{ .Version }}.zip" and extract it to your OpenCloud apps folder.
+Please refer to [our documentation](https://docs.opencloud.eu/services/web/#loading-applications) for more information.

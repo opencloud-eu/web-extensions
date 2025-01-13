@@ -1,11 +1,10 @@
 # web-app-importer
 
-This application can be used for importing files and folders from other sources directly into your ownCloud. The following sources are currently supported:
+This application can be used for importing files and folders from other sources directly into your OpenCloud. The following sources are currently supported:
 
 - Google Drive
 - Onedrive
-- oCIS (via public links without password)
-- ownCloud 10 (via public links without password)
+- OpenCloud (via public links without password)
 - NextCloud (via public links without password)
 
 ## Companion setup
@@ -20,10 +19,10 @@ The `docker-compose.yml` in this repository includes a full working example of t
 "config": {
   "companionUrl": "https://example.com",
   "supportedClouds": ['OneDrive', 'GoogleDrive', 'WebdavPublicLink'],
-  "webdavCloudType": "owncloud"
+  "webdavCloudType": "opencloud"
 }
 ```
 
 - `companionUrl` _(string)_ - specifies the URL under which Companion can be reached. This config needs to be set.
 - `supportedClouds` _(list[string])_ - specifies the supported cloud sources from which a user can import. Defaults to all enabled.
-- `webdavCloudType` _(string)_ - limit the webdav import to either `owncloud` or `nextcloud`. Defaults to allowing both.
+- `webdavCloudType` _(string)_ - limit the webdav import to either `opencloud` or `nextcloud`. Defaults to allowing both.

@@ -42,7 +42,7 @@ export const extensions = ({
   }
 
   const extension: ActionExtension = {
-    id: 'com.github.owncloud.cast.file-action',
+    id: 'com.github.opencloud-eu.cast.file-action',
     type: 'action',
     extensionPointIds: ['global.files.context-actions', 'global.files.default-actions'],
     action: {
