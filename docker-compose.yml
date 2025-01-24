@@ -35,11 +35,12 @@ services:
       - traefik
 
   companion:
-    image: owncloud/uppy-companion:3.12.13-owncloud
+    image: transloadit/companion:5.5.0
     extra_hosts:
       - host.docker.internal:${DOCKER_HOST:-host-gateway}
     environment:
       NODE_TLS_REJECT_UNAUTHORIZED: 0
+      COMPANION_CLIENT_ORIGINS: 'true'
       COMPANION_ALLOW_LOCAL_URLS: 'true'
       COMPANION_DATADIR: /tmp/companion/
       COMPANION_DOMAIN: host.docker.internal:9200
@@ -47,6 +48,7 @@ services:
       COMPANION_PATH: /companion
       COMPANION_ONEDRIVE_KEY: '${COMPANION_ONEDRIVE_KEY}'
       COMPANION_ONEDRIVE_SECRET: '${COMPANION_ONEDRIVE_SECRET}'
+      COMPANION_TUS_DEFERRED_UPLOAD_LENGTH: 'false'
     volumes:
       - uppy_companion_datadir:/tmp/companion/
     labels:
@@ -103,6 +105,3 @@ services:
 volumes:
   ocis-config:
   uppy_companion_datadir:
-
-networks:
-  traefik:

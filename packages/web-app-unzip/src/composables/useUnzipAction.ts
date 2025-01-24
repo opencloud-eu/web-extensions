@@ -15,7 +15,7 @@ import {
 import { computed, unref } from 'vue'
 import { useGettext } from 'vue3-gettext'
 import { extractNameWithoutExtension, urlJoin } from '@ownclouders/web-client'
-import { UppyFile } from '@uppy/core'
+import { UppyFile, Meta, Body } from '@uppy/core'
 import * as uuid from 'uuid'
 import * as zip from '@zip.js/zip.js'
 import PQueue from 'p-queue'
@@ -23,6 +23,9 @@ import Worker from './../../node_modules/@zip.js/zip.js/dist/z-worker.js?url'
 
 const SUPPORTED_MIME_TYPES = ['application/zip']
 const MAX_SIZE_MB = 64 // in mb
+
+// TODO: import from web-pkg after next release
+type OcUppyFile = UppyFile<Meta, Body>
 
 export const useUnzipAction = () => {
   const { $gettext, current: currentLanguage } = useGettext()
@@ -88,7 +91,7 @@ export const useUnzipAction = () => {
       // unzip and convert to UppyFile's
       const promises = entries
         .filter(({ filename }) => !filename.endsWith('/'))
-        .map<Promise<UppyFile>>((result) => {
+        .map<Promise<OcUppyFile | void>>((result) => {
           const writer = new zip.BlobWriter()
           return queue.add(() =>
             result.getData(writer).then((data) => {
@@ -103,7 +106,7 @@ export const useUnzipAction = () => {
                   ...(path !== '.' && { webkitRelativePath: urlJoin(path, name) }),
                   uploadId
                 }
-              } as unknown as UppyFile
+              } as unknown as OcUppyFile
             })
           )
         })

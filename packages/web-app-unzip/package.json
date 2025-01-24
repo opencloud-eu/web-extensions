@@ -17,7 +17,7 @@
   "devDependencies": {
     "@ownclouders/web-client": "^11.0.0",
     "@ownclouders/web-pkg": "^11.0.0",
-    "@uppy/core": "^3.3.0",
+    "@uppy/core": "^4.0.0",
     "p-queue": "^8.0.0",
     "uuid": "^11.0.0",
     "vue": "^3.4.21",

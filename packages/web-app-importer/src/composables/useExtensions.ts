@@ -10,7 +10,7 @@ import {
   useUserStore
 } from '@ownclouders/web-pkg'
 import '@uppy/dashboard/dist/style.min.css'
-import { WebdavPublicLink } from '@uppy/webdav'
+import Webdav from '@uppy/webdav'
 import { storeToRefs } from 'pinia'
 import { useGettext } from 'vue3-gettext'
 import { computed, nextTick, unref } from 'vue'
@@ -114,7 +114,7 @@ export const useExtensions = ({ applicationConfig }: ApplicationSetupOptions) =>
     }
 
     if (supportedClouds.includes('WebdavPublicLink')) {
-      uppyService.addPlugin(WebdavPublicLink, {
+      uppyService.addPlugin(Webdav, {
         target: Dashboard,
         id: 'WebdavPublicLink',
         companionUrl,
