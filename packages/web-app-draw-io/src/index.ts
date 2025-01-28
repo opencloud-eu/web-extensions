@@ -1,4 +1,4 @@
-import { Resource, urlJoin } from '@ownclouders/web-client'
+import { Resource, urlJoin } from '@opencloud-eu/web-client'
 import {
   ApplicationInformation,
   AppMenuItemExtension,
@@ -6,7 +6,7 @@ import {
   defineWebApplication,
   useUserStore,
   useOpenEmptyEditor
-} from '@ownclouders/web-pkg'
+} from '@opencloud-eu/web-pkg'
 import translations from '../l10n/translations.json'
 import App from './App.vue'
 import { useGettext } from 'vue3-gettext'

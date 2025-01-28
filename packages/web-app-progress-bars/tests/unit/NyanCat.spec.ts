@@ -1,4 +1,4 @@
-import { defaultComponentMocks, defaultPlugins, mount } from '@ownclouders/web-test-helpers'
+import { defaultComponentMocks, defaultPlugins, mount } from '@opencloud-eu/web-test-helpers'
 import NyanCat from '../../src/NyanCat.vue'
 
 describe('nyan cat progress bar', () => {

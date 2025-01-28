@@ -1,7 +1,7 @@
-import { Resource } from '@ownclouders/web-client'
-import { defaultPlugins, mount } from '@ownclouders/web-test-helpers'
+import { Resource } from '@opencloud-eu/web-client'
+import { defaultPlugins, mount } from '@opencloud-eu/web-test-helpers'
 import { mock } from 'vitest-mock-extended'
-import { AppConfigObject } from '@ownclouders/web-pkg'
+import { AppConfigObject } from '@opencloud-eu/web-pkg'
 import App from '../../src/App.vue'
 
 describe('json viewer', () => {

@@ -1,4 +1,4 @@
-import { defineConfig } from '@ownclouders/extension-sdk'
+import { defineConfig } from '@opencloud-eu/extension-sdk'
 
 export default defineConfig({
   name: 'web-app-progress-bars',

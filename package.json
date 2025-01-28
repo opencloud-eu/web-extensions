@@ -16,11 +16,11 @@
     "test:e2e": "pnpm playwright test"
   },
   "devDependencies": {
-    "@ownclouders/eslint-config": "^11.0.0",
-    "@ownclouders/extension-sdk": "^11.0.0",
-    "@ownclouders/prettier-config": "0.0.1",
-    "@ownclouders/tsconfig": "0.0.6",
-    "@ownclouders/web-test-helpers": "^11.0.0",
+    "@opencloud-eu/eslint-config": "^1.0.0",
+    "@opencloud-eu/extension-sdk": "^1.0.0",
+    "@opencloud-eu/prettier-config": "^1.0.0",
+    "@opencloud-eu/tsconfig": "^1.0.0",
+    "@opencloud-eu/web-test-helpers": "^1.0.0",
     "@playwright/test": "^1.48.2",
     "@types/node": "22.9.1",
     "@vue/test-utils": "^2.4.6",

@@ -1,4 +1,4 @@
-import { defineWebApplication, Extension } from '@ownclouders/web-pkg'
+import { defineWebApplication, Extension } from '@opencloud-eu/web-pkg'
 import { useGettext } from 'vue3-gettext'
 import NyanCat from './NyanCat.vue'
 import { computed, h } from 'vue'

@@ -29,7 +29,7 @@
 <script lang="ts">
 // Thanks to https://github.com/cristurm/nyan-cat for the nyan cat css+js+html blueprint! (MIT licensed)
 import { computed, defineComponent, onBeforeUnmount, onMounted, ref, unref, watch } from 'vue'
-import { eventBus, LoadingEventTopics, useLoadingService } from '@ownclouders/web-pkg'
+import { eventBus, LoadingEventTopics, useLoadingService } from '@opencloud-eu/web-pkg'
 import { useElementSize } from '@vueuse/core'
 
 const MAX_POSITION_FRAME = 50

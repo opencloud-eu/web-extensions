@@ -1,7 +1,7 @@
-import { ActionExtension, FileActionOptions, useClientService } from '@ownclouders/web-pkg'
+import { ActionExtension, FileActionOptions, useClientService } from '@opencloud-eu/web-pkg'
 import { useGettext } from 'vue3-gettext'
 import { computed, Ref, unref } from 'vue'
-import { ApplicationSetupOptions } from '@ownclouders/web-pkg'
+import { ApplicationSetupOptions } from '@opencloud-eu/web-pkg'
 
 export const extensions = ({
   isAvailable

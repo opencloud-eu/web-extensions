@@ -1,5 +1,5 @@
-import { urlJoin } from '@ownclouders/web-client'
-import { AppMenuItemExtension, defineWebApplication } from '@ownclouders/web-pkg'
+import { urlJoin } from '@opencloud-eu/web-client'
+import { AppMenuItemExtension, defineWebApplication } from '@opencloud-eu/web-pkg'
 import translations from '../l10n/translations.json'
 import App from './App.vue'
 import { useGettext } from 'vue3-gettext'

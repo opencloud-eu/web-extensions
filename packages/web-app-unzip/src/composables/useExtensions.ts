@@ -1,4 +1,4 @@
-import { ActionExtension } from '@ownclouders/web-pkg'
+import { ActionExtension } from '@opencloud-eu/web-pkg'
 import { computed, unref } from 'vue'
 import { useUnzipAction } from './useUnzipAction'
 

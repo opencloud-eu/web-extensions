@@ -1,5 +1,5 @@
 import App from '../../src/App.vue'
-import { defaultPlugins, mount } from '@ownclouders/web-test-helpers'
+import { defaultPlugins, mount } from '@opencloud-eu/web-test-helpers'
 
 describe('external sites app', () => {
   it('uses the given name and url for the iFrame title and source', () => {

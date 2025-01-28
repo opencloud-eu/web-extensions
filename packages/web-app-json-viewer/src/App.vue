@@ -10,8 +10,8 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, PropType, ref, unref, watch } from 'vue'
-import { Resource } from '@ownclouders/web-client'
-import { AppConfigObject, useMessages, useThemeStore } from '@ownclouders/web-pkg'
+import { Resource } from '@opencloud-eu/web-client'
+import { AppConfigObject, useMessages, useThemeStore } from '@opencloud-eu/web-pkg'
 import { Content, JsonEditor, Mode, createJSONEditor } from 'vanilla-jsoneditor'
 import { useGettext } from 'vue3-gettext'
 import 'vanilla-jsoneditor/themes/jse-theme-dark.css'

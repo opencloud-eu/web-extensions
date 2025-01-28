@@ -20,8 +20,8 @@ import {
   watch,
   nextTick
 } from 'vue'
-import { Resource } from '@ownclouders/web-client'
-import { AppConfigObject } from '@ownclouders/web-pkg'
+import { Resource } from '@opencloud-eu/web-client'
+import { AppConfigObject } from '@opencloud-eu/web-pkg'
 import { useGettext } from 'vue3-gettext'
 
 export default defineComponent({
