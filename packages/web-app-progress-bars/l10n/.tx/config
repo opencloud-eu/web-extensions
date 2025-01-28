@@ -1,7 +1,7 @@
 [main]
 host = https://www.transifex.com
 
-[o:owncloud-org:p:owncloud-web:r:web-extensions-progress-bars]
+[o:opencloud-eu:p:opencloud-eu:r:web-extensions-progress-bars]
 file_filter = locale/<lang>/app.po
 minimum_perc = 0
 resource_name = web-extensions-progress-bars

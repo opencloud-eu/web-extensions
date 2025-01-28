@@ -1,4 +1,4 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test'
 
 /**
  * Read environment variables from file.
@@ -25,10 +25,10 @@ export default defineConfig({
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    baseURL: process.env.BASE_URL_OCIS ?? 'https://host.docker.internal:9200',
+    baseURL: process.env.BASE_URL_OC ?? 'https://host.docker.internal:9200',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    trace: 'on-first-retry'
   },
 
   /* Configure projects for major browsers */
@@ -36,33 +36,33 @@ export default defineConfig({
     {
       name: 'draw-io-chromium',
       testDir: './packages/web-app-draw-io/tests/e2e',
-      use: { ...devices['Desktop Chrome'], browserName: 'chromium', ignoreHTTPSErrors: true },
+      use: { ...devices['Desktop Chrome'], browserName: 'chromium', ignoreHTTPSErrors: true }
     },
     {
       name: 'drawIO-firefox',
       testDir: './packages/web-app-draw-io/tests/e2e',
-      use: { ...devices['Desktop Firefox'], browserName: 'firefox', ignoreHTTPSErrors: true },
+      use: { ...devices['Desktop Firefox'], browserName: 'firefox', ignoreHTTPSErrors: true }
     },
     {
       name: 'drawIO-webkit',
       testDir: './packages/web-app-draw-io/tests/e2e',
-      use: { ...devices['Desktop Safari'], browserName: 'webkit', ignoreHTTPSErrors: true },
+      use: { ...devices['Desktop Safari'], browserName: 'webkit', ignoreHTTPSErrors: true }
     },
     {
       name: 'unzip-chromium',
       testDir: './packages/web-app-unzip/tests/e2e',
-      use: { ...devices['Desktop Chrome'], browserName: 'chromium', ignoreHTTPSErrors: true },
+      use: { ...devices['Desktop Chrome'], browserName: 'chromium', ignoreHTTPSErrors: true }
     },
     {
       name: 'unzip-firefox',
       testDir: './packages/web-app-unzip/tests/e2e',
-      use: { ...devices['Desktop Firefox'], browserName: 'firefox', ignoreHTTPSErrors: true },
+      use: { ...devices['Desktop Firefox'], browserName: 'firefox', ignoreHTTPSErrors: true }
     },
     {
       name: 'unzip-webkit',
       testDir: './packages/web-app-unzip/tests/e2e',
-      use: { ...devices['Desktop Safari'], browserName: 'webkit', ignoreHTTPSErrors: true },
-    },
+      use: { ...devices['Desktop Safari'], browserName: 'webkit', ignoreHTTPSErrors: true }
+    }
 
     /* Test against mobile viewports. */
     // {
@@ -83,7 +83,7 @@ export default defineConfig({
     //   name: 'Google Chrome',
     //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     // },
-  ],
+  ]
 
   /* Run your local dev server before starting the tests */
   // webServer: {
@@ -91,4 +91,4 @@ export default defineConfig({
   //   url: 'http://127.0.0.1:3000',
   //   reuseExistingServer: !process.env.CI,
   // },
-});
+})

@@ -1,6 +1,6 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "extends": ["github>owncloud-ops/renovate-presets:docker"],
+    "extends": [],
     "prConcurrentLimit": 15,
     "postUpdateOptions": ["pnpmDedupe"]
 }
