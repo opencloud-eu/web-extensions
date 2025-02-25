@@ -11,10 +11,10 @@ import {
   useResourcesStore,
   useService,
   useUserStore
-} from '@ownclouders/web-pkg'
+} from '@opencloud-eu/web-pkg'
 import { computed, unref } from 'vue'
 import { useGettext } from 'vue3-gettext'
-import { extractNameWithoutExtension, urlJoin } from '@ownclouders/web-client'
+import { extractNameWithoutExtension, urlJoin } from '@opencloud-eu/web-client'
 import { UppyFile, Meta, Body } from '@uppy/core'
 import * as uuid from 'uuid'
 import * as zip from '@zip.js/zip.js'

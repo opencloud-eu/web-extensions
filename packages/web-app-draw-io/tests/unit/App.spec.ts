@@ -1,8 +1,8 @@
 import App from '../../src/App.vue'
 import { mock } from 'vitest-mock-extended'
-import { Resource } from '@ownclouders/web-client'
-import { AppConfigObject } from '@ownclouders/web-pkg'
-import { defaultPlugins, mount } from '@ownclouders/web-test-helpers'
+import { Resource } from '@opencloud-eu/web-client'
+import { AppConfigObject } from '@opencloud-eu/web-pkg'
+import { defaultPlugins, mount } from '@opencloud-eu/web-test-helpers'
 
 describe('Draw.io app', () => {
   it('uses the url from the app config as base iFrame url', () => {

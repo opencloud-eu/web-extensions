@@ -8,7 +8,7 @@ import {
   useService,
   useThemeStore,
   useUserStore
-} from '@ownclouders/web-pkg'
+} from '@opencloud-eu/web-pkg'
 import '@uppy/dashboard/dist/style.min.css'
 import Webdav from '@uppy/webdav'
 import { storeToRefs } from 'pinia'

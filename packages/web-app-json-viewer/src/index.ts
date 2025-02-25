@@ -1,4 +1,4 @@
-import { AppWrapperRoute, defineWebApplication } from '@ownclouders/web-pkg'
+import { AppWrapperRoute, defineWebApplication } from '@opencloud-eu/web-pkg'
 import { useGettext } from 'vue3-gettext'
 import JsonViewer from './App.vue'
 import translations from '../l10n/translations.json'

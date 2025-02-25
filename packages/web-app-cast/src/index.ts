@@ -1,4 +1,4 @@
-import { defineWebApplication } from '@ownclouders/web-pkg'
+import { defineWebApplication } from '@opencloud-eu/web-pkg'
 import translations from '../l10n/translations.json'
 import { useGettext } from 'vue3-gettext'
 import { ref } from 'vue'
