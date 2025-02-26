@@ -165,7 +165,7 @@ importers:
         version: 1.0.0
       '@opencloud-eu/web-pkg':
         specifier: ^1.0.0
-        version: 1.0.0(@codemirror/view@6.35.3)(@lezer/common@1.2.3)(@vue/compiler-sfc@3.5.13)(typescript@5.6.3)(vue@3.5.13(typescript@5.6.3))
+        version: 1.0.0(@codemirror/view@6.36.3)(@lezer/common@1.2.3)(@vue/compiler-sfc@3.5.13)(typescript@5.6.3)(vue@3.5.13(typescript@5.6.3))
       vue:
         specifier: ^3.4.21
         version: 3.5.13(typescript@5.6.3)
@@ -392,9 +392,6 @@ packages:
 
   '@codemirror/state@6.5.0':
     resolution: {integrity: sha512-MwBHVK60IiIHDcoMet78lxt6iw5gJOGSbNbOIVBHWVXIH4/Nq1+GQgLLGgI1KlnN86WDXsPudVaqYHKBIx7Eyw==}
-
-  '@codemirror/view@6.35.3':
-    resolution: {integrity: sha512-ScY7L8+EGdPl4QtoBiOzE4FELp7JmNUsBvgBcCakXWM2uiv/K89VAzU3BMDscf0DsACLvTKePbd5+cFDTcei6g==}
 
   '@codemirror/view@6.36.3':
     resolution: {integrity: sha512-N2bilM47QWC8Hnx0rMdDxO2x2ImJ1FvZWXubwKgjeoOrWwEiFrtpA7SFHcuZ+o2Ze2VzbkgbzWVj4+V18LVkeg==}
@@ -3405,13 +3402,6 @@ snapshots:
       '@casl/ability': 6.7.2
       vue: 3.5.13(typescript@5.6.3)
 
-  '@codemirror/autocomplete@6.18.3(@codemirror/language@6.10.6)(@codemirror/state@6.5.0)(@codemirror/view@6.35.3)(@lezer/common@1.2.3)':
-    dependencies:
-      '@codemirror/language': 6.10.6
-      '@codemirror/state': 6.5.0
-      '@codemirror/view': 6.35.3
-      '@lezer/common': 1.2.3
-
   '@codemirror/autocomplete@6.18.3(@codemirror/language@6.10.6)(@codemirror/state@6.5.0)(@codemirror/view@6.36.3)(@lezer/common@1.2.3)':
     dependencies:
       '@codemirror/language': 6.10.6
@@ -3423,7 +3413,7 @@ snapshots:
     dependencies:
       '@codemirror/language': 6.10.6
       '@codemirror/state': 6.5.0
-      '@codemirror/view': 6.35.3
+      '@codemirror/view': 6.36.3
       '@lezer/common': 1.2.3
 
   '@codemirror/lang-angular@0.1.3':
@@ -3440,16 +3430,6 @@ snapshots:
       '@codemirror/language': 6.10.6
       '@lezer/cpp': 1.1.2
 
-  '@codemirror/lang-css@6.3.1(@codemirror/view@6.35.3)':
-    dependencies:
-      '@codemirror/autocomplete': 6.18.3(@codemirror/language@6.10.6)(@codemirror/state@6.5.0)(@codemirror/view@6.35.3)(@lezer/common@1.2.3)
-      '@codemirror/language': 6.10.6
-      '@codemirror/state': 6.5.0
-      '@lezer/common': 1.2.3
-      '@lezer/css': 1.1.10
-    transitivePeerDependencies:
-      - '@codemirror/view'
-
   '@codemirror/lang-css@6.3.1(@codemirror/view@6.36.3)':
     dependencies:
       '@codemirror/autocomplete': 6.18.3(@codemirror/language@6.10.6)(@codemirror/state@6.5.0)(@codemirror/view@6.36.3)(@lezer/common@1.2.3)
@@ -3457,16 +3437,6 @@ snapshots:
       '@codemirror/state': 6.5.0
       '@lezer/common': 1.2.3
       '@lezer/css': 1.1.10
-    transitivePeerDependencies:
-      - '@codemirror/view'
-
-  '@codemirror/lang-go@6.0.1(@codemirror/view@6.35.3)':
-    dependencies:
-      '@codemirror/autocomplete': 6.18.3(@codemirror/language@6.10.6)(@codemirror/state@6.5.0)(@codemirror/view@6.35.3)(@lezer/common@1.2.3)
-      '@codemirror/language': 6.10.6
-      '@codemirror/state': 6.5.0
-      '@lezer/common': 1.2.3
-      '@lezer/go': 1.0.0
     transitivePeerDependencies:
       - '@codemirror/view'
 
@@ -3512,16 +3482,6 @@ snapshots:
       '@codemirror/language': 6.10.6
       '@lezer/json': 1.0.2
 
-  '@codemirror/lang-less@6.0.2(@codemirror/view@6.35.3)':
-    dependencies:
-      '@codemirror/lang-css': 6.3.1(@codemirror/view@6.35.3)
-      '@codemirror/language': 6.10.6
-      '@lezer/common': 1.2.3
-      '@lezer/highlight': 1.2.1
-      '@lezer/lr': 1.4.2
-    transitivePeerDependencies:
-      - '@codemirror/view'
-
   '@codemirror/lang-less@6.0.2(@codemirror/view@6.36.3)':
     dependencies:
       '@codemirror/lang-css': 6.3.1(@codemirror/view@6.36.3)
@@ -3561,16 +3521,6 @@ snapshots:
       '@lezer/common': 1.2.3
       '@lezer/php': 1.0.2
 
-  '@codemirror/lang-python@6.1.7(@codemirror/view@6.35.3)':
-    dependencies:
-      '@codemirror/autocomplete': 6.18.3(@codemirror/language@6.10.6)(@codemirror/state@6.5.0)(@codemirror/view@6.35.3)(@lezer/common@1.2.3)
-      '@codemirror/language': 6.10.6
-      '@codemirror/state': 6.5.0
-      '@lezer/common': 1.2.3
-      '@lezer/python': 1.1.15
-    transitivePeerDependencies:
-      - '@codemirror/view'
-
   '@codemirror/lang-python@6.1.7(@codemirror/view@6.36.3)':
     dependencies:
       '@codemirror/autocomplete': 6.18.3(@codemirror/language@6.10.6)(@codemirror/state@6.5.0)(@codemirror/view@6.36.3)(@lezer/common@1.2.3)
@@ -3586,16 +3536,6 @@ snapshots:
       '@codemirror/language': 6.10.6
       '@lezer/rust': 1.0.2
 
-  '@codemirror/lang-sass@6.0.2(@codemirror/view@6.35.3)':
-    dependencies:
-      '@codemirror/lang-css': 6.3.1(@codemirror/view@6.35.3)
-      '@codemirror/language': 6.10.6
-      '@codemirror/state': 6.5.0
-      '@lezer/common': 1.2.3
-      '@lezer/sass': 1.0.7
-    transitivePeerDependencies:
-      - '@codemirror/view'
-
   '@codemirror/lang-sass@6.0.2(@codemirror/view@6.36.3)':
     dependencies:
       '@codemirror/lang-css': 6.3.1(@codemirror/view@6.36.3)
@@ -3603,17 +3543,6 @@ snapshots:
       '@codemirror/state': 6.5.0
       '@lezer/common': 1.2.3
       '@lezer/sass': 1.0.7
-    transitivePeerDependencies:
-      - '@codemirror/view'
-
-  '@codemirror/lang-sql@6.8.0(@codemirror/view@6.35.3)':
-    dependencies:
-      '@codemirror/autocomplete': 6.18.3(@codemirror/language@6.10.6)(@codemirror/state@6.5.0)(@codemirror/view@6.35.3)(@lezer/common@1.2.3)
-      '@codemirror/language': 6.10.6
-      '@codemirror/state': 6.5.0
-      '@lezer/common': 1.2.3
-      '@lezer/highlight': 1.2.1
-      '@lezer/lr': 1.4.2
     transitivePeerDependencies:
       - '@codemirror/view'
 
@@ -3653,18 +3582,6 @@ snapshots:
       '@lezer/common': 1.2.3
       '@lezer/xml': 1.0.6
 
-  '@codemirror/lang-yaml@6.1.2(@codemirror/view@6.35.3)':
-    dependencies:
-      '@codemirror/autocomplete': 6.18.3(@codemirror/language@6.10.6)(@codemirror/state@6.5.0)(@codemirror/view@6.35.3)(@lezer/common@1.2.3)
-      '@codemirror/language': 6.10.6
-      '@codemirror/state': 6.5.0
-      '@lezer/common': 1.2.3
-      '@lezer/highlight': 1.2.1
-      '@lezer/lr': 1.4.2
-      '@lezer/yaml': 1.0.3
-    transitivePeerDependencies:
-      - '@codemirror/view'
-
   '@codemirror/lang-yaml@6.1.2(@codemirror/view@6.36.3)':
     dependencies:
       '@codemirror/autocomplete': 6.18.3(@codemirror/language@6.10.6)(@codemirror/state@6.5.0)(@codemirror/view@6.36.3)(@lezer/common@1.2.3)
@@ -3674,33 +3591,6 @@ snapshots:
       '@lezer/highlight': 1.2.1
       '@lezer/lr': 1.4.2
       '@lezer/yaml': 1.0.3
-    transitivePeerDependencies:
-      - '@codemirror/view'
-
-  '@codemirror/language-data@6.5.1(@codemirror/view@6.35.3)':
-    dependencies:
-      '@codemirror/lang-angular': 0.1.3
-      '@codemirror/lang-cpp': 6.0.2
-      '@codemirror/lang-css': 6.3.1(@codemirror/view@6.35.3)
-      '@codemirror/lang-go': 6.0.1(@codemirror/view@6.35.3)
-      '@codemirror/lang-html': 6.4.9
-      '@codemirror/lang-java': 6.0.1
-      '@codemirror/lang-javascript': 6.2.3
-      '@codemirror/lang-json': 6.0.1
-      '@codemirror/lang-less': 6.0.2(@codemirror/view@6.35.3)
-      '@codemirror/lang-liquid': 6.2.2
-      '@codemirror/lang-markdown': 6.3.2
-      '@codemirror/lang-php': 6.0.1
-      '@codemirror/lang-python': 6.1.7(@codemirror/view@6.35.3)
-      '@codemirror/lang-rust': 6.0.1
-      '@codemirror/lang-sass': 6.0.2(@codemirror/view@6.35.3)
-      '@codemirror/lang-sql': 6.8.0(@codemirror/view@6.35.3)
-      '@codemirror/lang-vue': 0.1.3
-      '@codemirror/lang-wast': 6.0.2
-      '@codemirror/lang-xml': 6.1.0
-      '@codemirror/lang-yaml': 6.1.2(@codemirror/view@6.35.3)
-      '@codemirror/language': 6.10.6
-      '@codemirror/legacy-modes': 6.4.3
     transitivePeerDependencies:
       - '@codemirror/view'
 
@@ -3734,7 +3624,7 @@ snapshots:
   '@codemirror/language@6.10.6':
     dependencies:
       '@codemirror/state': 6.5.0
-      '@codemirror/view': 6.35.3
+      '@codemirror/view': 6.36.3
       '@lezer/common': 1.2.3
       '@lezer/highlight': 1.2.1
       '@lezer/lr': 1.4.2
@@ -3747,24 +3637,18 @@ snapshots:
   '@codemirror/lint@6.8.4':
     dependencies:
       '@codemirror/state': 6.5.0
-      '@codemirror/view': 6.35.3
+      '@codemirror/view': 6.36.3
       crelt: 1.0.6
 
   '@codemirror/search@6.5.8':
     dependencies:
       '@codemirror/state': 6.5.0
-      '@codemirror/view': 6.35.3
+      '@codemirror/view': 6.36.3
       crelt: 1.0.6
 
   '@codemirror/state@6.5.0':
     dependencies:
       '@marijn/find-cluster-break': 1.0.2
-
-  '@codemirror/view@6.35.3':
-    dependencies:
-      '@codemirror/state': 6.5.0
-      style-mod: 4.1.2
-      w3c-keyname: 2.2.8
 
   '@codemirror/view@6.36.3':
     dependencies:
@@ -4210,55 +4094,6 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  '@opencloud-eu/web-pkg@1.0.0(@codemirror/view@6.35.3)(@lezer/common@1.2.3)(@vue/compiler-sfc@3.5.13)(typescript@5.6.3)(vue@3.5.13(typescript@5.6.3))':
-    dependencies:
-      '@casl/ability': 6.7.2
-      '@casl/vue': 2.2.2(@casl/ability@6.7.2)(vue@3.5.13(typescript@5.6.3))
-      '@microsoft/fetch-event-source': 2.0.1
-      '@opencloud-eu/design-system': 1.0.0(@vue/compiler-sfc@3.5.13)(vue@3.5.13(typescript@5.6.3))
-      '@opencloud-eu/web-client': 1.0.0
-      '@sentry/vue': 9.1.0(pinia@3.0.1(typescript@5.6.3)(vue@3.5.13(typescript@5.6.3)))(vue@3.5.13(typescript@5.6.3))
-      '@uppy/core': 4.3.1
-      '@uppy/drop-target': 3.1.1(@uppy/core@4.3.1)
-      '@uppy/tus': 4.2.2(@uppy/core@4.3.1)
-      '@uppy/utils': 6.1.1
-      '@uppy/xhr-upload': 4.3.2(@uppy/core@4.3.1)
-      '@vavt/cm-extension': 1.8.0
-      '@vue/shared': 3.5.13
-      '@vueuse/core': 12.0.0(typescript@5.6.3)
-      axios: 1.7.9
-      cropperjs: 1.6.2
-      deepmerge: 4.3.1
-      dompurify: 3.2.4
-      filesize: 10.1.6
-      fuse.js: 7.0.0
-      js-generate-password: 1.0.0
-      lodash-es: 4.17.21
-      luxon: 3.5.0
-      mark.js: 8.11.1
-      md-editor-v3: 5.3.2(@codemirror/view@6.35.3)(@lezer/common@1.2.3)(vue@3.5.13(typescript@5.6.3))
-      oidc-client-ts: 3.1.0
-      p-queue: 8.0.1
-      password-sheriff: 1.1.1
-      pinia: 3.0.1(typescript@5.6.3)(vue@3.5.13(typescript@5.6.3))
-      portal-vue: 3.0.0(vue@3.5.13(typescript@5.6.3))
-      prismjs: 1.29.0
-      qs: 6.13.1
-      screenfull: 6.0.2
-      semver: 7.6.3
-      uuid: 11.0.3
-      vue-concurrency: 5.0.1(vue@3.5.13(typescript@5.6.3))
-      vue-router: 4.4.5(vue@3.5.13(typescript@5.6.3))
-      vue3-gettext: 2.4.0(@vue/compiler-sfc@3.5.13)(vue@3.5.13(typescript@5.6.3))
-      zod: 3.23.8
-    transitivePeerDependencies:
-      - '@codemirror/view'
-      - '@lezer/common'
-      - '@vue/compiler-sfc'
-      - debug
-      - typescript
-      - vue
-
   '@opencloud-eu/web-pkg@1.0.0(@codemirror/view@6.36.3)(@lezer/common@1.2.3)(@vue/compiler-sfc@3.5.13)(typescript@5.6.3)(vue@3.5.13(typescript@5.6.3))':
     dependencies:
       '@casl/ability': 6.7.2
@@ -4405,11 +4240,11 @@ snapshots:
 
   '@popperjs/core@2.11.8': {}
 
-  '@replit/codemirror-indentation-markers@6.5.3(@codemirror/language@6.10.6)(@codemirror/state@6.5.0)(@codemirror/view@6.35.3)':
+  '@replit/codemirror-indentation-markers@6.5.3(@codemirror/language@6.10.6)(@codemirror/state@6.5.0)(@codemirror/view@6.36.3)':
     dependencies:
       '@codemirror/language': 6.10.6
       '@codemirror/state': 6.5.0
-      '@codemirror/view': 6.35.3
+      '@codemirror/view': 6.36.3
 
   '@rollup/rollup-android-arm-eabi@4.26.0':
     optional: true
@@ -5113,11 +4948,11 @@ snapshots:
 
   classnames@2.5.1: {}
 
-  codemirror-wrapped-line-indent@1.0.8(@codemirror/language@6.10.6)(@codemirror/state@6.5.0)(@codemirror/view@6.35.3):
+  codemirror-wrapped-line-indent@1.0.8(@codemirror/language@6.10.6)(@codemirror/state@6.5.0)(@codemirror/view@6.36.3):
     dependencies:
       '@codemirror/language': 6.10.6
       '@codemirror/state': 6.5.0
-      '@codemirror/view': 6.35.3
+      '@codemirror/view': 6.36.3
 
   codemirror@6.0.1(@lezer/common@1.2.3):
     dependencies:
@@ -5904,27 +5739,6 @@ snapshots:
       punycode.js: 2.3.1
       uc.micro: 2.1.0
 
-  md-editor-v3@5.3.2(@codemirror/view@6.35.3)(@lezer/common@1.2.3)(vue@3.5.13(typescript@5.6.3)):
-    dependencies:
-      '@codemirror/lang-markdown': 6.3.2
-      '@codemirror/language-data': 6.5.1(@codemirror/view@6.35.3)
-      '@types/markdown-it': 14.1.2
-      '@vavt/util': 2.1.0
-      codemirror: 6.0.1(@lezer/common@1.2.3)
-      copy-to-clipboard: 3.3.3
-      lru-cache: 11.0.2
-      lucide-vue-next: 0.453.0(vue@3.5.13(typescript@5.6.3))
-      markdown-it: 14.1.0
-      markdown-it-image-figures: 2.1.1(markdown-it@14.1.0)
-      markdown-it-sub: 2.0.0
-      markdown-it-sup: 2.0.0
-      medium-zoom: 1.1.0
-      vue: 3.5.13(typescript@5.6.3)
-      xss: 1.0.15
-    transitivePeerDependencies:
-      - '@codemirror/view'
-      - '@lezer/common'
-
   md-editor-v3@5.3.2(@codemirror/view@6.36.3)(@lezer/common@1.2.3)(vue@3.5.13(typescript@5.6.3)):
     dependencies:
       '@codemirror/lang-markdown': 6.3.2
@@ -6462,21 +6276,21 @@ snapshots:
 
   vanilla-jsoneditor@2.3.3(@lezer/common@1.2.3):
     dependencies:
-      '@codemirror/autocomplete': 6.18.3(@codemirror/language@6.10.6)(@codemirror/state@6.5.0)(@codemirror/view@6.35.3)(@lezer/common@1.2.3)
+      '@codemirror/autocomplete': 6.18.3(@codemirror/language@6.10.6)(@codemirror/state@6.5.0)(@codemirror/view@6.36.3)(@lezer/common@1.2.3)
       '@codemirror/commands': 6.7.1
       '@codemirror/lang-json': 6.0.1
       '@codemirror/language': 6.10.6
       '@codemirror/lint': 6.8.4
       '@codemirror/search': 6.5.8
       '@codemirror/state': 6.5.0
-      '@codemirror/view': 6.35.3
+      '@codemirror/view': 6.36.3
       '@fortawesome/free-regular-svg-icons': 6.7.1
       '@fortawesome/free-solid-svg-icons': 6.7.1
       '@jsonquerylang/jsonquery': 4.1.1
       '@lezer/highlight': 1.2.1
-      '@replit/codemirror-indentation-markers': 6.5.3(@codemirror/language@6.10.6)(@codemirror/state@6.5.0)(@codemirror/view@6.35.3)
+      '@replit/codemirror-indentation-markers': 6.5.3(@codemirror/language@6.10.6)(@codemirror/state@6.5.0)(@codemirror/view@6.36.3)
       ajv: 8.17.1
-      codemirror-wrapped-line-indent: 1.0.8(@codemirror/language@6.10.6)(@codemirror/state@6.5.0)(@codemirror/view@6.35.3)
+      codemirror-wrapped-line-indent: 1.0.8(@codemirror/language@6.10.6)(@codemirror/state@6.5.0)(@codemirror/view@6.36.3)
       diff-sequences: 29.6.3
       immutable-json-patch: 6.0.1
       jmespath: 0.16.0
