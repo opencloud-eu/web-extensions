@@ -1,6 +1,6 @@
 services:
   opencloud:
-    image: ${OC_IMAGE:-opencloud-eu/opencloud-rolling:master}
+    image: ${OC_IMAGE:-opencloudeu/opencloud-rolling:latest}
     entrypoint: /bin/sh
     command: ['-c', 'opencloud init || true && opencloud server']
     environment:
