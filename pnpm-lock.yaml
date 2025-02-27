@@ -118,7 +118,7 @@ importers:
         version: 2.4.0(@vue/compiler-sfc@3.5.13)(vue@3.5.13(typescript@5.7.3))
       zod:
         specifier: ^3.22.4
-        version: 3.23.8
+        version: 3.24.2
 
   packages/web-app-importer:
     dependencies:
@@ -3281,8 +3281,8 @@ packages:
   zimmerframe@1.1.2:
     resolution: {integrity: sha512-rAbqEGa8ovJy4pyBxZM70hg4pE6gDgaQ0Sl9M3enG3I0d6H4XSAM3GeNGLKnsBpuijUow064sf7ww1nutC5/3w==}
 
-  zod@3.23.8:
-    resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
+  zod@3.24.2:
+    resolution: {integrity: sha512-lY7CDW43ECgW9u1TcT3IoXHflywfVqDYze4waEz812jR/bZ8FHDsl7pFQoSZTz5N+2NqRXs8GBwnAwo3ZNxqhQ==}
 
 snapshots:
 
@@ -4104,7 +4104,7 @@ snapshots:
       uuid: 11.0.3
       webdav: 5.7.1
       xml-js: 1.6.11
-      zod: 3.23.8
+      zod: 3.24.2
     transitivePeerDependencies:
       - debug
 
@@ -4148,7 +4148,7 @@ snapshots:
       vue-concurrency: 5.0.1(vue@3.5.13(typescript@5.7.3))
       vue-router: 4.4.5(vue@3.5.13(typescript@5.7.3))
       vue3-gettext: 2.4.0(@vue/compiler-sfc@3.5.13)(vue@3.5.13(typescript@5.7.3))
-      zod: 3.23.8
+      zod: 3.24.2
     transitivePeerDependencies:
       - '@codemirror/view'
       - '@lezer/common'
@@ -6553,4 +6553,4 @@ snapshots:
 
   zimmerframe@1.1.2: {}
 
-  zod@3.23.8: {}
+  zod@3.24.2: {}
