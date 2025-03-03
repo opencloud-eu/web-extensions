@@ -17,7 +17,6 @@
   "devDependencies": {
     "@opencloud-eu/web-client": "^1.0.0",
     "@opencloud-eu/web-pkg": "^1.0.0",
-    "@uppy/core": "^4.0.0",
     "p-queue": "^8.0.0",
     "uuid": "^11.0.0",
     "vue": "^3.4.21",

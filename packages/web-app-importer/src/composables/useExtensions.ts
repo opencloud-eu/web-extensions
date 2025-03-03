@@ -14,6 +14,7 @@ import Webdav from '@uppy/webdav'
 import { storeToRefs } from 'pinia'
 import { useGettext } from 'vue3-gettext'
 import { computed, nextTick, unref } from 'vue'
+import { PluginTarget } from '@uppy/core/lib/UIPlugin'
 
 export const useExtensions = ({ applicationConfig }: ApplicationSetupOptions) => {
   const userStore = useUserStore()
@@ -83,7 +84,6 @@ export const useExtensions = ({ applicationConfig }: ApplicationSetupOptions) =>
     await nextTick()
 
     uppyService.addPlugin(Dashboard, {
-      uppyService,
       inline: true,
       target: '.oc-modal-body',
       disableLocalFiles: true,
@@ -91,6 +91,7 @@ export const useExtensions = ({ applicationConfig }: ApplicationSetupOptions) =>
       showSelectedFiles: false,
       ...(renderDarkTheme && { theme: 'dark' }),
       locale: {
+        pluralize: (n: number) => (n === 1 ? 0 : 1),
         strings: {
           cancel: $gettext('Cancel'),
           importFiles: $gettext('Import files from:'),
@@ -101,14 +102,14 @@ export const useExtensions = ({ applicationConfig }: ApplicationSetupOptions) =>
 
     if (supportedClouds.includes('OneDrive')) {
       uppyService.addPlugin(OneDrive, {
-        target: Dashboard,
+        target: Dashboard as PluginTarget<any, any>,
         companionUrl
       })
     }
 
     if (supportedClouds.includes('GoogleDrive')) {
       uppyService.addPlugin(GoogleDrive, {
-        target: Dashboard,
+        target: Dashboard as PluginTarget<any, any>,
         companionUrl
       })
     }
