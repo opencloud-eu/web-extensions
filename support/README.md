@@ -21,6 +21,19 @@ web-extensions/
 ## Playwright Test Configuration
 This Playwright configuration defines multiple projects for testing web applications in different browsers. Each project is assigned its own set of browsers, and the configuration includes settings for parallel test execution, retries, and reporting.
 
+## First Playwright install
+Playwright separates its package installation (`pnpm i`) from its browser dependencies to keep the installation lightweight.
+
+Run command to install suported browsers. 
+```shell
+pnpm exec playwright install
+```
+
+Use an argument if you want to install a specific browser.
+```shell
+pnpm exec playwright install webkit
+```
+
 ### Example Projects
 
  **Draw-IO Tests**:

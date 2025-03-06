@@ -21,7 +21,7 @@
     "@opencloud-eu/prettier-config": "^1.0.0",
     "@opencloud-eu/tsconfig": "^1.0.0",
     "@opencloud-eu/web-test-helpers": "^1.0.0",
-    "@playwright/test": "^1.48.2",
+    "@playwright/test": "^1.50.1",
     "@types/node": "22.13.5",
     "@vue/test-utils": "^2.4.6",
     "eslint": "9.21.0",
