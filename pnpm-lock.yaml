@@ -24,7 +24,7 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0(@opencloud-eu/web-pkg@1.0.0(@codemirror/view@6.36.3)(@lezer/common@1.2.3)(@vue/compiler-sfc@3.5.13)(typescript@5.7.3)(vue@3.5.13(typescript@5.7.3)))(@vue/compiler-sfc@3.5.13)(@vue/test-utils@2.4.6)(typescript@5.7.3)(vitest@3.0.7(@types/node@22.13.5)(happy-dom@17.1.8)(sass@1.80.7))(vue@3.5.13(typescript@5.7.3))
       '@playwright/test':
-        specifier: 1.50.1
+        specifier: ^1.50.1
         version: 1.50.1
       '@types/node':
         specifier: 22.13.5
