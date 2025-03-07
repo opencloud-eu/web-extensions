@@ -1,3 +1,12 @@
 importer:
   config:
     companionUrl: 'https://host.docker.internal:9200/companion'
+external-sites:
+  config:
+    sites:
+      - name: OpenCloud
+        url: "https://opencloud.eu"
+        target: external
+        color: "#0D856F"
+        icon: book
+        priority: 50

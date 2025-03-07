@@ -11,5 +11,8 @@ export default defineConfig({
         entryFileNames: 'external-sites.js'
       }
     }
+  },
+  test: {
+    exclude: ['**/e2e/**']
   }
 })

@@ -7,7 +7,7 @@ export async function loginAsUser(
   username: string,
   password: string
 ): Promise<{ page: Page }> {
-  const { page, context } = await createContext(browser)
+  const { page } = await createContext(browser)
   const loginPage = new LoginPage(page)
   await page.goto('/')
 
