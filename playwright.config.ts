@@ -62,6 +62,21 @@ export default defineConfig({
       name: 'unzip-webkit',
       testDir: './packages/web-app-unzip/tests/e2e',
       use: { ...devices['Desktop Safari'], browserName: 'webkit', ignoreHTTPSErrors: true }
+    },
+    {
+      name: 'external-sites-chromium',
+      testDir: './packages/web-app-external-sites/tests/e2e',
+      use: { ...devices['Desktop Chrome'], browserName: 'chromium', ignoreHTTPSErrors: true }
+    },
+    {
+      name: 'external-sites-firefox',
+      testDir: './packages/web-app-external-sites/tests/e2e',
+      use: { ...devices['Desktop Firefox'], browserName: 'firefox', ignoreHTTPSErrors: true }
+    },
+    {
+      name: 'external-sites-webkit',
+      testDir: './packages/web-app-external-sites/tests/e2e',
+      use: { ...devices['Desktop Safari'], browserName: 'webkit', ignoreHTTPSErrors: true }
     }
 
     /* Test against mobile viewports. */

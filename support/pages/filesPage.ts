@@ -6,7 +6,6 @@ export class FilesPage {
   readonly extractHereBtnBtn: Locator
   readonly selectAllCheckbox: Locator
 
-
   constructor(page: Page) {
     this.page = page
     this.extractHereBtnBtn = this.page.locator('.context-menu .oc-files-actions-unzip-archive')
@@ -14,7 +13,7 @@ export class FilesPage {
   }
 
   getResourceNameSelector(resource: string): Locator {
-    return this.page.locator(`#files-space-table [data-test-resource-name="${resource}"]`);
+    return this.page.locator(`#files-space-table [data-test-resource-name="${resource}"]`)
   }
 
   async extractZip(file: string) {
@@ -23,17 +22,15 @@ export class FilesPage {
 
     await Promise.all([
       this.page.waitForResponse(
-        (resp) =>
-          resp.status() === 201 &&
-          resp.request().method() === 'MKCOL'
+        (resp) => resp.status() === 201 && resp.request().method() === 'MKCOL'
       ),
       this.extractHereBtnBtn.click()
     ])
   }
 
   async deleteAllFromPersonal() {
-    await this.page.getByRole('link', { name: 'Navigate to personal files' }).click();
-    await this.selectAllCheckbox.check();
+    await this.page.getByRole('link', { name: 'Navigate to personal files' }).click()
+    await this.selectAllCheckbox.check()
     await this.page.getByRole('button', { name: 'Delete' }).click()
   }
 

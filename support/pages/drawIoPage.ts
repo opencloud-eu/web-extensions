@@ -7,13 +7,24 @@ export class DrawIoPage {
 
   constructor(page: Page) {
     this.page = page
-    this.saveBtn = this.page.locator('iframe[title="Draw\\.io editor"]').contentFrame().getByRole('button', { name: 'Save' })
+    this.saveBtn = this.page
+      .locator('iframe[title="Draw\\.io editor"]')
+      .contentFrame()
+      .getByRole('button', { name: 'Save' })
     this.closeBtn = this.page.getByLabel('Close')
   }
 
   async addContent() {
-    await this.page.locator('iframe[title="Draw\\.io editor"]').contentFrame().locator('.geSidebar > a:nth-child(5)').click()
-    await this.page.locator('iframe[title="Draw\\.io editor"]').contentFrame().locator('.geDiagramContainer > svg').click()
+    await this.page
+      .locator('iframe[title="Draw\\.io editor"]')
+      .contentFrame()
+      .locator('.geSidebar > a:nth-child(5)')
+      .click()
+    await this.page
+      .locator('iframe[title="Draw\\.io editor"]')
+      .contentFrame()
+      .locator('.geDiagramContainer > svg')
+      .click()
   }
 
   async save() {

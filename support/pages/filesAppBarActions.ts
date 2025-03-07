@@ -15,9 +15,8 @@ export class FilesAppBar {
   async uploadFile(file: string) {
     await this.uploadBtn.click()
     const realPath = path.join('./support/filesForUpload', file)
-  
     let uploadAction: Promise<void> = this.uploadFileBtn.setInputFiles(path.resolve(realPath))
-   
+
     await Promise.all([
       this.page.waitForResponse(
         (resp) =>
