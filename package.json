@@ -30,7 +30,7 @@
     "ts-node": "^10.9.2",
     "typescript": "5.7.3",
     "vite": "6.2.0",
-    "vitest": "3.0.7",
+    "vitest": "3.0.8",
     "vitest-mock-extended": "3.0.1",
     "vue-tsc": "2.2.4",
     "vue3-gettext": "^2.4.0"
