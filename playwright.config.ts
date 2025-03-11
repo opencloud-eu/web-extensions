@@ -77,6 +77,21 @@ export default defineConfig({
       name: 'external-sites-webkit',
       testDir: './packages/web-app-external-sites/tests/e2e',
       use: { ...devices['Desktop Safari'], browserName: 'webkit', ignoreHTTPSErrors: true }
+    },
+    {
+      name: 'json-viewer-chromium',
+      testDir: './packages/web-app-json-viewer/tests/e2e',
+      use: { ...devices['Desktop Chrome'], browserName: 'chromium', ignoreHTTPSErrors: true }
+    },
+    {
+      name: 'json-viewer-firefox',
+      testDir: './packages/web-app-json-viewer/tests/e2e',
+      use: { ...devices['Desktop Firefox'], browserName: 'firefox', ignoreHTTPSErrors: true }
+    },
+    {
+      name: 'json-viewer-webkit',
+      testDir: './packages/web-app-json-viewer/tests/e2e',
+      use: { ...devices['Desktop Safari'], browserName: 'webkit', ignoreHTTPSErrors: true }
     }
 
     /* Test against mobile viewports. */

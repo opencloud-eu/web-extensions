@@ -1,0 +1,14 @@
+{
+    "value": [
+        {
+            "appRoles": [
+                {
+                    "displayName": "Space Admin",
+                    "id": "2aadd357-682c-406b-8874-293091995fdd"
+                }
+            ],
+            "displayName": "OpenCloud",
+            "id": "d67265e7-86c9-4c46-9428-286c02c5814b"
+        }
+    ]
+}
