@@ -5,11 +5,13 @@ export class FilesPage {
   readonly uploadBtn: Locator
   readonly extractHereBtnBtn: Locator
   readonly selectAllCheckbox: Locator
+  readonly openInJsonViewerBtn: Locator
 
   constructor(page: Page) {
     this.page = page
     this.extractHereBtnBtn = this.page.locator('.context-menu .oc-files-actions-unzip-archive')
     this.selectAllCheckbox = this.page.getByLabel('Select all')
+    this.openInJsonViewerBtn = this.page.locator('.oc-files-actions-json-viewer-trigger')
   }
 
   getResourceNameSelector(resource: string): Locator {
@@ -37,5 +39,18 @@ export class FilesPage {
   async openFolder(folder: string) {
     const folderLocator = this.getResourceNameSelector(folder)
     await folderLocator.click()
+  }
+
+  async openJsonFile(file: string) {
+    const fileLocator = this.getResourceNameSelector(file)
+    await fileLocator.click({ button: 'right' })
+
+    await Promise.all([
+      this.page.waitForResponse(
+        (resp) =>
+          resp.status() === 200 && resp.request().method() === 'GET' && resp.url().includes(file)
+      ),
+      this.openInJsonViewerBtn.click()
+    ])
   }
 }

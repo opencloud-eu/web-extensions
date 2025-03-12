@@ -11,5 +11,8 @@ export default defineConfig({
         entryFileNames: 'json-viewer.js'
       }
     }
+  },
+  test: {
+    exclude: ['**/e2e/**']
   }
 })
