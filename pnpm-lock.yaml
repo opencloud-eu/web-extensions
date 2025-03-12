@@ -205,7 +205,7 @@ importers:
         version: 8.0.1
       uuid:
         specifier: ^11.0.0
-        version: 11.0.3
+        version: 11.1.0
       vue:
         specifier: ^3.4.21
         version: 3.5.13(typescript@5.7.3)
@@ -2864,8 +2864,8 @@ packages:
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
-  uuid@11.0.3:
-    resolution: {integrity: sha512-d0z310fCWv5dJwnX1Y/MncBAqGMKEzlBb1AOf7z9K8ALnd0utBX/msg/fA0+sbyN1ihbMsLhrBlnl1ak7Wa0rg==}
+  uuid@11.1.0:
+    resolution: {integrity: sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==}
     hasBin: true
 
   v8-compile-cache-lib@3.0.1:
@@ -3844,7 +3844,7 @@ snapshots:
       fast-xml-parser: 4.5.0
       lodash-es: 4.17.21
       luxon: 3.5.0
-      uuid: 11.0.3
+      uuid: 11.1.0
       webdav: 5.7.1
       xml-js: 1.6.11
       zod: 3.24.2
@@ -3887,7 +3887,7 @@ snapshots:
       qs: 6.13.1
       screenfull: 6.0.2
       semver: 7.6.3
-      uuid: 11.0.3
+      uuid: 11.1.0
       vue-concurrency: 5.0.1(vue@3.5.13(typescript@5.7.3))
       vue-router: 4.5.0(vue@3.5.13(typescript@5.7.3))
       vue3-gettext: 2.4.0(@vue/compiler-sfc@3.5.13)(vue@3.5.13(typescript@5.7.3))
@@ -5978,7 +5978,7 @@ snapshots:
 
   util-deprecate@1.0.2: {}
 
-  uuid@11.0.3: {}
+  uuid@11.1.0: {}
 
   v8-compile-cache-lib@3.0.1: {}
 
