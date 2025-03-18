@@ -18,8 +18,8 @@ importers:
         specifier: ^1.0.0
         version: 1.0.0
       '@opencloud-eu/tsconfig':
-        specifier: ^1.0.0
-        version: 1.0.0
+        specifier: ^2.0.0
+        version: 2.0.0
       '@opencloud-eu/web-test-helpers':
         specifier: ^1.0.0
         version: 1.0.0(@opencloud-eu/web-pkg@1.0.0(@codemirror/view@6.36.3)(@lezer/common@1.2.3)(@vue/compiler-sfc@3.5.13)(typescript@5.8.2)(vue@3.5.13(typescript@5.8.2)))(@vue/compiler-sfc@3.5.13)(@vue/test-utils@2.4.6)(typescript@5.8.2)(vitest@3.0.8(@types/node@22.13.10)(happy-dom@17.4.4)(sass@1.80.7))(vue@3.5.13(typescript@5.8.2))
@@ -755,8 +755,8 @@ packages:
   '@opencloud-eu/prettier-config@1.0.0':
     resolution: {integrity: sha512-h8JB1DgQPsAFQOY3x46Roa8AM6DVrKIAo4NVCOd7cyp3GXqQwc3ViC7LE5MKZS/515LYBVCFgHUYq17ZXPKVRQ==}
 
-  '@opencloud-eu/tsconfig@1.0.0':
-    resolution: {integrity: sha512-x1uvCZTmL5e3eZa3nlNlsgJZ77imbQ5cdn7xxGw5/QrLykTkLiOPcSQoyFC7JTM53Y8XpR3aIQ1wV02qLA4pcA==}
+  '@opencloud-eu/tsconfig@2.0.0':
+    resolution: {integrity: sha512-UZ7AI4mxJ3mamnu3WkV0nLc+w/qYigyxMQJvAg2Jt4xSmCsbg41bVmkPqqMer8NFUvO0UjJRcOxHEyN3NliNoQ==}
 
   '@opencloud-eu/web-client@1.0.0':
     resolution: {integrity: sha512-XyPt3/7dbp6rVPyfcYQE2Z9rNJf56+Bcqdk2AWuDV6v5n44RSHsUUWPFpDYW8oVquzbz3yDzQHCv4ostXiiNSQ==}
@@ -3868,7 +3868,7 @@ snapshots:
     dependencies:
       prettier: 3.5.3
 
-  '@opencloud-eu/tsconfig@1.0.0': {}
+  '@opencloud-eu/tsconfig@2.0.0': {}
 
   '@opencloud-eu/web-client@1.0.0':
     dependencies:
