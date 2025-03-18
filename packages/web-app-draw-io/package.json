@@ -12,8 +12,8 @@
     "test:unit": "NODE_OPTIONS=--unhandled-rejections=throw vitest"
   },
   "devDependencies": {
-    "@opencloud-eu/web-client": "^1.0.0",
-    "@opencloud-eu/web-pkg": "^1.0.0",
+    "@opencloud-eu/web-client": "^2.0.0",
+    "@opencloud-eu/web-pkg": "^2.0.0",
     "qs": "^6.11.2",
     "vue": "^3.4.21",
     "vue3-gettext": "^2.4.0"
