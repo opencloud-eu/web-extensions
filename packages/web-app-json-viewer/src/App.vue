@@ -80,7 +80,7 @@ export default defineComponent({
 <style lang="scss">
 .jse {
   &-menu {
-    background-color: var(--oc-color-swatch-primary-gradient) !important;
+    background-color: var(--oc-role-chrome) !important;
   }
 
   &-error {
