@@ -5,8 +5,8 @@ external-sites:
   config:
     sites:
       - name: OpenCloud
-        url: "https://opencloud.eu"
+        url: 'https://opencloud.eu'
         target: external
-        color: "#0D856F"
+        color: '#0D856F'
         icon: book
         priority: 50
