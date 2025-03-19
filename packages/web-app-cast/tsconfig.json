@@ -1,6 +1,6 @@
 {
-    "extends": "../../tsconfig.json",
-    "compilerOptions": {
-     "types": ["chromecast-caf-sender", "vitest/globals"]
-    }
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "types": ["chromecast-caf-sender", "vitest/globals"]
+  }
 }
