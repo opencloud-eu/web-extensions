@@ -27,7 +27,7 @@ This Playwright configuration defines multiple projects for testing web applicat
 
 Playwright separates its package installation (`pnpm i`) from its browser dependencies to keep the installation lightweight.
 
-Run command to install suported browsers.
+Run command to install supported browsers.
 
 ```shell
 pnpm exec playwright install
