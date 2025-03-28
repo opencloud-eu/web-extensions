@@ -200,9 +200,6 @@ importers:
       '@opencloud-eu/web-pkg':
         specifier: ^2.0.0
         version: 2.0.0(@codemirror/view@6.36.3)(@lezer/common@1.2.3)(@vue/compiler-sfc@3.5.13)(typescript@5.8.2)(vue@3.5.13(typescript@5.8.2))
-      p-queue:
-        specifier: ^8.0.0
-        version: 8.1.0
       uuid:
         specifier: ^11.0.0
         version: 11.1.0

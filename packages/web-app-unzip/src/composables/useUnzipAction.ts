@@ -18,7 +18,6 @@ import { useGettext } from 'vue3-gettext'
 import { extractNameWithoutExtension, urlJoin } from '@opencloud-eu/web-client'
 import * as uuid from 'uuid'
 import * as zip from '@zip.js/zip.js'
-import PQueue from 'p-queue'
 import Worker from './../../node_modules/@zip.js/zip.js/dist/z-worker.js?url'
 
 const SUPPORTED_MIME_TYPES = ['application/zip']
@@ -82,7 +81,6 @@ export const useUnzipAction = () => {
       }
 
       const folder = await createRootFolder({ space, resources })
-      const queue = new PQueue({ concurrency: 4 })
       const uploadId = uuid.v4()
 
       // unzip and convert to UppyFile's
@@ -90,22 +88,19 @@ export const useUnzipAction = () => {
         .filter(({ filename }) => !filename.endsWith('/'))
         .map<Promise<OcMinimalUppyFile | void>>((result) => {
           const writer = new zip.BlobWriter()
-          return queue.add(() =>
-            result.getData(writer).then((data) => {
-              const path = dirname(result.filename)
-              const name =
-                path === '.' ? result.filename : result.filename.substring(path.length + 1)
+          return result.getData(writer).then((data) => {
+            const path = dirname(result.filename)
+            const name = path === '.' ? result.filename : result.filename.substring(path.length + 1)
 
-              return {
-                name,
-                data,
-                meta: {
-                  ...(path !== '.' && { webkitRelativePath: urlJoin(path, name) }),
-                  uploadId
-                }
-              } as unknown as OcMinimalUppyFile
-            })
-          )
+            return {
+              name,
+              data,
+              meta: {
+                ...(path !== '.' && { webkitRelativePath: urlJoin(path, name) }),
+                uploadId
+              }
+            } as unknown as OcMinimalUppyFile
+          })
         })
 
       const filesToUpload = (await Promise.all(promises)) as OcMinimalUppyFile[]
