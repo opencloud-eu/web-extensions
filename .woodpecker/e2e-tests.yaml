@@ -1,0 +1,73 @@
+---
+when:
+  - event: push
+    branch: ${CI_REPO_DEFAULT_BRANCH}
+  - event: [pull_request, manual]
+
+variables:
+  - &node_image 'owncloudci/nodejs:20'
+  - &oc_image 'opencloudeu/opencloud-rolling:latest'
+  - &alpine_image 'owncloudci/alpine:latest'
+
+steps:
+  - name: pnpm-install
+    image: *node_image
+    commands:
+      - pnpm install
+  - name: build-extensions
+    image: *node_image
+    commands:
+      - pnpm build
+      - mkdir -p /apps
+      - for dir in packages/*/dist; do mv "$dir" "/apps/$(basename $(dirname "$dir") | sed 's/^web-app-//')"; done
+      - cp -R /apps /woodpecker/apps
+  - name: opencloud
+    image: *oc_image
+    detach: true
+    environment:
+      OC_URL: https://opencloud:9200
+      OC_INSECURE: true
+      OC_LOG_LEVEL: error
+      IDM_ADMIN_PASSWORD: admin
+      PROXY_ENABLE_BASIC_AUTH: True
+      WEB_ASSET_APPS_PATH: /woodpecker/apps
+      WEB_UI_CONFIG_FILE: /var/lib/opencloud/web.config.json
+    commands:
+      - cp dev/docker/opencloud.apps.yaml /etc/opencloud/apps.yaml
+      - cp dev/woodpecker/opencloud.web.config.json /var/lib/opencloud/web.config.json
+      - opencloud init || true && opencloud server
+  - name: wait-for-opencloud
+    image: *alpine_image
+    commands:
+      - "timeout 200 bash -c 'while [ $(curl -sk -uadmin:admin https://opencloud:9200/graph/v1.0/users/admin -w %{http_code} -o /dev/null) != 200 ]; do sleep 1; done'"
+  - name: install-browser
+    image: *node_image
+    commands:
+      - pnpm exec playwright install chromium
+      - cp -R /root/.cache/ms-playwright /woodpecker/playwright-cache
+
+  # TODO: use one step with "pnpm test:e2e --project='*-chromium'" when tests can run parallel
+  - name: e2e-draw-io
+    image: *node_image
+    commands:
+      - mkdir -p /root/.cache
+      - cp -R /woodpecker/playwright-cache /root/.cache/ms-playwright
+      - "BASE_URL_OC=https://opencloud:9200 pnpm test:e2e --project='draw-io-chromium'"
+  - name: e2e-external-sites
+    image: *node_image
+    commands:
+      - mkdir -p /root/.cache
+      - cp -R /woodpecker/playwright-cache /root/.cache/ms-playwright
+      - "BASE_URL_OC=https://opencloud:9200 pnpm test:e2e --project='external-sites-chromium'"
+  - name: e2e-json-viewer
+    image: *node_image
+    commands:
+      - mkdir -p /root/.cache
+      - cp -R /woodpecker/playwright-cache /root/.cache/ms-playwright
+      - "BASE_URL_OC=https://opencloud:9200 pnpm test:e2e --project='json-viewer-chromium'"
+  - name: e2e-unzip
+    image: *node_image
+    commands:
+      - mkdir -p /root/.cache
+      - cp -R /woodpecker/playwright-cache /root/.cache/ms-playwright
+      - "BASE_URL_OC=https://opencloud:9200 pnpm test:e2e --project='unzip-chromium'"

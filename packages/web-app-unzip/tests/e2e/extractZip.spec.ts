@@ -24,6 +24,8 @@ test('extract zip file', async () => {
   await file.extractZip('data.zip')
 
   await file.openFolder('data')
-  await expect(adminPage.getByRole('button', { name: 'logo-wide .png' })).toBeVisible()
-  await expect(adminPage.getByRole('link', { name: 'lorem .txt' })).toBeVisible()
+  await expect(
+    adminPage.locator('span.oc-resource-basename', { hasText: 'logo-wide' })
+  ).toBeVisible()
+  await expect(adminPage.locator('span.oc-resource-basename', { hasText: 'lorem' })).toBeVisible()
 })

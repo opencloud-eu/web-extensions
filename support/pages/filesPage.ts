@@ -24,7 +24,10 @@ export class FilesPage {
 
     await Promise.all([
       this.page.waitForResponse(
-        (resp) => resp.status() === 201 && resp.request().method() === 'MKCOL'
+        (resp) =>
+          resp.url().includes('graph/v1.0/drives/') &&
+          resp.status() === 200 &&
+          resp.request().method() === 'GET'
       ),
       this.extractHereBtnBtn.click()
     ])

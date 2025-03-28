@@ -1,0 +1,18 @@
+---
+when:
+  - event: push
+    branch: ${CI_REPO_DEFAULT_BRANCH}
+  - event: [pull_request, manual, tag]
+
+variables:
+  - &node_image 'owncloudci/nodejs:20'
+
+steps:
+  - name: pnpm-install
+    image: *node_image
+    commands:
+      - pnpm install
+  - name: lint
+    image: *node_image
+    commands:
+      - pnpm lint
