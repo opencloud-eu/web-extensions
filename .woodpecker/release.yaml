@@ -1,0 +1,73 @@
+---
+when:
+  - event: [tag]
+
+variables:
+  - &node_image 'owncloudci/nodejs:20'
+  - &alpine_image 'owncloudci/alpine:latest'
+  - &release_image 'woodpeckerci/plugin-release:0.2.5'
+  - &docker_image 'woodpeckerci/plugin-docker-buildx:latest'
+  - &extract_app_and_version
+    - APP=${CI_COMMIT_TAG%-v*}
+    - VERSION=${CI_COMMIT_TAG##*-v}
+
+steps:
+  - name: pnpm-install
+    image: *node_image
+    commands:
+      - pnpm install
+
+  - name: build
+    image: *node_image
+    commands:
+      - <<: *extract_app_and_version
+      - pnpm build
+      - mkdir apps
+      - cd "packages/web-app-$APP"
+      - mv dist ../../apps/$APP
+
+  - name: prepare-release
+    image: *alpine_image
+    commands:
+      - <<: *extract_app_and_version
+      # create zip archive
+      - cd apps
+      - apk add zip
+      - zip -r $APP-$VERSION.zip $APP/
+
+      # determine if prerelease
+      - echo "${CI_COMMIT_TAG}" | grep -q '\-alpha\.\|\-beta\.\|\-rc\.' && export PLUGIN_PRERELEASE=true || export PLUGIN_PRERELEASE=false
+      - mkdir -p /woodpecker/github
+      - echo "PLUGIN_PRERELEASE=$PLUGIN_PRERELEASE" >> /woodpecker/github/.env
+
+  - name: publish-github
+    image: *release_image
+    settings:
+      api_key:
+        from_secret: github_token
+      title: ${CI_COMMIT_TAG%-v*} ${CI_COMMIT_TAG##*-v}
+      overwrite: true
+      env_file: /woodpecker/github/.env
+      files:
+        - apps/*.zip
+      checksum:
+        - md5
+        - sha256
+
+  - name: publish-docker
+    image: *docker_image
+    settings:
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      dockerfile: docker/Dockerfile
+      repo: opencloudeu/web-extensions
+      tags:
+        - ${CI_COMMIT_TAG%-v*}-${CI_COMMIT_TAG##*-v}
+        - ${CI_COMMIT_TAG%-v*}-latest
+      build_args:
+        - app_path=./apps/${CI_COMMIT_TAG%-v*}
+        - app_name=${CI_COMMIT_TAG%-v*}
+    when:
+      - evaluate: 'not (CI_COMMIT_TAG contains "-alpha." || CI_COMMIT_TAG contains "-beta." || CI_COMMIT_TAG contains "-rc.")'
