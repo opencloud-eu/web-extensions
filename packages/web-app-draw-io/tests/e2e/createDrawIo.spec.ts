@@ -21,8 +21,8 @@ test('create drawio file', async () => {
   await appSwitcher.createDrawIoFile()
   await expect(userPage).toHaveURL(/.*draw-io/)
 
-  const darwIo = new DrawIoPage(userPage)
-  await darwIo.addContent()
-  await darwIo.save()
-  await darwIo.close()
+  const drawIo = new DrawIoPage(userPage)
+  await drawIo.addContent()
+  await drawIo.save()
+  await drawIo.close()
 })
