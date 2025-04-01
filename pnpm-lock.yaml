@@ -47,6 +47,9 @@ importers:
       typescript:
         specifier: 5.8.2
         version: 5.8.2
+      uuid:
+        specifier: ^11.0.0
+        version: 11.1.0
       vite:
         specifier: 6.2.4
         version: 6.2.4(@types/node@22.13.16)(sass@1.80.7)

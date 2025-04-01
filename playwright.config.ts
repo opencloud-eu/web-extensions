@@ -39,12 +39,12 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'], browserName: 'chromium', ignoreHTTPSErrors: true }
     },
     {
-      name: 'drawIO-firefox',
+      name: 'draw-io-firefox',
       testDir: './packages/web-app-draw-io/tests/e2e',
       use: { ...devices['Desktop Firefox'], browserName: 'firefox', ignoreHTTPSErrors: true }
     },
     {
-      name: 'drawIO-webkit',
+      name: 'draw-io-webkit',
       testDir: './packages/web-app-draw-io/tests/e2e',
       use: { ...devices['Desktop Safari'], browserName: 'webkit', ignoreHTTPSErrors: true }
     },
