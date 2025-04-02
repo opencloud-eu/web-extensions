@@ -28,7 +28,4 @@ There are two ways installing these examples:
 
 ## Adding a new app to this repository
 
-New apps must be placed inside the `packages` folder and be prefixed with `web-app-`. Additionally, the following changes are needed:
-
-- add the new app to the `APPS` variable in the `.drone.star` file
-- add the `dist` folder of the new app to the list of volume mounts of the docker `opencloud` service
+New apps must be placed inside the `packages` folder and be prefixed with `web-app-`. Additionally, the `dist` folder of the new app needs to be added as volume mount of the docker `opencloud` service.
