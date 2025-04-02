@@ -1,4 +1,4 @@
-import { request } from '@playwright/test'
+import { request, APIRequestContext } from '@playwright/test'
 import config from '../../../playwright.config'
 
 const baseUrl = config.use.baseURL
@@ -16,7 +16,11 @@ export async function getAdminToken(username: string, password: string): Promise
   return await requestAccessToken(context, code)
 }
 
-async function logonUser(context: any, username: string, password: string): Promise<string> {
+async function logonUser(
+  context: APIRequestContext,
+  username: string,
+  password: string
+): Promise<string> {
   const response = await context.post(logonUrl, {
     headers: {
       'Kopano-Konnect-XSRF': '1',
@@ -42,7 +46,10 @@ async function logonUser(context: any, username: string, password: string): Prom
   return data.hello.continue_uri
 }
 
-async function getAuthorizationCode(context: any, continueUrl: string): Promise<string> {
+async function getAuthorizationCode(
+  context: APIRequestContext,
+  continueUrl: string
+): Promise<string> {
   const authParams = new URLSearchParams({
     client_id: clientId,
     prompt: 'none',
@@ -68,7 +75,7 @@ async function getAuthorizationCode(context: any, continueUrl: string): Promise<
   return code
 }
 
-async function requestAccessToken(context: any, code: string): Promise<string> {
+async function requestAccessToken(context: APIRequestContext, code: string): Promise<string> {
   const response = await context.post(tokenUrl, {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     form: {
