@@ -46,28 +46,9 @@ steps:
       - pnpm exec playwright install chromium
       - cp -R /root/.cache/ms-playwright /woodpecker/playwright-cache
 
-  # TODO: use one step with "pnpm test:e2e --project='*-chromium'" when tests can run parallel
-  - name: e2e-draw-io
+  - name: e2e-tests
     image: *node_image
     commands:
       - mkdir -p /root/.cache
       - cp -R /woodpecker/playwright-cache /root/.cache/ms-playwright
-      - "BASE_URL_OC=https://opencloud:9200 pnpm test:e2e --project='draw-io-chromium'"
-  - name: e2e-external-sites
-    image: *node_image
-    commands:
-      - mkdir -p /root/.cache
-      - cp -R /woodpecker/playwright-cache /root/.cache/ms-playwright
-      - "BASE_URL_OC=https://opencloud:9200 pnpm test:e2e --project='external-sites-chromium'"
-  - name: e2e-json-viewer
-    image: *node_image
-    commands:
-      - mkdir -p /root/.cache
-      - cp -R /woodpecker/playwright-cache /root/.cache/ms-playwright
-      - "BASE_URL_OC=https://opencloud:9200 pnpm test:e2e --project='json-viewer-chromium'"
-  - name: e2e-unzip
-    image: *node_image
-    commands:
-      - mkdir -p /root/.cache
-      - cp -R /woodpecker/playwright-cache /root/.cache/ms-playwright
-      - "BASE_URL_OC=https://opencloud:9200 pnpm test:e2e --project='unzip-chromium'"
+      - "BASE_URL_OC=https://opencloud:9200 pnpm test:e2e --project='*-chromium'"
