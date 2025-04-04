@@ -5,14 +5,10 @@ when:
   - event: [pull_request, manual, tag]
 
 variables:
-  - &node_image 'owncloudci/nodejs:20'
+  - &node_image 'woodpeckerci/plugin-node-pm:latest'
 
 steps:
-  - name: pnpm-install
-    image: *node_image
-    commands:
-      - pnpm install
   - name: check-types
     image: *node_image
-    commands:
-      - pnpm check:types
+    settings:
+      run: check:types
