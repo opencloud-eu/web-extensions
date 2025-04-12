@@ -31,4 +31,4 @@ The following attributes are optional:
 - `icon` _(string)_ - specifies the name of a [Remix Icon](https://remixicon.com/) to be used for the menu item.
 - `priority` _(number)_ - specifies the order of the menu item. `50` is probably a good place to start, then go up/down based on where the item should be placed. Defaults to the highest possible number, so the item will most likely end up at the bottom of the list.
 
-Please refer to [the Web app docs](https://docs.opencloud.eu/services/web/#application-configuration) if you want to learn how to configure a Web app.
+Please refer to [the Web app docs](https://docs.opencloud.eu/docs/admin/configuration/web-applications) if you want to learn how to configure a Web app.

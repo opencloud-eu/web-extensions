@@ -22,9 +22,9 @@ There are two ways installing these examples:
 
 - You can enable the web apps in our deployment example with minimal effort.\
   For the source how it got implemented, see the [opencloud_full](https://github.com/opencloud-eu/opencloud/tree/master/deployments/examples/opencloud_full) deployment example.\
-  For a detailed installation instruction using `opencloud_full` see the [admin docs, Local Production Setup](https://docs.opencloud.com/opencloud/next/depl-examples/ubuntu-compose/ubuntu-compose-prod.html).\
+  For a detailed installation instruction using `opencloud_full` see the [admin docs, Docker Compose](https://docs.opencloud.eu/docs/admin/getting-started/docker/docker-compose).\
   (Before you start, select the opencloud version in the admin docs you want to use this example for.)
-- On a general level, refer to the [Web app docs](https://docs.opencloud.eu/services/web/#loading-applications) to learn how to install apps in OpenCloud.
+- On a general level, refer to the [Web app docs](https://docs.opencloud.eu/docs/admin/configuration/web-applications) to learn how to install apps in OpenCloud.
 
 ## Adding a new app to this repository
 
