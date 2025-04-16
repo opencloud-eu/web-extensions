@@ -35,7 +35,7 @@ services:
       - traefik
 
   companion:
-    image: transloadit/companion:5.5.2
+    image: transloadit/companion:5.6.0
     extra_hosts:
       - host.docker.internal:${DOCKER_HOST:-host-gateway}
     environment:
