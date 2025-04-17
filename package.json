@@ -31,7 +31,7 @@
     "prettier": "3.5.3",
     "ts-node": "^10.9.2",
     "typescript": "5.8.3",
-    "vite": "6.3.0",
+    "vite": "6.3.1",
     "vitest": "3.1.1",
     "uuid": "^11.0.0",
     "vitest-mock-extended": "3.1.0",
