@@ -12,10 +12,10 @@
     "test:unit": "NODE_OPTIONS=--unhandled-rejections=throw vitest"
   },
   "dependencies": {
-    "@uppy/dashboard": "4.3.2",
-    "@uppy/google-drive": "4.3.1",
-    "@uppy/onedrive": "4.2.2",
-    "@uppy/webdav": "0.3.1"
+    "@uppy/dashboard": "4.3.3",
+    "@uppy/google-drive": "4.3.2",
+    "@uppy/onedrive": "4.2.3",
+    "@uppy/webdav": "0.3.2"
   },
   "devDependencies": {
     "@opencloud-eu/web-client": "^2.0.0",
