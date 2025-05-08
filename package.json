@@ -24,7 +24,7 @@
     "@opencloud-eu/tsconfig": "^2.0.0",
     "@opencloud-eu/web-test-helpers": "^2.0.0",
     "@playwright/test": "^1.50.1",
-    "@types/node": "22.15.14",
+    "@types/node": "22.15.16",
     "@vue/test-utils": "^2.4.6",
     "eslint": "9.26.0",
     "happy-dom": "^17.0.0",
