@@ -121,7 +121,7 @@ importers:
         version: 2.4.0(@vue/compiler-sfc@3.5.14)(vue@3.5.14(typescript@5.8.3))
       zod:
         specifier: ^3.22.4
-        version: 3.25.20
+        version: 3.25.23
 
   packages/web-app-importer:
     dependencies:
@@ -161,7 +161,7 @@ importers:
     dependencies:
       vanilla-jsoneditor:
         specifier: ^3.0.0
-        version: 3.3.1
+        version: 3.5.0
     devDependencies:
       '@opencloud-eu/web-client':
         specifier: ^2.0.0
@@ -1629,8 +1629,8 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
 
-  electron-to-chromium@1.5.155:
-    resolution: {integrity: sha512-ps5KcGGmwL8VaeJlvlDlu4fORQpv3+GIcF5I3f9tUKUlJ/wsysh6HU8P5L1XWRYeXfA0oJd4PyM8ds8zTFf6Ng==}
+  electron-to-chromium@1.5.157:
+    resolution: {integrity: sha512-/0ybgsQd1muo8QlnuTpKwtl0oX5YMlUGbm8xyqgDU00motRkKFFbUJySAQBWcY79rVqNLWIWa87BGVGClwAB2w==}
 
   emoji-mart@5.6.0:
     resolution: {integrity: sha512-eJp3QRe79pjwa+duv+n7+5YsNhRcMl812EcFVwrnRvYKoNPoQb5qxU8DG6Bgwji0akHdp6D4Ln6tYLG58MFSow==}
@@ -2865,8 +2865,8 @@ packages:
   v8-compile-cache-lib@3.0.1:
     resolution: {integrity: sha512-wa7YjyUGfNZngI/vtK0UHAN+lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB+VfufLh3JlF2KdTK3xg==}
 
-  vanilla-jsoneditor@3.3.1:
-    resolution: {integrity: sha512-dnzKiBv7ux7jYAk+FviTQJuL3myEFtvrqnjJfYYmED2ERnirR+CxLinL7pmAER/4UcTMQimnlksTBubf+8eusw==}
+  vanilla-jsoneditor@3.5.0:
+    resolution: {integrity: sha512-BLr3AajXQAMQ1cPTW5yT8k3sBQ89b/YMlE5AX1toE36vqPJEAZTj6ZXtD8CeBpNaC1W0DWgZQDI9MzeAPORR1g==}
 
   vanilla-picker@2.12.3:
     resolution: {integrity: sha512-qVkT1E7yMbUsB2mmJNFmaXMWE2hF8ffqzMMwe9zdAikd8u2VfnsVY2HQcOUi2F38bgbxzlJBEdS1UUhOXdF9GQ==}
@@ -3082,8 +3082,8 @@ packages:
   zimmerframe@1.1.2:
     resolution: {integrity: sha512-rAbqEGa8ovJy4pyBxZM70hg4pE6gDgaQ0Sl9M3enG3I0d6H4XSAM3GeNGLKnsBpuijUow064sf7ww1nutC5/3w==}
 
-  zod@3.25.20:
-    resolution: {integrity: sha512-z03fqpTMDF1G02VLKUMt6vyACE7rNWkh3gpXVHgPTw28NPtDFRGvcpTtPwn2kMKtQ0idtYJUTxchytmnqYswcw==}
+  zod@3.25.23:
+    resolution: {integrity: sha512-Od2bdMosahjSrSgJtakrwjMDb1zM1A3VIHCPGveZt/3/wlrTWBya2lmEh2OYe4OIu8mPTmmr0gnLHIWQXdtWBg==}
 
 snapshots:
 
@@ -3820,7 +3820,7 @@ snapshots:
       uuid: 11.1.0
       webdav: 5.8.0
       xml-js: 1.6.11
-      zod: 3.25.20
+      zod: 3.25.23
     transitivePeerDependencies:
       - debug
 
@@ -3864,7 +3864,7 @@ snapshots:
       vue-concurrency: 5.0.3(vue@3.5.14(typescript@5.8.3))
       vue-router: 4.5.1(vue@3.5.14(typescript@5.8.3))
       vue3-gettext: 2.4.0(@vue/compiler-sfc@3.5.14)(vue@3.5.14(typescript@5.8.3))
-      zod: 3.25.20
+      zod: 3.25.23
     transitivePeerDependencies:
       - '@vue/compiler-sfc'
       - debug
@@ -4600,7 +4600,7 @@ snapshots:
   browserslist@4.24.5:
     dependencies:
       caniuse-lite: 1.0.30001718
-      electron-to-chromium: 1.5.155
+      electron-to-chromium: 1.5.157
       node-releases: 2.0.19
       update-browserslist-db: 1.1.3(browserslist@4.24.5)
 
@@ -4778,7 +4778,7 @@ snapshots:
       minimatch: 9.0.1
       semver: 7.7.2
 
-  electron-to-chromium@1.5.155: {}
+  electron-to-chromium@1.5.157: {}
 
   emoji-mart@5.6.0: {}
 
@@ -5953,7 +5953,7 @@ snapshots:
 
   v8-compile-cache-lib@3.0.1: {}
 
-  vanilla-jsoneditor@3.3.1:
+  vanilla-jsoneditor@3.5.0:
     dependencies:
       '@codemirror/autocomplete': 6.18.6
       '@codemirror/commands': 6.8.1
@@ -6204,4 +6204,4 @@ snapshots:
 
   zimmerframe@1.1.2: {}
 
-  zod@3.25.20: {}
+  zod@3.25.23: {}
