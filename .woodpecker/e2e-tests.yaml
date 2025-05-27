@@ -5,7 +5,7 @@ when:
   - event: [pull_request, manual]
 
 variables:
-  - &node_image 'owncloudci/nodejs:20'
+  - &node_image 'owncloudci/nodejs:22'
   - &oc_image 'opencloudeu/opencloud-rolling:latest'
   - &alpine_image 'owncloudci/alpine:latest'
 
