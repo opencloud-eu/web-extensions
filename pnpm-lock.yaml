@@ -15,8 +15,8 @@ importers:
         specifier: ^2.0.0
         version: 2.4.0(sass@1.80.7)(vite@6.3.5(@types/node@22.15.21)(sass@1.80.7))(vue@3.5.15(typescript@5.8.3))
       '@opencloud-eu/prettier-config':
-        specifier: ^2.0.0
-        version: 2.3.0(prettier@3.5.3)
+        specifier: ^3.0.0
+        version: 3.1.0(prettier@3.5.3)
       '@opencloud-eu/tsconfig':
         specifier: ^3.0.0
         version: 3.1.0
@@ -745,8 +745,8 @@ packages:
       sass: ^1.79.5
       vite: ^5 || ^6.0.0
 
-  '@opencloud-eu/prettier-config@2.3.0':
-    resolution: {integrity: sha512-xozFAP9+zmdMiLsZPG3BKx2v7zUTiEUnWssMXVYyOF1pkqvDHmbjiSUvlIBM5KQDM/014cBhGUk7NYHv0JKLsQ==}
+  '@opencloud-eu/prettier-config@3.1.0':
+    resolution: {integrity: sha512-sdGANGsoQDpW18e3C+auVID4v4DRlQQGHfwn02iLVQBqkfgFn/A14ogQXjKJfvrG9ylLeeMEV9ePWSa/gAUS5g==}
     peerDependencies:
       prettier: ^3.0.0
 
@@ -3805,7 +3805,7 @@ snapshots:
     transitivePeerDependencies:
       - vue
 
-  '@opencloud-eu/prettier-config@2.3.0(prettier@3.5.3)':
+  '@opencloud-eu/prettier-config@3.1.0(prettier@3.5.3)':
     dependencies:
       prettier: 3.5.3
 
