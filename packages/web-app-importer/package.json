@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@opencloud-eu/web-client": "^3.0.0",
-    "@opencloud-eu/web-pkg": "^2.0.0",
+    "@opencloud-eu/web-pkg": "^3.0.0",
     "@uppy/core": "^4.0.0",
     "pinia": "^3.0.1",
     "vue": "^3.4.21",
