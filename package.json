@@ -21,7 +21,7 @@
     "@opencloud-eu/eslint-config": "^2.0.0",
     "@opencloud-eu/extension-sdk": "^2.0.0",
     "@opencloud-eu/prettier-config": "^2.0.0",
-    "@opencloud-eu/tsconfig": "^2.0.0",
+    "@opencloud-eu/tsconfig": "^3.0.0",
     "@opencloud-eu/web-test-helpers": "^3.0.0",
     "@playwright/test": "^1.50.1",
     "@types/node": "22.15.21",
