@@ -1,4 +1,4 @@
-FROM nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d
+FROM nginx@sha256:93230cd54060f497430c7a120e2347894846a81b6a5dd2110f7362c5423b4abc
 
 LABEL maintainer="OpenCloud GmbH <devops@opencloud.eu>" \
   org.opencontainers.image.title="OpenCloud Web Extensions" \
