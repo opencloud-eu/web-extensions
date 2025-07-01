@@ -15,7 +15,7 @@
     "@zip.js/zip.js": "2.7.60"
   },
   "devDependencies": {
-    "@opencloud-eu/web-client": "^2.0.0",
+    "@opencloud-eu/web-client": "^3.0.0",
     "@opencloud-eu/web-pkg": "^2.0.0",
     "uuid": "^11.0.0",
     "vue": "^3.4.21",

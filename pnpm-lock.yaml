@@ -69,8 +69,8 @@ importers:
   packages/web-app-cast:
     devDependencies:
       '@opencloud-eu/web-client':
-        specifier: ^2.0.0
-        version: 2.4.0
+        specifier: ^3.0.0
+        version: 3.1.0
       '@opencloud-eu/web-pkg':
         specifier: ^2.0.0
         version: 2.4.0(@vue/compiler-sfc@3.5.15)(typescript@5.8.3)(vue@3.5.15(typescript@5.8.3))
@@ -87,8 +87,8 @@ importers:
   packages/web-app-draw-io:
     devDependencies:
       '@opencloud-eu/web-client':
-        specifier: ^2.0.0
-        version: 2.4.0
+        specifier: ^3.0.0
+        version: 3.1.0
       '@opencloud-eu/web-pkg':
         specifier: ^2.0.0
         version: 2.4.0(@vue/compiler-sfc@3.5.15)(typescript@5.8.3)(vue@3.5.15(typescript@5.8.3))
@@ -105,8 +105,8 @@ importers:
   packages/web-app-external-sites:
     devDependencies:
       '@opencloud-eu/web-client':
-        specifier: ^2.0.0
-        version: 2.4.0
+        specifier: ^3.0.0
+        version: 3.1.0
       '@opencloud-eu/web-pkg':
         specifier: ^2.0.0
         version: 2.4.0(@vue/compiler-sfc@3.5.15)(typescript@5.8.3)(vue@3.5.15(typescript@5.8.3))
@@ -139,8 +139,8 @@ importers:
         version: 0.3.3(@uppy/core@4.4.5)
     devDependencies:
       '@opencloud-eu/web-client':
-        specifier: ^2.0.0
-        version: 2.4.0
+        specifier: ^3.0.0
+        version: 3.1.0
       '@opencloud-eu/web-pkg':
         specifier: ^2.0.0
         version: 2.4.0(@vue/compiler-sfc@3.5.15)(typescript@5.8.3)(vue@3.5.15(typescript@5.8.3))
@@ -164,8 +164,8 @@ importers:
         version: 3.5.0
     devDependencies:
       '@opencloud-eu/web-client':
-        specifier: ^2.0.0
-        version: 2.4.0
+        specifier: ^3.0.0
+        version: 3.1.0
       '@opencloud-eu/web-pkg':
         specifier: ^2.0.0
         version: 2.4.0(@vue/compiler-sfc@3.5.15)(typescript@5.8.3)(vue@3.5.15(typescript@5.8.3))
@@ -198,8 +198,8 @@ importers:
         version: 2.7.60
     devDependencies:
       '@opencloud-eu/web-client':
-        specifier: ^2.0.0
-        version: 2.4.0
+        specifier: ^3.0.0
+        version: 3.1.0
       '@opencloud-eu/web-pkg':
         specifier: ^2.0.0
         version: 2.4.0(@vue/compiler-sfc@3.5.15)(typescript@5.8.3)(vue@3.5.15(typescript@5.8.3))
