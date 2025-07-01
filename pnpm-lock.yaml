@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       '@opencloud-eu/eslint-config':
-        specifier: ^2.0.0
-        version: 2.4.0(@babel/core@7.26.0)(@typescript-eslint/eslint-plugin@8.32.1(@typescript-eslint/parser@8.32.1(eslint@9.27.0)(typescript@5.8.3))(eslint@9.27.0)(typescript@5.8.3))(eslint@9.27.0)(vue-eslint-parser@9.4.3(eslint@9.27.0))
+        specifier: ^3.0.0
+        version: 3.1.0(@babel/core@7.26.0)(@typescript-eslint/eslint-plugin@8.32.1(@typescript-eslint/parser@8.32.1(eslint@9.27.0)(typescript@5.8.3))(eslint@9.27.0)(typescript@5.8.3))(eslint@9.27.0)(vue-eslint-parser@9.4.3(eslint@9.27.0))
       '@opencloud-eu/extension-sdk':
         specifier: ^3.0.0
         version: 3.1.0(sass@1.80.7)(vite@6.3.5(@types/node@22.15.21)(sass@1.80.7))(vue@3.5.15(typescript@5.8.3))
@@ -734,8 +734,8 @@ packages:
   '@opencloud-eu/design-system@3.1.0':
     resolution: {integrity: sha512-bYxsCm0E+/UKUl7kkBPGDFwcXZ6S3WRDU0TmuvYY7cM751Jx7BUA3gFVAgJvLOaozTOMyasLdM/cTSQ5K+zyHA==}
 
-  '@opencloud-eu/eslint-config@2.4.0':
-    resolution: {integrity: sha512-K2wKVXvzIYTzhU85Wp5it6Hi2hQuJwfQyn/AaRrt2WXV6TdlpzwvAnBCrFPaNXS5WVvWBde3P+pQu8HQVV4OWw==}
+  '@opencloud-eu/eslint-config@3.1.0':
+    resolution: {integrity: sha512-6XTzxttdYJcbjN32vuCs/vH/4rssT+lFmEAEu7fMtpIf995udSnOmZ0nc/1Ep2FC0/9MwOV+qmdklXrMePnG4g==}
     peerDependencies:
       eslint: ^9.0.0
 
@@ -3779,7 +3779,7 @@ snapshots:
       - '@vue/compiler-sfc'
       - vue
 
-  '@opencloud-eu/eslint-config@2.4.0(@babel/core@7.26.0)(@typescript-eslint/eslint-plugin@8.32.1(@typescript-eslint/parser@8.32.1(eslint@9.27.0)(typescript@5.8.3))(eslint@9.27.0)(typescript@5.8.3))(eslint@9.27.0)(vue-eslint-parser@9.4.3(eslint@9.27.0))':
+  '@opencloud-eu/eslint-config@3.1.0(@babel/core@7.26.0)(@typescript-eslint/eslint-plugin@8.32.1(@typescript-eslint/parser@8.32.1(eslint@9.27.0)(typescript@5.8.3))(eslint@9.27.0)(typescript@5.8.3))(eslint@9.27.0)(vue-eslint-parser@9.4.3(eslint@9.27.0))':
     dependencies:
       '@babel/eslint-parser': 7.27.1(@babel/core@7.26.0)(eslint@9.27.0)
       '@typescript-eslint/parser': 8.32.1(eslint@9.27.0)(typescript@5.8.3)

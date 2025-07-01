@@ -18,7 +18,7 @@
     "test:e2e": "pnpm playwright test"
   },
   "devDependencies": {
-    "@opencloud-eu/eslint-config": "^2.0.0",
+    "@opencloud-eu/eslint-config": "^3.0.0",
     "@opencloud-eu/extension-sdk": "^3.0.0",
     "@opencloud-eu/prettier-config": "^3.0.0",
     "@opencloud-eu/tsconfig": "^3.0.0",
