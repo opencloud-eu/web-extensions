@@ -1,0 +1,41 @@
+---
+when:
+  - event: cron
+    cron: translation-sync
+
+variables:
+  - &node_image 'owncloudci/nodejs:22'
+  - &git_action_plugin 'quay.io/thegeeklab/wp-git-action:2'
+
+steps:
+  - name: translation-update
+    image: *node_image
+    commands:
+      - make l10n-read
+      - curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash
+      - . ~/.profile
+      - make l10n-push
+      - make l10n-pull
+      - rm tx
+      - make l10n-write
+      - make l10n-clean
+      - git checkout pnpm-lock.yaml # ignore possible changes in package.lock
+    environment:
+      TX_TOKEN:
+        from_secret: tx_token
+
+  - name: translation-push
+    image: *git_action_plugin
+    settings:
+      action:
+        - commit
+        - push
+      author_email: devops@opencloud.eu
+      author_name: opencloudeu
+      branch: ${CI_REPO_DEFAULT_BRANCH}
+      empty_commit: false
+      message: '[tx] updated from transifex'
+      netrc_password:
+        from_secret: github_token
+      netrc_username:
+        from_secret: github_username
