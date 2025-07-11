@@ -120,8 +120,8 @@ importers:
         specifier: ^2.4.0
         version: 2.4.0(@vue/compiler-sfc@3.5.17)(vue@3.5.17(typescript@5.8.3))
       zod:
-        specifier: ^3.22.4
-        version: 3.25.76
+        specifier: ^4.0.0
+        version: 4.0.5
 
   packages/web-app-importer:
     dependencies:
@@ -3108,6 +3108,9 @@ packages:
 
   zod@3.25.76:
     resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
+
+  zod@4.0.5:
+    resolution: {integrity: sha512-/5UuuRPStvHXu7RS+gmvRf4NXrNxpSllGwDnCBcJZtQsKrviYXm54yDGV2KYNLT5kq0lHGcl7lqWJLgSaG+tgA==}
 
 snapshots:
 
@@ -6260,3 +6263,5 @@ snapshots:
   zimmerframe@1.1.2: {}
 
   zod@3.25.76: {}
+
+  zod@4.0.5: {}
