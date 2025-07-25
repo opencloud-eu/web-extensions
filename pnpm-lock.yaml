@@ -194,8 +194,8 @@ importers:
   packages/web-app-unzip:
     dependencies:
       '@zip.js/zip.js':
-        specifier: 2.7.66
-        version: 2.7.66
+        specifier: 2.7.68
+        version: 2.7.68
     devDependencies:
       '@opencloud-eu/web-client':
         specifier: ^3.0.0
@@ -1366,8 +1366,8 @@ packages:
     peerDependencies:
       vue: ^3.5.0
 
-  '@zip.js/zip.js@2.7.66':
-    resolution: {integrity: sha512-SNf0p0qnmN9CyaABhn05Z00c6scqLKmZAjAS/WxjewvwxUco36pMC1y7t2ZaJe57aKuNVwpauwY3mP1ks3QJvQ==}
+  '@zip.js/zip.js@2.7.68':
+    resolution: {integrity: sha512-HkabH6ThvDh1btwLbJiLFXzUW4fNN0leoYiopCg03OWg394j8NSb/Mro4i5J0S9ZLTwbBUpFrx86TzDXQRlT4Q==}
     engines: {bun: '>=0.7.0', deno: '>=1.0.0', node: '>=16.5.0'}
 
   abbrev@2.0.0:
@@ -4597,7 +4597,7 @@ snapshots:
     dependencies:
       vue: 3.5.18(typescript@5.8.3)
 
-  '@zip.js/zip.js@2.7.66': {}
+  '@zip.js/zip.js@2.7.68': {}
 
   abbrev@2.0.0: {}
 
