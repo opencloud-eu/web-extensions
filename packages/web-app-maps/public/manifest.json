@@ -1,6 +1,3 @@
 {
-  "entrypoint": "maps.js",
-  "config": {
-
-  }
+  "entrypoint": "maps.js"
 }
