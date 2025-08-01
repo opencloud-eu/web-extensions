@@ -122,7 +122,7 @@ export default defineComponent({
 })
 </script>
 
-<style type="scss">
+<style type="scss" scoped>
 .data-table-container {
   flex-grow: 0;
   flex-shrink: 0;
