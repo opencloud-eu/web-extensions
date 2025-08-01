@@ -20,7 +20,7 @@ export default defineConfig({
   },
   plugins: [
     viteStaticCopy({
-      targets: [{ src: 'node_modules/leaflet-gpx/pin-*.png', dest: assetsDest }]
+      targets: [{ src: 'node_modules/leaflet-gpx/icons/pin-*.png', dest: assetsDest }]
     })
   ]
 })
