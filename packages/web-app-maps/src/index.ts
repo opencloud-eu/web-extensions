@@ -41,7 +41,7 @@ export default defineWebApplication({
             {
               id: 'com.github.opencloud-eu.maps.sidebar-panel',
               type: 'sidebarPanel',
-              scopes: ['resource'],
+              extensionPointIds: ['global.files.sidebar'],
               panel: {
                 name: 'location-details',
                 icon: 'map-2',
@@ -63,7 +63,7 @@ export default defineWebApplication({
             {
               id: 'com.github.opencloud-eu.maps.folder-view.map-view',
               type: 'folderView',
-              scopes: ['resource', 'favorite'],
+              extensionPointIds: ['app.files.folder-views.folder'],
               folderView: {
                 name: 'resource-map',
                 label: $gettext('Switch to map view'),
