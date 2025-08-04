@@ -12,7 +12,7 @@
     "test:unit": "NODE_OPTIONS=--unhandled-rejections=throw vitest"
   },
   "devDependencies": {
-    "vite-plugin-static-copy": "^0.13.0",
+    "vite-plugin-static-copy": "^3.0.0",
     "vue": "^3.4.21",
     "vue3-gettext": "^2.4.0"
   },
