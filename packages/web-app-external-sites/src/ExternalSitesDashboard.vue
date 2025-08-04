@@ -1,7 +1,7 @@
 <template>
   <main id="external-sites-dashboard" class="oc-pt-m oc-pb-l oc-flex oc-flex-center">
     <div class="page">
-      <h1 class="title oc-mb-rm" v-text="$gettext('Dashboard')" />
+      <h1 class="title oc-mb-rm" v-text="config.dashboard.title || $gettext('Dashboard')" />
       <!-- FIXME: how to do this properly?! -->
       <br />
       <br />
@@ -17,19 +17,14 @@
 <script setup lang="ts">
 import DashboardGroup from './components/DashboardGroup.vue'
 import { computed, PropType } from 'vue'
-import {
-  ExternalSiteOrSiteGroup,
-  ExternalSiteGroup,
-  ExternalSite,
-  isExternalSiteGroup
-} from './types'
+import { ExternalSiteGroup, ExternalSite, isExternalSiteGroup, ExternalSitesConfig } from './types'
 import { useGettext } from 'vue3-gettext'
 
 const { $gettext } = useGettext()
 
 const props = defineProps({
-  sites: {
-    type: Array as PropType<ExternalSiteOrSiteGroup[]>,
+  config: {
+    type: Object as PropType<ExternalSitesConfig>,
     required: true
   }
 })
@@ -37,13 +32,13 @@ const props = defineProps({
 const standaloneGroup = computed((): ExternalSiteGroup => {
   return {
     // TODO: sort by priority?
-    sites: props.sites.filter((item) => !isExternalSiteGroup(item)) as ExternalSite[]
+    sites: props.config.sites.filter((item) => !isExternalSiteGroup(item)) as ExternalSite[]
   }
 })
 
 const groups = computed((): ExternalSiteGroup[] => {
   // TODO: sort by priority?
-  return props.sites.filter((item) => isExternalSiteGroup(item))
+  return props.config.sites.filter((item) => isExternalSiteGroup(item))
 })
 </script>
 

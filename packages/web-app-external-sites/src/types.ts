@@ -35,10 +35,13 @@ export const ExternalSitesConfigSchema = z.object({
   dashboard: z
     .object({
       enabled: z.boolean().default(true),
-      title: z.string().optional()
+      title: z.string().optional(),
+      color: z.string().optional()
     })
     .default({
       enabled: true
     }),
-  sites: z.array(ExternalSiteOrSiteGroupSchema)
+  sites: z.array(ExternalSiteOrSiteGroupSchema).default([])
 })
+
+export type ExternalSitesConfig = z.infer<typeof ExternalSitesConfigSchema>

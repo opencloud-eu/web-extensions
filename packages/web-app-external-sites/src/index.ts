@@ -15,10 +15,10 @@ export default defineWebApplication({
 
     const appId = 'external-sites'
 
-    const { dashboard, sites = [] } = ExternalSitesConfigSchema.parse(applicationConfig)
+    const config = ExternalSitesConfigSchema.parse(applicationConfig)
 
     const routes: RouteRecordRaw[] = []
-    const internalSites = sites.filter(
+    const internalSites = config.sites.filter(
       (s) => isExternalSite(s) && s.target === 'embedded'
     ) as ExternalSite[]
     internalSites.forEach(({ name, url }) => {
@@ -35,7 +35,7 @@ export default defineWebApplication({
     })
 
     const menuItems = computed<AppMenuItemExtension[]>(() =>
-      sites
+      config.sites
         .filter((s) => isExternalSite(s))
         .map((s) => {
           return {
@@ -53,14 +53,14 @@ export default defineWebApplication({
         })
     )
 
-    if (dashboard?.enabled) {
+    if (config.dashboard?.enabled) {
       routes.push({
         path: '/',
-        component: h(Dashboard, { sites }),
+        component: h(Dashboard, { config }),
         name: `${appId}-dashboard`,
         meta: {
           authContext: 'user',
-          title: dashboard.title || $gettext('Dashboard'),
+          title: config.dashboard.title || $gettext('Dashboard'),
           patchCleanPath: true
         }
       })
@@ -68,10 +68,10 @@ export default defineWebApplication({
       menuItems.value.push({
         id: `${appId}-dashboard`,
         type: 'appMenuItem',
-        label: () => dashboard.title || $gettext('Dashboard'),
-        color: 'pink', //s.color,
+        label: () => config.dashboard.title || $gettext('Dashboard'),
         icon: 'grid',
-        path: '/external-sites'
+        path: '/external-sites',
+        ...(config.dashboard.color && { color: config.dashboard.color })
       })
     }
 
