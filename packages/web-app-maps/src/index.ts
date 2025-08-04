@@ -1,0 +1,108 @@
+import translations from '../l10n/translations.json'
+import {
+  AppWrapperRoute,
+  defineWebApplication,
+  Extension,
+  ApplicationSetupOptions
+} from '@opencloud-eu/web-pkg'
+import { computed } from 'vue'
+import { useGettext } from 'vue3-gettext'
+import LocationPanel from './components/LocationPanel.vue'
+import GpxMap from './components/GpxMap.vue'
+
+import 'leaflet/dist/leaflet.css'
+import 'leaflet-gpx'
+import LocationFolderView from './components/LocationFolderView.vue'
+
+const applicationId = 'maps'
+export default defineWebApplication({
+  setup(args) {
+    const { $gettext } = useGettext()
+
+    const appInfo = {
+      name: $gettext('Maps'),
+      id: applicationId,
+      icon: 'map-2',
+      iconFillType: 'line',
+      iconColor: 'green',
+      extensions: [
+        {
+          extension: 'gpx',
+          routeName: 'maps',
+          canBeDefault: true
+        }
+      ]
+    }
+
+    const extensions = ({ applicationConfig }: ApplicationSetupOptions) => {
+      return computed(
+        () =>
+          [
+            {
+              id: 'com.github.opencloud-eu.maps.sidebar-panel',
+              type: 'sidebarPanel',
+              extensionPointIds: ['global.files.sidebar'],
+              panel: {
+                name: 'location-details',
+                icon: 'map-2',
+                iconFillType: 'line',
+                title: () => $gettext('Location'),
+                component: LocationPanel,
+                componentAttrs: (panelContext) => {
+                  return {
+                    panelContext,
+                    applicationConfig
+                  }
+                },
+                isRoot: () => true,
+                isVisible: ({ items }) => {
+                  return items?.length > 0 && items?.some((item) => !!item.location)
+                }
+              }
+            },
+            {
+              id: 'com.github.opencloud-eu.maps.folder-view.map-view',
+              type: 'folderView',
+              extensionPointIds: ['app.files.folder-views.folder'],
+              folderView: {
+                name: 'resource-map',
+                label: $gettext('Switch to map view'),
+                icon: {
+                  name: 'map-2',
+                  fillType: 'line'
+                },
+                isScrollable: false,
+                component: LocationFolderView,
+                componentAttrs: () => ({ applicationConfig })
+              }
+            }
+          ] satisfies Extension[]
+      )
+    }
+
+    const routes = [
+      {
+        name: 'maps',
+        path: '/:driveAliasAndItem(.*)?',
+        component: AppWrapperRoute(GpxMap, {
+          applicationId,
+          urlForResourceOptions: {
+            disposition: 'inline'
+          }
+        }),
+        meta: {
+          authContext: 'hybrid',
+          title: $gettext('Maps'),
+          patchCleanPath: true
+        }
+      }
+    ]
+
+    return {
+      appInfo,
+      routes,
+      translations,
+      extensions: extensions(args)
+    }
+  }
+})

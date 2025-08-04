@@ -7,11 +7,23 @@ services:
       OC_URL: https://host.docker.internal:9200
       OC_INSECURE: true
       OC_LOG_LEVEL: error
+
+      IDM_CREATE_DEMO_USERS: true
       IDM_ADMIN_PASSWORD: admin
+
+      # PROXY
       PROXY_ENABLE_BASIC_AUTH: true
-      PROXY_TLS: 'false'
+      PROXY_TLS: false
+      PROXY_CSP_CONFIG_FILE_LOCATION: /etc/opencloud/csp.yaml
+
+      # WEB
       WEB_ASSET_APPS_PATH: /web/apps
       WEB_UI_CONFIG_FILE: /web/config.json
+
+      # TIKA
+      SEARCH_EXTRACTOR_TYPE: 'tika'
+      SEARCH_EXTRACTOR_TIKA_TIKA_URL: 'http://host.docker.internal:9998'
+      SEARCH_EXTRACTOR_CS3SOURCE_INSECURE: 'true'
     labels:
       traefik.enable: true
       traefik.http.routers.opencloud.tls: true
@@ -23,12 +35,14 @@ services:
       - opencloud-config:/etc/opencloud
       - ./dev/docker/opencloud.web.config.json:/web/config.json
       - ./dev/docker/opencloud.apps.yaml:/etc/opencloud/apps.yaml
+      - ./dev/docker/csp.yaml:/etc/opencloud/csp.yaml
       # apps
       - ./packages/web-app-cast/dist:/web/apps/cast
       - ./packages/web-app-draw-io/dist:/web/apps/draw-io
       - ./packages/web-app-external-sites/dist:/web/apps/external-sites
       - ./packages/web-app-importer/dist:/web/apps/importer
       - ./packages/web-app-json-viewer/dist:/web/apps/json-viewer
+      - ./packages/web-app-maps/dist:/web/apps/maps
       - ./packages/web-app-progress-bars/dist:/web/apps/progress-bars
       - ./packages/web-app-unzip/dist:/web/apps/unzip
     depends_on:
@@ -57,6 +71,21 @@ services:
       traefik.http.routers.companion.rule: Host(`host.docker.internal`) && PathPrefix(`/companion`)
       traefik.http.routers.companion.entrypoints: opencloud
       traefik.http.services.companion.loadbalancer.server.port: 3020
+
+  tika-service:
+    image: dadarek/wait-for-dependencies:latest
+    container_name: web_tika_service
+    depends_on:
+      - tika
+    command:
+      - 'wait-for -it tika:9998 -t 300'
+
+  tika:
+    image: apache/tika:3.2.1.0
+    container_name: web_tika
+    ports:
+      - '9998:9998'
+    restart: unless-stopped
 
   traefik:
     image: traefik:v3.4.4

@@ -1,0 +1,35 @@
+directives:
+  child-src:
+    - "'self'"
+  connect-src:
+    - "'self'"
+    - 'blob:'
+  default-src:
+    - "'none'"
+  font-src:
+    - "'self'"
+  frame-ancestors:
+    - "'self'"
+  frame-src:
+    - "'self'"
+    - 'blob:'
+    - 'https://embed.diagrams.net/'
+  img-src:
+    - "'self'"
+    - 'data:'
+    - 'blob:'
+    - 'https://tile.openstreetmap.org/'
+  manifest-src:
+    - "'self'"
+  media-src:
+    - "'self'"
+  object-src:
+    - "'self'"
+    - 'blob:'
+  script-src:
+    - "'self'"
+    - "'unsafe-inline'"
+    - 'https://www.gstatic.com/'
+  style-src:
+    - "'self'"
+    - "'unsafe-inline'"
