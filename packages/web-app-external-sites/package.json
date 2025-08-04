@@ -8,6 +8,7 @@
   "scripts": {
     "build": "pnpm vite build",
     "build:w": "pnpm vite build --watch --mode development",
+    "check:types": "vue-tsc --noEmit",
     "test:unit": "NODE_OPTIONS=--unhandled-rejections=throw vitest"
   },
   "devDependencies": {
