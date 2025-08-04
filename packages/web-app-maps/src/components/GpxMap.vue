@@ -54,7 +54,7 @@ export default defineComponent({
     const { $gettext } = useGettext()
 
     let mapObject: L.Map | null = null
-    let meta: Ref<{
+    const meta: Ref<{
       name?: string
       distance?: string
       elevationGain?: string

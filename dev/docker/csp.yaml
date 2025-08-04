@@ -1,35 +1,35 @@
 directives:
   child-src:
-    - '''self'''
+    - "'self'"
   connect-src:
-    - '''self'''
+    - "'self'"
     - 'blob:'
   default-src:
-    - '''none'''
+    - "'none'"
   font-src:
-    - '''self'''
+    - "'self'"
   frame-ancestors:
-    - '''self'''
+    - "'self'"
   frame-src:
-    - '''self'''
+    - "'self'"
     - 'blob:'
     - 'https://embed.diagrams.net/'
   img-src:
-    - '''self'''
+    - "'self'"
     - 'data:'
     - 'blob:'
     - 'https://tile.openstreetmap.org/'
   manifest-src:
-    - '''self'''
+    - "'self'"
   media-src:
-    - '''self'''
+    - "'self'"
   object-src:
-    - '''self'''
+    - "'self'"
     - 'blob:'
   script-src:
-    - '''self'''
-    - '''unsafe-inline'''
+    - "'self'"
+    - "'unsafe-inline'"
     - 'https://www.gstatic.com/'
   style-src:
-    - '''self'''
-    - '''unsafe-inline'''
+    - "'self'"
+    - "'unsafe-inline'"

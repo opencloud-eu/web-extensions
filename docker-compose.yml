@@ -84,7 +84,7 @@ services:
     image: apache/tika:3.2.1.0
     container_name: web_tika
     ports:
-      - "9998:9998"
+      - '9998:9998'
     restart: unless-stopped
 
   traefik:
