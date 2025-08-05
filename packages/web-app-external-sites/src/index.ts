@@ -15,12 +15,10 @@ export default defineWebApplication({
 
     const appId = 'external-sites'
 
-    const config = ExternalSitesConfigSchema.parse(applicationConfig)
+    const { sites, dashboards } = ExternalSitesConfigSchema.parse(applicationConfig)
 
     const routes: RouteRecordRaw[] = []
-    const internalSites = config.sites.filter(
-      (s) => isExternalSite(s) && s.target === 'embedded'
-    ) as ExternalSite[]
+    const internalSites = sites.filter((s) => s.target === 'embedded')
     internalSites.forEach(({ name, url }) => {
       routes.push({
         path: urlJoin(encodeURIComponent(name).toLowerCase()),
@@ -35,25 +33,23 @@ export default defineWebApplication({
     })
 
     const menuItems = computed<AppMenuItemExtension[]>(() =>
-      config.sites
-        .filter((s) => isExternalSite(s))
-        .map((s) => {
-          return {
-            id: `${appId}-${s.name}`,
-            type: 'appMenuItem',
-            label: () => $gettext(s.name),
-            color: s.color,
-            icon: s.icon,
-            priority: s.priority,
-            ...(s.target === 'embedded' && {
-              path: urlJoin(appId, encodeURIComponent(s.name).toLowerCase())
-            }),
-            ...(s.target === 'external' && { url: s.url })
-          }
-        })
+      sites.map((s) => {
+        return {
+          id: `${appId}-${s.name}`,
+          type: 'appMenuItem',
+          label: () => $gettext(s.name),
+          color: s.color,
+          icon: s.icon,
+          priority: s.priority,
+          ...(s.target === 'embedded' && {
+            path: urlJoin(appId, encodeURIComponent(s.name).toLowerCase())
+          }),
+          ...(s.target === 'external' && { url: s.url })
+        }
+      })
     )
 
-    config.dashboards.forEach((dashboard) => {
+    dashboards.forEach((dashboard) => {
       routes.push({
         path: '/',
         component: h(Dashboard, { dashboard }),
