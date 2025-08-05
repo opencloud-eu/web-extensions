@@ -20,9 +20,6 @@ import {
   isExternalSiteGroup,
   ExternalSiteDashboard
 } from './types'
-import { useGettext } from 'vue3-gettext'
-
-const { $gettext } = useGettext()
 
 const props = defineProps<{
   dashboard: ExternalSiteDashboard

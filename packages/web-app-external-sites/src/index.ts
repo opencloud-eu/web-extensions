@@ -4,7 +4,7 @@ import translations from '../l10n/translations.json'
 import { useGettext } from 'vue3-gettext'
 import { computed, h } from 'vue'
 import { RouteRecordRaw } from 'vue-router'
-import { ExternalSitesConfigSchema, isExternalSite, ExternalSite } from './types'
+import { ExternalSitesConfigSchema } from './types'
 
 import App from './App.vue'
 import Dashboard from './ExternalSitesDashboard.vue'
