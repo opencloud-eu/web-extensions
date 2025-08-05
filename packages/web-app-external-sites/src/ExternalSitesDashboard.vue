@@ -1,7 +1,7 @@
 <template>
   <main id="external-sites-dashboard" class="oc-pt-m oc-pb-l oc-flex oc-flex-center">
     <div class="page">
-      <h1 class="title oc-mb-m" v-text="dashboard.name || $gettext('Links')" />
+      <h1 class="title oc-mb-m" v-text="dashboard.name" />
       <dashboard-group :group="standaloneGroup" />
 
       <template v-for="group in groups" :key="group.name">

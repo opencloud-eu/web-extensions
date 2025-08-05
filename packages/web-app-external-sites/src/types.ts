@@ -34,7 +34,8 @@ export const isExternalSiteGroup = (item: ExternalSiteOrSiteGroup): item is Exte
 export const ExternalSiteDashboardSchema = z.object({
   path: z.string().optional(),
 
-  name: z.string().optional(),
+  name: z.string(),
+  icon: z.string().optional(),
   color: z.string().optional(),
   sites: z.array(ExternalSiteOrSiteGroupSchema)
 })

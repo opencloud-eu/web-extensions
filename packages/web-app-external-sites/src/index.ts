@@ -51,12 +51,12 @@ export default defineWebApplication({
 
     dashboards.forEach((dashboard) => {
       routes.push({
-        path: '/',
+        path: dashboard.path || '/',
         component: h(Dashboard, { dashboard }),
-        name: `${appId}-dashboard-${dashboard.name || 'links'}`,
+        name: `${appId}-dashboard-${dashboard.name}`,
         meta: {
           authContext: 'user',
-          title: dashboard.name || $gettext('Links'),
+          title: dashboard.name,
           patchCleanPath: true
         }
       })
@@ -64,9 +64,9 @@ export default defineWebApplication({
       menuItems.value.push({
         id: `${appId}-dashboard`,
         type: 'appMenuItem',
-        label: () => dashboard.name || $gettext('Dashboard'),
-        icon: 'grid',
-        path: dashboard.path || '/external-sites',
+        label: () => dashboard.name,
+        icon: dashboard.icon || 'grid',
+        path: urlJoin(...[appId, dashboard.path].filter(Boolean)),
         ...(dashboard.color && { color: dashboard.color })
       })
     })
