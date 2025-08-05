@@ -62,7 +62,7 @@ export default defineWebApplication({
       })
 
       menuItems.value.push({
-        id: `${appId}-dashboard`,
+        id: `${appId}-dashboard-${dashboard.name}`,
         type: 'appMenuItem',
         label: () => dashboard.name,
         icon: dashboard.icon || 'grid',
