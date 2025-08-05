@@ -10,16 +10,12 @@
 </template>
 
 <script setup lang="ts">
-import { PropType } from 'vue'
 import DashboardLink from './DashboardLink.vue'
 import { ExternalSiteGroup } from '../types'
 
-defineProps({
-  group: {
-    type: Object as PropType<ExternalSiteGroup>,
-    required: true
-  }
-})
+defineProps<{
+  group: ExternalSiteGroup
+}>()
 </script>
 
 <style lang="scss" scoped>

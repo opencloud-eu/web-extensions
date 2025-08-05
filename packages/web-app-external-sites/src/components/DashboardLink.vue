@@ -19,15 +19,11 @@
 </template>
 
 <script setup lang="ts">
-import { type PropType } from 'vue'
 import { ExternalSite } from '../types'
 
-defineProps({
-  site: {
-    type: Object as PropType<ExternalSite>,
-    required: true
-  }
-})
+defineProps<{
+  site: ExternalSite
+}>()
 </script>
 
 <style lang="scss" scoped>

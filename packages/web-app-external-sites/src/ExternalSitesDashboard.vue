@@ -16,18 +16,15 @@
 
 <script setup lang="ts">
 import DashboardGroup from './components/DashboardGroup.vue'
-import { computed, PropType } from 'vue'
+import { computed } from 'vue'
 import { ExternalSiteGroup, ExternalSite, isExternalSiteGroup, ExternalSitesConfig } from './types'
 import { useGettext } from 'vue3-gettext'
 
 const { $gettext } = useGettext()
 
-const props = defineProps({
-  config: {
-    type: Object as PropType<ExternalSitesConfig>,
-    required: true
-  }
-})
+const props = defineProps<{
+  config: ExternalSitesConfig
+}>()
 
 const standaloneGroup = computed((): ExternalSiteGroup => {
   return {
