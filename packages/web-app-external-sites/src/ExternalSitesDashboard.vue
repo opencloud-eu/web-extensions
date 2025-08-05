@@ -1,10 +1,7 @@
 <template>
   <main id="external-sites-dashboard" class="oc-pt-m oc-pb-l oc-flex oc-flex-center">
     <div class="page">
-      <h1 class="title oc-mb-rm" v-text="config.dashboard.title || $gettext('Dashboard')" />
-      <!-- FIXME: how to do this properly?! -->
-      <br />
-      <br />
+      <h1 class="title oc-mb-m" v-text="dashboard.name || $gettext('Links')" />
       <dashboard-group :group="standaloneGroup" />
 
       <template v-for="group in groups" :key="group.name">
@@ -17,25 +14,30 @@
 <script setup lang="ts">
 import DashboardGroup from './components/DashboardGroup.vue'
 import { computed } from 'vue'
-import { ExternalSiteGroup, ExternalSite, isExternalSiteGroup, ExternalSitesConfig } from './types'
+import {
+  ExternalSiteGroup,
+  ExternalSite,
+  isExternalSiteGroup,
+  ExternalSiteDashboard
+} from './types'
 import { useGettext } from 'vue3-gettext'
 
 const { $gettext } = useGettext()
 
 const props = defineProps<{
-  config: ExternalSitesConfig
+  dashboard: ExternalSiteDashboard
 }>()
 
 const standaloneGroup = computed((): ExternalSiteGroup => {
   return {
     // TODO: sort by priority?
-    sites: props.config.sites.filter((item) => !isExternalSiteGroup(item)) as ExternalSite[]
+    sites: props.dashboard.sites.filter((item) => !isExternalSiteGroup(item)) as ExternalSite[]
   }
 })
 
 const groups = computed((): ExternalSiteGroup[] => {
   // TODO: sort by priority?
-  return props.config.sites.filter((item) => isExternalSiteGroup(item))
+  return props.dashboard.sites.filter((item) => isExternalSiteGroup(item))
 })
 </script>
 

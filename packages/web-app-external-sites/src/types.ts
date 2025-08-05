@@ -31,17 +31,19 @@ export const isExternalSiteGroup = (item: ExternalSiteOrSiteGroup): item is Exte
   return (item as ExternalSiteGroup).sites !== undefined
 }
 
+export const ExternalSiteDashboardSchema = z.object({
+  path: z.string().optional(),
+
+  name: z.string().optional(),
+  color: z.string().optional(),
+  sites: z.array(ExternalSiteOrSiteGroupSchema)
+})
+
+export type ExternalSiteDashboard = z.infer<typeof ExternalSiteDashboardSchema>
+
 export const ExternalSitesConfigSchema = z.object({
-  dashboard: z
-    .object({
-      enabled: z.boolean().default(true),
-      title: z.string().optional(),
-      color: z.string().optional()
-    })
-    .default({
-      enabled: true
-    }),
-  sites: z.array(ExternalSiteOrSiteGroupSchema).default([])
+  dashboards: z.array(ExternalSiteDashboardSchema).default([]),
+  sites: z.array(ExternalSiteSchema).default([])
 })
 
 export type ExternalSitesConfig = z.infer<typeof ExternalSitesConfigSchema>
