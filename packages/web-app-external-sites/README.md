@@ -27,8 +27,70 @@ All of these 3 config options are required.
 
 The following attributes are optional:
 
-- `color` _(string)_ - specifies the Hex color codes of the icon background of the menu item.
-- `icon` _(string)_ - specifies the name of a [Remix Icon](https://remixicon.com/) to be used for the menu item.
-- `priority` _(number)_ - specifies the order of the menu item. `50` is probably a good place to start, then go up/down based on where the item should be placed. Defaults to the highest possible number, so the item will most likely end up at the bottom of the list.
+- **`color`** _(string)_ - specifies the Hex color codes of the icon background of the menu item.
+- **`icon`** _(string)_ - specifies the name of a [Remix Icon](https://remixicon.com/) to be used for the menu item.
+- **`priority`** _(number)_ - specifies the order of the menu item. `50` is probably a good place to start, then go up/down based on where the item should be placed. Defaults to the highest possible number, so the item will most likely end up at the bottom of the list.
+
+## Dashboards
+
+You can also group external sites under so-called dashboards. These appear as dedicated pages in the menu.
+
+### Example
+
+```json
+"dashboards": [
+  {
+    "name": "My Dashboard",
+    "path": "/dashboard",
+    "color": "#ff9800",
+    "icon": "grid",
+    "sites": [
+      {
+        "name": "Plex",
+        "url": "https://plex.local",
+        "color": "#e5a00d",
+        "icon": "play",
+        "description": "Multimedia streaming service"
+      },
+      {
+        "name": "Office",
+        "sites": [
+          {
+            "name": "Paperless NGX",
+            "url": "https://paperless.local",
+            "color": "#17541f",
+            "icon": "leaf",
+            "description": "Document management system."
+          },
+          {
+            "name": "Printer Web UI",
+            "url": "http://printer.local",
+            "color": "#0096d6",
+            "icon": "printer",
+            "description": "Administration panel and web scan."
+          }
+        ]
+      }
+    ]
+  }
+]
+```
+
+### Dashboard Options
+
+Each dashboard object supports the following fields:
+
+- **`name`** *(string, required)* – Display name shown in the app menu and as title on the page.
+- **`path`** *(string, required)* – Route under which the dashboard will be available. This is appended to `/external-sites`.
+- **`sites`** *(array, required)* – List of entries shown on the dashboard. These can be:
+  - A **site**, which includes at least `name` and `url`, or
+  - A **group**, which includes a `name` and a nested `sites` array of individual site entries.
+
+Embedded links are currently not supported. Sites not inside a group are shown above the groups without a headline.
+
+### Optional Dashboard Attributes
+
+- **`color`** *(string)* – Specifies the hex color code of the icon background for the dashboard.
+- **`icon`** *(string)* – Specifies the name of a [Remix Icon](https://remixicon.com/) to be used for the dashboard menu item.
 
 Please refer to [the Web app docs](https://docs.opencloud.eu/docs/admin/configuration/web-applications) if you want to learn how to configure a Web app.
