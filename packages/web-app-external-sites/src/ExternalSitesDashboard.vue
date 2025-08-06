@@ -27,13 +27,11 @@ const props = defineProps<{
 
 const standaloneGroup = computed((): ExternalSiteGroup => {
   return {
-    // TODO: sort by priority?
     sites: props.dashboard.sites.filter((item) => !isExternalSiteGroup(item)) as ExternalSite[]
   }
 })
 
 const groups = computed((): ExternalSiteGroup[] => {
-  // TODO: sort by priority?
   return props.dashboard.sites.filter((item) => isExternalSiteGroup(item))
 })
 </script>
