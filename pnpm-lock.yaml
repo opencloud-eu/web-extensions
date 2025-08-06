@@ -126,8 +126,8 @@ importers:
   packages/web-app-importer:
     dependencies:
       '@uppy/dashboard':
-        specifier: 4.4.2
-        version: 4.4.2(@uppy/core@4.5.2)
+        specifier: 4.4.3
+        version: 4.4.3(@uppy/core@4.5.2)
       '@uppy/google-drive':
         specifier: 4.4.2
         version: 4.4.2(@uppy/core@4.5.2)
@@ -1204,8 +1204,8 @@ packages:
   '@uppy/core@4.5.2':
     resolution: {integrity: sha512-5XoPJNcqEXtxtw+vg8EyqUFe11JSbG3/aln83Y7+CLbs7WOovYdfwwKEt1aTbfg1+ijsxudLchya5yh72jaLqw==}
 
-  '@uppy/dashboard@4.4.2':
-    resolution: {integrity: sha512-bMp4pQFiL1v9BnQBunD3l2mUA05pVJ3PwxlbJNPGpvytGoUXk+fhiiGZsx/kXyU/QTRjI+6EQbn4EMJtC62UEA==}
+  '@uppy/dashboard@4.4.3':
+    resolution: {integrity: sha512-IwgDDTbk9p4OoAJvvvx6sQSemKTIJq9IDSryNVgbbC6NiR9HSyRcu0+WdOZLiR9DOhDg2oYcoNgv7DMlrktI6g==}
     peerDependencies:
       '@uppy/core': ^4.5.2
 
@@ -1234,8 +1234,8 @@ packages:
     peerDependencies:
       '@uppy/core': ^4.5.2
 
-  '@uppy/status-bar@4.2.2':
-    resolution: {integrity: sha512-NOk2OVNS4lpJgjkxlD+shVPb2hmPF5beDnZb90a3qb8OiyEsYrDfC5Sx625f2IW3EUwPx6XCvAKBlgKh382X7g==}
+  '@uppy/status-bar@4.2.3':
+    resolution: {integrity: sha512-0AtKdvNm3HHobuE4N0V8SrC3uWB9MQnjqMEL/gachW/1mi7iZ22V4veHd6Wub/tCBQAQbEklvz7d0hxcz/Fh9g==}
     peerDependencies:
       '@uppy/core': ^4.5.2
 
@@ -4395,13 +4395,13 @@ snapshots:
       nanoid: 5.1.5
       preact: 10.27.0
 
-  '@uppy/dashboard@4.4.2(@uppy/core@4.5.2)':
+  '@uppy/dashboard@4.4.3(@uppy/core@4.5.2)':
     dependencies:
       '@transloadit/prettier-bytes': 0.3.5
       '@uppy/core': 4.5.2
       '@uppy/informer': 4.3.2(@uppy/core@4.5.2)
       '@uppy/provider-views': 4.5.2(@uppy/core@4.5.2)
-      '@uppy/status-bar': 4.2.2(@uppy/core@4.5.2)
+      '@uppy/status-bar': 4.2.3(@uppy/core@4.5.2)
       '@uppy/thumbnail-generator': 4.2.2(@uppy/core@4.5.2)
       '@uppy/utils': 6.2.2
       classnames: 2.5.1
@@ -4446,7 +4446,7 @@ snapshots:
       p-queue: 8.1.0
       preact: 10.27.0
 
-  '@uppy/status-bar@4.2.2(@uppy/core@4.5.2)':
+  '@uppy/status-bar@4.2.3(@uppy/core@4.5.2)':
     dependencies:
       '@transloadit/prettier-bytes': 0.3.5
       '@uppy/core': 4.5.2
