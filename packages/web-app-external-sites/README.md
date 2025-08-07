@@ -80,9 +80,9 @@ You can also group external sites under so-called dashboards. These appear as de
 
 Each dashboard object supports the following fields:
 
-- **`name`** *(string, required)* – Display name shown in the app menu and as title on the page.
-- **`path`** *(string, required)* – Route under which the dashboard will be available. This is appended to `/external-sites`.
-- **`sites`** *(array, required)* – List of entries shown on the dashboard. These can be:
+- **`name`** _(string, required)_ – Display name shown in the app menu and as title on the page.
+- **`path`** _(string, required)_ – Route under which the dashboard will be available. This is appended to `/external-sites`.
+- **`sites`** _(array, required)_ – List of entries shown on the dashboard. These can be:
   - A **site**, which includes at least `name` and `url`, or
   - A **group**, which includes a `name` and a nested `sites` array of individual site entries.
 
@@ -90,7 +90,7 @@ Embedded links are currently not supported. Sites not inside a group are shown a
 
 ### Optional Dashboard Attributes
 
-- **`color`** *(string)* – Specifies the hex color code of the icon background for the dashboard.
-- **`icon`** *(string)* – Specifies the name of a [Remix Icon](https://remixicon.com/) to be used for the dashboard menu item.
+- **`color`** _(string)_ – Specifies the hex color code of the icon background for the dashboard.
+- **`icon`** _(string)_ – Specifies the name of a [Remix Icon](https://remixicon.com/) to be used for the dashboard menu item.
 
 Please refer to [the Web app docs](https://docs.opencloud.eu/docs/admin/configuration/web-applications) if you want to learn how to configure a Web app.
