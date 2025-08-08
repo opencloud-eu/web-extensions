@@ -43,6 +43,7 @@ export const ExternalSiteDashboardSchema = z.object({
 export type ExternalSiteDashboard = z.infer<typeof ExternalSiteDashboardSchema>
 
 export const ExternalSitesConfigSchema = z.object({
+  defaultDashboard: z.string().optional(),
   dashboards: z.array(ExternalSiteDashboardSchema).default([]),
   sites: z.array(ExternalSiteSchema).default([])
 })

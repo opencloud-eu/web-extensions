@@ -38,45 +38,50 @@ You can also group external sites under so-called dashboards. These appear as de
 ### Example
 
 ```json
-"dashboards": [
-  {
-    "name": "My Dashboard",
-    "path": "/dashboard",
-    "color": "#ff9800",
-    "icon": "grid",
-    "sites": [
-      {
-        "name": "Plex",
-        "url": "https://plex.local",
-        "color": "#e5a00d",
-        "icon": "play",
-        "description": "Multimedia streaming service"
-      },
-      {
-        "name": "Office",
-        "sites": [
-          {
-            "name": "Paperless NGX",
-            "url": "https://paperless.local",
-            "color": "#17541f",
-            "icon": "leaf",
-            "description": "Document management system."
-          },
-          {
-            "name": "Printer Web UI",
-            "url": "http://printer.local",
-            "color": "#0096d6",
-            "icon": "printer",
-            "description": "Administration panel and web scan."
-          }
-        ]
-      }
-    ]
-  }
-]
+"config": {
+  "defaultDashboard": "My Dashboard",
+  "dashboards": [
+    {
+      "name": "My Dashboard",
+      "path": "/dashboard",
+      "color": "#ff9800",
+      "icon": "grid",
+      "sites": [
+        {
+          "name": "Plex",
+          "url": "https://plex.local",
+          "color": "#e5a00d",
+          "icon": "play",
+          "description": "Multimedia streaming service"
+        },
+        {
+          "name": "Office",
+          "sites": [
+            {
+              "name": "Paperless NGX",
+              "url": "https://paperless.local",
+              "color": "#17541f",
+              "icon": "leaf",
+              "description": "Document management system."
+            },
+            {
+              "name": "Printer Web UI",
+              "url": "http://printer.local",
+              "color": "#0096d6",
+              "icon": "printer",
+              "description": "Administration panel and web scan."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
 ```
 
 ### Dashboard Options
+
+**`dashboards`** - _(array, optional)_
 
 Each dashboard object supports the following fields:
 
@@ -87,6 +92,8 @@ Each dashboard object supports the following fields:
   - A **group**, which includes a `name` and a nested `sites` array of individual site entries.
 
 Embedded links are currently not supported. Sites not inside a group are shown above the groups without a headline.
+
+**`defaultDashboard`** _(string, optional)_ - Set the default dashboard when this application is used as default application. If not set, the first one is used.
 
 ### Optional Dashboard Attributes
 
