@@ -1,0 +1,24 @@
+{
+  "name": "web-app-arcade",
+  "version": "0.1.0",
+  "private": true,
+  "description": "OpenCloud Web Arcade",
+  "license": "AGPL-3.0",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm vite build",
+    "build:w": "pnpm vite build --watch --mode development",
+    "check:types": "vue-tsc --noEmit",
+    "test:unit": "NODE_OPTIONS=--unhandled-rejections=throw vitest"
+  },
+  "devDependencies": {
+    "vue": "^3.4.21",
+    "vue3-gettext": "^2.4.0"
+  },
+  "dependencies": {
+    "nes-vue": "^1.6.10"
+  },
+  "peerDependencies": {
+    "@opencloud-eu/web-pkg": "^3.0.0"
+  }
+}
