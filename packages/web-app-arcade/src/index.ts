@@ -2,7 +2,7 @@ import App from './App.vue'
 import { AppWrapperRoute } from '@opencloud-eu/web-pkg'
 
 // just a dummy function to trick gettext tools
-function $gettext(msg) {
+function $gettext(msg: string): string {
   return msg
 }
 
