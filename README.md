@@ -8,6 +8,7 @@ This repository contains a collection of [OpenCloud Web](https://github.com/open
 
 Extensions are provided by apps. These are the apps, that are provided by this repository.
 
+- [web-app-arcade](./packages/web-app-arcade/)
 - [web-app-cast](./packages/web-app-cast/)
 - [web-app-draw-io](./packages/web-app-draw-io/)
 - [web-app-external-sites](./packages/web-app-external-sites/)

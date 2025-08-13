@@ -109,7 +109,7 @@ function getWrapper({
   setup,
   currentFolder,
   companionUrl = 'https://example.com',
-  supportedClouds = [],
+  supportedClouds,
   publicLinkContextReady = false,
   uppyService = mockDeep<UppyService>()
 }: {

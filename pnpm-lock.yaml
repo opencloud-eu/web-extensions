@@ -66,6 +66,22 @@ importers:
         specifier: ^2.4.0
         version: 2.4.0(@vue/compiler-sfc@3.5.18)(vue@3.5.18(typescript@5.9.2))
 
+  packages/web-app-arcade:
+    dependencies:
+      '@opencloud-eu/web-pkg':
+        specifier: ^3.0.0
+        version: 3.2.0(@vue/compiler-sfc@3.5.18)(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2))
+      nes-vue:
+        specifier: ^1.6.10
+        version: 1.9.0
+    devDependencies:
+      vue:
+        specifier: ^3.4.21
+        version: 3.5.18(typescript@5.9.2)
+      vue3-gettext:
+        specifier: ^2.4.0
+        version: 2.4.0(@vue/compiler-sfc@3.5.18)(vue@3.5.18(typescript@5.9.2))
+
   packages/web-app-cast:
     devDependencies:
       '@opencloud-eu/web-client':
@@ -736,6 +752,9 @@ packages:
 
   '@microsoft/fetch-event-source@2.0.1':
     resolution: {integrity: sha512-W6CLUJ2eBMw3Rec70qrsEW0jOm/3twwJv21mrmj2yORiaVmVYGS4sSS5yUwvQc1ZlDLYGPnClVWmUUMagKNsfA==}
+
+  '@nesjs/core@1.0.10':
+    resolution: {integrity: sha512-qk2TjdfqANcxsSZOkRlLmbv8IIMNTtSjgjh3ANsHc+7Xo9dCDPzlaefO/l9wn7Xp0xJKkmpdjeszuCEkI0u6pA==}
 
   '@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1':
     resolution: {integrity: sha512-54/JRvkLIzzDWshCWfuhadfrfZVPiElY8Fcgmg1HroEly/EDSszzhBAsarCux+D/kOslTRquNzuyGSmUSTTHGg==}
@@ -2461,6 +2480,9 @@ packages:
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
+  nes-vue@1.9.0:
+    resolution: {integrity: sha512-T0MI5eAmjE9oRmpRRch8BZ5PKGhfvNGEfGGCRkidEsLXPHaFwKiKzossIcCQ/1pV1UQDRnR/QuRB+jasVRQWIQ==}
+
   nested-property@4.0.0:
     resolution: {integrity: sha512-yFehXNWRs4cM0+dz7QxCd06hTbWbSkV0ISsqBfkntU6TOY4Qm3Q88fRRLOddkGh2Qq6dZvnKVAahfhjcUvLnyA==}
 
@@ -2536,6 +2558,9 @@ packages:
 
   package-json-from-dist@1.0.1:
     resolution: {integrity: sha512-UEZIS3/by4OC8vL3P2dTXRETpebLI2NiI5vIrjaD/5UtrkFX/tNbwjTSRAGC/+7CAo2pIcBaRgWmcBBHcsaCIw==}
+
+  pako@2.1.0:
+    resolution: {integrity: sha512-w+eufiZ1WuJYgPXbV/PO3NCMEc3xqylkKHzp8bxp1uW4qaSNQUkwmLLEc3kKsfz8lpV1F8Ht3U1Cm+9Srog2ug==}
 
   parent-module@1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
@@ -3850,6 +3875,10 @@ snapshots:
   '@marijn/find-cluster-break@1.0.2': {}
 
   '@microsoft/fetch-event-source@2.0.1': {}
+
+  '@nesjs/core@1.0.10':
+    dependencies:
+      pako: 2.1.0
 
   '@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1':
     dependencies:
@@ -5699,6 +5728,10 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
+  nes-vue@1.9.0:
+    dependencies:
+      '@nesjs/core': 1.0.10
+
   nested-property@4.0.0: {}
 
   node-addon-api@7.1.1:
@@ -5769,6 +5802,8 @@ snapshots:
   p-timeout@6.1.4: {}
 
   package-json-from-dist@1.0.1: {}
+
+  pako@2.1.0: {}
 
   parent-module@1.0.1:
     dependencies:
