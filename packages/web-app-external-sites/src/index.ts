@@ -15,7 +15,8 @@ export default defineWebApplication({
 
     const appId = 'external-sites'
 
-    const { sites, dashboards } = ExternalSitesConfigSchema.parse(applicationConfig)
+    const { sites, dashboards, defaultDashboard } =
+      ExternalSitesConfigSchema.parse(applicationConfig)
 
     const routes: RouteRecordRaw[] = []
     const internalSites = sites.filter((s) => s.target === 'embedded')
@@ -49,7 +50,14 @@ export default defineWebApplication({
       })
     )
 
-    dashboards.forEach((dashboard) => {
+    dashboards.forEach((dashboard, i) => {
+      let entryPoint = false
+      if (defaultDashboard) {
+        entryPoint = defaultDashboard === dashboard.name
+      } else {
+        entryPoint = i === 0
+      }
+
       routes.push({
         path: dashboard.path || '/',
         component: h(Dashboard, { dashboard }),
@@ -57,7 +65,8 @@ export default defineWebApplication({
         meta: {
           authContext: 'user',
           title: dashboard.name,
-          patchCleanPath: true
+          patchCleanPath: true,
+          entryPoint
         }
       })
 
