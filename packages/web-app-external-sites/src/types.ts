@@ -1,13 +1,28 @@
 import { z } from 'zod'
 
+export const VisibilityControlSchema = z
+  .object({
+    groups: z
+      .object({
+        any: z.array(z.string()).optional(),
+        all: z.array(z.string()).optional(),
+        none: z.array(z.string()).optional()
+      })
+      .optional()
+  })
+  .optional()
+
+export type VisibilityControl = z.infer<typeof VisibilityControlSchema>
+
 export const ExternalSiteSchema = z.object({
   name: z.string(),
-  target: z.enum(['embedded', 'external']),
+  target: z.enum(['embedded', 'external']).optional().default('external'),
   url: z.string(),
   color: z.string().optional(),
   icon: z.string().optional(),
   priority: z.number().optional(),
-  description: z.string().optional()
+  description: z.string().optional(),
+  visibility: VisibilityControlSchema.optional()
 })
 
 export type ExternalSite = z.infer<typeof ExternalSiteSchema>
@@ -37,7 +52,8 @@ export const ExternalSiteDashboardSchema = z.object({
   name: z.string(),
   icon: z.string().optional(),
   color: z.string().optional(),
-  sites: z.array(ExternalSiteOrSiteGroupSchema)
+  sites: z.array(ExternalSiteOrSiteGroupSchema),
+  visibility: VisibilityControlSchema.optional()
 })
 
 export type ExternalSiteDashboard = z.infer<typeof ExternalSiteDashboardSchema>

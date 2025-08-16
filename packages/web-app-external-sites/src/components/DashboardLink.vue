@@ -1,6 +1,6 @@
 <template>
   <li class="tile oc-card oc-card-default oc-card-rounded">
-    <a :href="site.url" target="_blank">
+    <a v-if="site.target === 'external'" :href="site.url" target="_blank">
       <div class="tile-body oc-card-body oc-p">
         <div class="tile-content oc-flex oc-flex-middle">
           <div class="tile-icon">
@@ -15,15 +15,42 @@
         </div>
       </div>
     </a>
+    <router-link
+      v-if="site.target === 'embedded'"
+      :to="getNestedSiteRoutePath(site)"
+      class="site-link"
+    >
+      <div class="tile-body oc-card-body oc-p">
+        <div class="tile-content oc-flex oc-flex-middle">
+          <div class="tile-icon">
+            <oc-icon v-if="site.icon" :name="site.icon" :color="site.color" size="xlarge" />
+          </div>
+          <div>
+            <h3 class="oc-my-s oc-text-truncate mark-element tile-title">
+              {{ site.name }}
+            </h3>
+            <p class="oc-my-s mark-element">{{ site.description }}</p>
+          </div>
+        </div>
+      </div>
+    </router-link>
   </li>
 </template>
 
 <script setup lang="ts">
 import { ExternalSite } from '../types'
+import { makeSlug } from '../untils'
 
-defineProps<{
+const props = defineProps<{
   site: ExternalSite
+  dashboardPath: string
 }>()
+
+const getNestedSiteRoutePath = (site: ExternalSite): string => {
+  const sitePath = makeSlug(site.name)
+
+  return `/external-sites${props.dashboardPath}/${sitePath}`
+}
 </script>
 
 <style lang="scss" scoped>
