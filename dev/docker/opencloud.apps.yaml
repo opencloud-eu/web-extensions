@@ -3,6 +3,7 @@ importer:
     companionUrl: 'https://host.docker.internal:9200/companion'
 external-sites:
   config:
+    defaultDashboard: 'Main Dashboard'
     sites:
       - name: OpenCloud
         url: 'https://opencloud.eu'
@@ -10,3 +11,304 @@ external-sites:
         color: '#0D856F'
         icon: book
         priority: 50
+
+      # Public site - no visibility restrictions
+      - name: 'Public Site'
+        target: 'external'
+        url: 'https://www.google.com'
+        icon: 'earth'
+        color: '#2196F3'
+        description: 'Visible to all authenticated users'
+
+      # Admin Panel - requires admin group
+      - name: 'Admin Panel'
+        target: 'external'
+        url: 'https://github.com'
+        icon: 'settings'
+        color: '#FF0000'
+        priority: 100
+        visibility:
+          groups:
+            any: ['admin']
+
+      # Editor Tools - requires editor OR admin
+      - name: 'Editor Tools'
+        target: 'external'
+        url: 'https://code.visualstudio.com'
+        icon: 'edit'
+        color: '#FFA500'
+        priority: 90
+        visibility:
+          groups:
+            any: ['editor', 'admin']
+
+      # Super Admin Panel - requires BOTH admin AND superuser
+      - name: 'Super Admin Panel'
+        target: 'external'
+        url: 'https://aws.amazon.com/console'
+        icon: 'shield'
+        color: '#800080'
+        priority: 200
+        visibility:
+          groups:
+            all: ['admin', 'superuser']
+
+      # User Panel - requires user group but NOT guest
+      - name: 'User Panel'
+        target: 'external'
+        url: 'https://stackoverflow.com'
+        icon: 'user'
+        color: '#4CAF50'
+        visibility:
+          groups:
+            any: ['user']
+            none: ['guest']
+
+      # Dev Tools - embedded site for developers
+      - name: 'Dev Tools'
+        target: 'embedded'
+        url: 'https://developer.mozilla.org'
+        icon: 'code'
+        color: '#1e20af'
+        priority: 80
+        visibility:
+          groups:
+            any: ['developer', 'admin']
+
+      # Complex visibility Site - multiple conditions
+      - name: 'Complex Visibility Site'
+        target: 'external'
+        url: 'https://docker.com'
+        icon: 'layers'
+        color: 'warning'
+        visibility:
+          groups:
+            any: ['editor', 'admin'] # Must have editor OR admin
+            all: ['verified'] # Must also have verified
+            none: ['suspended'] # Must NOT have suspended
+
+      # HR Tools - external with HR visibility
+      - name: 'HR Management'
+        target: 'external'
+        url: 'https://docker.com'
+        icon: 'users'
+        color: '#FF0000'
+        visibility:
+          groups:
+            any: ['hr', 'admin']
+            none: ['contractor'] # HR Contractors can't see HR tools
+    dashboards:
+      # Main Dashboard - public dashboard
+      - name: 'Main Dashboard'
+        path: '/dashboard'
+        icon: 'grid'
+        color: '#b086ff'
+        sites:
+          - name: 'Documentation'
+            target: 'embedded'
+            url: 'https://docs.opencloud.eu'
+            icon: 'cloud'
+            color: '#E2BAFF'
+            priority: 90
+            visibility:
+              groups:
+                any: ['developer']
+          - name: 'Support'
+            url: 'https://support.google.com'
+            priority: 50
+            icon: 'help'
+          - name: 'Getting Started'
+            sites:
+              - name: 'Documentation'
+                url: 'https://docs.github.com'
+                icon: 'book'
+                priority: 60
+                visibility:
+                  groups:
+                    any: ['developer', 'admin']
+              - name: 'Support'
+                priority: 50
+                url: 'https://support.google.com'
+                icon: 'help'
+
+      # Admin Dashboard - only for admins
+      - name: 'Admin Dashboard'
+        path: '/admin-dashboard'
+        icon: 'shield'
+        color: '#FF0000'
+        visibility:
+          groups:
+            any: ['admin']
+        sites:
+          - name: 'System Administration'
+            sites:
+              - name: 'User Management'
+                url: 'https://admin.google.com'
+                icon: 'users'
+              - name: 'System Logs'
+                url: 'https://console.cloud.google.com'
+                icon: 'list'
+              - name: 'Server Monitoring'
+                url: 'https://grafana.com'
+                icon: 'activity'
+
+      # Finance Dashboard - embedded sites
+      - name: 'Finance Dashboard'
+        path: '/finance'
+        icon: 'currency-dollar'
+        color: 'success'
+        visibility:
+          groups:
+            any: ['finance', 'admin']
+        sites:
+          - name: 'Financial Management'
+            sites:
+              - name: 'Budget Planning'
+                url: 'https://budget.example.com'
+                icon: 'calculator'
+                visibility:
+                  groups:
+                    any: ['finance', 'admin']
+              - name: 'Financial Reports'
+                url: 'https://reports.example.com'
+                icon: 'chart'
+                visibility:
+                  groups:
+                    any: ['finance', 'admin']
+
+      # Developer Dashboard
+      - name: 'Developer Dashboard'
+        path: '/dev-dashboard'
+        icon: 'code'
+        color: '#641f45'
+        visibility:
+          groups:
+            any: ['developer', 'admin', 'viewer']
+        sites:
+          - name: 'Development Tools'
+            sites:
+              - name: 'API Documentation'
+                target: 'embedded'
+                url: 'https://docs.opencloud.eu'
+                icon: 'cloud'
+                color: '#E2BAFF'
+                visibility:
+                  groups:
+                    any: ['developer']
+              - name: 'Code Repository'
+                url: 'https://github.com'
+                icon: 'git'
+                visibility:
+                  groups:
+                    any: ['developer', 'admin']
+              - name: 'CI/CD Pipeline'
+                url: 'https://jenkins.io'
+                icon: 'play'
+                visibility:
+                  groups:
+                    any: ['admin'] # Admin only
+              - name: 'Server Monitoring'
+                url: 'https://monitoring.example.com'
+                icon: 'activity'
+                visibility:
+                  groups:
+                    any: ['admin'] # Admin only
+
+      # Support Dashboard - for support staff
+      - name: 'Support Dashboard'
+        path: '/support'
+        icon: 'help'
+        color: '#1b2864'
+        visibility:
+          groups:
+            any: ['support', 'admin']
+        sites:
+          - name: 'Customer Support'
+            sites:
+              - name: 'Ticket System'
+                url: 'https://zendesk.com'
+                icon: 'inbox'
+              - name: 'Knowledge Base'
+                url: 'https://notion.so'
+                icon: 'book'
+              - name: 'Customer Database'
+                url: 'https://salesforce.com'
+                icon: 'database'
+              - name: 'System Configuration'
+                target: 'embedded'
+                url: 'https://salesforce.com'
+                icon: 'settings'
+                visibility:
+                  groups:
+                    any: ['admin']
+              - name: 'User Management'
+                target: 'embedded'
+                url: 'https://salesforce.com'
+                icon: 'users'
+                visibility:
+                  groups:
+                    any: ['admin']
+              - name: 'Live Chat'
+                url: 'https://chat.com'
+                icon: 'message'
+                visibility:
+                  groups:
+                    any: ['support', 'admin']
+                    none: ['read-only'] # Read-only support can't use live chat
+      # Management Dashboard - complex nested visibility
+      - name: 'Management Dashboard'
+        path: '/management'
+        icon: 'briefcase'
+        color: 'warning'
+        visibility:
+          groups:
+            any: ['manager', 'hr', 'finance', 'admin']
+        sites:
+          - name: 'HR Tools'
+            sites:
+              - name: 'Employee Records'
+                target: 'embedded'
+                url: 'https://hr.example.com/employees'
+                icon: 'users'
+                visibility:
+                  groups:
+                    any: ['hr', 'admin']
+              - name: 'Payroll System'
+                target: 'embedded'
+                url: 'https://payroll.example.com'
+                icon: 'currency-dollar'
+                visibility:
+                  groups:
+                    any: ['hr', 'admin']
+          - name: 'Finance Tools'
+            sites:
+              - name: 'Budget Reports'
+                target: 'embedded'
+                url: 'https://finance.example.com/budget'
+                icon: 'chart'
+                visibility:
+                  groups:
+                    any: ['finance', 'admin']
+              - name: 'Expense Tracking'
+                target: 'embedded'
+                url: 'https://expenses.example.com'
+                icon: 'receipt'
+                visibility:
+                  groups:
+                    any: ['finance', 'admin']
+          - name: 'Management Tools'
+            sites:
+              - name: 'Team Analytics'
+                target: 'embedded'
+                url: 'https://analytics.example.com/team'
+                icon: 'trending-up'
+                visibility:
+                  groups:
+                    all: ['manager', 'verified'] # Requires BOTH
+              - name: 'Executive Reports'
+                target: 'embedded'
+                url: 'https://executive.example.com'
+                icon: 'file-text'
+                visibility:
+                  groups:
+                    any: ['executive', 'ceo'] # Only top level

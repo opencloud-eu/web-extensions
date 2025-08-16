@@ -14,6 +14,7 @@ directives:
     - "'self'"
     - 'blob:'
     - 'https://embed.diagrams.net/'
+    - 'https://docs.opencloud.eu'
   img-src:
     - "'self'"
     - 'data:'

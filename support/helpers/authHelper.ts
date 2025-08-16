@@ -21,6 +21,12 @@ export async function loginAsUser(
   return { page }
 }
 
+export async function logoutWithoutCloseContext(page: Page): Promise<void> {
+  const context = page.context()
+  const loginPage = new LoginPage(page)
+  await loginPage.logout()
+}
+
 export async function logout(page: Page): Promise<void> {
   const context = page.context()
   const loginPage = new LoginPage(page)

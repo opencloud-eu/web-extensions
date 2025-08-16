@@ -2,10 +2,11 @@
   <main id="external-sites-dashboard" class="oc-pt-m oc-pb-l oc-flex oc-flex-center">
     <div class="page">
       <h1 class="title oc-mb-m" v-text="dashboard.name" />
-      <dashboard-group :group="standaloneGroup" />
+      <div v-if="standaloneGroup.sites.length === 0 && groups.length === 0">No sites available</div>
+      <dashboard-group :group="standaloneGroup" :dashboard-path="dashboard.path" />
 
       <template v-for="group in groups" :key="group.name">
-        <dashboard-group :group="group" />
+        <dashboard-group :group="group" :dashboard-path="dashboard.path" />
       </template>
     </div>
   </main>
@@ -14,25 +15,32 @@
 <script setup lang="ts">
 import DashboardGroup from './components/DashboardGroup.vue'
 import { computed } from 'vue'
+import { filterVisibleSites } from './untils'
 import {
   ExternalSiteGroup,
   ExternalSite,
   isExternalSiteGroup,
-  ExternalSiteDashboard
+  ExternalSiteDashboard,
+  ExternalSiteOrSiteGroup
 } from './types'
 
 const props = defineProps<{
   dashboard: ExternalSiteDashboard
 }>()
 
+// Apply filtering to the dashboard sites
+const filteredSites = computed((): ExternalSiteOrSiteGroup[] => {
+  return filterVisibleSites(props.dashboard.sites || [])
+})
+
 const standaloneGroup = computed((): ExternalSiteGroup => {
   return {
-    sites: props.dashboard.sites.filter((item) => !isExternalSiteGroup(item)) as ExternalSite[]
+    sites: filteredSites.value.filter((item) => !isExternalSiteGroup(item)) as ExternalSite[]
   }
 })
 
 const groups = computed((): ExternalSiteGroup[] => {
-  return props.dashboard.sites.filter((item) => isExternalSiteGroup(item))
+  return filteredSites.value.filter((item) => isExternalSiteGroup(item)) as ExternalSiteGroup[]
 })
 </script>
 
