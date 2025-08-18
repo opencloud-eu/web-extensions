@@ -8,14 +8,5 @@
     "response_type": "code",
     "scope": "openid profile email"
   },
-  "apps": [
-    "files",
-    "text-editor",
-    "pdf-viewer",
-    "search",
-    "external",
-    "admin-settings",
-    "maps",
-    "arcade"
-  ]
+  "apps": ["files", "text-editor", "pdf-viewer", "search", "external", "admin-settings"]
 }
