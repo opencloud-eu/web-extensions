@@ -206,6 +206,9 @@ importers:
       leaflet-gpx:
         specifier: 2.2.0
         version: 2.2.0
+      zod:
+        specifier: ^4.0.17
+        version: 4.0.17
     devDependencies:
       vite-plugin-static-copy:
         specifier: ^3.0.0

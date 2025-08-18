@@ -13,18 +13,22 @@ import GpxMap from './components/GpxMap.vue'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-gpx'
 import LocationFolderView from './components/LocationFolderView.vue'
+import { MapsConfigSchema } from './types'
+import './styles.css'
 
 const applicationId = 'maps'
 export default defineWebApplication({
   setup(args) {
     const { $gettext } = useGettext()
 
+    const { folderViewEnabled } = MapsConfigSchema.parse(args.applicationConfig)
+
     const appInfo = {
       name: $gettext('Maps'),
       id: applicationId,
       icon: 'map-2',
       iconFillType: 'line',
-      iconColor: 'green',
+      iconColor: '#84c143',
       extensions: [
         {
           extension: 'gpx',
@@ -60,22 +64,26 @@ export default defineWebApplication({
                 }
               }
             },
-            {
-              id: 'com.github.opencloud-eu.maps.folder-view.map-view',
-              type: 'folderView',
-              extensionPointIds: ['app.files.folder-views.folder'],
-              folderView: {
-                name: 'resource-map',
-                label: $gettext('Switch to map view'),
-                icon: {
-                  name: 'map-2',
-                  fillType: 'line'
-                },
-                isScrollable: false,
-                component: LocationFolderView,
-                componentAttrs: () => ({ applicationConfig })
-              }
-            }
+            ...(folderViewEnabled
+              ? [
+                  {
+                    id: 'com.github.opencloud-eu.maps.folder-view.map-view',
+                    type: 'folderView',
+                    extensionPointIds: ['app.files.folder-views.folder'],
+                    folderView: {
+                      name: 'resource-map',
+                      label: $gettext('Switch to map view'),
+                      icon: {
+                        name: 'map-2',
+                        fillType: 'line'
+                      },
+                      isScrollable: false,
+                      component: LocationFolderView,
+                      componentAttrs: () => ({ applicationConfig })
+                    }
+                  }
+                ]
+              : [])
           ] satisfies Extension[]
       )
     }
