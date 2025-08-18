@@ -37,6 +37,7 @@ services:
       - ./dev/docker/opencloud.apps.yaml:/etc/opencloud/apps.yaml
       - ./dev/docker/csp.yaml:/etc/opencloud/csp.yaml
       # apps
+      - ./packages/web-app-arcade/dist:/web/apps/arcade
       - ./packages/web-app-cast/dist:/web/apps/cast
       - ./packages/web-app-draw-io/dist:/web/apps/draw-io
       - ./packages/web-app-external-sites/dist:/web/apps/external-sites
