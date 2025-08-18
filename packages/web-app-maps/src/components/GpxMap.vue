@@ -90,11 +90,15 @@ onBeforeUnmount(() => {
 </script>
 
 <style type="scss" scoped>
+.leaflet-container {
+  z-index: 1;
+}
+
 .data-list {
   position: absolute;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
-  z-index: 1000;
+  z-index: 999;
   background: #fffc;
   border-radius: 2px;
   padding: var(--oc-space-small);
