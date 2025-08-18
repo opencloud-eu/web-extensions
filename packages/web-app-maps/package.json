@@ -18,10 +18,11 @@
   },
   "dependencies": {
     "leaflet": "1.9.4",
-    "leaflet-gpx": "2.2.0"
+    "leaflet-gpx": "2.2.0",
+    "zod": "^4.0.17"
   },
   "peerDependencies": {
-    "@opencloud-eu/web-pkg": "^3.0.0",
-    "@opencloud-eu/web-client": "^3.0.0"
+    "@opencloud-eu/web-client": "^3.0.0",
+    "@opencloud-eu/web-pkg": "^3.0.0"
   }
 }

@@ -1,0 +1,11 @@
+.leaflet-control-zoom {
+  border: 0 !important;
+}
+
+.leaflet-control-zoom-in {
+  background: #fffc !important;
+}
+
+.leaflet-control-zoom-out {
+  background: #fffc !important;
+}

@@ -29,7 +29,7 @@ export default defineWebApplication({
       id: applicationId,
       icon: 'game',
       iconFillType: 'fill',
-      iconColor: 'rgb(255,255,0)',
+      iconColor: '#ffce55',
       extensions: [
         {
           extension: 'nes',
