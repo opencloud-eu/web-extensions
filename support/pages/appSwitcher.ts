@@ -6,12 +6,26 @@ export class AppSwitcher {
   readonly drawIoBtn: Locator
   readonly appSwitcher: Locator
   externalSite: string
+  dashboardSite: string
 
   constructor(page: Page) {
     this.page = page
     this.drawIoBtn = this.page.locator('[data-test-id="app\\.draw-io\\.menuItem"]')
     this.appSwitcher = this.page.getByLabel('Application Switcher')
     this.externalSite = '[data-test-id="external-sites-%s"]'
+    this.dashboardSite = '[data-test-id="external-sites-dashboard-%s"]'
+  }
+
+  getExternalSite(site: string) {
+    return this.page.locator(util.format(this.externalSite, site))
+  }
+
+  getDashboard(name: string) {
+    return this.page.locator(util.format(this.dashboardSite, name))
+  }
+
+  async openDashboard(name: string) {
+    await this.getDashboard(name).click()
   }
 
   async clickAppSwitcher() {
