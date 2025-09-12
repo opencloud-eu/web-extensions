@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import DashboardGroup from './components/DashboardGroup.vue'
 import { computed } from 'vue'
-import { filterVisibleSites } from './untils'
+import { filterVisibleSites } from './utils'
 import {
   ExternalSiteGroup,
   ExternalSite,

@@ -39,7 +39,7 @@
 
 <script setup lang="ts">
 import { ExternalSite } from '../types'
-import { makeSlug } from '../untils'
+import { makeSlug } from '../utils'
 
 const props = defineProps<{
   site: ExternalSite

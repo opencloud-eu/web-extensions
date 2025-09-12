@@ -11,7 +11,7 @@ import {
   createVisibilityGuard,
   makeSlug,
   flattenSites
-} from './untils'
+} from './utils'
 
 import App from './App.vue'
 import Dashboard from './ExternalSitesDashboard.vue'
