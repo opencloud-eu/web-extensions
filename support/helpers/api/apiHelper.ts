@@ -105,13 +105,3 @@ export async function createUserWithGroups(groups: string[], username?: string, 
 
   return user
 }
-
-export async function updateUserGroups(userId: string, newGroups: string[]) {
-  // Remove user from all current groups
-  // await removeUserFromAllGroups(userId)
-
-  newGroups.forEach(async (group) => {
-    const newGroup = await createGroup(group)
-    addUserToGroup(newGroup.id, userId)
-  })
-}
