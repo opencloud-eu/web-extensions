@@ -2,7 +2,7 @@
   <main id="external-sites-dashboard" class="oc-pt-m oc-pb-l oc-flex oc-flex-center">
     <div class="page">
       <h1 class="title oc-mb-m" v-text="dashboard.name" />
-      <div v-if="standaloneGroup.sites.length === 0 && groups.length === 0">No sites available</div>
+      <div v-if="standaloneGroup.sites.length === 0 && groups.length === 0">{{ $gettext('No sites available') }}</div>
       <dashboard-group :group="standaloneGroup" :dashboard-path="dashboard.path" />
 
       <template v-for="group in groups" :key="group.name">
