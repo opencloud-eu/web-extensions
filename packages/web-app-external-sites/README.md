@@ -274,7 +274,7 @@ For more example see [../../dev/docker/opencloud.apps.yaml](../../dev/docker/ope
 
 `visibility` (object, optional)
 
-Each visibility object must have a `groups` field within the groups you can have one or all options `any`,`all`,`none`
+Each visibility object must have a `groups` field, including one or more of the available options: `any`, `all`, `none`.
 
 `groups` (object, required)
 
