@@ -40,6 +40,7 @@
 <script setup lang="ts">
 import { ExternalSite } from '../types'
 import { makeSlug } from '../utils'
+import { urlJoin } from '@opencloud-eu/web-client'
 
 const props = defineProps<{
   site: ExternalSite
@@ -49,7 +50,7 @@ const props = defineProps<{
 const getNestedSiteRoutePath = (site: ExternalSite): string => {
   const sitePath = makeSlug(site.name)
 
-  return `/external-sites${props.dashboardPath}/${sitePath}`
+  return urlJoin('external-sites', props.dashboardPath, sitePath)
 }
 </script>
 
