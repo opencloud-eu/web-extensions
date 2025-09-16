@@ -93,7 +93,7 @@ Each dashboard object supports the following fields:
   - A **site**, which includes at least `name` and `url`, or
   - A **group**, which includes a `name` and a nested `sites` array of individual site entries.
 
-A Site includes every field from "External Sites" above including `priority` (ordered within the group) and `target`. \
+A site includes every field from "External Sites" above. \
 Sites not inside a group are shown above the groups without a headline.
 
 **`defaultDashboard`** _(string, optional)_ - Set the default dashboard when this application is used as default application. If not set, the first one is used.
