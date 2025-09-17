@@ -18,6 +18,8 @@
 import DashboardGroup from './components/DashboardGroup.vue'
 import { computed } from 'vue'
 import { filterVisibleSites } from './utils'
+import { useGettext } from 'vue3-gettext'
+
 import {
   ExternalSiteGroup,
   ExternalSite,
@@ -25,6 +27,8 @@ import {
   ExternalSiteDashboard,
   ExternalSiteOrSiteGroup
 } from './types'
+
+const { $gettext } = useGettext()
 
 const props = defineProps<{
   dashboard: ExternalSiteDashboard
