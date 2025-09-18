@@ -21,7 +21,7 @@ To enable seamless integration of traffic to the OpenStreetMap servers, the Cont
 
 In the file `csp.yaml`, add the entry `- 'https://tile.openstreetmap.org/'` in the `img-src:` section.
 
-Please respect the work of [OpenStreetMap](https://openstreetmap.org) and read the [Tile Usage Policy](https://operations.osmfoundation.org/policies/tiles/). 
+Please respect the work of [OpenStreetMap](https://openstreetmap.org) and read the [Tile Usage Policy](https://operations.osmfoundation.org/policies/tiles/).
 
 ## Privacy Notice
 
