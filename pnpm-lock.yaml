@@ -137,7 +137,7 @@ importers:
         version: 2.4.0(@vue/compiler-sfc@3.5.18)(vue@3.5.18(typescript@5.9.2))
       zod:
         specifier: ^4.0.0
-        version: 4.0.17
+        version: 4.1.9
 
   packages/web-app-importer:
     dependencies:
@@ -208,7 +208,7 @@ importers:
         version: 2.2.0
       zod:
         specifier: ^4.0.17
-        version: 4.0.17
+        version: 4.1.9
     devDependencies:
       vite-plugin-static-copy:
         specifier: ^3.0.0
@@ -3238,8 +3238,8 @@ packages:
   zimmerframe@1.1.4:
     resolution: {integrity: sha512-B58NGBEoc8Y9MWWCQGl/gq9xBCe4IiKM0a2x7GZdQKOW5Exr8S1W24J6OgM1njK8xCRGvAJIL/MxXHf6SkmQKQ==}
 
-  zod@4.0.17:
-    resolution: {integrity: sha512-1PHjlYRevNxxdy2JZ8JcNAw7rX8V9P1AKkP+x/xZfxB0K5FYfuV+Ug6P/6NVSR2jHQ+FzDDoDHS04nYUsOIyLQ==}
+  zod@4.1.9:
+    resolution: {integrity: sha512-HI32jTq0AUAC125z30E8bQNz0RQ+9Uc+4J7V97gLYjZVKRjeydPgGt6dvQzFrav7MYOUGFqqOGiHpA/fdbd0cQ==}
 
 snapshots:
 
@@ -3985,7 +3985,7 @@ snapshots:
       uuid: 11.1.0
       webdav: 5.8.0
       xml-js: 1.6.11
-      zod: 4.0.17
+      zod: 4.1.9
     transitivePeerDependencies:
       - debug
 
@@ -4029,7 +4029,7 @@ snapshots:
       vue-concurrency: 5.0.3(vue@3.5.18(typescript@5.9.2))
       vue-router: 4.5.1(vue@3.5.18(typescript@5.9.2))
       vue3-gettext: 2.4.0(@vue/compiler-sfc@3.5.18)(vue@3.5.18(typescript@5.9.2))
-      zod: 4.0.17
+      zod: 4.1.9
     transitivePeerDependencies:
       - '@vue/compiler-sfc'
       - debug
@@ -6498,4 +6498,4 @@ snapshots:
 
   zimmerframe@1.1.4: {}
 
-  zod@4.0.17: {}
+  zod@4.1.9: {}
