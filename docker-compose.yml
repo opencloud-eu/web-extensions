@@ -77,7 +77,6 @@ services:
 
   tika-service:
     image: dadarek/wait-for-dependencies:latest
-    container_name: web_tika_service
     depends_on:
       - tika
     command:
@@ -85,7 +84,6 @@ services:
 
   tika:
     image: apache/tika:3.2.3.0
-    container_name: web_tika
     ports:
       - '9998:9998'
     restart: unless-stopped

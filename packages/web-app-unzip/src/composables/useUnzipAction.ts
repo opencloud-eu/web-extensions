@@ -18,7 +18,7 @@ import { useGettext } from 'vue3-gettext'
 import { extractNameWithoutExtension, urlJoin } from '@opencloud-eu/web-client'
 import * as uuid from 'uuid'
 import * as zip from '@zip.js/zip.js'
-import Worker from './../../node_modules/@zip.js/zip.js/dist/z-worker.js?url'
+import Worker from './../../node_modules/@zip.js/zip.js/dist/zip-web-worker.js?url'
 
 const SUPPORTED_MIME_TYPES = ['application/zip']
 const MAX_SIZE_MB = 64 // in mb
@@ -61,10 +61,7 @@ export const useUnzipAction = () => {
       zip.configure({
         chunkSize: 128,
         useWebWorkers: true,
-        workerScripts: {
-          deflate: [workerUrl],
-          inflate: [workerUrl]
-        }
+        workerURI: workerUrl
       })
       const fileBlob = await getFileBlob({ space, resources })
       const blobReader = new zip.BlobReader(fileBlob)
@@ -88,7 +85,7 @@ export const useUnzipAction = () => {
         .filter(({ filename }) => !filename.endsWith('/'))
         .map<Promise<OcMinimalUppyFile | void>>((result) => {
           const writer = new zip.BlobWriter()
-          return result.getData(writer).then((data) => {
+          return (result as zip.FileEntry).getData(writer).then((data) => {
             const path = dirname(result.filename)
             const name = path === '.' ? result.filename : result.filename.substring(path.length + 1)
 
