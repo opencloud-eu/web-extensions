@@ -142,17 +142,17 @@ importers:
   packages/web-app-importer:
     dependencies:
       '@uppy/dashboard':
-        specifier: 4.4.3
-        version: 4.4.3(@uppy/core@4.5.3)
+        specifier: 5.0.2
+        version: 5.0.2(@uppy/core@5.0.2)
       '@uppy/google-drive':
-        specifier: 4.4.2
-        version: 4.4.2(@uppy/core@4.5.3)
+        specifier: 5.0.1
+        version: 5.0.1(@uppy/core@5.0.2)
       '@uppy/onedrive':
-        specifier: 4.3.2
-        version: 4.3.2(@uppy/core@4.5.3)
+        specifier: 5.0.1
+        version: 5.0.1(@uppy/core@5.0.2)
       '@uppy/webdav':
-        specifier: 0.4.2
-        version: 0.4.2(@uppy/core@4.5.3)
+        specifier: 1.0.1
+        version: 1.0.1(@uppy/core@5.0.2)
     devDependencies:
       '@opencloud-eu/web-client':
         specifier: ^3.0.0
@@ -161,8 +161,8 @@ importers:
         specifier: ^3.0.0
         version: 3.2.0(@vue/compiler-sfc@3.5.21)(typescript@5.9.2)(vue@3.5.21(typescript@5.9.2))
       '@uppy/core':
-        specifier: ^4.0.0
-        version: 4.5.3
+        specifier: ^5.0.0
+        version: 5.0.2
       pinia:
         specifier: ^3.0.1
         version: 3.0.3(typescript@5.9.2)(vue@3.5.21(typescript@5.9.2))
@@ -1226,51 +1226,52 @@ packages:
     peerDependencies:
       '@uppy/core': ^4.5.2
 
+  '@uppy/companion-client@5.0.1':
+    resolution: {integrity: sha512-Gy4NCoj5JXQqm6Gr0T6VTeKVhrf8OvnFP1Ddz35dHUsy4GkXuvcc1FMzzKpxKWONtXWz6iQZocnhslgVIZvZwQ==}
+    peerDependencies:
+      '@uppy/core': ^5.0.2
+
   '@uppy/core@4.5.3':
     resolution: {integrity: sha512-52VLeBUY/j904h48lpPGykuWikkOOS4Lz/qkmalDiBQfNALb6iB1MOZs079IM3o/uMLYxzZRL80C3sKpkBUYcw==}
 
-  '@uppy/dashboard@4.4.3':
-    resolution: {integrity: sha512-IwgDDTbk9p4OoAJvvvx6sQSemKTIJq9IDSryNVgbbC6NiR9HSyRcu0+WdOZLiR9DOhDg2oYcoNgv7DMlrktI6g==}
+  '@uppy/core@5.0.2':
+    resolution: {integrity: sha512-HY1IIr5Xff6P67MMSlG8JIgK099zFGksTnS8oBdFOGt+42ge7b6RXPH1zMerpteTLGqVfVT1kOrJLoJyTvT+NA==}
+
+  '@uppy/dashboard@5.0.2':
+    resolution: {integrity: sha512-mW/bl4w1W3AUFpNHup0jJG+rAdavROyvVdLjXIr3az1Q2Hzu2IN0HgCpeVD4YEUhdLB6ToRYY4z91gyoRSZdQg==}
     peerDependencies:
-      '@uppy/core': ^4.5.2
+      '@uppy/core': ^5.0.2
 
   '@uppy/drop-target@3.1.1':
     resolution: {integrity: sha512-/2jnQ3DqfcWGjgoasLBLvwJ3fozavwSXFVULenDmPUI8YPjuxmEtOu61XnZ/OLhRnZo6Qm+kltSd+YUS0P/LNA==}
     peerDependencies:
       '@uppy/core': ^4.4.1
 
-  '@uppy/google-drive@4.4.2':
-    resolution: {integrity: sha512-hIxnWZ7WMW1jrRecL+VnMVt9TwY+V3uEpy7KmNxASraQFwS2oYgYUfO5R8MVcmL654wymQgEsRY7Kzp9NQvZGw==}
+  '@uppy/google-drive@5.0.1':
+    resolution: {integrity: sha512-UkX322Z6V8P2/F+NH+v2APzEAtJJNH5bMBgTzk4v2oyAMFTL1wxkOm+/K8HGhwEOLiU3ta5JvXwuvVlC2uU49A==}
     peerDependencies:
-      '@uppy/core': ^4.5.2
+      '@uppy/core': ^5.0.2
 
-  '@uppy/informer@4.3.2':
-    resolution: {integrity: sha512-7A9X8BfxR/GPtG0MGbQlmj1+G1o9fqeF3qtRh37ZvmZpapnEGtbstQ6Ao2vFm0uxYxOolLOMzFs/xCD27NKAvg==}
+  '@uppy/onedrive@5.0.1':
+    resolution: {integrity: sha512-jvTy7CE+M2SMRDH/b8RYB4vQb+BMloIdC1vEw3tNh9UyKpPWJjKCwSUk2sqCu1cT9Qv5bNgvU0/GOKxsZkv2tA==}
     peerDependencies:
-      '@uppy/core': ^4.5.2
+      '@uppy/core': ^5.0.2
 
-  '@uppy/onedrive@4.3.2':
-    resolution: {integrity: sha512-dfJAl9qsoQsL1LdIrDPKEKmAj82VNA63BInsJ80nF8bx3tf67AvlMz4O1I9fDW2zctfgOiFlGz47kamz01eSPQ==}
+  '@uppy/provider-views@5.0.2':
+    resolution: {integrity: sha512-RaO/Gfq8kLA95s9n2kxAthiBcmLXocR+YiOhQ8H8DG1rA4aM2GllK7+b4KL1OLlg2tMHohs++qzaInCtb7br9g==}
     peerDependencies:
-      '@uppy/core': ^4.5.2
-
-  '@uppy/provider-views@4.5.2':
-    resolution: {integrity: sha512-ik54ZHwZNE8czcoWiH0WLzFc/5zHIWAesiqsjZ/MjDpK/6Oun/BhQpUXpXe6629IeIXY+gDo5Uktf6vXtXfosg==}
-    peerDependencies:
-      '@uppy/core': ^4.5.2
-
-  '@uppy/status-bar@4.2.3':
-    resolution: {integrity: sha512-0AtKdvNm3HHobuE4N0V8SrC3uWB9MQnjqMEL/gachW/1mi7iZ22V4veHd6Wub/tCBQAQbEklvz7d0hxcz/Fh9g==}
-    peerDependencies:
-      '@uppy/core': ^4.5.2
+      '@uppy/core': ^5.0.2
 
   '@uppy/store-default@4.3.2':
     resolution: {integrity: sha512-dnY9R2o8fwmO1bF89D0b5jijD7DGED2qVST5hI/j18JreLWzLKH7u6HuNmOvzok8msrQ/qWzQd5Gx4LDQKhBbw==}
 
-  '@uppy/thumbnail-generator@4.2.2':
-    resolution: {integrity: sha512-cHVhrtqqy4j++UxtkwguKSSA/h9PR9UXSar0gr/uGHWsQbXNDzoT23EAFOsVr9ZFkIhtLU7M0x+iCq2hUlX5Tw==}
+  '@uppy/store-default@5.0.0':
+    resolution: {integrity: sha512-hQtCSQ1yGiaval/wVYUWquYGDJ+bpQ7e4FhUUAsRQz1x1K+o7NBtjfp63O9I4Ks1WRoKunpkarZ+as09l02cPw==}
+
+  '@uppy/thumbnail-generator@5.0.1':
+    resolution: {integrity: sha512-kmRpZKGS+xCdXU66weLHZ30F8UYEW3U5amtZE8l/ZoDJf/mVevae0RBE8qQsEPXjs6IFH3MCgb4fZ/s/itc3QA==}
     peerDependencies:
-      '@uppy/core': ^4.5.2
+      '@uppy/core': ^5.0.2
 
   '@uppy/tus@4.2.2':
     resolution: {integrity: sha512-fauUHqoLDtyRXwoaIyWM8ctuJ+SAXdjuM2eyoPYcGtpVaEGa+AS7IQkJkWz2RrWSdLCHL9O+fk6jKr+0PIDEpQ==}
@@ -1280,10 +1281,13 @@ packages:
   '@uppy/utils@6.2.2':
     resolution: {integrity: sha512-9mYJtbcngv2HOJIECkyfmdXTI5dW/ObCyvWP1Iti3E5bKtsa4sMmbx5Yh/tGCj8k/lBNhfvWyZuYnvnjmzNLSQ==}
 
-  '@uppy/webdav@0.4.2':
-    resolution: {integrity: sha512-fo8u4YteGkWj32DsSTBT9dWC5wq0gM9M8lMFyVqVWORYK48KZzHIlxDtaKqzUQ26nh3EC1ZS3ZSsEfgWCwkyFA==}
+  '@uppy/utils@7.0.2':
+    resolution: {integrity: sha512-2fdtgwNTkLgh7yMmHN3ZztHaP/o/iXDSt5VAbvGG4tFFkRxaaDmSKAljglEle1+m1OamKQLjm8fIxfOqu/szng==}
+
+  '@uppy/webdav@1.0.1':
+    resolution: {integrity: sha512-44E/nZ9JWayCcHqIzjWpbdPHcir49lT7LKCb6MJp+TvHaw904auwjCLqVoLqk7CdFnHktr8fi7uLojWKF6ouvQ==}
     peerDependencies:
-      '@uppy/core': ^4.5.2
+      '@uppy/core': ^5.0.2
 
   '@uppy/xhr-upload@4.3.3':
     resolution: {integrity: sha512-I7RVppwTvLRlVfoW5piMxcZKzWF42E6CwYFQ42d2LzizrkG4tVLQkQrTZlw85za3nhcSrX3o/d1eNx3pzLmsdw==}
@@ -4420,6 +4424,13 @@ snapshots:
       namespace-emitter: 2.0.1
       p-retry: 6.2.1
 
+  '@uppy/companion-client@5.0.1(@uppy/core@5.0.2)':
+    dependencies:
+      '@uppy/core': 5.0.2
+      '@uppy/utils': 7.0.2
+      namespace-emitter: 2.0.1
+      p-retry: 6.2.1
+
   '@uppy/core@4.5.3':
     dependencies:
       '@transloadit/prettier-bytes': 0.3.5
@@ -4431,15 +4442,24 @@ snapshots:
       nanoid: 5.1.5
       preact: 10.27.2
 
-  '@uppy/dashboard@4.4.3(@uppy/core@4.5.3)':
+  '@uppy/core@5.0.2':
     dependencies:
       '@transloadit/prettier-bytes': 0.3.5
-      '@uppy/core': 4.5.3
-      '@uppy/informer': 4.3.2(@uppy/core@4.5.3)
-      '@uppy/provider-views': 4.5.2(@uppy/core@4.5.3)
-      '@uppy/status-bar': 4.2.3(@uppy/core@4.5.3)
-      '@uppy/thumbnail-generator': 4.2.2(@uppy/core@4.5.3)
-      '@uppy/utils': 6.2.2
+      '@uppy/store-default': 5.0.0
+      '@uppy/utils': 7.0.2
+      lodash: 4.17.21
+      mime-match: 1.0.2
+      namespace-emitter: 2.0.1
+      nanoid: 5.1.5
+      preact: 10.27.2
+
+  '@uppy/dashboard@5.0.2(@uppy/core@5.0.2)':
+    dependencies:
+      '@transloadit/prettier-bytes': 0.3.5
+      '@uppy/core': 5.0.2
+      '@uppy/provider-views': 5.0.2(@uppy/core@5.0.2)
+      '@uppy/thumbnail-generator': 5.0.1(@uppy/core@5.0.2)
+      '@uppy/utils': 7.0.2
       classnames: 2.5.1
       lodash: 4.17.21
       nanoid: 5.1.5
@@ -4451,51 +4471,39 @@ snapshots:
       '@uppy/core': 4.5.3
       '@uppy/utils': 6.2.2
 
-  '@uppy/google-drive@4.4.2(@uppy/core@4.5.3)':
+  '@uppy/google-drive@5.0.1(@uppy/core@5.0.2)':
     dependencies:
-      '@uppy/companion-client': 4.5.2(@uppy/core@4.5.3)
-      '@uppy/core': 4.5.3
-      '@uppy/provider-views': 4.5.2(@uppy/core@4.5.3)
-      '@uppy/utils': 6.2.2
+      '@uppy/companion-client': 5.0.1(@uppy/core@5.0.2)
+      '@uppy/core': 5.0.2
+      '@uppy/provider-views': 5.0.2(@uppy/core@5.0.2)
+      '@uppy/utils': 7.0.2
       preact: 10.27.2
 
-  '@uppy/informer@4.3.2(@uppy/core@4.5.3)':
+  '@uppy/onedrive@5.0.1(@uppy/core@5.0.2)':
     dependencies:
-      '@uppy/core': 4.5.3
-      '@uppy/utils': 6.2.2
+      '@uppy/companion-client': 5.0.1(@uppy/core@5.0.2)
+      '@uppy/core': 5.0.2
+      '@uppy/provider-views': 5.0.2(@uppy/core@5.0.2)
+      '@uppy/utils': 7.0.2
       preact: 10.27.2
 
-  '@uppy/onedrive@4.3.2(@uppy/core@4.5.3)':
+  '@uppy/provider-views@5.0.2(@uppy/core@5.0.2)':
     dependencies:
-      '@uppy/companion-client': 4.5.2(@uppy/core@4.5.3)
-      '@uppy/core': 4.5.3
-      '@uppy/provider-views': 4.5.2(@uppy/core@4.5.3)
-      '@uppy/utils': 6.2.2
-      preact: 10.27.2
-
-  '@uppy/provider-views@4.5.2(@uppy/core@4.5.3)':
-    dependencies:
-      '@uppy/core': 4.5.3
-      '@uppy/utils': 6.2.2
+      '@uppy/core': 5.0.2
+      '@uppy/utils': 7.0.2
       classnames: 2.5.1
       nanoid: 5.1.5
       p-queue: 8.1.0
       preact: 10.27.2
 
-  '@uppy/status-bar@4.2.3(@uppy/core@4.5.3)':
-    dependencies:
-      '@transloadit/prettier-bytes': 0.3.5
-      '@uppy/core': 4.5.3
-      '@uppy/utils': 6.2.2
-      classnames: 2.5.1
-      preact: 10.27.2
-
   '@uppy/store-default@4.3.2': {}
 
-  '@uppy/thumbnail-generator@4.2.2(@uppy/core@4.5.3)':
+  '@uppy/store-default@5.0.0': {}
+
+  '@uppy/thumbnail-generator@5.0.1(@uppy/core@5.0.2)':
     dependencies:
-      '@uppy/core': 4.5.3
-      '@uppy/utils': 6.2.2
+      '@uppy/core': 5.0.2
+      '@uppy/utils': 7.0.2
       exifr: 7.1.3
 
   '@uppy/tus@4.2.2(@uppy/core@4.5.3)':
@@ -4510,12 +4518,17 @@ snapshots:
       lodash: 4.17.21
       preact: 10.27.2
 
-  '@uppy/webdav@0.4.2(@uppy/core@4.5.3)':
+  '@uppy/utils@7.0.2':
     dependencies:
-      '@uppy/companion-client': 4.5.2(@uppy/core@4.5.3)
-      '@uppy/core': 4.5.3
-      '@uppy/provider-views': 4.5.2(@uppy/core@4.5.3)
-      '@uppy/utils': 6.2.2
+      lodash: 4.17.21
+      preact: 10.27.2
+
+  '@uppy/webdav@1.0.1(@uppy/core@5.0.2)':
+    dependencies:
+      '@uppy/companion-client': 5.0.1(@uppy/core@5.0.2)
+      '@uppy/core': 5.0.2
+      '@uppy/provider-views': 5.0.2(@uppy/core@5.0.2)
+      '@uppy/utils': 7.0.2
       preact: 10.27.2
 
   '@uppy/xhr-upload@4.3.3(@uppy/core@4.5.3)':

@@ -9,12 +9,12 @@ import {
   useThemeStore,
   useUserStore
 } from '@opencloud-eu/web-pkg'
-import '@uppy/dashboard/dist/style.min.css'
+import '@uppy/dashboard/css/style.min.css'
 import Webdav from '@uppy/webdav'
 import { storeToRefs } from 'pinia'
 import { useGettext } from 'vue3-gettext'
 import { computed, nextTick, unref } from 'vue'
-import { PluginTarget } from '@uppy/core/lib/UIPlugin'
+import { PluginTarget } from '@uppy/core'
 
 export const useExtensions = ({ applicationConfig }: ApplicationSetupOptions) => {
   const userStore = useUserStore()
