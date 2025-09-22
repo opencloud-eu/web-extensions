@@ -12,8 +12,8 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0(@babel/core@7.26.0)(@typescript-eslint/eslint-plugin@8.37.0(@typescript-eslint/parser@8.37.0(eslint@9.36.0)(typescript@5.9.2))(eslint@9.36.0)(typescript@5.9.2))(eslint@9.36.0)(vue-eslint-parser@9.4.3(eslint@9.36.0))
       '@opencloud-eu/extension-sdk':
-        specifier: ^3.0.0
-        version: 3.2.0(sass@1.80.7)(vite@6.3.6(@types/node@22.18.6)(sass@1.80.7))(vue@3.5.21(typescript@5.9.2))
+        specifier: ^4.0.0
+        version: 4.0.0(sass@1.80.7)(vite@6.3.6(@types/node@22.18.6)(sass@1.80.7))(vue@3.5.21(typescript@5.9.2))
       '@opencloud-eu/prettier-config':
         specifier: ^3.0.0
         version: 3.2.0(prettier@3.6.2)
@@ -788,11 +788,11 @@ packages:
     peerDependencies:
       eslint: ^9.0.0
 
-  '@opencloud-eu/extension-sdk@3.2.0':
-    resolution: {integrity: sha512-eeVGESCVofIJNwRPRdse0E5aOYOyKBCc31t9CgR7tUPolyBNdzSXlmGdSPh+m887YQOQDIe14Udd9wBKl5YvKA==}
+  '@opencloud-eu/extension-sdk@4.0.0':
+    resolution: {integrity: sha512-jbNToOj7fDXxtJ4J2D7d0SeINfyOVzCRChTU7fy8U5k1jhE9QUhrTqNSEsgY0i7xC9qTLg04iS8aGK56KM7PpA==}
     peerDependencies:
       sass: ^1.79.5
-      vite: ^5 || ^6.0.0
+      vite: ^5 || ^6.0.0 || ^7.0.0
 
   '@opencloud-eu/prettier-config@3.2.0':
     resolution: {integrity: sha512-7sFmvQ1d6kWQCtZe0XpyfoZDKTu2+LhAOAeP9+Lmlj2sWl8ym4PdFa9DgyPhLCulBHGyR+LSbx7VxV34R8qmeQ==}
@@ -2443,11 +2443,6 @@ packages:
     resolution: {integrity: sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==}
     engines: {node: '>= 0.6'}
 
-  mime@4.0.7:
-    resolution: {integrity: sha512-2OfDPL+e03E0LrXaGYOtTFIYhiuzep94NSsuhrNULq+stylcJedcHdzHtz0atMUuGwJfFYs0YL5xeC/Ca2x0eQ==}
-    engines: {node: '>=16'}
-    hasBin: true
-
   minimatch@3.1.2:
     resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}
 
@@ -2534,10 +2529,6 @@ packages:
 
   once@1.4.0:
     resolution: {integrity: sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==}
-
-  opener@1.5.2:
-    resolution: {integrity: sha512-ur5UIdyw5Y7yEj9wLzhqXiy6GZ3Mwx0yGI+5sMn2r0N0v3cKJvUmFH5yPP+WXh9e0xfyzyJX95D8l088DNFj7A==}
-    hasBin: true
 
   optionator@0.9.4:
     resolution: {integrity: sha512-6IpQ7mKUxRcZNLIObR0hz7lxsapSSIYNZJwXPGeF0mTVqGKFIXj1DQcMoT22S3ROcLyY/rz0PWaWZ9ayWmad9g==}
@@ -2758,9 +2749,6 @@ packages:
 
   rfdc@1.4.1:
     resolution: {integrity: sha512-q1b3N5QkRUWUl7iyylaaj3kOpIT0N2i9MqIEQXP73GVsN9cw3fdx8X63cEmWhJGi2PPCF23Ijp7ktmd39rawIA==}
-
-  rollup-plugin-serve@3.0.0:
-    resolution: {integrity: sha512-DjVRhbwC0OgP1Q1sj8Lvx12ee60UTZM767kkjT61sYKHw/wLpANAw3VZN5ZMa5NlvO8bYpfTaqiUrW+icAjXFg==}
 
   rollup@4.40.0:
     resolution: {integrity: sha512-Noe455xmA96nnqH5piFtLobsGbCij7Tu+tb3c1vYjNbTkfzGqXqQXG3wJaYXkRZuQ0vEYN4bhwg7QnIrqB5B+w==}
@@ -3959,10 +3947,9 @@ snapshots:
       - supports-color
       - vue-eslint-parser
 
-  '@opencloud-eu/extension-sdk@3.2.0(sass@1.80.7)(vite@6.3.6(@types/node@22.18.6)(sass@1.80.7))(vue@3.5.21(typescript@5.9.2))':
+  '@opencloud-eu/extension-sdk@4.0.0(sass@1.80.7)(vite@6.3.6(@types/node@22.18.6)(sass@1.80.7))(vue@3.5.21(typescript@5.9.2))':
     dependencies:
       '@vitejs/plugin-vue': 6.0.0(vite@6.3.6(@types/node@22.18.6)(sass@1.80.7))(vue@3.5.21(typescript@5.9.2))
-      rollup-plugin-serve: 3.0.0
       sass: 1.80.7
       vite: 6.3.6(@types/node@22.18.6)(sass@1.80.7)
     transitivePeerDependencies:
@@ -5719,8 +5706,6 @@ snapshots:
     dependencies:
       mime-db: 1.52.0
 
-  mime@4.0.7: {}
-
   minimatch@3.1.2:
     dependencies:
       brace-expansion: 1.1.11
@@ -5789,8 +5774,6 @@ snapshots:
   once@1.4.0:
     dependencies:
       wrappy: 1.0.2
-
-  opener@1.5.2: {}
 
   optionator@0.9.4:
     dependencies:
@@ -5961,11 +5944,6 @@ snapshots:
   reusify@1.1.0: {}
 
   rfdc@1.4.1: {}
-
-  rollup-plugin-serve@3.0.0:
-    dependencies:
-      mime: 4.0.7
-      opener: 1.5.2
 
   rollup@4.40.0:
     dependencies:
