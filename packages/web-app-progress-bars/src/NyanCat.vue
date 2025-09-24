@@ -3,7 +3,7 @@
     v-if="isLoading"
     id="nyan-cat-progress-bar"
     ref="nyanCatContainer"
-    class="oc-width-1-1"
+    class="ext:w-full"
     :style="nyanCatContainerVars"
   >
     <div class="wave-a hot rainbow" />
