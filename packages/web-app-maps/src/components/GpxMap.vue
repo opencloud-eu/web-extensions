@@ -1,7 +1,9 @@
 <template>
-  <div class="oc-flex oc-flex-column">
-    <div ref="leafletElement" class="oc-width-1-1 oc-height-1-1">
-      <dl class="data-list">
+  <div class="ext:flex ext:flex-col">
+    <div ref="leafletElement" class="ext:size-full ext:z-1">
+      <dl
+        class="ext:absolute ext:grid ext:grid-cols-[auto_minmax(0,1fr)] ext:z-990 bg-role-surface-container ext:rounded ext:p-2 ext:right-2 ext:top-2"
+      >
         <dt v-text="$gettext('Name')" />
         <dd>{{ meta.name }}</dd>
 
@@ -88,20 +90,3 @@ onBeforeUnmount(() => {
   mapObject?.remove()
 })
 </script>
-
-<style type="scss" scoped>
-.leaflet-container {
-  z-index: 1;
-}
-
-.data-list {
-  position: absolute;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  z-index: 999;
-  background: #fffc;
-  border-radius: 2px;
-  padding: var(--oc-space-small);
-  right: 10px;
-}
-</style>
