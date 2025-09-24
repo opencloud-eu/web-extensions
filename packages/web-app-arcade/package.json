@@ -19,6 +19,6 @@
     "nes-vue": "^1.6.10"
   },
   "peerDependencies": {
-    "@opencloud-eu/web-pkg": "^3.0.0"
+    "@opencloud-eu/web-pkg": "^4.0.0"
   }
 }
