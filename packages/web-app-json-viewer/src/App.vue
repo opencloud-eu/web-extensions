@@ -1,11 +1,5 @@
 <template>
-  <div class="oc-json-viewer oc-width-1-1 oc-height-1-1">
-    <div
-      ref="editorRef"
-      class="oc-width-1-1 oc-height-1-1"
-      :class="{ 'jse-theme-dark': darkTheme }"
-    ></div>
-  </div>
+  <div ref="editorRef" :class="{ 'jse-theme-dark': darkTheme }" />
 </template>
 
 <script lang="ts">
@@ -79,6 +73,7 @@ export default defineComponent({
 </script>
 <style lang="scss">
 .jse {
+  // overwrite vendor styles
   &-menu {
     background-color: var(--oc-role-chrome) !important;
   }
