@@ -13,6 +13,7 @@ import {
   flattenSites
 } from './utils'
 
+import './tailwind.css'
 import App from './App.vue'
 import Dashboard from './ExternalSitesDashboard.vue'
 
