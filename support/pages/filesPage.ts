@@ -20,7 +20,7 @@ export class FilesPage {
 
   getResourceNameSelector(resource: string): Locator {
     return this.page.locator(
-      `//div[@id="files-space-table" or @id="tiles-view"]//*[@data-test-resource-name="${resource}"]`
+      `#files-space-table [data-test-resource-name="${resource}"], #tiles-view [data-test-resource-name="${resource}"]`
     )
   }
 
