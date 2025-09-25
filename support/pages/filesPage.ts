@@ -19,7 +19,9 @@ export class FilesPage {
   }
 
   getResourceNameSelector(resource: string): Locator {
-    return this.page.locator(`#files-space-table [data-test-resource-name="${resource}"]`)
+    return this.page.locator(
+      `#files-space-table [data-test-resource-name="${resource}"], #tiles-view [data-test-resource-name="${resource}"]`
+    )
   }
 
   async extractZip(file: string) {
