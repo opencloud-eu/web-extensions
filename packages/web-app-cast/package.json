@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "@opencloud-eu/web-client": "^3.0.0",
-    "@opencloud-eu/web-pkg": "^3.0.0",
+    "@opencloud-eu/web-pkg": "^4.0.0",
     "@types/chromecast-caf-sender": "^1.0.8",
     "vue": "^3.4.21",
     "vue3-gettext": "^2.4.0"
