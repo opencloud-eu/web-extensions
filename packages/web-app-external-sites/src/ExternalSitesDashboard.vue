@@ -1,7 +1,10 @@
 <template>
-  <main id="external-sites-dashboard" class="oc-pt-m oc-pb-l oc-flex oc-flex-center">
-    <div class="page">
-      <h1 class="title oc-mb-m" v-text="dashboard.name" />
+  <main
+    id="external-sites-dashboard"
+    class="ext:pt-4 ext:pb-6 ext:flex ext:justify-center ext:overflow-y-auto"
+  >
+    <div class="ext:w-full ext:lg:w-[80%] ext:mx-8">
+      <h1 class="ext:mb-8 ext:border-b" v-text="dashboard.name" />
       <div v-if="standaloneGroup.sites.length === 0 && groups.length === 0">
         {{ $gettext('No sites available') }}
       </div>
@@ -49,23 +52,3 @@ const groups = computed((): ExternalSiteGroup[] => {
   return filteredSites.value.filter((item) => isExternalSiteGroup(item)) as ExternalSiteGroup[]
 })
 </script>
-
-<style lang="scss">
-#external-sites-dashboard {
-  overflow-y: auto;
-
-  .title {
-    border-bottom: 0.5px solid var(--oc-role-outline-variant);
-  }
-
-  .page {
-    width: 80rem;
-
-    @media (max-width: 1200px) {
-      width: 100%;
-      padding-left: var(--oc-space-medium);
-      padding-right: var(--oc-space-medium);
-    }
-  }
-}
-</style>

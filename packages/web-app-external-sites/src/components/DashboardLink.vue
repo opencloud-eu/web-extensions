@@ -1,43 +1,19 @@
 <template>
-  <li class="tile oc-card oc-card-default oc-card-rounded">
-    <a v-if="site.target === 'external'" :href="site.url" target="_blank">
-      <div class="tile-body oc-card-body oc-p">
-        <div class="tile-content oc-flex oc-flex-middle">
-          <div class="tile-icon">
-            <oc-icon v-if="site.icon" :name="site.icon" :color="site.color" size="xlarge" />
-          </div>
-          <div>
-            <h3 class="oc-my-s oc-text-truncate mark-element tile-title">
-              {{ site.name }}
-            </h3>
-            <p class="oc-my-s mark-element">{{ site.description }}</p>
-          </div>
+  <oc-card class="bg-role-surface-container ext:border">
+    <component :is="site.target === 'embedded' ? 'router-link' : 'a'" v-bind="linkProps">
+      <div class="ext:flex ext:items-center ext:gap-4">
+        <oc-icon v-if="site.icon" :name="site.icon" :color="site.color" size="large" />
+        <div>
+          <h3 class="ext:my-0 ext:truncate" v-text="site.name" />
+          <p class="ext:my-0" v-text="site.description" />
         </div>
       </div>
-    </a>
-    <router-link
-      v-if="site.target === 'embedded'"
-      :to="getNestedSiteRoutePath(site)"
-      class="site-link"
-    >
-      <div class="tile-body oc-card-body oc-p">
-        <div class="tile-content oc-flex oc-flex-middle">
-          <div class="tile-icon">
-            <oc-icon v-if="site.icon" :name="site.icon" :color="site.color" size="xlarge" />
-          </div>
-          <div>
-            <h3 class="oc-my-s oc-text-truncate mark-element tile-title">
-              {{ site.name }}
-            </h3>
-            <p class="oc-my-s mark-element">{{ site.description }}</p>
-          </div>
-        </div>
-      </div>
-    </router-link>
-  </li>
+    </component>
+  </oc-card>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { ExternalSite } from '../types'
 import { makeSlug } from '../utils'
 import { urlJoin } from '@opencloud-eu/web-client'
@@ -52,27 +28,16 @@ const getNestedSiteRoutePath = (site: ExternalSite): string => {
 
   return urlJoin('external-sites', props.dashboardPath, sitePath)
 }
+
+const linkProps = computed(() => {
+  if (props.site.target === 'embedded') {
+    return {
+      to: getNestedSiteRoutePath(props.site)
+    }
+  }
+  return {
+    href: props.site.url,
+    target: '_blank'
+  }
+})
 </script>
-
-<style lang="scss" scoped>
-.tile {
-  overflow: hidden;
-  background-color: var(--oc-role-surface-container) !important;
-  box-shadow: none;
-  height: 100%;
-  display: flex;
-  flex-flow: column;
-  outline: 0.5px solid var(--oc-role-outline-variant);
-
-  .tile-icon {
-    margin-right: var(--oc-space-medium);
-  }
-
-  .tile-body {
-    display: flex;
-    flex-flow: column;
-    justify-content: space-between;
-    height: 100%;
-  }
-}
-</style>

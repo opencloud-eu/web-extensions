@@ -1,6 +1,6 @@
 <template>
-  <main class="external-site-container">
-    <iframe :title="$gettext(name)" :src="url" class="oc-width-1-1 oc-height-1-1" />
+  <main>
+    <iframe :title="$gettext(name)" :src="url" class="ext:size-full" />
   </main>
 </template>
 <script lang="ts">

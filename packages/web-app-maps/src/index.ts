@@ -7,6 +7,7 @@ import {
 } from '@opencloud-eu/web-pkg'
 import { computed } from 'vue'
 import { useGettext } from 'vue3-gettext'
+import './tailwind.css'
 import LocationPanel from './components/LocationPanel.vue'
 import GpxMap from './components/GpxMap.vue'
 

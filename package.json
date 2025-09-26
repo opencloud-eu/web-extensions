@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@opencloud-eu/eslint-config": "^4.0.0",
-    "@opencloud-eu/extension-sdk": "^4.0.0",
+    "@opencloud-eu/extension-sdk": "^4.1.0-alpha.1",
     "@opencloud-eu/prettier-config": "^4.0.0",
     "@opencloud-eu/tsconfig": "^4.0.0",
     "@opencloud-eu/web-test-helpers": "^4.0.0",
@@ -29,6 +29,7 @@
     "eslint": "9.36.0",
     "happy-dom": "^18.0.0",
     "prettier": "3.6.2",
+    "tailwindcss": "^4.0.0",
     "ts-node": "^10.9.2",
     "typescript": "5.9.2",
     "vite": "7.1.7",

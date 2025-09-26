@@ -19,11 +19,11 @@ describe('json viewer', () => {
   describe('dark and light theme', () => {
     it('uses the dark theme if enabled', () => {
       const { wrapper } = createWrapper({ isDark: true })
-      expect(wrapper.find('.oc-json-viewer div').classes()).toContain('jse-theme-dark')
+      expect(wrapper.find('div').classes()).toContain('jse-theme-dark')
     })
     it('does not use the dark theme if not enabled', () => {
       const { wrapper } = createWrapper({ isDark: false })
-      expect(wrapper.find('.oc-json-viewer div').classes()).not.toContain('jse-theme-dark')
+      expect(wrapper.find('div').classes()).not.toContain('jse-theme-dark')
     })
   })
 })

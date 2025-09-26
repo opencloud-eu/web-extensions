@@ -1,9 +1,11 @@
 <template>
-  <h2 v-if="group.name" class="oc-flex oc-flex-middle oc-mb-s">
+  <h2 v-if="group.name" class="ext:flex ext:items-center ext:mb-4">
     {{ group.name }}
   </h2>
-  <div class="link-list oc-mb-m">
-    <oc-list class="links">
+  <div class="ext:mb-6">
+    <oc-list
+      class="ext:grid ext:gap-4 ext:[grid-template-columns:repeat(auto-fill,minmax(300px,1fr))]"
+    >
       <dashboard-link
         v-for="site in sortedSites"
         :key="site.name"
@@ -29,13 +31,3 @@ const sortedSites = computed((): ExternalSite[] => {
   return sortedSites.sort((a, b) => a.priority - b.priority) as ExternalSite[]
 })
 </script>
-
-<style lang="scss" scoped>
-.link-list {
-  .links {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-  }
-}
-</style>

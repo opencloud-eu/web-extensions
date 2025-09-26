@@ -2,6 +2,7 @@ import translations from '../l10n/translations.json'
 import { AppWrapperRoute, defineWebApplication } from '@opencloud-eu/web-pkg'
 import { useGettext } from 'vue3-gettext'
 
+import './tailwind.css'
 import App from './App.vue'
 
 const applicationId = 'arcade'

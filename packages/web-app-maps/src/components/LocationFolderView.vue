@@ -1,18 +1,11 @@
 <template>
   <div>
-    <no-content-message v-if="!pinLocations.length" class="files-empty" icon="map-2">
+    <no-content-message v-if="!pinLocations.length" icon="map-2">
       <template #message>
         <span v-text="$gettext('No files with location data')" />
       </template>
     </no-content-message>
-    <div
-      ref="leafletElement"
-      class="leafletContainer"
-      :style="{
-        height: '100%',
-        ...(!pinLocations.length && { display: 'none' })
-      }"
-    />
+    <div ref="leafletElement" class="ext:h-full" :class="{ hidden: !pinLocations.length }" />
   </div>
 </template>
 

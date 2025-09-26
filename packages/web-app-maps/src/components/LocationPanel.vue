@@ -1,5 +1,5 @@
 <template>
-  <div ref="leafletElement" class="leafletContainer" />
+  <div ref="leafletElement" class="leafletContainer ext:h-[200px]" />
 </template>
 
 <script setup lang="ts">
@@ -73,9 +73,3 @@ onPanelActive('location-details', () => {
   setView()
 })
 </script>
-
-<style lang="scss">
-.leafletContainer {
-  height: 200px;
-}
-</style>

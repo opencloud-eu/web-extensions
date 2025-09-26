@@ -1,6 +1,13 @@
 <template>
-  <div class="arcade oc-height-1-1">
-    <nes-vue v-if="url" class="screen" :url="url" :label="label" :width="width" :height="height" />
+  <div class="grid">
+    <nes-vue
+      v-if="url"
+      class="ext:shadow-xl ext:shadow-cyan-500"
+      :url="url"
+      :label="label"
+      :width="width"
+      :height="height"
+    />
   </div>
 </template>
 
@@ -16,14 +23,3 @@ const label = $gettext('... START ...')
 const width = 768
 const height = 720
 </script>
-
-<style scoped>
-.arcade {
-  display: grid;
-  place-items: center;
-}
-
-.screen {
-  box-shadow: 0 0 60px 0 #0ff;
-}
-</style>

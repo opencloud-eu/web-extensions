@@ -165,13 +165,3 @@ export default defineComponent({
   }
 })
 </script>
-<style scoped>
-#drawio-editor {
-  width: 100%;
-  height: 100%;
-  border: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-}
-</style>
