@@ -55,7 +55,7 @@ export const useUnzipAction = () => {
 
   const handler = async ({ space, resources }: FileActionOptions) => {
     let zipReader: zip.ZipReader<zip.BlobReader>
-    const workerUrl = urlJoin(dirname(import.meta.url), Worker)
+    const workerUrl = urlJoin(dirname(import.meta.url), '..', Worker)
 
     try {
       zip.configure({

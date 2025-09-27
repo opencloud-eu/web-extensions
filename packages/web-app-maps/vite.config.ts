@@ -7,17 +7,7 @@ if (process.env.OPENCLOUD_EXTENSION_DIST_DIR) {
 }
 
 export default defineConfig({
-  name: 'web-app-maps',
-  server: {
-    port: 9227
-  },
-  build: {
-    rollupOptions: {
-      output: {
-        entryFileNames: 'maps.js'
-      }
-    }
-  },
+  name: 'maps',
   plugins: [
     viteStaticCopy({
       targets: [{ src: 'node_modules/leaflet-gpx/icons/pin-*.png', dest: assetsDest }]
