@@ -1,5 +1,4 @@
 {
-  "entrypoint": "draw-io.js",
   "config": {
     "url": "https://embed.diagrams.net",
     "theme": "minimal"
