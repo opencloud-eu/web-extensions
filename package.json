@@ -19,7 +19,6 @@
   },
   "devDependencies": {
     "@opencloud-eu/eslint-config": "^4.0.0",
-    "@opencloud-eu/extension-sdk": "^4.1.0-alpha.1",
     "@opencloud-eu/prettier-config": "^4.0.0",
     "@opencloud-eu/tsconfig": "^4.0.0",
     "@opencloud-eu/web-test-helpers": "^4.0.0",
@@ -38,6 +37,9 @@
     "vitest-mock-extended": "3.1.0",
     "vue-tsc": "3.1.0",
     "vue3-gettext": "^2.4.0"
+  },
+  "dependencies": {
+    "@opencloud-eu/extension-sdk": "^4.1.0-alpha.2"
   },
   "packageManager": "pnpm@10.17.1"
 }

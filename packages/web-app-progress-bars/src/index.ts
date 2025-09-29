@@ -1,6 +1,6 @@
 import { defineWebApplication, Extension } from '@opencloud-eu/web-pkg'
 import { useGettext } from 'vue3-gettext'
-import './tailwind.css'
+import '@opencloud-eu/extension-sdk/tailwind.css'
 import NyanCat from './NyanCat.vue'
 import { computed, h } from 'vue'
 import translations from '../l10n/translations.json'
