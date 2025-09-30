@@ -7,13 +7,14 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@opencloud-eu/extension-sdk':
+        specifier: ^4.1.0-alpha.2
+        version: 4.1.0-alpha.2(vite@7.1.7(@types/node@22.18.7)(jiti@2.6.0)(lightningcss@1.30.1)(sass@1.80.7))(vue@3.5.22(typescript@5.9.2))
     devDependencies:
       '@opencloud-eu/eslint-config':
         specifier: ^4.0.0
         version: 4.0.0(@babel/core@7.26.0)(@typescript-eslint/eslint-plugin@8.37.0(@typescript-eslint/parser@8.37.0(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2))(eslint@9.36.0(jiti@2.6.0))(typescript@5.9.2))(eslint@9.36.0(jiti@2.6.0))(vue-eslint-parser@9.4.3(eslint@9.36.0(jiti@2.6.0)))
-      '@opencloud-eu/extension-sdk':
-        specifier: ^4.1.0-alpha.1
-        version: 4.1.0-alpha.1(vite@7.1.7(@types/node@22.18.7)(jiti@2.6.0)(lightningcss@1.30.1)(sass@1.80.7))(vue@3.5.22(typescript@5.9.2))
       '@opencloud-eu/prettier-config':
         specifier: ^4.0.0
         version: 4.0.0(prettier@3.6.2)
@@ -795,8 +796,8 @@ packages:
     peerDependencies:
       eslint: ^9.0.0
 
-  '@opencloud-eu/extension-sdk@4.1.0-alpha.1':
-    resolution: {integrity: sha512-sC+iWZFJUhgZm+oZyxAxjlZWpXZsKvJ7ngC/loFmj6q2Bsju6t0WMuFBCcqSroo7bOo/xNPoKymwrx8r3XY+2g==}
+  '@opencloud-eu/extension-sdk@4.1.0-alpha.2':
+    resolution: {integrity: sha512-WGdkMPnMunUytd2AsqM7mq3KGslJCyF3QRy1rJdx3yx4WbfTwqVI0udxUmBcbNxJ5J2WmIQ5Jy9d7c/msInhlg==}
     peerDependencies:
       vite: ^5 || ^6.0.0 || ^7.0.0
 
@@ -4117,7 +4118,7 @@ snapshots:
       - supports-color
       - vue-eslint-parser
 
-  '@opencloud-eu/extension-sdk@4.1.0-alpha.1(vite@7.1.7(@types/node@22.18.7)(jiti@2.6.0)(lightningcss@1.30.1)(sass@1.80.7))(vue@3.5.22(typescript@5.9.2))':
+  '@opencloud-eu/extension-sdk@4.1.0-alpha.2(vite@7.1.7(@types/node@22.18.7)(jiti@2.6.0)(lightningcss@1.30.1)(sass@1.80.7))(vue@3.5.22(typescript@5.9.2))':
     dependencies:
       '@tailwindcss/vite': 4.1.13(vite@7.1.7(@types/node@22.18.7)(jiti@2.6.0)(lightningcss@1.30.1)(sass@1.80.7))
       '@vitejs/plugin-vue': 6.0.0(vite@7.1.7(@types/node@22.18.7)(jiti@2.6.0)(lightningcss@1.30.1)(sass@1.80.7))(vue@3.5.22(typescript@5.9.2))

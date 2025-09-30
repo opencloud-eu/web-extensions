@@ -13,7 +13,7 @@ import {
   flattenSites
 } from './utils'
 
-import './tailwind.css'
+import '@opencloud-eu/extension-sdk/tailwind.css'
 import App from './App.vue'
 import Dashboard from './ExternalSitesDashboard.vue'
 
