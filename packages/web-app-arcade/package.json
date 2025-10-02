@@ -1,6 +1,6 @@
 {
   "name": "web-app-arcade",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "description": "open and play .nes ROMs in OpenCloud Web Arcade",
   "license": "AGPL-3.0",
