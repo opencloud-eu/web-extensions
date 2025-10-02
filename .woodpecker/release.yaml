@@ -5,7 +5,7 @@ when:
 variables:
   - &node_image 'owncloudci/nodejs:22'
   - &alpine_image 'owncloudci/alpine:latest'
-  - &release_image 'woodpeckerci/plugin-release:0.2.5'
+  - &release_image 'woodpeckerci/plugin-release:0.2.6'
   - &docker_image 'woodpeckerci/plugin-docker-buildx:latest'
   - &extract_app_and_version
     - APP=${CI_COMMIT_TAG%-v*}
