@@ -6,18 +6,20 @@ This application can be used for adding external sites to the application menu o
 
 The configuration for the external-sites app may look like so:
 
-```
-"config": {
-  "sites": [
-    {
-      "name": "OpenCloud",
-      "url": "https://www.opencloud.eu",
-      "target": "external",
-      "color": "#0D856F",
-      "icon": "cloud",
-      "priority": 50
-    }
-  ]
+```json
+{
+  "config": {
+    "sites": [
+      {
+        "name": "OpenCloud",
+        "url": "https://www.opencloud.eu",
+        "target": "external",
+        "color": "#0D856F",
+        "icon": "cloud",
+        "priority": 50
+      }
+    ]
+  }
 }
 ```
 
@@ -40,44 +42,46 @@ You can also group external sites under so-called dashboards. These appear as de
 ### Example
 
 ```json
-"config": {
-  "defaultDashboard": "My Dashboard",
-  "dashboards": [
-    {
-      "name": "My Dashboard",
-      "path": "/dashboard",
-      "color": "#ff9800",
-      "icon": "grid",
-      "sites": [
-        {
-          "name": "Plex",
-          "url": "https://plex.local",
-          "color": "#e5a00d",
-          "icon": "play",
-          "description": "Multimedia streaming service"
-        },
-        {
-          "name": "Office",
-          "sites": [
-            {
-              "name": "Paperless NGX",
-              "url": "https://paperless.local",
-              "color": "#17541f",
-              "icon": "leaf",
-              "description": "Document management system."
-            },
-            {
-              "name": "Printer Web UI",
-              "url": "http://printer.local",
-              "color": "#0096d6",
-              "icon": "printer",
-              "description": "Administration panel and web scan."
-            }
-          ]
-        }
-      ]
-    }
-  ]
+{
+  "config": {
+    "defaultDashboard": "My Dashboard",
+    "dashboards": [
+      {
+        "name": "My Dashboard",
+        "path": "/dashboard",
+        "color": "#ff9800",
+        "icon": "grid",
+        "sites": [
+          {
+            "name": "Plex",
+            "url": "https://plex.local",
+            "color": "#e5a00d",
+            "icon": "play",
+            "description": "Multimedia streaming service"
+          },
+          {
+            "name": "Office",
+            "sites": [
+              {
+                "name": "Paperless NGX",
+                "url": "https://paperless.local",
+                "color": "#17541f",
+                "icon": "leaf",
+                "description": "Document management system."
+              },
+              {
+                "name": "Printer Web UI",
+                "url": "http://printer.local",
+                "color": "#0096d6",
+                "icon": "printer",
+                "description": "Administration panel and web scan."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }
 ```
 
@@ -117,6 +121,7 @@ Visibility offers a way of hiding certain Menu/Dashboard sites via user groups.
 ### Example
 
 ```json
+{
   "config": {
     "sites": [
       {
@@ -134,10 +139,11 @@ Visibility offers a way of hiding certain Menu/Dashboard sites via user groups.
         "color": "#0D856F",
         "icon": "book",
         "priority": 50,
-        "visibility":
-        {
-          "groups":{
-            "any": [ "admin" ]
+        "visibility": {
+          "groups": {
+            "any": [
+              "admin"
+            ]
           }
         }
       }
@@ -156,13 +162,18 @@ Visibility offers a way of hiding certain Menu/Dashboard sites via user groups.
             "color": "#e5a00d",
             "icon": "play",
             "description": "Multimedia streaming service",
-            "visibility":
-            {
-              "groups":
-              {
-                "any": [ "editor", "admin" ],
-                "all": [ "verified" ],
-                "none": [ "suspended" ]
+            "visibility": {
+              "groups": {
+                "any": [
+                  "editor",
+                  "admin"
+                ],
+                "all": [
+                  "verified"
+                ],
+                "none": [
+                  "suspended"
+                ]
               }
             }
           },
@@ -199,6 +210,7 @@ Visibility offers a way of hiding certain Menu/Dashboard sites via user groups.
       }
     ]
   }
+}
 ```
 
 <details><summary>Via apps.yaml file</summary>
@@ -283,15 +295,22 @@ Each visibility object must have a `groups` field, including one or more of the 
 - `none` (array, at least one is required)
 
 ```json
-"visibility":
-    {
-      "groups":
-      {
-        "any": [ "editor", "admin" ],
-        "all": [ "verified" ],
-        "none": [ "suspended" ]
-      }
+{
+  "visibility": {
+    "groups": {
+      "any": [
+        "editor",
+        "admin"
+      ],
+      "all": [
+        "verified"
+      ],
+      "none": [
+        "suspended"
+      ]
     }
+  }
+}
 ```
 
 <details><summary>Yaml Example file</summary>
