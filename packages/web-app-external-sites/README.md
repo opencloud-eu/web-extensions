@@ -141,9 +141,7 @@ Visibility offers a way of hiding certain Menu/Dashboard sites via user groups.
         "priority": 50,
         "visibility": {
           "groups": {
-            "any": [
-              "admin"
-            ]
+            "any": ["admin"]
           }
         }
       }
@@ -164,16 +162,9 @@ Visibility offers a way of hiding certain Menu/Dashboard sites via user groups.
             "description": "Multimedia streaming service",
             "visibility": {
               "groups": {
-                "any": [
-                  "editor",
-                  "admin"
-                ],
-                "all": [
-                  "verified"
-                ],
-                "none": [
-                  "suspended"
-                ]
+                "any": ["editor", "admin"],
+                "all": ["verified"],
+                "none": ["suspended"]
               }
             }
           },
@@ -298,16 +289,9 @@ Each visibility object must have a `groups` field, including one or more of the 
 {
   "visibility": {
     "groups": {
-      "any": [
-        "editor",
-        "admin"
-      ],
-      "all": [
-        "verified"
-      ],
-      "none": [
-        "suspended"
-      ]
+      "any": ["editor", "admin"],
+      "all": ["verified"],
+      "none": ["suspended"]
     }
   }
 }
