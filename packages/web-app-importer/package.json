@@ -12,7 +12,7 @@
     "test:unit": "NODE_OPTIONS=--unhandled-rejections=throw vitest"
   },
   "dependencies": {
-    "@uppy/dashboard": "5.0.2",
+    "@uppy/dashboard": "5.0.3",
     "@uppy/google-drive": "5.0.1",
     "@uppy/onedrive": "5.0.1",
     "@uppy/webdav": "1.0.1"
