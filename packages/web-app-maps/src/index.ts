@@ -78,7 +78,6 @@ export default defineWebApplication({
                         name: 'map-2',
                         fillType: 'line'
                       },
-                      isScrollable: false,
                       component: LocationFolderView,
                       componentAttrs: () => ({ applicationConfig })
                     }

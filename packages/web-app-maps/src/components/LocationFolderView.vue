@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="ext:h-full">
     <no-content-message v-if="!pinLocations.length" icon="map-2">
       <template #message>
         <span v-text="$gettext('No files with location data')" />
