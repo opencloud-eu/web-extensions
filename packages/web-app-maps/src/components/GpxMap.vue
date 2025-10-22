@@ -26,12 +26,18 @@ import { useGettext } from 'vue3-gettext'
 import * as L from 'leaflet'
 import { useLeaflet } from '../composables'
 
+import startIcon from 'leaflet-gpx/icons/pin-icon-start.png?url'
+import endIcon from 'leaflet-gpx/icons/pin-icon-end.png?url'
+import wptIconStart from 'leaflet-gpx/icons/pin-icon-start.png?url'
+import wptIconEnd from 'leaflet-gpx/icons/pin-icon-end.png?url'
+import wptIcon from 'leaflet-gpx/icons/pin-icon-wpt.png?url'
+
 const { currentContent, applicationConfig } = defineProps<{
   currentContent: string
   applicationConfig: Record<string, any>
 }>()
 
-const { assetsBaseUrl, createMap } = useLeaflet()
+const { createMap } = useLeaflet()
 const leafletElement = ref<HTMLElement | null>(null)
 const { $gettext } = useGettext()
 
@@ -50,12 +56,12 @@ const gpxOptions = {
     clickable: false
   },
   markers: {
-    startIcon: `${assetsBaseUrl}/pin-icon-start.png`,
-    endIcon: `${assetsBaseUrl}/pin-icon-end.png`,
+    startIcon,
+    endIcon,
     wptIcons: {
-      start: `${assetsBaseUrl}/pin-icon-start.png`,
-      end: `${assetsBaseUrl}/pin-icon-end.png`,
-      '': `${assetsBaseUrl}/pin-icon-wpt.png`
+      start: wptIconStart,
+      end: wptIconEnd,
+      '': wptIcon
     }
   }
 }

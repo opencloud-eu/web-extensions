@@ -1,6 +1,8 @@
 import { MapOptions } from 'leaflet'
 import * as L from 'leaflet'
-import { dirname } from '@opencloud-eu/web-pkg'
+
+import iconUrl from 'leaflet-gpx/icons/pin-icon-start.png?url'
+import shadowUrl from 'leaflet-gpx/icons/pin-shadow.png?url'
 
 export type GeoCoordinates = {
   latitude: number
@@ -13,12 +15,10 @@ export type MarkerOptions = {
 }
 
 export const useLeaflet = () => {
-  const assetsBaseUrl = `${dirname(import.meta.url)}/assets`
-
   const createPinIcon = (options?: Partial<L.IconOptions>) => {
     return L.icon({
-      iconUrl: `${assetsBaseUrl}/pin-icon-start.png`,
-      shadowUrl: `${assetsBaseUrl}/pin-shadow.png`,
+      iconUrl,
+      shadowUrl,
       ...options
     })
   }
@@ -50,7 +50,6 @@ export const useLeaflet = () => {
   }
 
   return {
-    assetsBaseUrl,
     createMap,
     createPinIcon
   }
