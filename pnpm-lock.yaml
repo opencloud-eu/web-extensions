@@ -220,6 +220,21 @@ importers:
         specifier: ^2.4.0
         version: 2.4.0(@vue/compiler-sfc@3.5.22)(vue@3.5.22(typescript@5.9.3))
 
+  packages/web-app-pastebin:
+    devDependencies:
+      '@opencloud-eu/web-client':
+        specifier: ^3.0.0
+        version: 3.2.0
+      '@opencloud-eu/web-pkg':
+        specifier: ^3.0.0
+        version: 3.2.0(@vue/compiler-sfc@3.5.22)(typescript@5.9.3)(vue@3.5.22(typescript@5.9.3))
+      vue:
+        specifier: ^3.4.21
+        version: 3.5.22(typescript@5.9.3)
+      vue3-gettext:
+        specifier: ^2.4.0
+        version: 2.4.0(@vue/compiler-sfc@3.5.22)(vue@3.5.22(typescript@5.9.3))
+
   packages/web-app-progress-bars:
     devDependencies:
       '@opencloud-eu/web-pkg':
@@ -784,6 +799,9 @@ packages:
   '@one-ini/wasm@0.1.1':
     resolution: {integrity: sha512-XuySG1E38YScSJoMlqovLru4KTUNSjgVTIjyh7qMX6aNN5HY5Ct5LhRJdxO79JtTzKfzV/bnWpz+zquYrISsvw==}
 
+  '@opencloud-eu/design-system@3.2.0':
+    resolution: {integrity: sha512-Wl+Q1QgC867K0c5WnJNnUxAGDBJMKc/XoaZ+Ic+BuT+hvwKJ/6/B/ZZx6SUQNcVHIZm5up1QstHKFAX5ux5SSw==}
+
   '@opencloud-eu/design-system@4.0.0':
     resolution: {integrity: sha512-p6HFcQYQxBwtnRirPv7+eRQga0smg4jciQujfs8InQDNghx+dXvw9PnyBYPquixqIK25X9CGoKu6hlpd5rP1wQ==}
 
@@ -805,8 +823,14 @@ packages:
   '@opencloud-eu/tsconfig@4.0.0':
     resolution: {integrity: sha512-INm1L3ATCiF9sUdH5uaF+JjfRx99fuYUd7Xu/a7wxVyu9j/VG9OntLu+tXNgc3AOaoHK0zHC4c51WJXF2L6r9g==}
 
+  '@opencloud-eu/web-client@3.2.0':
+    resolution: {integrity: sha512-hjesabA/NUMS6dJd4OxYxIlsz8LIIqpUKoAKaMyhszgsUC8y9klsf6Uc6Oo6ddOg2JR4znj6vL+AenEz3ALcOw==}
+
   '@opencloud-eu/web-client@4.0.0':
     resolution: {integrity: sha512-gntHPAlSNn5z0Wz9u8kALMHax9d6g+0/0ZwYG7Kt3I8O4wXR4Wc58Y7e8T3HGII0lDx8Zif0+piFiTf8oZpHwg==}
+
+  '@opencloud-eu/web-pkg@3.2.0':
+    resolution: {integrity: sha512-AqFoMs+LJfKg+VmbrMPiitIeFW9578Bv1x1BqIsPu8mCGfwMfkj4txekSdAKtNYnhnnyZdZK+EOzP5Dvm8vzGA==}
 
   '@opencloud-eu/web-pkg@4.0.0':
     resolution: {integrity: sha512-bFP8B1BaNNgR3rO9c31YPRpuuxx22+Ol6ethm/eyPp4QznvpiawDyQOo3AfwbaFS8DOoWaDaA7lTO3yFoQk5Xw==}
@@ -1041,28 +1065,62 @@ packages:
     resolution: {integrity: sha512-32kM7Fs9x6d2GGiE3YaaKq2+qWwSaV2h0XhaIdvs/Ewkh9bJq81xlgEor7gjmJ6UpfxjPpU8rGST6hI1I5lcVg==}
     engines: {node: '>=18'}
 
+  '@sentry-internal/browser-utils@9.46.0':
+    resolution: {integrity: sha512-Q0CeHym9wysku8mYkORXmhtlBE0IrafAI+NiPSqxOBKXGOCWKVCvowHuAF56GwPFic2rSrRnub5fWYv7T1jfEQ==}
+    engines: {node: '>=18'}
+
   '@sentry-internal/feedback@10.14.0':
     resolution: {integrity: sha512-Lj8VGq+VSdwfEu6/Oo7hhcLKQRaRmOs30CAvbcPFSYRKfoi/0xT+dsOm2/C7vgIM9tmXJJ3hMHjgTgnJ3PIZfw==}
+    engines: {node: '>=18'}
+
+  '@sentry-internal/feedback@9.46.0':
+    resolution: {integrity: sha512-KLRy3OolDkGdPItQ3obtBU2RqDt9+KE8z7r7Gsu7c6A6A89m8ZVlrxee3hPQt6qp0YY0P8WazpedU3DYTtaT8w==}
     engines: {node: '>=18'}
 
   '@sentry-internal/replay-canvas@10.14.0':
     resolution: {integrity: sha512-z0DrutMZtxnCf8ZUxYttdbaFeUlnG6CQuDPJ9DQkQVTE2BOiVegZTMMRkj0cUDmIiRQ42Agf1hPbxVmqh2AUuQ==}
     engines: {node: '>=18'}
 
+  '@sentry-internal/replay-canvas@9.46.0':
+    resolution: {integrity: sha512-QcBjrdRWFJrrrjbmrr2bbrp2R9RYj1KMEbhHNT2Lm1XplIQw+tULEKOHxNtkUFSLR1RNje7JQbxhzM1j95FxVQ==}
+    engines: {node: '>=18'}
+
   '@sentry-internal/replay@10.14.0':
     resolution: {integrity: sha512-C/DYUVTTlIxTLdgVlrPbilk2fYw/EPw4SfQgLC7tZXx/X7+Hh/Yi4ESrTlaKBsEUPhK/b82vdbS04+J1dZRyxA==}
+    engines: {node: '>=18'}
+
+  '@sentry-internal/replay@9.46.0':
+    resolution: {integrity: sha512-+8JUblxSSnN0FXcmOewbN+wIc1dt6/zaSeAvt2xshrfrLooVullcGsuLAiPhY0d/e++Fk06q1SAl9g4V0V13gg==}
     engines: {node: '>=18'}
 
   '@sentry/browser@10.14.0':
     resolution: {integrity: sha512-bDtsrHX+wtyOK0J1CcZoSgSJm2U1ITHVceAQfnQeEwWNP9y9xPRsEZDHfE3DnVNl/jB8iA/IOl5I8p4cCQdtpQ==}
     engines: {node: '>=18'}
 
+  '@sentry/browser@9.46.0':
+    resolution: {integrity: sha512-NOnCTQCM0NFuwbyt4DYWDNO2zOTj1mCf43hJqGDFb1XM9F++7zAmSNnCx4UrEoBTiFOy40McJwBBk9D1blSktA==}
+    engines: {node: '>=18'}
+
   '@sentry/core@10.14.0':
     resolution: {integrity: sha512-gyJB7/mW0OteM+vwEsAWaPcLd3fTaKRAc4LZM1aXRbl7juPRmhgwFftjqGg7AMMGNDE0JMs1Fb2W4xSVxH1ItQ==}
     engines: {node: '>=18'}
 
+  '@sentry/core@9.46.0':
+    resolution: {integrity: sha512-it7JMFqxVproAgEtbLgCVBYtQ9fIb+Bu0JD+cEplTN/Ukpe6GaolyYib5geZqslVxhp2sQgT+58aGvfd/k0N8Q==}
+    engines: {node: '>=18'}
+
   '@sentry/vue@10.14.0':
     resolution: {integrity: sha512-gAVyu/Ai9G2bws8t9KaSebiwUiBL+jyGSBrVey60MZLGEcjIxS316do9CXOWXvI5kdaUk2ZkyZXdDfqRYcdWdw==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      pinia: 2.x || 3.x
+      vue: 2.x || 3.x
+    peerDependenciesMeta:
+      pinia:
+        optional: true
+
+  '@sentry/vue@9.46.0':
+    resolution: {integrity: sha512-xFeZevR2nG+4tdvZcVgO6U1YiTQJZJTtV8aKRsCEh4yYpBO3FrfLxbSMTUeipILfKxpFf2iu1lwmqNyQtEllkA==}
     engines: {node: '>=18'}
     peerDependencies:
       pinia: 2.x || 3.x
@@ -1321,10 +1379,18 @@ packages:
   '@ucast/mongo@2.4.3':
     resolution: {integrity: sha512-XcI8LclrHWP83H+7H2anGCEeDq0n+12FU2mXCTz6/Tva9/9ddK/iacvvhCyW6cijAAOILmt0tWplRyRhVyZLsA==}
 
+  '@uppy/companion-client@4.5.2':
+    resolution: {integrity: sha512-hfUsReHM5COhn+5d7CdZgZaG8BtDvtwj7vjXzg8qmgKI901mYUm/Zh420iOKT7eHiofKVTNoa7oijeGrqUEnyg==}
+    peerDependencies:
+      '@uppy/core': ^4.5.2
+
   '@uppy/companion-client@5.0.1':
     resolution: {integrity: sha512-Gy4NCoj5JXQqm6Gr0T6VTeKVhrf8OvnFP1Ddz35dHUsy4GkXuvcc1FMzzKpxKWONtXWz6iQZocnhslgVIZvZwQ==}
     peerDependencies:
       '@uppy/core': ^5.0.2
+
+  '@uppy/core@4.5.3':
+    resolution: {integrity: sha512-52VLeBUY/j904h48lpPGykuWikkOOS4Lz/qkmalDiBQfNALb6iB1MOZs079IM3o/uMLYxzZRL80C3sKpkBUYcw==}
 
   '@uppy/core@5.1.1':
     resolution: {integrity: sha512-a0EDB+KBENB1+jkeY3oeZLMJfLhMSMsA1EfeAr6XUtKIN2uu2YHFhut5psQlYfLNOL7qtRWmG0jAa03ew1TvEw==}
@@ -1333,6 +1399,11 @@ packages:
     resolution: {integrity: sha512-FJXEMnfwpovXS+3arndSYno3cv6QW2bgsXaMveqKAQ5FeZ9WlkwLCXPR3QHOvBXLDK7RDLkfzOJIio35/7yuFg==}
     peerDependencies:
       '@uppy/core': ^5.1.1
+
+  '@uppy/drop-target@3.2.2':
+    resolution: {integrity: sha512-Y6wPDqmRE5BaOqKOkEfhURtN4qzCGshRn9nBC7jWfsmEhtXvxW6s25GPcuNHMyQIrn659aKLdi28bW7gvQoobg==}
+    peerDependencies:
+      '@uppy/core': ^4.5.2
 
   '@uppy/google-drive@5.0.1':
     resolution: {integrity: sha512-UkX322Z6V8P2/F+NH+v2APzEAtJJNH5bMBgTzk4v2oyAMFTL1wxkOm+/K8HGhwEOLiU3ta5JvXwuvVlC2uU49A==}
@@ -1349,6 +1420,9 @@ packages:
     peerDependencies:
       '@uppy/core': ^5.1.1
 
+  '@uppy/store-default@4.3.2':
+    resolution: {integrity: sha512-dnY9R2o8fwmO1bF89D0b5jijD7DGED2qVST5hI/j18JreLWzLKH7u6HuNmOvzok8msrQ/qWzQd5Gx4LDQKhBbw==}
+
   '@uppy/store-default@5.0.0':
     resolution: {integrity: sha512-hQtCSQ1yGiaval/wVYUWquYGDJ+bpQ7e4FhUUAsRQz1x1K+o7NBtjfp63O9I4Ks1WRoKunpkarZ+as09l02cPw==}
 
@@ -1357,10 +1431,18 @@ packages:
     peerDependencies:
       '@uppy/core': ^5.1.1
 
+  '@uppy/tus@4.3.2':
+    resolution: {integrity: sha512-W9pXC/Xew6mM+XKbGafJI9flO3oQTFHxpd281SIy+hDFVTniAqW4VoNhcT15rDqlofQB+PufCXG1EJlX9pCIAw==}
+    peerDependencies:
+      '@uppy/core': ^4.5.2
+
   '@uppy/tus@5.0.1':
     resolution: {integrity: sha512-4BQA2UFjznXrJhmjsgT/m8WDThoSX2vxKZJH/aF1Xj4GmB46+a5kas6ttCsMDcPq918/sdRJsqCMGj1r4oXKLQ==}
     peerDependencies:
       '@uppy/core': ^5.0.2
+
+  '@uppy/utils@6.2.2':
+    resolution: {integrity: sha512-9mYJtbcngv2HOJIECkyfmdXTI5dW/ObCyvWP1Iti3E5bKtsa4sMmbx5Yh/tGCj8k/lBNhfvWyZuYnvnjmzNLSQ==}
 
   '@uppy/utils@7.1.1':
     resolution: {integrity: sha512-4jKH3WKmQs6SCOGHCbZkLHykiaJgQo3DZsET144K8mhaoaOxfVupCYohI/UKurTQll1FhCr9dKS95Qcm0T4w7g==}
@@ -1369,6 +1451,11 @@ packages:
     resolution: {integrity: sha512-44E/nZ9JWayCcHqIzjWpbdPHcir49lT7LKCb6MJp+TvHaw904auwjCLqVoLqk7CdFnHktr8fi7uLojWKF6ouvQ==}
     peerDependencies:
       '@uppy/core': ^5.0.2
+
+  '@uppy/xhr-upload@4.4.2':
+    resolution: {integrity: sha512-CU66aVn4yghGklEkepCqFPulc6uygznApy2DpD+jCMLNB5q6yT1RPSrQUgRgXsYhpW1YhutZJWsrEnHEDS+Tcw==}
+    peerDependencies:
+      '@uppy/core': ^4.5.2
 
   '@uppy/xhr-upload@5.0.1':
     resolution: {integrity: sha512-wG8M7WTVFi4widnwERxcZ73ap5tSSr8b8sGooGBEU8Kvhoo6P8l6tnJbuAFELRUAc/jkzZfL5WSYgsp0qTCUyQ==}
@@ -2497,6 +2584,11 @@ packages:
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
+  lucide-vue-next@0.453.0:
+    resolution: {integrity: sha512-5zmv83vxAs9SVoe22veDBi8Dw0Fh2F+oTngWgKnKOkrZVbZjceXLQ3tescV2boB0zlaf9R2Sd9RuUP2766xvsQ==}
+    peerDependencies:
+      vue: '>=3.0.1'
+
   lucide-vue-next@0.543.0:
     resolution: {integrity: sha512-Az5kpNm/koKAwSNIKjsZ4uHV2tVfmlQlcHwFBygQ8gc5/jFg7An9OrxgDy/aE5m+HLx7VfLYqDxLr8gWecZbQA==}
     peerDependencies:
@@ -2534,6 +2626,11 @@ packages:
   math-intrinsics@1.1.0:
     resolution: {integrity: sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g==}
     engines: {node: '>= 0.4'}
+
+  md-editor-v3@5.8.5:
+    resolution: {integrity: sha512-NsqAmmAx/ykA1AcwxcHH4Hkn4VAPkqMX7Hd6Lv4FcwQoMQ70wWmJfs/mokyPGkqr4oYqqn8LRMBTqFNfoP0O0A==}
+    peerDependencies:
+      vue: ^3.5.3
 
   md-editor-v3@6.0.1:
     resolution: {integrity: sha512-ZZQpUsC6DkKYfFsDMck0kJabP/vYSDfNkB6Zmb6+v50orKOO7KG2SGgm6yGv78YWxh8ehqJL4IpZwhWneQzg1w==}
@@ -3121,6 +3218,10 @@ packages:
 
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
+
+  uuid@11.1.0:
+    resolution: {integrity: sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==}
+    hasBin: true
 
   uuid@13.0.0:
     resolution: {integrity: sha512-XQegIaBTVUjSHliKqcnFqYypAd4S+WCYt5NIeRs6w/UAry7z8Y9j5ZwRRL4kzq9U3sD6v+85er9FvkEaBpji2w==}
@@ -4032,6 +4133,27 @@ snapshots:
 
   '@one-ini/wasm@0.1.1': {}
 
+  '@opencloud-eu/design-system@3.2.0(@vue/compiler-sfc@3.5.22)(vue@3.5.22(typescript@5.9.3))':
+    dependencies:
+      '@emoji-mart/data': 1.2.1
+      '@popperjs/core': 2.11.8
+      deepmerge: 4.3.1
+      emoji-mart: 5.6.0
+      focus-trap: 7.6.5
+      focus-trap-vue: 4.0.3(focus-trap@7.6.5)(vue@3.5.22(typescript@5.9.3))
+      fuse.js: 7.1.0
+      lodash-es: 4.17.21
+      luxon: 3.7.1
+      portal-vue: 3.0.0(vue@3.5.22(typescript@5.9.3))
+      tippy.js: 6.3.7
+      vue-inline-svg: 4.0.1(vue@3.5.22(typescript@5.9.3))
+      vue-router: 4.6.3(vue@3.5.22(typescript@5.9.3))
+      vue-select: 4.0.0-beta.6(vue@3.5.22(typescript@5.9.3))
+      vue3-gettext: 2.4.0(@vue/compiler-sfc@3.5.22)(vue@3.5.22(typescript@5.9.3))
+    transitivePeerDependencies:
+      - '@vue/compiler-sfc'
+      - vue
+
   '@opencloud-eu/design-system@4.0.0(@vue/compiler-sfc@3.5.22)(vue@3.5.22(typescript@5.9.3))':
     dependencies:
       '@emoji-mart/data': 1.2.1
@@ -4088,6 +4210,21 @@ snapshots:
 
   '@opencloud-eu/tsconfig@4.0.0': {}
 
+  '@opencloud-eu/web-client@3.2.0':
+    dependencies:
+      '@casl/ability': 6.7.3
+      '@microsoft/fetch-event-source': 2.0.1
+      axios: 1.10.0
+      fast-xml-parser: 4.5.3
+      lodash-es: 4.17.21
+      luxon: 3.7.1
+      uuid: 11.1.0
+      webdav: 5.8.0
+      xml-js: 1.6.11
+      zod: 4.1.12
+    transitivePeerDependencies:
+      - debug
+
   '@opencloud-eu/web-client@4.0.0':
     dependencies:
       '@casl/ability': 6.7.3
@@ -4102,6 +4239,53 @@ snapshots:
       zod: 4.1.12
     transitivePeerDependencies:
       - debug
+
+  '@opencloud-eu/web-pkg@3.2.0(@vue/compiler-sfc@3.5.22)(typescript@5.9.3)(vue@3.5.22(typescript@5.9.3))':
+    dependencies:
+      '@casl/ability': 6.7.3
+      '@casl/vue': 2.2.2(@casl/ability@6.7.3)(vue@3.5.22(typescript@5.9.3))
+      '@microsoft/fetch-event-source': 2.0.1
+      '@opencloud-eu/design-system': 3.2.0(@vue/compiler-sfc@3.5.22)(vue@3.5.22(typescript@5.9.3))
+      '@opencloud-eu/web-client': 3.2.0
+      '@sentry/vue': 9.46.0(pinia@3.0.3(typescript@5.9.3)(vue@3.5.22(typescript@5.9.3)))(vue@3.5.22(typescript@5.9.3))
+      '@uppy/core': 4.5.3
+      '@uppy/drop-target': 3.2.2(@uppy/core@4.5.3)
+      '@uppy/tus': 4.3.2(@uppy/core@4.5.3)
+      '@uppy/utils': 6.2.2
+      '@uppy/xhr-upload': 4.4.2(@uppy/core@4.5.3)
+      '@vavt/cm-extension': 1.10.1
+      '@vue/shared': 3.5.22
+      '@vueuse/core': 13.9.0(vue@3.5.22(typescript@5.9.3))
+      axios: 1.10.0
+      cropperjs: 1.6.2
+      deepmerge: 4.3.1
+      dompurify: 3.2.6
+      filesize: 11.0.2
+      fuse.js: 7.1.0
+      js-generate-password: 1.0.0
+      lodash-es: 4.17.21
+      luxon: 3.7.1
+      mark.js: 8.11.1
+      md-editor-v3: 5.8.5(vue@3.5.22(typescript@5.9.3))
+      oidc-client-ts: 3.3.0
+      p-queue: 8.1.0
+      password-sheriff: 1.1.1
+      pinia: 3.0.3(typescript@5.9.3)(vue@3.5.22(typescript@5.9.3))
+      portal-vue: 3.0.0(vue@3.5.22(typescript@5.9.3))
+      prismjs: 1.30.0
+      qs: 6.14.0
+      screenfull: 6.0.2
+      semver: 7.7.2
+      uuid: 11.1.0
+      vue-concurrency: 5.0.3(vue@3.5.22(typescript@5.9.3))
+      vue-router: 4.6.3(vue@3.5.22(typescript@5.9.3))
+      vue3-gettext: 2.4.0(@vue/compiler-sfc@3.5.22)(vue@3.5.22(typescript@5.9.3))
+      zod: 4.1.12
+    transitivePeerDependencies:
+      - '@vue/compiler-sfc'
+      - debug
+      - typescript
+      - vue
 
   '@opencloud-eu/web-pkg@4.0.0(@vue/compiler-sfc@3.5.22)(typescript@5.9.3)(vue@3.5.22(typescript@5.9.3))':
     dependencies:
@@ -4322,19 +4506,37 @@ snapshots:
     dependencies:
       '@sentry/core': 10.14.0
 
+  '@sentry-internal/browser-utils@9.46.0':
+    dependencies:
+      '@sentry/core': 9.46.0
+
   '@sentry-internal/feedback@10.14.0':
     dependencies:
       '@sentry/core': 10.14.0
+
+  '@sentry-internal/feedback@9.46.0':
+    dependencies:
+      '@sentry/core': 9.46.0
 
   '@sentry-internal/replay-canvas@10.14.0':
     dependencies:
       '@sentry-internal/replay': 10.14.0
       '@sentry/core': 10.14.0
 
+  '@sentry-internal/replay-canvas@9.46.0':
+    dependencies:
+      '@sentry-internal/replay': 9.46.0
+      '@sentry/core': 9.46.0
+
   '@sentry-internal/replay@10.14.0':
     dependencies:
       '@sentry-internal/browser-utils': 10.14.0
       '@sentry/core': 10.14.0
+
+  '@sentry-internal/replay@9.46.0':
+    dependencies:
+      '@sentry-internal/browser-utils': 9.46.0
+      '@sentry/core': 9.46.0
 
   '@sentry/browser@10.14.0':
     dependencies:
@@ -4344,12 +4546,30 @@ snapshots:
       '@sentry-internal/replay-canvas': 10.14.0
       '@sentry/core': 10.14.0
 
+  '@sentry/browser@9.46.0':
+    dependencies:
+      '@sentry-internal/browser-utils': 9.46.0
+      '@sentry-internal/feedback': 9.46.0
+      '@sentry-internal/replay': 9.46.0
+      '@sentry-internal/replay-canvas': 9.46.0
+      '@sentry/core': 9.46.0
+
   '@sentry/core@10.14.0': {}
+
+  '@sentry/core@9.46.0': {}
 
   '@sentry/vue@10.14.0(pinia@3.0.3(typescript@5.9.3)(vue@3.5.22(typescript@5.9.3)))(vue@3.5.22(typescript@5.9.3))':
     dependencies:
       '@sentry/browser': 10.14.0
       '@sentry/core': 10.14.0
+      vue: 3.5.22(typescript@5.9.3)
+    optionalDependencies:
+      pinia: 3.0.3(typescript@5.9.3)(vue@3.5.22(typescript@5.9.3))
+
+  '@sentry/vue@9.46.0(pinia@3.0.3(typescript@5.9.3)(vue@3.5.22(typescript@5.9.3)))(vue@3.5.22(typescript@5.9.3))':
+    dependencies:
+      '@sentry/browser': 9.46.0
+      '@sentry/core': 9.46.0
       vue: 3.5.22(typescript@5.9.3)
     optionalDependencies:
       pinia: 3.0.3(typescript@5.9.3)(vue@3.5.22(typescript@5.9.3))
@@ -4614,12 +4834,30 @@ snapshots:
     dependencies:
       '@ucast/core': 1.10.2
 
+  '@uppy/companion-client@4.5.2(@uppy/core@4.5.3)':
+    dependencies:
+      '@uppy/core': 4.5.3
+      '@uppy/utils': 6.2.2
+      namespace-emitter: 2.0.1
+      p-retry: 6.2.1
+
   '@uppy/companion-client@5.0.1(@uppy/core@5.1.1)':
     dependencies:
       '@uppy/core': 5.1.1
       '@uppy/utils': 7.1.1
       namespace-emitter: 2.0.1
       p-retry: 6.2.1
+
+  '@uppy/core@4.5.3':
+    dependencies:
+      '@transloadit/prettier-bytes': 0.3.5
+      '@uppy/store-default': 4.3.2
+      '@uppy/utils': 6.2.2
+      lodash: 4.17.21
+      mime-match: 1.0.2
+      namespace-emitter: 2.0.1
+      nanoid: 5.1.6
+      preact: 10.27.2
 
   '@uppy/core@5.1.1':
     dependencies:
@@ -4644,6 +4882,11 @@ snapshots:
       nanoid: 5.1.6
       preact: 10.27.2
       shallow-equal: 3.1.0
+
+  '@uppy/drop-target@3.2.2(@uppy/core@4.5.3)':
+    dependencies:
+      '@uppy/core': 4.5.3
+      '@uppy/utils': 6.2.2
 
   '@uppy/google-drive@5.0.1(@uppy/core@5.1.1)':
     dependencies:
@@ -4670,6 +4913,8 @@ snapshots:
       p-queue: 8.1.0
       preact: 10.27.2
 
+  '@uppy/store-default@4.3.2': {}
+
   '@uppy/store-default@5.0.0': {}
 
   '@uppy/thumbnail-generator@5.0.2(@uppy/core@5.1.1)':
@@ -4678,12 +4923,24 @@ snapshots:
       '@uppy/utils': 7.1.1
       exifr: 7.1.3
 
+  '@uppy/tus@4.3.2(@uppy/core@4.5.3)':
+    dependencies:
+      '@uppy/companion-client': 4.5.2(@uppy/core@4.5.3)
+      '@uppy/core': 4.5.3
+      '@uppy/utils': 6.2.2
+      tus-js-client: 4.3.1
+
   '@uppy/tus@5.0.1(@uppy/core@5.1.1)':
     dependencies:
       '@uppy/companion-client': 5.0.1(@uppy/core@5.1.1)
       '@uppy/core': 5.1.1
       '@uppy/utils': 7.1.1
       tus-js-client: 4.3.1
+
+  '@uppy/utils@6.2.2':
+    dependencies:
+      lodash: 4.17.21
+      preact: 10.27.2
 
   '@uppy/utils@7.1.1':
     dependencies:
@@ -4697,6 +4954,12 @@ snapshots:
       '@uppy/provider-views': 5.1.1(@uppy/core@5.1.1)
       '@uppy/utils': 7.1.1
       preact: 10.27.2
+
+  '@uppy/xhr-upload@4.4.2(@uppy/core@4.5.3)':
+    dependencies:
+      '@uppy/companion-client': 4.5.2(@uppy/core@4.5.3)
+      '@uppy/core': 4.5.3
+      '@uppy/utils': 6.2.2
 
   '@uppy/xhr-upload@5.0.1(@uppy/core@5.1.1)':
     dependencies:
@@ -5808,6 +6071,10 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
+  lucide-vue-next@0.453.0(vue@3.5.22(typescript@5.9.3)):
+    dependencies:
+      vue: 3.5.22(typescript@5.9.3)
+
   lucide-vue-next@0.543.0(vue@3.5.22(typescript@5.9.3)):
     dependencies:
       vue: 3.5.22(typescript@5.9.3)
@@ -5840,6 +6107,31 @@ snapshots:
       uc.micro: 2.1.0
 
   math-intrinsics@1.1.0: {}
+
+  md-editor-v3@5.8.5(vue@3.5.22(typescript@5.9.3)):
+    dependencies:
+      '@codemirror/autocomplete': 6.19.0
+      '@codemirror/commands': 6.8.1
+      '@codemirror/lang-markdown': 6.3.4
+      '@codemirror/language': 6.11.3
+      '@codemirror/language-data': 6.5.1
+      '@codemirror/search': 6.5.11
+      '@codemirror/state': 6.5.2
+      '@codemirror/view': 6.38.3
+      '@lezer/highlight': 1.2.1
+      '@types/markdown-it': 14.1.2
+      '@vavt/copy2clipboard': 1.0.3
+      '@vavt/util': 2.1.0
+      codemirror: 6.0.2
+      lru-cache: 11.2.2
+      lucide-vue-next: 0.453.0(vue@3.5.22(typescript@5.9.3))
+      markdown-it: 14.1.0
+      markdown-it-image-figures: 2.1.1(markdown-it@14.1.0)
+      markdown-it-sub: 2.0.0
+      markdown-it-sup: 2.0.0
+      medium-zoom: 1.1.0
+      vue: 3.5.22(typescript@5.9.3)
+      xss: 1.0.15
 
   md-editor-v3@6.0.1(vue@3.5.22(typescript@5.9.3)):
     dependencies:
@@ -6408,6 +6700,8 @@ snapshots:
       requires-port: 1.0.0
 
   util-deprecate@1.0.2: {}
+
+  uuid@11.1.0: {}
 
   uuid@13.0.0: {}
 
