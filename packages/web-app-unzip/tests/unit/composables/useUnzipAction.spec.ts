@@ -7,7 +7,20 @@ import { unref } from 'vue'
 import * as zip from '@zip.js/zip.js'
 import { useUnzipAction } from '../../../src/composables/useUnzipAction'
 
-vi.mock('@zip.js/zip.js')
+let getEntriesMock = vi.fn()
+let closeMock = vi.fn()
+
+vi.mock('@zip.js/zip.js', () => {
+  const BlobReader = vi.fn(class {})
+  const BlobWriter = vi.fn(class {})
+  const ZipReader = vi.fn(
+    class {
+      close = closeMock
+      getEntries = getEntriesMock
+    }
+  )
+  return { BlobReader, ZipReader, BlobWriter, configure: vi.fn() }
+})
 
 describe('unzip action', () => {
   const space = mock<SpaceResource>()
@@ -100,7 +113,7 @@ describe('unzip action', () => {
 
       getWrapper({
         zipEntries: [zipEntry],
-        setup: async (action, { $clientService, $uppyService, zipReaderMock }) => {
+        setup: async (action, { $clientService, $uppyService }) => {
           const resource = mock<Resource>({ name: '' })
           const rootFolder = { path: '' } as Resource
           $clientService.webdav.createFolder.mockResolvedValue(rootFolder)
@@ -110,7 +123,7 @@ describe('unzip action', () => {
             expect.objectContaining({ data: zipBlob, name: zipEntry.filename })
           ])
           expect($uppyService.setUploadFolder).toHaveBeenCalledWith(expect.anything(), rootFolder)
-          expect(zipReaderMock.close).toHaveBeenCalledTimes(1)
+          expect(closeMock).toHaveBeenCalledTimes(1)
         }
       })
     })
@@ -124,18 +137,15 @@ function getWrapper({
 }: {
   setup: (
     instance: ReturnType<typeof useUnzipAction>,
-    mocks: ReturnType<typeof defaultComponentMocks> & {
-      zipReaderMock: zip.ZipReader<zip.BlobReader>
-    }
+    mocks: ReturnType<typeof defaultComponentMocks>
   ) => void
   currentFolder?: Resource
   zipEntries?: zip.Entry[]
 }) {
-  const getEntries = vi.fn().mockResolvedValue(zipEntries)
-  const zipReaderMock = mock<zip.ZipReader<zip.BlobReader>>({ getEntries })
-  vi.mocked(zip.ZipReader).mockReturnValue(zipReaderMock)
+  closeMock = vi.fn()
+  getEntriesMock = vi.fn().mockResolvedValue(zipEntries)
 
-  const mocks = { ...defaultComponentMocks(), zipReaderMock }
+  const mocks = { ...defaultComponentMocks() }
   mocks.$clientService.webdav.getFileContents.mockResolvedValue(
     mock<GetFileContentsResponse>({ response: { data: {} } })
   )
