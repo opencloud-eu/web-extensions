@@ -25,22 +25,20 @@ export default defineWebApplication({
       }
     ]
 
-    const appInfo = {
-      name: $gettext('Arcade'),
-      id: applicationId,
-      icon: 'game',
-      iconFillType: 'fill',
-      iconColor: '#ffce55',
-      extensions: [
-        {
-          extension: 'nes',
-          routeName: 'arcade'
-        }
-      ]
-    }
-
     return {
-      appInfo,
+      appInfo: {
+        name: $gettext('Arcade'),
+        id: applicationId,
+        icon: 'game',
+        iconFillType: 'fill',
+        iconColor: '#ffce55',
+        extensions: [
+          {
+            extension: 'nes',
+            routeName: 'arcade'
+          }
+        ]
+      },
       translations,
       routes
     }

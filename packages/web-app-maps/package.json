@@ -12,6 +12,7 @@
     "test:unit": "NODE_OPTIONS=--unhandled-rejections=throw vitest"
   },
   "devDependencies": {
+    "@types/leaflet": "^1.9.21",
     "vue": "^3.4.21",
     "vue3-gettext": "^2.4.0"
   },

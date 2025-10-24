@@ -97,7 +97,7 @@ export const useExtensions = ({ applicationConfig }: ApplicationSetupOptions) =>
           importFiles: $gettext('Import files from:'),
           importFrom: $gettext('Import from %{name}')
         }
-      }
+      } as any
     })
 
     if (supportedClouds.includes('OneDrive')) {
@@ -116,7 +116,7 @@ export const useExtensions = ({ applicationConfig }: ApplicationSetupOptions) =>
 
     if (supportedClouds.includes('WebdavPublicLink')) {
       uppyService.addPlugin(Webdav, {
-        target: Dashboard,
+        target: Dashboard as any,
         id: 'WebdavPublicLink',
         companionUrl,
         ...(webdavCloudType && { cloudType: webdavCloudType })

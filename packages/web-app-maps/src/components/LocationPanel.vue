@@ -7,8 +7,11 @@ import { ref, unref, watch, computed, onMounted, onUnmounted } from 'vue'
 import { useLeaflet } from '../composables'
 import { useSideBar } from '@opencloud-eu/web-pkg'
 import { Resource } from '@opencloud-eu/web-client'
-import * as L from 'leaflet'
+import * as Leaflet from 'leaflet'
 import { LatLngExpression } from 'leaflet'
+
+// FIXME: Leaflet types seem broken?!
+const L = Leaflet as any
 
 const { panelContext, applicationConfig } = defineProps<{
   panelContext: any

@@ -20,7 +20,7 @@ export default defineWebApplication({
         id: nyanCatId,
         type: 'customComponent',
         extensionPointIds: ['app.runtime.global-progress-bar'],
-        content: (slots) => [h(NyanCat, slots)],
+        content: (slots: any) => [h(NyanCat, slots)],
         userPreference: {
           optionLabel: $gettext('Nyan Cat progress bar')
         }

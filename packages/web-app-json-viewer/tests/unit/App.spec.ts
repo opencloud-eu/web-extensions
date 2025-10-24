@@ -1,7 +1,7 @@
 import { Resource } from '@opencloud-eu/web-client'
 import { defaultPlugins, mount } from '@opencloud-eu/web-test-helpers'
 import { mock } from 'vitest-mock-extended'
-import { AppConfigObject } from '@opencloud-eu/web-pkg'
+import { AppConfigObject, WebThemeType } from '@opencloud-eu/web-pkg'
 import App from '../../src/App.vue'
 
 describe('json viewer', () => {
@@ -41,7 +41,11 @@ function createWrapper({
         isReadOnly: false
       },
       global: {
-        plugins: [...defaultPlugins({ piniaOptions: { themeState: { currentTheme: { isDark } } } })]
+        plugins: [
+          ...defaultPlugins({
+            piniaOptions: { themeState: { currentTheme: { isDark } as WebThemeType } }
+          })
+        ]
       }
     })
   }

@@ -3,7 +3,9 @@ import {
   AppWrapperRoute,
   defineWebApplication,
   Extension,
-  ApplicationSetupOptions
+  ApplicationSetupOptions,
+  SidebarPanelExtension,
+  FolderViewExtension
 } from '@opencloud-eu/web-pkg'
 import { computed } from 'vue'
 import { useGettext } from 'vue3-gettext'
@@ -16,6 +18,7 @@ import 'leaflet-gpx'
 import LocationFolderView from './components/LocationFolderView.vue'
 import { MapsConfigSchema } from './types'
 import './styles.css'
+import { Resource } from '@opencloud-eu/web-client'
 
 const applicationId = 'maps'
 export default defineWebApplication({
@@ -23,21 +26,6 @@ export default defineWebApplication({
     const { $gettext } = useGettext()
 
     const { folderViewEnabled } = MapsConfigSchema.parse(args.applicationConfig)
-
-    const appInfo = {
-      name: $gettext('Maps'),
-      id: applicationId,
-      icon: 'map-2',
-      iconFillType: 'line',
-      iconColor: '#84c143',
-      extensions: [
-        {
-          extension: 'gpx',
-          routeName: 'maps',
-          canBeDefault: true
-        }
-      ]
-    }
 
     const extensions = ({ applicationConfig }: ApplicationSetupOptions) => {
       return computed(
@@ -64,7 +52,7 @@ export default defineWebApplication({
                   return items?.length > 0 && items?.some((item) => !!item.location)
                 }
               }
-            },
+            } as SidebarPanelExtension<Resource, Resource, Resource>,
             ...(folderViewEnabled
               ? [
                   {
@@ -81,7 +69,7 @@ export default defineWebApplication({
                       component: LocationFolderView,
                       componentAttrs: () => ({ applicationConfig })
                     }
-                  }
+                  } as FolderViewExtension
                 ]
               : [])
           ] satisfies Extension[]
@@ -107,7 +95,20 @@ export default defineWebApplication({
     ]
 
     return {
-      appInfo,
+      appInfo: {
+        name: $gettext('Maps'),
+        id: applicationId,
+        icon: 'map-2',
+        iconFillType: 'line',
+        iconColor: '#84c143',
+        extensions: [
+          {
+            extension: 'gpx',
+            routeName: 'maps',
+            canBeDefault: true
+          }
+        ]
+      },
       routes,
       translations,
       extensions: extensions(args)

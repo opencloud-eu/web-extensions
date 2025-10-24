@@ -14,9 +14,12 @@ import { ref, unref, watch, computed, onMounted, onUnmounted } from 'vue'
 import { useLeaflet } from '../composables'
 import { NoContentMessage } from '@opencloud-eu/web-pkg'
 import { Resource } from '@opencloud-eu/web-client'
-import * as L from 'leaflet'
+import * as Leaflet from 'leaflet'
 import { LatLngExpression } from 'leaflet'
 import { useGettext } from 'vue3-gettext'
+
+// FIXME: Leaflet types seem broken?!
+const L = Leaflet as any
 
 const { resources, applicationConfig } = defineProps<{
   resources: Resource[]
