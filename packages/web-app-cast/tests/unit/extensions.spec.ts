@@ -41,7 +41,7 @@ describe('cast action', () => {
   describe('handler', () => {
     vi.spyOn(console, 'debug').mockImplementation(() => undefined)
 
-    let sessionInstance = undefined
+    let sessionInstance: any = undefined
     const MediaInfo = vi.fn()
     const LoadRequest = vi.fn()
 
