@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/opencloud-eu/web-extensions/releases/tag/maps-v1.0.1) - 2025-10-27
+
+### 🐛 Bug Fixes
+
+- Missing icons [[#262](https://github.com/opencloud-eu/web-extensions/pull/262)]
+- Map folder view [[#266](https://github.com/opencloud-eu/web-extensions/pull/266)]
+
 ## [1.0.0](https://github.com/opencloud-eu/web-extensions/releases/tag/maps-v1.0.0) - 2025-10-01
 
 ### ✨ Features
