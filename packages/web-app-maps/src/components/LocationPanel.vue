@@ -31,7 +31,7 @@ const resources = computed(() => {
 
 const pinLocations = computed(() => {
   return unref(resources).map(
-    (resource) => [resource.location.latitude, resource.location.longitude, 1] as LatLngExpression
+    (resource) => [resource.location.latitude, resource.location.longitude] as LatLngExpression
   )
 })
 
