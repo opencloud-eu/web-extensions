@@ -54,6 +54,7 @@ const setView = () => {
     mapObject?.fitBounds(unref(bounds), { maxZoom: unref(pinLocations).length > 1 ? 15 : 10 })
   }
   pins.forEach((pin) => mapObject?.removeLayer(pin))
+  pins.length = 0
   unref(pinLocations).forEach((p) => {
     pins.push(L.marker(p, { icon: pinIcon }).addTo(mapObject!))
   })
