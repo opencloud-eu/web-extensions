@@ -19,6 +19,11 @@ export const useLeaflet = () => {
     return L.icon({
       iconUrl,
       shadowUrl,
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      shadowSize: [41, 41],
+      shadowAnchor: [12, 41],
+      popupAnchor: [1, -34],
       ...options
     })
   }
