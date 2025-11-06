@@ -46,21 +46,43 @@ const bounds = computed(() => {
 const pinIcon = createPinIcon()
 const pins: L.Marker[] = []
 let mapObject: L.Map | null = null
+let hasSetInitialView = false
 
-const setView = () => {
-  if (!initialized.value) return
-  mapObject?.invalidateSize()
-  if (unref(pinLocations).length > 0) {
-    mapObject?.fitBounds(unref(bounds), { maxZoom: unref(pinLocations).length > 1 ? 15 : 10 })
-  }
+const updatePins = () => {
+  if (!initialized.value || !mapObject) return
+
+  // Remove old pins
   pins.forEach((pin) => mapObject?.removeLayer(pin))
   pins.length = 0
+
+  // Add new pins
   unref(pinLocations).forEach((p) => {
     pins.push(L.marker(p, { icon: pinIcon }).addTo(mapObject!))
   })
 }
 
-watch(() => [bounds], setView)
+const setView = () => {
+  if (!initialized.value || !mapObject) return
+  mapObject.invalidateSize()
+
+  updatePins()
+
+  // Only fit bounds on initial view or when bounds actually change (new locations)
+  if (!hasSetInitialView && unref(pinLocations).length > 0) {
+    const maxZoom = unref(pinLocations).length > 1 ? 15 : 10
+    mapObject.fitBounds(unref(bounds), {
+      maxZoom,
+      padding: [20, 20]
+    })
+    hasSetInitialView = true
+  }
+}
+
+watch(() => [pinLocations.value.length], () => {
+  // Reset flag when number of pins changes to re-fit bounds
+  hasSetInitialView = false
+  setView()
+})
 
 onMounted(() => {
   initialized.value = true
