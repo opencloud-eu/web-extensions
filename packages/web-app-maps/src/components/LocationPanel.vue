@@ -3,72 +3,38 @@
 </template>
 
 <script setup lang="ts">
-import { ref, unref, watch, computed, onMounted, onUnmounted } from 'vue'
-import { useLeaflet } from '../composables'
+import { ref, unref, computed, onMounted, onUnmounted } from 'vue'
+import { useLeaflet, useMapPins } from '../composables'
 import { useSideBar } from '@opencloud-eu/web-pkg'
 import { Resource } from '@opencloud-eu/web-client'
-import * as Leaflet from 'leaflet'
-import { LatLngExpression } from 'leaflet'
-
-// FIXME: Leaflet types seem broken?!
-const L = Leaflet as any
 
 const { panelContext, applicationConfig } = defineProps<{
   panelContext: any
   applicationConfig: Record<string, any>
 }>()
 
-const { createMap, createPinIcon } = useLeaflet()
+const { createMap } = useLeaflet()
 const { onPanelActive } = useSideBar()
 
 const leafletElement = ref<HTMLElement | null>(null)
 const initialized = ref(false)
+const mapObject = ref<L.Map>()
 
 const resources = computed(() => {
   if (!panelContext || !panelContext.items) return []
   return (unref(panelContext.items.filter((r: Resource) => !!r.location)) || []) as Resource[]
 })
 
-const pinLocations = computed(() => {
-  return unref(resources).map(
-    (resource) => [resource.location.latitude, resource.location.longitude, 1] as LatLngExpression
-  )
-})
-
-const bounds = computed(() => {
-  const latLngBounds = new L.LatLngBounds()
-  unref(pinLocations).forEach((location) => {
-    latLngBounds.extend(location)
-  })
-  return latLngBounds
-})
-
-const pinIcon = createPinIcon()
-const pins: L.Marker[] = []
-let mapObject: L.Map | null = null
-
-const setView = () => {
-  if (!initialized.value) return
-  mapObject?.invalidateSize()
-  if (unref(pinLocations).length > 0) {
-    mapObject?.fitBounds(unref(bounds), { maxZoom: unref(pinLocations).length > 1 ? 15 : 10 })
-  }
-  pins.forEach((pin) => mapObject?.removeLayer(pin))
-  unref(pinLocations).forEach((p) => {
-    pins.push(L.marker(p, { icon: pinIcon }).addTo(mapObject!))
-  })
-}
-
-watch(() => [bounds], setView)
+const { setView } = useMapPins(resources, mapObject, initialized)
 
 onMounted(() => {
   initialized.value = true
-  mapObject = createMap(applicationConfig, unref(leafletElement))
+  mapObject.value = createMap(applicationConfig, unref(leafletElement))
   setView()
 })
 
 onUnmounted(() => {
-  mapObject?.remove()
+  mapObject.value?.remove()
 })
 
 onPanelActive('location-details', () => {
