@@ -23,7 +23,8 @@
 <script setup lang="ts">
 import { onMounted, ref, onBeforeUnmount, watch, unref } from 'vue'
 import { useGettext } from 'vue3-gettext'
-import * as Leaflet from 'leaflet'
+import L from 'leaflet'
+import 'leaflet-gpx'
 import { useLeaflet } from '../composables'
 
 import startIcon from 'leaflet-gpx/icons/pin-icon-start.png?url'
@@ -31,9 +32,6 @@ import endIcon from 'leaflet-gpx/icons/pin-icon-end.png?url'
 import wptIconStart from 'leaflet-gpx/icons/pin-icon-start.png?url'
 import wptIconEnd from 'leaflet-gpx/icons/pin-icon-end.png?url'
 import wptIcon from 'leaflet-gpx/icons/pin-icon-wpt.png?url'
-
-// FIXME: Leaflet types seem broken?!
-const L = Leaflet as any
 
 const { currentContent, applicationConfig } = defineProps<{
   currentContent: string
@@ -53,7 +51,7 @@ const meta = ref<{
   elevationNet?: string
 }>({})
 
-const gpxOptions = {
+const gpxOptions: L.GPXOptions = {
   async: true,
   marker_options: {
     clickable: false
