@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/opencloud-eu/web-extensions/releases/tag/maps-v1.0.2) - 2025-11-10
+
+### 🐛 Bug Fixes
+
+- Opening .gpx files [[#289](https://github.com/opencloud-eu/web-extensions/pull/289)]
+- Pin location misbehaving [[#286](https://github.com/opencloud-eu/web-extensions/pull/286)]
+
 ## [1.0.1](https://github.com/opencloud-eu/web-extensions/releases/tag/maps-v1.0.1) - 2025-10-27
 
 ### 🐛 Bug Fixes
