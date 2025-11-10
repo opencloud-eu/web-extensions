@@ -1,4 +1,4 @@
-import { ref, unref, watch, computed, Ref, ComputedRef } from 'vue'
+import { unref, watch, computed, Ref, ComputedRef } from 'vue'
 import { Resource } from '@opencloud-eu/web-client'
 import * as Leaflet from 'leaflet'
 import { LatLngExpression } from 'leaflet'
