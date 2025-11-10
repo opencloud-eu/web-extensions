@@ -4,9 +4,6 @@ import * as Leaflet from 'leaflet'
 import { LatLngExpression } from 'leaflet'
 import { useLeaflet } from './useLeaflet'
 
-// FIXME: Leaflet types seem broken?!
-const L = Leaflet as any
-
 export const useMapPins = (
   resources: Ref<Resource[]> | ComputedRef<Resource[]>,
   mapObject: Ref<Leaflet.Map | null>,
@@ -21,7 +18,7 @@ export const useMapPins = (
   })
 
   const bounds = computed(() => {
-    const latLngBounds = new L.LatLngBounds()
+    const latLngBounds = new Leaflet.LatLngBounds(null, null)
     unref(pinLocations).forEach((location) => {
       latLngBounds.extend(location)
     })
@@ -41,7 +38,7 @@ export const useMapPins = (
 
     // Add new pins
     unref(pinLocations).forEach((p) => {
-      pins.push(L.marker(p, { icon: pinIcon }).addTo(mapObject.value!))
+      pins.push(Leaflet.marker(p, { icon: pinIcon }).addTo(mapObject.value!))
     })
   }
 

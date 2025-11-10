@@ -32,9 +32,6 @@ import wptIconStart from 'leaflet-gpx/icons/pin-icon-start.png?url'
 import wptIconEnd from 'leaflet-gpx/icons/pin-icon-end.png?url'
 import wptIcon from 'leaflet-gpx/icons/pin-icon-wpt.png?url'
 
-// FIXME: Leaflet types seem broken?!
-const L = Leaflet as any
-
 const { currentContent, applicationConfig } = defineProps<{
   currentContent: string
   applicationConfig: Record<string, any>
@@ -73,7 +70,7 @@ let gpxLayer: L.Layer | null = null
 const setView = () => {
   if (!mapObject) return
   if (gpxLayer) mapObject.removeLayer(gpxLayer)
-  gpxLayer = new L.GPX(currentContent, gpxOptions)
+  gpxLayer = new (Leaflet as any).GPX(currentContent, gpxOptions)
     .on('loaded', (e: any) => {
       const gpx = e.target
       mapObject!.fitBounds(e.target.getBounds())
