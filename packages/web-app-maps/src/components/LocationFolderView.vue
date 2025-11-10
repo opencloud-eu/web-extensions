@@ -25,7 +25,7 @@ const { $gettext } = useGettext()
 const { createMap } = useLeaflet()
 const leafletElement = ref<HTMLElement | null>(null)
 const initialized = ref(false)
-const mapObject = ref<L.Map | null>(null)
+const mapObject = ref<L.Map>()
 
 const resourcesWithLocation = computed(() => {
   return (unref(resources?.filter((r) => !!r.location)) || []) as Resource[]

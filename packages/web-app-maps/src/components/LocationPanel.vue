@@ -18,7 +18,7 @@ const { onPanelActive } = useSideBar()
 
 const leafletElement = ref<HTMLElement | null>(null)
 const initialized = ref(false)
-const mapObject = ref<L.Map | null>(null)
+const mapObject = ref<L.Map>()
 
 const resources = computed(() => {
   if (!panelContext || !panelContext.items) return []
