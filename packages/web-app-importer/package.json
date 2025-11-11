@@ -14,7 +14,7 @@
   "dependencies": {
     "@uppy/dashboard": "^5.0.3",
     "@uppy/google-drive": "5.0.1",
-    "@uppy/onedrive": "5.0.1",
+    "@uppy/onedrive": "5.0.2",
     "@uppy/webdav": "1.0.1"
   },
   "devDependencies": {
