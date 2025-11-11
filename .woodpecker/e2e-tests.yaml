@@ -9,6 +9,11 @@ variables:
   - &oc_image 'opencloudeu/opencloud-rolling:latest'
   - &alpine_image 'owncloudci/alpine:latest'
   - &minio_mc_image 'minio/mc:RELEASE.2021-10-07T04-19-58Z'
+  - &tika_image 'apache/tika:3.2.3.0'
+
+services:
+  - name: tika
+    image: *tika_image
 
 steps:
   - name: pnpm-install
@@ -22,6 +27,10 @@ steps:
       - mkdir -p /apps
       - for dir in packages/*/dist; do mv "$dir" "/apps/$(basename $(dirname "$dir") | sed 's/^web-app-//')"; done
       - cp -R /apps /woodpecker/apps
+  - name: wait-for-tika
+    image: *alpine_image
+    commands:
+      - "timeout 60 bash -c 'until nc -z tika 9998; do sleep 1; done'"
   - name: opencloud
     image: *oc_image
     detach: true
@@ -33,6 +42,11 @@ steps:
       PROXY_ENABLE_BASIC_AUTH: True
       WEB_ASSET_APPS_PATH: /woodpecker/apps
       WEB_UI_CONFIG_FILE: /var/lib/opencloud/web.config.json
+      # Tika configuration
+      FRONTEND_FULL_TEXT_SEARCH_ENABLED: true
+      SEARCH_EXTRACTOR_TYPE: tika
+      SEARCH_EXTRACTOR_TIKA_TIKA_URL: http://tika:9998
+      SEARCH_EXTRACTOR_CS3SOURCE_INSECURE: true
     commands:
       - cp dev/docker/opencloud.apps.yaml /etc/opencloud/apps.yaml
       - cp dev/woodpecker/opencloud.web.config.json /var/lib/opencloud/web.config.json
