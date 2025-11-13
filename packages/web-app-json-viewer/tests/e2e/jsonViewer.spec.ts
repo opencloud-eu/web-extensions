@@ -20,7 +20,7 @@ test('open json file', async () => {
   await uploadFile.uploadFile('file.json')
 
   const file = new FilesPage(userPage)
-  await file.openJsonFile('file.json')
+  await file.openFileInViewer('file.json', 'json')
   await expect(userPage).toHaveURL(/json-viewer/)
   await expect(userPage.locator('#json-viewer')).toBeVisible()
 })

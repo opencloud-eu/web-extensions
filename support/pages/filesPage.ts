@@ -7,6 +7,8 @@ export class FilesPage {
   readonly selectAllCheckbox: Locator
   readonly openInJsonViewerBtn: Locator
   readonly openWithButton: Locator
+  readonly fileDetailsBtn: Locator
+  readonly openInMapViewerBtn: Locator
 
   constructor(page: Page) {
     this.page = page
@@ -16,6 +18,8 @@ export class FilesPage {
     this.openWithButton = this.page.locator(
       '//*[@id="oc-files-context-actions-context"]//span[text()="Open with..."]'
     )
+    this.fileDetailsBtn = this.page.locator('.oc-files-actions-show-details-trigger')
+    this.openInMapViewerBtn = this.page.locator('.oc-files-actions-maps-trigger')
   }
 
   getResourceNameSelector(resource: string): Locator {
@@ -50,17 +54,29 @@ export class FilesPage {
     await folderLocator.click()
   }
 
-  async openJsonFile(file: string) {
+  async openFileDetails(file: string) {
+    // wait until tika scan is done. need to get file metadata
+    await this.page.waitForTimeout(2000)
+    await this.page.reload()
+
+    const fileLocator = this.getResourceNameSelector(file)
+    await fileLocator.click({ button: 'right' })
+    await this.fileDetailsBtn.click()
+  }
+
+  async openFileInViewer(file: string, fileType: 'gpx' | 'json') {
     const fileLocator = this.getResourceNameSelector(file)
     await fileLocator.click({ button: 'right' })
     await this.openWithButton.hover()
+
+    const viewerButton = fileType === 'gpx' ? this.openInMapViewerBtn : this.openInJsonViewerBtn
 
     await Promise.all([
       this.page.waitForResponse(
         (resp) =>
           resp.status() === 200 && resp.request().method() === 'GET' && resp.url().includes(file)
       ),
-      this.openInJsonViewerBtn.click()
+      viewerButton.click()
     ])
   }
 }

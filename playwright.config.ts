@@ -92,6 +92,21 @@ export default defineConfig({
       name: 'json-viewer-webkit',
       testDir: './packages/web-app-json-viewer/tests/e2e',
       use: { ...devices['Desktop Safari'], browserName: 'webkit', ignoreHTTPSErrors: true }
+    },
+    {
+      name: 'app-maps-chromium',
+      testDir: './packages/web-app-maps/tests/e2e',
+      use: { ...devices['Desktop Chrome'], browserName: 'chromium', ignoreHTTPSErrors: true }
+    },
+    {
+      name: 'app-maps-firefox',
+      testDir: './packages/web-app-maps/tests/e2e',
+      use: { ...devices['Desktop Firefox'], browserName: 'firefox', ignoreHTTPSErrors: true }
+    },
+    {
+      name: 'app-maps-webkit',
+      testDir: './packages/web-app-maps/tests/e2e',
+      use: { ...devices['Desktop Safari'], browserName: 'webkit', ignoreHTTPSErrors: true }
     }
 
     /* Test against mobile viewports. */
