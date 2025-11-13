@@ -19,9 +19,19 @@ import { extractNameWithoutExtension, urlJoin } from '@opencloud-eu/web-client'
 import * as uuid from 'uuid'
 import * as zip from '@zip.js/zip.js'
 import workerUrl from '@zip.js/zip.js/dist/zip-web-worker.js?worker&url'
+import untar from 'js-untar'
+import pako from 'pako'
 
-const SUPPORTED_MIME_TYPES = ['application/zip']
-const MAX_SIZE_MB = 64 // in mb
+const SUPPORTED_MIME_TYPES = [
+  'application/zip',
+  'application/x-tar',
+  'application/gzip',
+  'application/x-gzip',
+  'application/x-compressed-tar',
+  'application/x-bzip2',
+  'application/x-bzip'
+]
+const MAX_SIZE_MB = 1024 // in mb (1GB)
 
 export const useUnzipAction = () => {
   const { $gettext, current: currentLanguage } = useGettext()
@@ -53,7 +63,53 @@ export const useUnzipAction = () => {
     return new File([response.data], resources[0].name)
   }
 
-  const handler = async ({ space, resources }: FileActionOptions) => {
+  const getArchiveType = (fileName: string, mimeType: string): 'zip' | 'tar' | 'tar.gz' | 'tar.bz2' | null => {
+    const lowerName = fileName.toLowerCase()
+    const lowerMime = mimeType.toLowerCase()
+
+    if (lowerMime === 'application/zip' || lowerName.endsWith('.zip')) {
+      return 'zip'
+    }
+    if (lowerName.endsWith('.tar.gz') || lowerName.endsWith('.tgz') ||
+        lowerMime.includes('gzip') || lowerMime.includes('x-compressed-tar')) {
+      return 'tar.gz'
+    }
+    if (lowerName.endsWith('.tar.bz2') || lowerName.endsWith('.tbz2') ||
+        lowerMime.includes('bzip')) {
+      return 'tar.bz2'
+    }
+    if (lowerMime === 'application/x-tar' || lowerName.endsWith('.tar')) {
+      return 'tar'
+    }
+    return null
+  }
+
+  const extractTarArchive = async (arrayBuffer: ArrayBuffer): Promise<OcMinimalUppyFile[]> => {
+    const files = await untar(arrayBuffer)
+    return files
+      .filter((file) => file.type !== '5') // Filter out directories (type '5')
+      .map((file) => {
+        const path = dirname(file.name)
+        const name = path === '.' ? file.name : file.name.substring(path.length + 1)
+
+        return {
+          name,
+          data: new Blob([file.buffer]),
+          meta: {
+            ...(path !== '.' && { webkitRelativePath: file.name })
+          }
+        } as unknown as OcMinimalUppyFile
+      })
+  }
+
+  const extractTarGzArchive = async (arrayBuffer: ArrayBuffer): Promise<OcMinimalUppyFile[]> => {
+    // Decompress gzip first
+    const decompressed = pako.ungzip(new Uint8Array(arrayBuffer))
+    // Then extract tar
+    return extractTarArchive(decompressed.buffer)
+  }
+
+  const extractZipArchive = async (fileBlob: File): Promise<OcMinimalUppyFile[]> => {
     let zipReader: zip.ZipReader<zip.BlobReader>
 
     try {
@@ -62,22 +118,15 @@ export const useUnzipAction = () => {
         useWebWorkers: true,
         workerURI: workerUrl
       })
-      const fileBlob = await getFileBlob({ space, resources })
+
       const blobReader = new zip.BlobReader(fileBlob)
       zipReader = new zip.ZipReader(blobReader)
       const entries = await zipReader.getEntries()
 
       // password protected archives currently cannot be extracted
       if (entries.some(({ encrypted }) => encrypted)) {
-        showErrorMessage({
-          title: $gettext('Password protected archives cannot be extracted'),
-          errors: [new Error()]
-        })
-        return
+        throw new Error('Password protected archives cannot be extracted')
       }
-
-      const folder = await createRootFolder({ space, resources })
-      const uploadId = uuid.v4()
 
       // unzip and convert to UppyFile's
       const promises = entries
@@ -92,18 +141,13 @@ export const useUnzipAction = () => {
               name,
               data,
               meta: {
-                ...(path !== '.' && { webkitRelativePath: urlJoin(path, name) }),
-                uploadId
+                ...(path !== '.' && { webkitRelativePath: urlJoin(path, name) })
               }
             } as unknown as OcMinimalUppyFile
           })
         })
 
-      const filesToUpload = (await Promise.all(promises)) as OcMinimalUppyFile[]
-      uppyService.setUploadFolder(uploadId, folder)
-      uppyService.addFiles(filesToUpload)
-    } catch (error) {
-      showErrorMessage({ title: $gettext('Failed to extract archive'), errors: [error] })
+      return (await Promise.all(promises)) as OcMinimalUppyFile[]
     } finally {
       if (zipReader) {
         zipReader.close()
@@ -111,9 +155,62 @@ export const useUnzipAction = () => {
     }
   }
 
+  const handler = async ({ space, resources }: FileActionOptions) => {
+    try {
+      const fileBlob = await getFileBlob({ space, resources })
+      const archiveType = getArchiveType(resources[0].name, resources[0].mimeType)
+
+      if (!archiveType) {
+        showErrorMessage({
+          title: $gettext('Unsupported archive format'),
+          errors: [new Error()]
+        })
+        return
+      }
+
+      let filesToUpload: OcMinimalUppyFile[]
+
+      // Extract based on archive type
+      if (archiveType === 'zip') {
+        filesToUpload = await extractZipArchive(fileBlob)
+      } else if (archiveType === 'tar') {
+        const arrayBuffer = await fileBlob.arrayBuffer()
+        filesToUpload = await extractTarArchive(arrayBuffer)
+      } else if (archiveType === 'tar.gz') {
+        const arrayBuffer = await fileBlob.arrayBuffer()
+        filesToUpload = await extractTarGzArchive(arrayBuffer)
+      } else if (archiveType === 'tar.bz2') {
+        showErrorMessage({
+          title: $gettext('Bzip2 archives are not yet supported'),
+          errors: [new Error()]
+        })
+        return
+      } else {
+        showErrorMessage({
+          title: $gettext('Unsupported archive format'),
+          errors: [new Error()]
+        })
+        return
+      }
+
+      const folder = await createRootFolder({ space, resources })
+      const uploadId = uuid.v4()
+
+      // Add uploadId to all files
+      filesToUpload.forEach(file => {
+        file.meta = { ...file.meta, uploadId }
+      })
+
+      uppyService.setUploadFolder(uploadId, folder)
+      uppyService.addFiles(filesToUpload)
+    } catch (error) {
+      showErrorMessage({ title: $gettext('Failed to extract archive'), errors: [error] })
+    }
+  }
+
   const action = computed<FileAction>(() => {
     return {
-      name: 'unzip-archive',
+      name: 'extract-archive',
       icon: 'inbox-unarchive',
       handler: (args) => loadingService.addTask(() => handler(args)),
       label: () => {
@@ -135,10 +232,19 @@ export const useUnzipAction = () => {
         if (!resourcesStore.currentFolder?.canUpload({ user: userStore.user })) {
           return false
         }
-        return SUPPORTED_MIME_TYPES.includes(resources[0].mimeType)
+        // Check both mime type and file extension
+        const fileName = resources[0].name.toLowerCase()
+        const mimeType = resources[0].mimeType
+        return SUPPORTED_MIME_TYPES.includes(mimeType) ||
+               fileName.endsWith('.zip') ||
+               fileName.endsWith('.tar') ||
+               fileName.endsWith('.tar.gz') ||
+               fileName.endsWith('.tgz') ||
+               fileName.endsWith('.tar.bz2') ||
+               fileName.endsWith('.tbz2')
       },
       componentType: 'button',
-      class: 'oc-files-actions-unzip-archive'
+      class: 'oc-files-actions-extract-archive'
     }
   })
 

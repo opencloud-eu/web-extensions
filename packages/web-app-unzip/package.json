@@ -12,7 +12,9 @@
     "test:unit": "NODE_OPTIONS=--unhandled-rejections=throw vitest"
   },
   "dependencies": {
-    "@zip.js/zip.js": "2.8.10"
+    "@zip.js/zip.js": "2.8.10",
+    "js-untar": "^2.0.0",
+    "pako": "^2.1.0"
   },
   "devDependencies": {
     "@opencloud-eu/web-client": "^4.0.0",
