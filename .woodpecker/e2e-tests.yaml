@@ -8,6 +8,7 @@ variables:
   - &node_image 'owncloudci/nodejs:22'
   - &oc_image 'opencloudeu/opencloud-rolling:latest'
   - &alpine_image 'owncloudci/alpine:latest'
+  - &minio_mc_image 'minio/mc:RELEASE.2021-10-07T04-19-58Z'
 
 steps:
   - name: pnpm-install
@@ -52,3 +53,32 @@ steps:
       - mkdir -p /root/.cache
       - cp -R /woodpecker/playwright-cache /root/.cache/ms-playwright
       - "BASE_URL_OC=https://opencloud:9200 pnpm test:e2e --project='*-chromium'"
+
+  - name: upload-tracing-result
+    image: *minio_mc_image
+    environment:
+      MC_HOST: 'https://s3.ci.opencloud.eu'
+      AWS_ACCESS_KEY_ID:
+        from_secret: cache_s3_access_key
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: cache_s3_secret_key
+      PUBLIC_BUCKET: 'public'
+    commands:
+      - 'mc alias set s3 $MC_HOST $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY'
+      - 'mc cp -a -r test-results/ s3/$PUBLIC_BUCKET/web-extensions/tracing/$CI_PIPELINE_NUMBER/'
+      - echo "========================================="
+      - echo "Trace files uploaded successfully!"
+      - echo "========================================="
+      - echo "To view the traces, run the following commands:"
+      - echo ""
+      - |
+        for f in test-results/*/*.zip; do
+          if [ -f "$f" ]; then
+            path=$(echo "$f" | sed 's|^test-results/||')
+            echo "npx playwright show-trace $MC_HOST/$PUBLIC_BUCKET/web-extensions/tracing/$CI_PIPELINE_NUMBER/$path"
+            echo ""
+          fi
+        done
+      - echo "========================================="
+    when:
+      status: [failure]
