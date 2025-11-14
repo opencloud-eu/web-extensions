@@ -24,6 +24,10 @@ test('open gpx file in map viewer', async () => {
 
   // check map is visible
   await expect(userPage.locator('.app-wrapper .leaflet-container')).toBeVisible()
+
+  // check start and finish markers are visible
+  const startAndFinishMarkers = userPage.locator('.app-wrapper .leaflet-marker-icon')
+  await expect(startAndFinishMarkers).toHaveCount(2)
 })
 
 test('see metadata of the image file.', async () => {
