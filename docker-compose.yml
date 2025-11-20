@@ -89,7 +89,7 @@ services:
     restart: unless-stopped
 
   traefik:
-    image: traefik:v3.6.1
+    image: traefik:v3.6.2
     restart: unless-stopped
     entrypoint:
       [
