@@ -4,6 +4,8 @@ This application can be used for adding external sites to the application menu o
 
 ## Configuration
 
+Create the file `config.json` inside the apps directory: `/web/assets/apps/external-sites`
+
 The configuration for the external-sites app may look like so:
 
 ```json
