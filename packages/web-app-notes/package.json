@@ -1,0 +1,23 @@
+{
+  "name": "web-app-notes",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Your friendly neighborhood notes taking app.",
+  "license": "AGPL-3.0",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm vite build",
+    "build:w": "pnpm vite build --watch --mode development",
+    "check:types": "vue-tsc --noEmit",
+    "test:unit": "NODE_OPTIONS=--unhandled-rejections=throw vitest"
+  },
+  "devDependencies": {
+    "vue": "^3.4.21",
+    "vue3-gettext": "^2.4.0",
+    "vue-concurrency": "^5.0.3"
+  },
+  "peerDependencies": {
+    "@opencloud-eu/web-client": "^4.0.0",
+    "@opencloud-eu/web-pkg": "^4.0.0"
+  }
+}
