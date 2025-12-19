@@ -46,6 +46,7 @@ services:
       - ./packages/web-app-importer/dist:/web/apps/importer
       - ./packages/web-app-json-viewer/dist:/web/apps/json-viewer
       - ./packages/web-app-maps/dist:/web/apps/maps
+      - ./packages/web-app-notes/dist:/web/apps/notes
       - ./packages/web-app-progress-bars/dist:/web/apps/progress-bars
       - ./packages/web-app-unzip/dist:/web/apps/unzip
     depends_on:
