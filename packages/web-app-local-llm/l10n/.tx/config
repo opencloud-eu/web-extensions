@@ -1,0 +1,8 @@
+[main]
+host = https://www.transifex.com
+lang_map = es: es, bg: bg, cs: cs, da: da, de: de, el: el, fi: fi, fr: fr, hu: hu, it: it, ja: ja, ko: ko, nl: nl, nn_NO: nb-NO, pl: pl, pt_BR: pt-BR, pt_PT: pt-PT, ro: ro, ru: ru, sk: sk, sl: sl, sv: sv, tr: tr, uk: uk, zh_CN: zh-CN, ca: ca, gl: gl, ar: ar, lt_LT: lt-LT, lv: lv, zh_TW: zh-TW, fa: fa, ka_GE: ka-GE, si: si, ug: ug, sq: sq, sr@latin: sr, sr: sr-Cyrl, et: et, bs: bs, is: is, ta: ta, he: he, id: id, hr: hr, eu: eu, af_ZA: af
+
+[o:opencloud-community:p:opencloud:r:local-llm-opencloud]
+file_filter = translations.json
+source_lang = en
+type = KEYVALUEJSON
