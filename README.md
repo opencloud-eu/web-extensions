@@ -17,7 +17,8 @@ Extensions are provided by apps. These are the apps, that are provided by this r
 - [web-app-maps](./packages/web-app-maps/)
 - [web-app-progress-bars](./packages/web-app-progress-bars/)
 - [web-app-unzip](./packages/web-app-unzip/)
-
+- [web-app-local-llm](./packages/web-app-local-llm/)
+- 
 ## Installing apps in OpenCloud
 
 There are two ways installing these examples:
