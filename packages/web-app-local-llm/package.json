@@ -1,0 +1,30 @@
+{
+  "name": "local-llm-opencloud",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Integrate Local LLMs (Ollama, LM Studio) into OpenCloud for AI-powered assistance",
+  "license": "GPL-2.0",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm vite build",
+    "build:w": "pnpm vite build --watch --mode development",
+    "check:types": "vue-tsc --noEmit",
+    "test:unit": "NODE_OPTIONS=--unhandled-rejections=throw vitest"
+  },
+  "devDependencies": {
+    "@opencloud-eu/extension-sdk": "^1.0.0",
+    "@opencloud-eu/web-client": "^1.0.0",
+    "@opencloud-eu/web-pkg": "^1.0.0",
+    "@opencloud-eu/web-test-helpers": "^4.0.0",
+    "@vue/test-utils": "^2.4.6",
+    "happy-dom": "^15.0.0",
+    "typescript": "^5.7.3",
+    "vite": "^6.2.0",
+    "vitest": "^3.0.7",
+    "vitest-mock-extended": "^2.0.0",
+    "vue": "^3.4.21",
+    "vue-router": "^4.2.5",
+    "vue-tsc": "^2.2.4",
+    "vue3-gettext": "^2.4.0"
+  }
+}
