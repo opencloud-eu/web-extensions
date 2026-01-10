@@ -39,5 +39,5 @@
     "vue-tsc": "3.1.5",
     "vue3-gettext": "^2.4.0"
   },
-  "packageManager": "pnpm@10.26.0"
+  "packageManager": "pnpm@10.28.0"
 }
