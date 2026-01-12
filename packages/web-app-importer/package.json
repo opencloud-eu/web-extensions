@@ -13,9 +13,9 @@
   },
   "dependencies": {
     "@uppy/dashboard": "^5.0.3",
-    "@uppy/google-drive": "5.0.1",
-    "@uppy/onedrive": "5.0.2",
-    "@uppy/webdav": "1.0.1"
+    "@uppy/google-drive": "5.1.0",
+    "@uppy/onedrive": "5.1.0",
+    "@uppy/webdav": "1.1.1"
   },
   "devDependencies": {
     "@opencloud-eu/web-client": "^4.0.0",
