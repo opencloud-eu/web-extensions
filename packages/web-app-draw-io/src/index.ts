@@ -5,7 +5,8 @@ import {
   AppWrapperRoute,
   defineWebApplication,
   useUserStore,
-  useOpenEmptyEditor
+  useOpenEmptyEditor,
+  useSpacesStore
 } from '@opencloud-eu/web-pkg'
 import translations from '../l10n/translations.json'
 import App from './App.vue'
@@ -19,6 +20,7 @@ export default defineWebApplication({
     const { $gettext } = useGettext()
     const userStore = useUserStore()
     const { openEmptyEditor } = useOpenEmptyEditor()
+    const spacesStore = useSpacesStore()
 
     const routes = [
       {
@@ -63,7 +65,7 @@ export default defineWebApplication({
     const menuItems = computed<AppMenuItemExtension[]>(() => {
       const items: AppMenuItemExtension[] = []
 
-      if (userStore.user) {
+      if (userStore.user && spacesStore.personalSpace) {
         items.push({
           id: `app.${appInfo.id}.menuItem`,
           type: 'appMenuItem',
