@@ -22,7 +22,7 @@ importers:
         version: 4.3.0
       '@opencloud-eu/web-test-helpers':
         specifier: ^4.0.0
-        version: 4.3.0(@opencloud-eu/web-pkg@4.3.0(@vue/compiler-sfc@3.5.27)(typescript@5.9.3)(vue@3.5.27(typescript@5.9.3)))(@vue/compiler-sfc@3.5.27)(@vue/test-utils@2.4.6)(typescript@5.9.3)(vitest@4.0.17(@types/node@24.10.9)(happy-dom@20.3.3)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.80.7))(vue@3.5.27(typescript@5.9.3))
+        version: 4.3.0(@opencloud-eu/web-pkg@4.3.0(@vue/compiler-sfc@3.5.27)(typescript@5.9.3)(vue@3.5.27(typescript@5.9.3)))(@vue/compiler-sfc@3.5.27)(@vue/test-utils@2.4.6)(typescript@5.9.3)(vitest@4.0.17(@types/node@24.10.9)(happy-dom@20.3.4)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.80.7))(vue@3.5.27(typescript@5.9.3))
       '@playwright/test':
         specifier: ^1.50.1
         version: 1.57.0
@@ -37,7 +37,7 @@ importers:
         version: 9.39.2(jiti@2.6.1)
       happy-dom:
         specifier: ^20.0.0
-        version: 20.3.3
+        version: 20.3.4
       prettier:
         specifier: 3.8.0
         version: 3.8.0
@@ -58,10 +58,10 @@ importers:
         version: 7.3.1(@types/node@24.10.9)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.80.7)
       vitest:
         specifier: 4.0.17
-        version: 4.0.17(@types/node@24.10.9)(happy-dom@20.3.3)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.80.7)
+        version: 4.0.17(@types/node@24.10.9)(happy-dom@20.3.4)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.80.7)
       vitest-mock-extended:
         specifier: 3.1.0
-        version: 3.1.0(typescript@5.9.3)(vitest@4.0.17(@types/node@24.10.9)(happy-dom@20.3.3)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.80.7))
+        version: 3.1.0(typescript@5.9.3)(vitest@4.0.17(@types/node@24.10.9)(happy-dom@20.3.4)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.80.7))
       vue-tsc:
         specifier: 3.2.2
         version: 3.2.2(typescript@5.9.3)
@@ -2150,8 +2150,8 @@ packages:
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
-  happy-dom@20.3.3:
-    resolution: {integrity: sha512-hM9gltmtQLfmWPqoPreUtRdP3nZCSzQEw7l/JC+up5CxquDykhYFKzIzoFFeVev3AGFEULNvsbE8fpZPgxUYEQ==}
+  happy-dom@20.3.4:
+    resolution: {integrity: sha512-rfbiwB6OKxZFIFQ7SRnCPB2WL9WhyXsFoTfecYgeCeFSOBxvkWLaXsdv5ehzJrfqwXQmDephAKWLRQoFoJwrew==}
     engines: {node: '>=20.0.0'}
 
   has-flag@4.0.0:
@@ -4085,7 +4085,7 @@ snapshots:
       - typescript
       - vue
 
-  '@opencloud-eu/web-test-helpers@4.3.0(@opencloud-eu/web-pkg@4.3.0(@vue/compiler-sfc@3.5.27)(typescript@5.9.3)(vue@3.5.27(typescript@5.9.3)))(@vue/compiler-sfc@3.5.27)(@vue/test-utils@2.4.6)(typescript@5.9.3)(vitest@4.0.17(@types/node@24.10.9)(happy-dom@20.3.3)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.80.7))(vue@3.5.27(typescript@5.9.3))':
+  '@opencloud-eu/web-test-helpers@4.3.0(@opencloud-eu/web-pkg@4.3.0(@vue/compiler-sfc@3.5.27)(typescript@5.9.3)(vue@3.5.27(typescript@5.9.3)))(@vue/compiler-sfc@3.5.27)(@vue/test-utils@2.4.6)(typescript@5.9.3)(vitest@4.0.17(@types/node@24.10.9)(happy-dom@20.3.4)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.80.7))(vue@3.5.27(typescript@5.9.3))':
     dependencies:
       '@casl/ability': 6.7.5
       '@casl/vue': 2.2.5(@casl/ability@6.7.5)(vue@3.5.27(typescript@5.9.3))
@@ -4096,7 +4096,7 @@ snapshots:
       '@vue/test-utils': 2.4.6
       axios: 1.13.2
       pinia: 3.0.4(typescript@5.9.3)(vue@3.5.27(typescript@5.9.3))
-      vitest-mock-extended: 3.1.0(typescript@5.9.3)(vitest@4.0.17(@types/node@24.10.9)(happy-dom@20.3.3)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.80.7))
+      vitest-mock-extended: 3.1.0(typescript@5.9.3)(vitest@4.0.17(@types/node@24.10.9)(happy-dom@20.3.4)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.80.7))
       vue: 3.5.27(typescript@5.9.3)
       vue-router: 4.6.4(vue@3.5.27(typescript@5.9.3))
       vue3-gettext: 2.4.0(@vue/compiler-sfc@3.5.27)(vue@3.5.27(typescript@5.9.3))
@@ -5460,7 +5460,7 @@ snapshots:
 
   graceful-fs@4.2.11: {}
 
-  happy-dom@20.3.3:
+  happy-dom@20.3.4:
     dependencies:
       '@types/node': 24.10.9
       '@types/whatwg-mimetype': 3.0.2
@@ -6329,13 +6329,13 @@ snapshots:
       lightningcss: 1.30.2
       sass: 1.80.7
 
-  vitest-mock-extended@3.1.0(typescript@5.9.3)(vitest@4.0.17(@types/node@24.10.9)(happy-dom@20.3.3)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.80.7)):
+  vitest-mock-extended@3.1.0(typescript@5.9.3)(vitest@4.0.17(@types/node@24.10.9)(happy-dom@20.3.4)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.80.7)):
     dependencies:
       ts-essentials: 10.0.3(typescript@5.9.3)
       typescript: 5.9.3
-      vitest: 4.0.17(@types/node@24.10.9)(happy-dom@20.3.3)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.80.7)
+      vitest: 4.0.17(@types/node@24.10.9)(happy-dom@20.3.4)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.80.7)
 
-  vitest@4.0.17(@types/node@24.10.9)(happy-dom@20.3.3)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.80.7):
+  vitest@4.0.17(@types/node@24.10.9)(happy-dom@20.3.4)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.80.7):
     dependencies:
       '@vitest/expect': 4.0.17
       '@vitest/mocker': 4.0.17(vite@7.3.1(@types/node@24.10.9)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.80.7))
@@ -6359,7 +6359,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 24.10.9
-      happy-dom: 20.3.3
+      happy-dom: 20.3.4
     transitivePeerDependencies:
       - jiti
       - less
