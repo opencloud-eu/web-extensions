@@ -15,7 +15,6 @@
     "pinia": "3.0.4",
     "vue": "^3.4.21",
     "vue-concurrency": "^5.0.3",
-    "vue-router": "^4.6.4",
     "vue3-gettext": "^2.4.0",
     "zod": "^4.3.0"
   },

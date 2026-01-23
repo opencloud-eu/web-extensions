@@ -152,7 +152,7 @@ export const useDragAndDrop = () => {
 
       // no-op if already in root
       const parentFolderPath = urlJoin(...sourceNode.resource.path.split('/').slice(0, -1))
-      const rootFolderPath = urlJoin(notebookStore.notebook.path)
+      const rootFolderPath = urlJoin(notebookStore.notebook?.path)
       if (parentFolderPath === rootFolderPath) {
         return
       }
@@ -162,9 +162,9 @@ export const useDragAndDrop = () => {
         { fileId: sourceNode.resource.id, path: sourceNode.resource.path },
         notebookStore.space,
         {
-          parentFolderId: notebookStore.notebook.id,
+          parentFolderId: notebookStore.notebook?.id,
           name: sourceNode.resource.name,
-          path: urlJoin(notebookStore.notebook.path, sourceNode.resource.name)
+          path: urlJoin(notebookStore.notebook?.path, sourceNode.resource.name)
         }
       )
 

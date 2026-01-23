@@ -52,7 +52,7 @@ export const useActionsSaveCurrentDocument = (node?: TocNode) => {
         if (node?.resource.id !== documentStore.documentId) {
           return false
         }
-        return notebookStore.notebook.canUpload({ user: userStore.user })
+        return notebookStore.notebook?.canUpload({ user: userStore.user })
       },
       isDisabled: () => !unref(isDocumentDirty),
       handler: () => {

@@ -3,9 +3,9 @@ import { computed, ref, unref } from 'vue'
 import { Resource } from '@opencloud-eu/web-client'
 
 export const useDocumentStore = defineStore('document', () => {
-  const documentResource = ref<Resource>()
-  const documentContent = ref<string>()
-  const documentContentInitial = ref<string>()
+  const documentResource = ref<Resource | null>(null)
+  const documentContent = ref<string>('')
+  const documentContentInitial = ref<string>('')
 
   const documentId = computed(() => {
     return unref(documentResource)?.id

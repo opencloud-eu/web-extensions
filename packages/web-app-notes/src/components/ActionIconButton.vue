@@ -31,4 +31,11 @@ const actionOptions = computed(() => {
     resources: [resource]
   }
 })
+
+/**
+ * FIXME:
+ * we could use ActionMenuItem as template instead of a custom template, if ActionMenuItem would not
+ * be wrapped in an `<li>`. For reference:
+ * `<ActionMenuItem :action="{ ...action, hideLabel: true }" :action-options="actionOptions" />`
+ */
 </script>

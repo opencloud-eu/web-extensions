@@ -11,7 +11,7 @@
         />
       </div>
     </div>
-    <TocEmpty v-if="tocNodes.length === 0" />
+    <TocEmpty v-if="!tocNodes?.length" />
     <template v-else>
       <TocList class="ext:text-sm" :nodes="tocNodes" />
       <div
@@ -52,8 +52,7 @@ const notebookStore = useNotebookStore()
 const { notebook } = storeToRefs(notebookStore)
 
 const tocStore = useTocStore()
-const { tocNodes, isDragAndDropActive } = storeToRefs(tocStore)
-const { dragOverRoot } = storeToRefs(tocStore)
+const { tocNodes, isDragAndDropActive, dragOverRoot } = storeToRefs(tocStore)
 
 const { onDragOverRoot, onDragLeaveRoot, onDropOnRoot } = useDragAndDrop()
 

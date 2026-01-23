@@ -2,7 +2,7 @@
   <div class="ext:w-full ext:flex ext:justify-between">
     <div>
       <span v-if="hasWriteAccess">{{ $gettext('Create your first note.') }}</span>
-      <span v-else>{{ $gettext('There are not notes in this notebook, yet.') }}</span>
+      <span v-else>{{ $gettext('There are no notes in this notebook, yet.') }}</span>
     </div>
     <div v-if="hasWriteAccess" class="ext:min-w-[77px] ext:h-[3rem] ext:-mt-5" :aria-hidden="true">
       <svg

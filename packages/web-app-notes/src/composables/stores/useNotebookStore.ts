@@ -3,8 +3,8 @@ import { computed, ref, unref } from 'vue'
 import { Resource, SpaceResource } from '@opencloud-eu/web-client'
 
 export const useNotebookStore = defineStore('notebook', () => {
-  const space = ref<SpaceResource>(null)
-  const notebook = ref<Resource>(null)
+  const space = ref<SpaceResource | null>(null)
+  const notebook = ref<Resource | null>(null)
   const setNotebook = (spaceResource: SpaceResource, notebookResource: Resource) => {
     space.value = spaceResource
     notebook.value = notebookResource
@@ -20,7 +20,7 @@ export const useNotebookStore = defineStore('notebook', () => {
   })
 
   const hasWriteAccess = computed(() => {
-    return unref(notebook).canCreate()
+    return unref(notebook)?.canCreate()
   })
 
   return {
