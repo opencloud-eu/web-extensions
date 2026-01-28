@@ -23,7 +23,7 @@
     "zod": "^4.0.17"
   },
   "peerDependencies": {
-    "@opencloud-eu/web-client": "^4.0.0",
+    "@opencloud-eu/web-client": "^4.0.0 || ^5.0.0",
     "@opencloud-eu/web-pkg": "^4.0.0 || ^5.0.0"
   }
 }
