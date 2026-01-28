@@ -24,6 +24,6 @@
   },
   "peerDependencies": {
     "@opencloud-eu/web-client": "^4.0.0",
-    "@opencloud-eu/web-pkg": "^4.0.0"
+    "@opencloud-eu/web-pkg": "^4.0.0 || ^5.0.0"
   }
 }
