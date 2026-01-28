@@ -88,8 +88,8 @@ importers:
   packages/web-app-cast:
     devDependencies:
       '@opencloud-eu/web-client':
-        specifier: ^4.0.0
-        version: 4.3.0
+        specifier: ^5.0.0
+        version: 5.0.0
       '@opencloud-eu/web-pkg':
         specifier: ^5.0.0
         version: 5.0.0(@vue/compiler-sfc@3.5.27)(typescript@5.9.3)(vue@3.5.27(typescript@5.9.3))
@@ -106,8 +106,8 @@ importers:
   packages/web-app-draw-io:
     devDependencies:
       '@opencloud-eu/web-client':
-        specifier: ^4.0.0
-        version: 4.3.0
+        specifier: ^5.0.0
+        version: 5.0.0
       '@opencloud-eu/web-pkg':
         specifier: ^5.0.0
         version: 5.0.0(@vue/compiler-sfc@3.5.27)(typescript@5.9.3)(vue@3.5.27(typescript@5.9.3))
@@ -124,8 +124,8 @@ importers:
   packages/web-app-external-sites:
     devDependencies:
       '@opencloud-eu/web-client':
-        specifier: ^4.0.0
-        version: 4.3.0
+        specifier: ^5.0.0
+        version: 5.0.0
       '@opencloud-eu/web-pkg':
         specifier: ^5.0.0
         version: 5.0.0(@vue/compiler-sfc@3.5.27)(typescript@5.9.3)(vue@3.5.27(typescript@5.9.3))
@@ -158,8 +158,8 @@ importers:
         version: 1.1.1(@uppy/core@5.2.0)
     devDependencies:
       '@opencloud-eu/web-client':
-        specifier: ^4.0.0
-        version: 4.3.0
+        specifier: ^5.0.0
+        version: 5.0.0
       '@opencloud-eu/web-pkg':
         specifier: ^5.0.0
         version: 5.0.0(@vue/compiler-sfc@3.5.27)(typescript@5.9.3)(vue@3.5.27(typescript@5.9.3))
@@ -183,8 +183,8 @@ importers:
         version: 3.11.0
     devDependencies:
       '@opencloud-eu/web-client':
-        specifier: ^4.0.0
-        version: 4.3.0
+        specifier: ^5.0.0
+        version: 5.0.0
       '@opencloud-eu/web-pkg':
         specifier: ^5.0.0
         version: 5.0.0(@vue/compiler-sfc@3.5.27)(typescript@5.9.3)(vue@3.5.27(typescript@5.9.3))
@@ -198,8 +198,8 @@ importers:
   packages/web-app-maps:
     dependencies:
       '@opencloud-eu/web-client':
-        specifier: ^4.0.0
-        version: 4.3.0
+        specifier: ^4.0.0 || ^5.0.0
+        version: 5.0.0
       '@opencloud-eu/web-pkg':
         specifier: ^4.0.0 || ^5.0.0
         version: 5.0.0(@vue/compiler-sfc@3.5.27)(typescript@5.9.3)(vue@3.5.27(typescript@5.9.3))
@@ -276,8 +276,8 @@ importers:
         version: 2.8.15
     devDependencies:
       '@opencloud-eu/web-client':
-        specifier: ^4.0.0
-        version: 4.3.0
+        specifier: ^5.0.0
+        version: 5.0.0
       '@opencloud-eu/web-pkg':
         specifier: ^5.0.0
         version: 5.0.0(@vue/compiler-sfc@3.5.27)(typescript@5.9.3)(vue@3.5.27(typescript@5.9.3))
@@ -833,9 +833,6 @@ packages:
 
   '@opencloud-eu/tsconfig@5.0.0':
     resolution: {integrity: sha512-qUY5q5paG53ZPv0uaEO99oCWi6qTXxo1hC3QJeYd/oAK5aWYLoZgQ4yvVE+p+4w9T8ptoi5V9RakmKCf1a7KVg==}
-
-  '@opencloud-eu/web-client@4.3.0':
-    resolution: {integrity: sha512-9tzlehhufbThyZThkyiI+wr5fbCt1UpVnakmymTmBL0/qKF0lYGPlXZI3ZwIP0F7gLm6G0YyIhDWCQooOpaNMQ==}
 
   '@opencloud-eu/web-client@5.0.0':
     resolution: {integrity: sha512-y71K0eQDqZPRUTX+ovvl1fV6yVaLyQiA1q+fXp9SnfePC2ulOW68tx8V4sWx3v7z7XI1QnYNRl4tLmicddZjEg==}
@@ -4055,21 +4052,6 @@ snapshots:
       prettier: 3.8.1
 
   '@opencloud-eu/tsconfig@5.0.0': {}
-
-  '@opencloud-eu/web-client@4.3.0':
-    dependencies:
-      '@casl/ability': 6.8.0
-      '@microsoft/fetch-event-source': 2.0.1
-      axios: 1.13.3
-      fast-xml-parser: 4.5.3
-      lodash-es: 4.17.23
-      luxon: 3.7.2
-      uuid: 13.0.0
-      webdav: 5.8.0
-      xml-js: 1.6.11
-      zod: 4.3.6
-    transitivePeerDependencies:
-      - debug
 
   '@opencloud-eu/web-client@5.0.0':
     dependencies:
