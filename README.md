@@ -23,8 +23,8 @@ Extensions are provided by apps. These are the apps, that are provided by this r
 There are two ways installing these examples:
 
 - You can enable the web apps in our deployment example with minimal effort.\
-  For the source how it got implemented, see the [opencloud_full](https://github.com/opencloud-eu/opencloud/tree/master/deployments/examples/opencloud_full) deployment example.\
-  For a detailed installation instruction using `opencloud_full` see the [admin docs, Docker Compose](https://docs.opencloud.eu/docs/admin/getting-started/docker/docker-compose).\
+  For the source how it got implemented, see the [opencloud-compose](https://github.com/opencloud-eu/opencloud-compose/tree/main/config/opencloud/apps) deployment example.\
+  For a detailed installation instruction using `opencloud-compose` see the [admin docs, Docker Compose](https://docs.opencloud.eu/docs/admin/getting-started/container/docker-compose/docker-compose-base) .\
   (Before you start, select the opencloud version in the admin docs you want to use this example for.)
 - On a general level, refer to the [Web app docs](https://docs.opencloud.eu/docs/admin/configuration/web-applications) to learn how to install apps in OpenCloud.
 
