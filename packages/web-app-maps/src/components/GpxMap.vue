@@ -2,7 +2,7 @@
   <div class="ext:flex ext:flex-col">
     <div ref="mapElement" class="ext:size-full ext:z-1">
       <dl
-        class="ext:absolute ext:grid ext:grid-cols-[auto_minmax(0,1fr)] ext:z-990 bg-role-surface-container ext:rounded ext:p-2 ext:right-2 ext:top-2"
+        class="ext:absolute ext:grid ext:grid-cols-[auto_minmax(0,1fr)] ext:gap-x-4 ext:z-990 ext:bg-white/90 ext:backdrop-blur-sm ext:rounded ext:p-3 ext:right-2 ext:top-2 ext:text-sm ext:shadow-sm"
       >
         <dt v-text="$gettext('Name')" />
         <dd>{{ meta.name }}</dd>
