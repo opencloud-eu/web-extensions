@@ -6,23 +6,75 @@ OpenCloud Maps app can display `.gpx` files and show geo location data for singl
 
 In `apps.yaml` you can override configuration like this:
 
+### Raster tiles (default)
+
 ```yaml
 maps:
   config:
     tileLayerUrlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
+    tileLayerAttribution: '<a href="https://openstreetmap.org">OpenStreetMap</a>'
     tileLayerOptions:
       maxZoom: 19
-      attribution: '© OpenStreetMap'
 ```
 
-`tileLayerUrlTemplate` and `tileLayerOptions` have the above as default values, you can override it if you want to use another tile layer provider.
+`tileLayerUrlTemplate` defaults to OpenStreetMap. `tileLayerAttribution` defaults to OpenStreetMap when using raster tiles.
 
-To enable seamless integration of traffic to the OpenStreetMap servers, the Content Security Policy of OpenCloud has to be adopted.
+### PMTiles (vector tiles)
 
-In the file `csp.yaml`, add the entry `- 'https://tile.openstreetmap.org/'` in the `img-src:` section.
+For self-hosted vector tile maps using [PMTiles](https://protomaps.com/docs/pmtiles), point `tileLayerUrlTemplate` to a `.pmtiles` file:
 
-Please respect the work of [OpenStreetMap](https://openstreetmap.org) and read the [Tile Usage Policy](https://operations.osmfoundation.org/policies/tiles/).
+```yaml
+maps:
+  config:
+    tileLayerUrlTemplate: 'https://your-server.example.com/tiles/region.pmtiles'
+    tileLayerAttribution: '<a href="https://protomaps.com">Protomaps</a> | <a href="https://openstreetmap.org">OpenStreetMap</a>'
+```
+
+Vector tile labels require font glyphs. By default, fonts are loaded from `protomaps.github.io`. To use self-hosted fonts instead, set `tileLayerGlyphs`:
+
+```yaml
+maps:
+  config:
+    tileLayerUrlTemplate: 'https://your-server.example.com/tiles/region.pmtiles'
+    tileLayerGlyphs: 'https://your-server.example.com/assets/fonts/{fontstack}/{range}.pbf'
+```
+
+### Full style override
+
+For complete control over the map style, provide a URL to a [MapLibre Style JSON](https://maplibre.org/maplibre-style-spec/):
+
+```yaml
+maps:
+  config:
+    mapStyle: 'https://your-server.example.com/style.json'
+```
+
+### Content Security Policy
+
+To enable seamless integration of traffic to tile servers, the Content Security Policy of OpenCloud has to be adopted.
+
+In the file `csp.yaml`, add the tile server URL(s) to the `connect-src:` section. MapLibre also requires web workers, so `worker-src` and `child-src` must allow `blob:`:
+
+```yaml
+directives:
+  worker-src:
+    - "'self'"
+    - 'blob:'
+  child-src:
+    - "'self'"
+    - 'blob:'
+  connect-src:
+    - "'self'"
+    - 'blob:'
+    - 'https://tile.openstreetmap.org/'
+```
+
+When using PMTiles with the default font configuration, also add `https://protomaps.github.io/` to `connect-src`.
 
 ## Privacy Notice
 
 The rendered maps are loaded from OpenStreetMap (by default). This allows them to do at least some basic kind of tracking, simply because files are loaded from their servers by your browser.
+
+When using PMTiles with the default font configuration, font glyphs are loaded from `protomaps.github.io`.
+
+Please respect the work of [OpenStreetMap](https://openstreetmap.org) and read the [Tile Usage Policy](https://operations.osmfoundation.org/policies/tiles/).

@@ -5,13 +5,14 @@
         <span v-text="$gettext('No files with location data')" />
       </template>
     </no-content-message>
-    <div ref="leafletElement" class="ext:h-full" :class="{ hidden: !pinLocations.length }" />
+    <div ref="mapElement" class="ext:h-full" :class="{ hidden: !pinLocations.length }" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, unref, computed, onMounted, onUnmounted } from 'vue'
-import { useLeaflet, useMapPins } from '../composables'
+import maplibregl from 'maplibre-gl'
+import { useMap, useMapPins } from '../composables'
 import { NoContentMessage } from '@opencloud-eu/web-pkg'
 import { Resource } from '@opencloud-eu/web-client'
 import { useGettext } from 'vue3-gettext'
@@ -22,10 +23,10 @@ const { resources, applicationConfig } = defineProps<{
 }>()
 
 const { $gettext } = useGettext()
-const { createMap } = useLeaflet()
-const leafletElement = ref<HTMLElement | null>(null)
+const { createMap } = useMap()
+const mapElement = ref<HTMLElement | null>(null)
 const initialized = ref(false)
-const mapObject = ref<L.Map>()
+const mapObject = ref<maplibregl.Map>()
 
 const resourcesWithLocation = computed(() => {
   return (unref(resources?.filter((r) => !!r.location)) || []) as Resource[]
@@ -35,8 +36,10 @@ const { pinLocations, setView } = useMapPins(resourcesWithLocation, mapObject, i
 
 onMounted(() => {
   initialized.value = true
-  mapObject.value = createMap(applicationConfig, unref(leafletElement))
-  setView()
+  mapObject.value = createMap(applicationConfig, unref(mapElement)!)
+  mapObject.value.on('load', () => {
+    setView()
+  })
 })
 
 onUnmounted(() => {

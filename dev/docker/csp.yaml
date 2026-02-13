@@ -1,9 +1,15 @@
 directives:
   child-src:
     - "'self'"
+    - 'blob:'
+  worker-src:
+    - "'self'"
+    - 'blob:'
   connect-src:
     - "'self'"
     - 'blob:'
+    - 'https://tile.openstreetmap.org/'
+    - 'https://protomaps.github.io/'
   default-src:
     - "'none'"
   font-src:
