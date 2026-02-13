@@ -1,7 +1,7 @@
 services:
   download:
     image: alpine:3.21
-    command: ["/bin/sh", "/download.sh"]
+    command: ['/bin/sh', '/download.sh']
     volumes:
       - ./wwwroot:/wwwroot
       - ./download.sh:/download.sh:ro

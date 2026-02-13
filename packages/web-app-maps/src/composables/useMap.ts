@@ -28,7 +28,8 @@ export const useMap = () => {
     const attribution = applicationConfig?.tileLayerAttribution
 
     if (urlTemplate.includes('.pmtiles')) {
-      const glyphs = applicationConfig?.tileLayerGlyphs ||
+      const glyphs =
+        applicationConfig?.tileLayerGlyphs ||
         'https://protomaps.github.io/basemaps-assets/fonts/{fontstack}/{range}.pbf'
       return createPmtilesMap(container, urlTemplate, glyphs, attribution)
     }
@@ -106,10 +107,7 @@ export const useMap = () => {
 
   const addControls = (map: maplibregl.Map) => {
     map.addControl(new maplibregl.NavigationControl(), 'top-left')
-    map.addControl(
-      new maplibregl.ScaleControl({ unit: 'metric' }),
-      'bottom-left'
-    )
+    map.addControl(new maplibregl.ScaleControl({ unit: 'metric' }), 'bottom-left')
   }
 
   return { createMap }
