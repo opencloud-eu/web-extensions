@@ -1,0 +1,21 @@
+services:
+  download:
+    image: alpine:3.21
+    command: ["/bin/sh", "/download.sh"]
+    volumes:
+      - ./wwwroot:/wwwroot
+      - ./download.sh:/download.sh:ro
+
+  server:
+    image: joseluisq/static-web-server:2
+    depends_on:
+      download:
+        condition: service_completed_successfully
+    environment:
+      SERVER_ROOT: /public
+      SERVER_CORS_ALLOW_ORIGINS: '*'
+      SERVER_CORS_ALLOW_HEADERS: 'range, if-range, origin, content-type'
+    volumes:
+      - ./wwwroot:/public:ro
+    ports:
+      - '9205:80'

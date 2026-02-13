@@ -21,12 +21,12 @@ maps:
 
 ### PMTiles (vector tiles)
 
-For self-hosted vector tile maps using [PMTiles](https://protomaps.com/docs/pmtiles), point `tileLayerUrlTemplate` to a `.pmtiles` file:
+For vector tile maps using [PMTiles](https://protomaps.com/docs/pmtiles), point `tileLayerUrlTemplate` to a `.pmtiles` file:
 
 ```yaml
 maps:
   config:
-    tileLayerUrlTemplate: 'https://your-server.example.com/tiles/region.pmtiles'
+    tileLayerUrlTemplate: 'https://example.com/tiles/region.pmtiles'
     tileLayerAttribution: '<a href="https://protomaps.com">Protomaps</a> | <a href="https://openstreetmap.org">OpenStreetMap</a>'
 ```
 
@@ -35,9 +35,13 @@ Vector tile labels require font glyphs. By default, fonts are loaded from `proto
 ```yaml
 maps:
   config:
-    tileLayerUrlTemplate: 'https://your-server.example.com/tiles/region.pmtiles'
-    tileLayerGlyphs: 'https://your-server.example.com/assets/fonts/{fontstack}/{range}.pbf'
+    tileLayerUrlTemplate: 'https://example.com/tiles/region.pmtiles'
+    tileLayerGlyphs: 'https://example.com/fonts/{fontstack}/{range}.pbf'
 ```
+
+#### Self-hosting tiles
+
+A self-contained tile server is available in [`contrib/pmtiles-server/`](contrib/pmtiles-server/). A single `docker compose up -d` downloads a world map (~120 GB), fonts, and starts serving them.
 
 ### Full style override
 
