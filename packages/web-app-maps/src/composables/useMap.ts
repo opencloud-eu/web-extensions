@@ -96,7 +96,7 @@ export const useMap = () => {
             ...(attribution && { attribution })
           }
         },
-        layers: layers(sourceName, LIGHT)
+        layers: layers(sourceName, LIGHT, { lang: document.documentElement.lang || 'en' })
       }
     })
 
