@@ -10,6 +10,7 @@ directives:
     - 'blob:'
     - 'https://tile.openstreetmap.org/'
     - 'https://protomaps.github.io/'
+    - 'http://localhost:9205/'
   default-src:
     - "'none'"
   font-src:
