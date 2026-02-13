@@ -1,11 +1,7 @@
-.leaflet-control-zoom {
+.maplibregl-ctrl-group {
   border: 0 !important;
 }
 
-.leaflet-control-zoom-in {
-  background: #fffc !important;
-}
-
-.leaflet-control-zoom-out {
+.maplibregl-ctrl-group button {
   background: #fffc !important;
 }

@@ -1,2 +1,2 @@
-export * from './useLeaflet'
+export * from './useMap'
 export * from './useMapPins'
