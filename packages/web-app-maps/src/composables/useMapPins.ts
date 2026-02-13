@@ -9,8 +9,7 @@ export const useMapPins = (
 ) => {
   const pinLocations = computed(() => {
     return unref(resources).map(
-      (resource) =>
-        [resource.location.longitude, resource.location.latitude] as [number, number]
+      (resource) => [resource.location.longitude, resource.location.latitude] as [number, number]
     )
   })
 

@@ -28,7 +28,8 @@ function haversineDistance(a: Coord, b: Coord): number {
   const dLng = toRadians(b[0] - a[0])
   const sinLat = Math.sin(dLat / 2)
   const sinLng = Math.sin(dLng / 2)
-  const h = sinLat * sinLat + Math.cos(toRadians(a[1])) * Math.cos(toRadians(b[1])) * sinLng * sinLng
+  const h =
+    sinLat * sinLat + Math.cos(toRadians(a[1])) * Math.cos(toRadians(b[1])) * sinLng * sinLng
   return R * 2 * Math.atan2(Math.sqrt(h), Math.sqrt(1 - h))
 }
 

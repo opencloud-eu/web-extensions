@@ -12,10 +12,10 @@ On first run an init container downloads a world map from [Protomaps](https://ma
 
 ### What gets downloaded
 
-| Asset | Size | Source |
-|---|---|---|
-| World PMTiles (today's build) | ~120 GB | [protomaps.com/builds](https://maps.protomaps.com/builds/) |
-| Font glyphs (Noto Sans) | ~14 MB | [protomaps/basemaps-assets](https://github.com/protomaps/basemaps-assets) |
+| Asset                         | Size    | Source                                                                    |
+| ----------------------------- | ------- | ------------------------------------------------------------------------- |
+| World PMTiles (today's build) | ~120 GB | [protomaps.com/builds](https://maps.protomaps.com/builds/)                |
+| Font glyphs (Noto Sans)       | ~14 MB  | [protomaps/basemaps-assets](https://github.com/protomaps/basemaps-assets) |
 
 The download uses [aria2](https://aria2.github.io/) with 16 connections. If the container is stopped mid-download, the partial `.tmp` file is kept and the download **resumes automatically** on the next `docker compose up -d`.
 

@@ -94,12 +94,8 @@ test('map navigation controls are present', async () => {
   await expect(userPage.locator('.app-wrapper .maplibregl-ctrl-group')).toBeVisible()
 
   // check zoom buttons exist
-  await expect(
-    userPage.locator('.app-wrapper .maplibregl-ctrl-zoom-in')
-  ).toBeVisible()
-  await expect(
-    userPage.locator('.app-wrapper .maplibregl-ctrl-zoom-out')
-  ).toBeVisible()
+  await expect(userPage.locator('.app-wrapper .maplibregl-ctrl-zoom-in')).toBeVisible()
+  await expect(userPage.locator('.app-wrapper .maplibregl-ctrl-zoom-out')).toBeVisible()
 })
 
 test('gpx track line is rendered on the map', async () => {
