@@ -1,53 +1,45 @@
 import { unref, watch, computed, Ref, ComputedRef } from 'vue'
 import { Resource } from '@opencloud-eu/web-client'
-import * as Leaflet from 'leaflet'
-import { LatLngExpression } from 'leaflet'
-import { useLeaflet } from './useLeaflet'
-
-// FIXME: Leaflet types seem broken?!
-const L = Leaflet as any
+import maplibregl from 'maplibre-gl'
 
 export const useMapPins = (
   resources: Ref<Resource[]> | ComputedRef<Resource[]>,
-  mapObject: Ref<Leaflet.Map | null>,
+  mapObject: Ref<maplibregl.Map | null>,
   initialized: Ref<boolean>
 ) => {
-  const { createPinIcon } = useLeaflet()
-
   const pinLocations = computed(() => {
     return unref(resources).map(
-      (resource) => [resource.location.latitude, resource.location.longitude] as LatLngExpression
+      (resource) => [resource.location.longitude, resource.location.latitude] as [number, number]
     )
   })
 
   const bounds = computed(() => {
-    const latLngBounds = new L.LatLngBounds()
+    const lngLatBounds = new maplibregl.LngLatBounds()
     unref(pinLocations).forEach((location) => {
-      latLngBounds.extend(location)
+      lngLatBounds.extend(location)
     })
-    return latLngBounds
+    return lngLatBounds
   })
 
-  const pinIcon = createPinIcon()
-  const pins: Leaflet.Marker[] = []
+  const pins: maplibregl.Marker[] = []
   let hasSetInitialView = false
 
   const updatePins = () => {
     if (!initialized.value || !mapObject.value) return
 
     // Remove old pins
-    pins.forEach((pin) => mapObject.value?.removeLayer(pin))
+    pins.forEach((pin) => pin.remove())
     pins.length = 0
 
     // Add new pins
     unref(pinLocations).forEach((p) => {
-      pins.push(L.marker(p, { icon: pinIcon }).addTo(mapObject.value!))
+      pins.push(new maplibregl.Marker().setLngLat(p).addTo(mapObject.value!))
     })
   }
 
   const setView = () => {
     if (!initialized.value || !mapObject.value) return
-    mapObject.value.invalidateSize()
+    mapObject.value.resize()
 
     updatePins()
 
@@ -56,7 +48,8 @@ export const useMapPins = (
       const maxZoom = unref(pinLocations).length > 1 ? 15 : 10
       mapObject.value.fitBounds(unref(bounds), {
         maxZoom,
-        padding: [20, 20]
+        padding: 20,
+        animate: false
       })
       hasSetInitialView = true
     }

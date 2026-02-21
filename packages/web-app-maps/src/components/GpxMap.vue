@@ -1,8 +1,8 @@
 <template>
   <div class="ext:flex ext:flex-col">
-    <div ref="leafletElement" class="ext:size-full ext:z-1">
+    <div ref="mapElement" class="ext:size-full ext:z-1">
       <dl
-        class="ext:absolute ext:grid ext:grid-cols-[auto_minmax(0,1fr)] ext:z-990 bg-role-surface-container ext:rounded ext:p-2 ext:right-2 ext:top-2"
+        class="ext:absolute ext:grid ext:grid-cols-[auto_minmax(0,1fr)] ext:gap-x-4 ext:z-990 ext:bg-white/90 ext:backdrop-blur-sm ext:rounded ext:p-3 ext:right-2 ext:top-2 ext:text-sm ext:shadow-sm"
       >
         <dt v-text="$gettext('Name')" />
         <dd>{{ meta.name }}</dd>
@@ -23,77 +23,94 @@
 <script setup lang="ts">
 import { onMounted, ref, onBeforeUnmount, watch, unref } from 'vue'
 import { useGettext } from 'vue3-gettext'
-import L from 'leaflet'
-import 'leaflet-gpx'
-import { useLeaflet } from '../composables'
-
-import startIcon from 'leaflet-gpx/icons/pin-icon-start.png?url'
-import endIcon from 'leaflet-gpx/icons/pin-icon-end.png?url'
-import wptIconStart from 'leaflet-gpx/icons/pin-icon-start.png?url'
-import wptIconEnd from 'leaflet-gpx/icons/pin-icon-end.png?url'
-import wptIcon from 'leaflet-gpx/icons/pin-icon-wpt.png?url'
+import maplibregl from 'maplibre-gl'
+import { useMap } from '../composables'
+import { parseGpx, type GpxMetadata } from '../helpers/gpx'
 
 const { currentContent, applicationConfig } = defineProps<{
   currentContent: string
   applicationConfig: Record<string, any>
 }>()
 
-const { createMap } = useLeaflet()
-const leafletElement = ref<HTMLElement | null>(null)
+const { createMap } = useMap()
+const mapElement = ref<HTMLElement | null>(null)
 const { $gettext } = useGettext()
 
-let mapObject: L.Map | null = null
-const meta = ref<{
-  name?: string
-  distance?: string
-  elevationGain?: string
-  elevationLoss?: string
-  elevationNet?: string
-}>({})
+let mapObject: maplibregl.Map | null = null
+const meta = ref<Partial<GpxMetadata>>({})
+const markers: maplibregl.Marker[] = []
 
-const gpxOptions: L.GPXOptions = {
-  async: true,
-  marker_options: {
-    clickable: false
-  },
-  markers: {
-    startIcon,
-    endIcon,
-    wptIcons: {
-      start: wptIconStart,
-      end: wptIconEnd,
-      '': wptIcon
+const GPX_SOURCE = 'gpx-track'
+const GPX_LAYER = 'gpx-track-line'
+
+const setView = () => {
+  if (!mapObject) return
+
+  const { geojson, metadata, bounds, startPoint, endPoint } = parseGpx(currentContent)
+  meta.value = metadata
+
+  const addTrack = () => {
+    // Remove existing source/layer if present
+    if (mapObject!.getLayer(GPX_LAYER)) {
+      mapObject!.removeLayer(GPX_LAYER)
     }
+    if (mapObject!.getSource(GPX_SOURCE)) {
+      mapObject!.removeSource(GPX_SOURCE)
+    }
+
+    // Remove existing markers
+    markers.forEach((m) => m.remove())
+    markers.length = 0
+
+    mapObject!.addSource(GPX_SOURCE, {
+      type: 'geojson',
+      data: geojson
+    })
+
+    mapObject!.addLayer({
+      id: GPX_LAYER,
+      type: 'line',
+      source: GPX_SOURCE,
+      paint: {
+        'line-color': '#3b82f6',
+        'line-width': 3
+      }
+    })
+
+    // Add start marker (green)
+    if (startPoint) {
+      markers.push(
+        new maplibregl.Marker({ color: '#22c55e' }).setLngLat(startPoint).addTo(mapObject!)
+      )
+    }
+
+    // Add end marker (red)
+    if (endPoint) {
+      markers.push(
+        new maplibregl.Marker({ color: '#ef4444' }).setLngLat(endPoint).addTo(mapObject!)
+      )
+    }
+
+    // Fit map to track bounds
+    mapObject!.fitBounds(bounds, { padding: 40, animate: false })
+  }
+
+  if (mapObject.isStyleLoaded()) {
+    addTrack()
+  } else {
+    mapObject.once('load', addTrack)
   }
 }
 
-let gpxLayer: L.Layer | null = null
-const setView = () => {
-  if (!mapObject) return
-  if (gpxLayer) mapObject.removeLayer(gpxLayer)
-  gpxLayer = new L.GPX(currentContent, gpxOptions)
-    .on('loaded', (e: any) => {
-      const gpx = e.target
-      mapObject!.fitBounds(e.target.getBounds())
-      meta.value = {
-        name: gpx.get_name(),
-        distance: gpx.get_distance_imp().toFixed(2),
-        elevationGain: gpx.to_ft(gpx.get_elevation_gain()).toFixed(0),
-        elevationLoss: gpx.to_ft(gpx.get_elevation_loss()).toFixed(0),
-        elevationNet: gpx.to_ft(gpx.get_elevation_gain() - gpx.get_elevation_loss()).toFixed(0)
-      }
-    })
-    .addTo(mapObject)
-}
-
 onMounted(() => {
-  mapObject = createMap(applicationConfig, unref(leafletElement))
+  mapObject = createMap(applicationConfig, unref(mapElement)!)
   setView()
 })
 
 watch(() => currentContent, setView)
 
 onBeforeUnmount(() => {
+  markers.forEach((m) => m.remove())
   mapObject?.remove()
 })
 </script>
