@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, unref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, unref, computed, onMounted, onUnmounted, useTemplateRef } from 'vue'
 import maplibregl from 'maplibre-gl'
 import { useMap, useMapPins } from '../composables'
 import { NoContentMessage } from '@opencloud-eu/web-pkg'
@@ -24,7 +24,7 @@ const { resources, applicationConfig } = defineProps<{
 
 const { $gettext } = useGettext()
 const { createMap } = useMap()
-const mapElement = ref<HTMLElement | null>(null)
+const mapElement = useTemplateRef('mapElement')
 const initialized = ref(false)
 const mapObject = ref<maplibregl.Map>()
 

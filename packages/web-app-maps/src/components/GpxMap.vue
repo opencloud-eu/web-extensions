@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, onBeforeUnmount, watch, unref } from 'vue'
+import { onMounted, ref, onBeforeUnmount, watch, unref, useTemplateRef } from 'vue'
 import { useGettext } from 'vue3-gettext'
 import maplibregl from 'maplibre-gl'
 import { useMap } from '../composables'
@@ -33,7 +33,7 @@ const { currentContent, applicationConfig } = defineProps<{
 }>()
 
 const { createMap } = useMap()
-const mapElement = ref<HTMLElement | null>(null)
+const mapElement = useTemplateRef('mapElement')
 const { $gettext } = useGettext()
 
 let mapObject: maplibregl.Map | null = null

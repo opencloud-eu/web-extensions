@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, unref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, unref, computed, onMounted, onUnmounted, useTemplateRef } from 'vue'
 import maplibregl from 'maplibre-gl'
 import { useMap, useMapPins } from '../composables'
 import { useSideBar } from '@opencloud-eu/web-pkg'
@@ -17,7 +17,7 @@ const { panelContext, applicationConfig } = defineProps<{
 const { createMap } = useMap()
 const { onPanelActive } = useSideBar()
 
-const mapElement = ref<HTMLElement | null>(null)
+const mapElement = useTemplateRef('mapElement')
 const initialized = ref(false)
 const mapObject = ref<maplibregl.Map>()
 
