@@ -207,8 +207,8 @@ importers:
         specifier: ^5.7.0
         version: 5.7.0
       '@tmcw/togeojson':
-        specifier: ^6.0.0
-        version: 6.0.1(@types/geojson@7946.0.16)(@xmldom/xmldom@0.9.8)
+        specifier: ^7.0.0
+        version: 7.1.2
       maplibre-gl:
         specifier: ^5.1.1
         version: 5.19.0
@@ -1245,11 +1245,8 @@ packages:
     peerDependencies:
       vite: ^5.2.0 || ^6 || ^7
 
-  '@tmcw/togeojson@6.0.1':
-    resolution: {integrity: sha512-eit0noOFdAz6f26ODt5h3E/7wkmW/Sr8b3cVDPTKwYCXk9JL1lfoRKGw2axFVYJC6s5unVTVCjOe86Vak02Vuw==}
-    peerDependencies:
-      '@types/geojson': '*'
-      '@xmldom/xmldom': ^0.9.5
+  '@tmcw/togeojson@7.1.2':
+    resolution: {integrity: sha512-QKnFs9DAuqqBVj4d6c69tV1Dj2TspSBTqffivoN0YoBCVdP/JY1+WaYCJbzU49RkoU5NOSOJ3jtFHCdEUVh21A==}
 
   '@transloadit/prettier-bytes@0.3.5':
     resolution: {integrity: sha512-xF4A3d/ZyX2LJWeQZREZQw+qFX4TGQ8bGVP97OLRt6sPO6T0TNHBFTuRHOJh7RNmYOBmQ9MHxpolD9bXihpuVA==}
@@ -1594,10 +1591,6 @@ packages:
     resolution: {integrity: sha512-shTJncjV9JTI4oVNyF1FQonetYAiTBd+Qj7cY89SWbXSkx7gyhrgtEdF2ZAVWS1S3SHlaROO6F2IesJxQEkZBw==}
     peerDependencies:
       vue: ^3.5.0
-
-  '@xmldom/xmldom@0.9.8':
-    resolution: {integrity: sha512-p96FSY54r+WJ50FIOsCOjyj/wavs8921hG5+kVMmZgKcvIKxMXHTrjNJvRgWa/zuX3B6t2lijLNFaOyuxUH+2A==}
-    engines: {node: '>=14.6'}
 
   '@zip.js/zip.js@2.8.21':
     resolution: {integrity: sha512-fkyzXISE3IMrstDO1AgPkJCx14MYHP/suIGiAovEYEuBjq3mffsuL6aMV7ohOSjW4rXtuACuUfpA3GtITgdtYg==}
@@ -4642,10 +4635,7 @@ snapshots:
       tailwindcss: 4.2.1
       vite: 7.3.1(@types/node@24.10.13)(jiti@2.6.1)(lightningcss@1.31.1)(sass@1.80.7)(yaml@2.8.2)
 
-  '@tmcw/togeojson@6.0.1(@types/geojson@7946.0.16)(@xmldom/xmldom@0.9.8)':
-    dependencies:
-      '@types/geojson': 7946.0.16
-      '@xmldom/xmldom': 0.9.8
+  '@tmcw/togeojson@7.1.2': {}
 
   '@transloadit/prettier-bytes@0.3.5': {}
 
@@ -5117,8 +5107,6 @@ snapshots:
   '@vueuse/shared@14.2.1(vue@3.5.28(typescript@5.9.3))':
     dependencies:
       vue: 3.5.28(typescript@5.9.3)
-
-  '@xmldom/xmldom@0.9.8': {}
 
   '@zip.js/zip.js@2.8.21': {}
 
