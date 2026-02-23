@@ -1,6 +1,7 @@
 import maplibregl from 'maplibre-gl'
 import { Protocol } from 'pmtiles'
 import { layers, LIGHT } from '@protomaps/basemaps'
+import type { MapsConfig } from '../types'
 
 export type GeoCoordinates = {
   latitude: number
@@ -46,10 +47,10 @@ export const useMap = () => {
   const createRasterMap = (
     container: HTMLElement,
     urlTemplate: string,
-    tileLayerOptions?: Record<string, any>,
+    tileLayerOptions?: MapsConfig['tileLayerOptions'],
     attribution?: string
   ): maplibregl.Map => {
-    const maxZoom = tileLayerOptions?.maxZoom ?? 19
+    const { maxZoom, ...restOptions } = tileLayerOptions ?? {}
 
     const map = new maplibregl.Map({
       container,
@@ -71,7 +72,8 @@ export const useMap = () => {
           }
         ]
       },
-      maxZoom
+      maxZoom,
+      ...restOptions
     })
 
     addControls(map)
