@@ -25,7 +25,13 @@ export const useMap = () => {
     const urlTemplate =
       applicationConfig?.tileLayerUrlTemplate || 'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
 
-    const attribution = applicationConfig?.tileLayerAttribution
+    let attribution = applicationConfig?.tileLayerAttribution
+    if (!attribution && applicationConfig?.tileLayerOptions?.attribution) {
+      console.warn(
+        '[web-app-maps] "tileLayerOptions.attribution" is deprecated. Use "tileLayerAttribution" instead.'
+      )
+      attribution = applicationConfig.tileLayerOptions.attribution
+    }
 
     if (urlTemplate.includes('.pmtiles')) {
       const glyphs =
