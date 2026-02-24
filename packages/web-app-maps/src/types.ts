@@ -8,14 +8,13 @@ export const MapsConfigSchema = z.object({
   tileLayerAttribution: z.string().optional(),
   tileLayerGlyphs: z.string().optional(),
   tileLayerOptions: z
-    .object({
+    .looseObject({
       maxZoom: z.number().default(19),
       attribution: z
         .string()
         .optional()
         .meta({ deprecated: true, description: 'Use `tileLayerAttribution` instead.' })
     })
-    .passthrough()
     .and(z.custom<Partial<Omit<maplibregl.MapOptions, 'container' | 'style'>>>())
     .optional()
 })
