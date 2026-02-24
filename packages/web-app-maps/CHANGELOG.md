@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/opencloud-eu/web-extensions/releases/tag/maps-v2.0.0) - 2026-02-24
+
+### Breaking changes
+
+- `tileLayerOptions` config now reflects options of the `maplibre-gl` library and gets passed through.
+- `tileLayerOptions.attribution` config is now deprecated, please use `tileLayerAttribution` instead.
+
+### ✨ Features
+
+- Add support for PMTiles [[#364](https://github.com/opencloud-eu/web-extensions/pull/364)]
+
 ## [1.0.2](https://github.com/opencloud-eu/web-extensions/releases/tag/maps-v1.0.2) - 2025-11-10
 
 ### 🐛 Bug Fixes
