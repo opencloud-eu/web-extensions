@@ -92,7 +92,7 @@ const setView = () => {
     }
 
     // Fit map to track bounds
-    mapObject!.fitBounds(bounds, { padding: 40, animate: false })
+    mapObject!.fitBounds(bounds, { padding: 40, animate: true })
   }
 
   if (mapObject.isStyleLoaded()) {

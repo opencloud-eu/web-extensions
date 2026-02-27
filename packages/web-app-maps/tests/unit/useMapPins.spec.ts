@@ -26,7 +26,8 @@ function createResource(lat: number, lng: number): Resource {
 function createMap() {
   return {
     resize: vi.fn(),
-    fitBounds: vi.fn()
+    fitBounds: vi.fn(),
+    flyTo: vi.fn()
   } as any
 }
 
@@ -46,7 +47,7 @@ describe('useMapPins', () => {
     expect(mapObject.value.fitBounds).toHaveBeenCalledOnce()
   })
 
-  it('recenters map when coordinates change but pin count stays the same', async () => {
+  it('pans to new location via flyTo when coordinates change but pin count stays the same', async () => {
     const resources = ref([createResource(48.0, 11.0)])
     const mapObject = ref(createMap())
     const initialized = ref(true)
@@ -59,10 +60,13 @@ describe('useMapPins', () => {
     // Switch to a different picture with different coordinates (same pin count)
     resources.value = [createResource(52.0, 13.0)]
     await nextTick()
-    // deep watcher needs an extra tick
     await nextTick()
 
-    expect(mapObject.value.fitBounds).toHaveBeenCalled()
+    expect(mapObject.value.flyTo).toHaveBeenCalledWith({
+      center: [13.0, 52.0],
+      animate: true
+    })
+    expect(mapObject.value.fitBounds).not.toHaveBeenCalled()
   })
 
   it('recenters map when pin count changes', async () => {
