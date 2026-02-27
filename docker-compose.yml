@@ -35,6 +35,7 @@ services:
       traefik.http.routers.opencloud.middlewares: cors
     volumes:
       - opencloud-config:/etc/opencloud
+      - ./dev/docker/opencloud.idp.config.yaml:/etc/opencloud/idp.yaml
       - ./dev/docker/opencloud.web.config.json:/web/config.json
       - ./dev/docker/opencloud.apps.yaml:/etc/opencloud/apps.yaml
       - ./dev/docker/csp.yaml:/etc/opencloud/csp.yaml
