@@ -64,13 +64,13 @@ export const useMapPins = (
     }
   )
 
-  // Watch for coordinate changes - update pins without re-fitting bounds
+  // Watch for coordinate changes - recenter map when coordinates change
   watch(
     pinLocations,
     (newLocations, oldLocations) => {
-      // Only update pins if count stayed the same (coordinates changed)
       if (newLocations.length === oldLocations?.length) {
-        updatePins()
+        hasSetInitialView = false
+        setView()
       }
     },
     { deep: true }
