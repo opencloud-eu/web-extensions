@@ -49,7 +49,7 @@ export const useMapPins = (
       mapObject.value.fitBounds(unref(bounds), {
         maxZoom,
         padding: 20,
-        animate: false
+        animate: true
       })
       hasSetInitialView = true
     }
@@ -64,13 +64,21 @@ export const useMapPins = (
     }
   )
 
-  // Watch for coordinate changes - update pins without re-fitting bounds
+  // Watch for coordinate changes - pan to new location without re-zooming
   watch(
     pinLocations,
     (newLocations, oldLocations) => {
-      // Only update pins if count stayed the same (coordinates changed)
-      if (newLocations.length === oldLocations?.length) {
+      if (newLocations.length === oldLocations?.length && mapObject.value) {
         updatePins()
+        if (newLocations.length === 1) {
+          mapObject.value.flyTo({ center: newLocations[0], animate: true })
+        } else if (newLocations.length > 1) {
+          mapObject.value.fitBounds(unref(bounds), {
+            maxZoom: 15,
+            padding: 20,
+            animate: true
+          })
+        }
       }
     },
     { deep: true }
