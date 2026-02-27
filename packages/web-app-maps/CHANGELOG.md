@@ -6,10 +6,6 @@
 
 - Map not recentering when switching between files with geodata in the sidebar panel [[#373](https://github.com/opencloud-eu/web-extensions/pull/373)]
 
-### ✨ Features
-
-- Animate map transitions when switching between files [[#373](https://github.com/opencloud-eu/web-extensions/pull/373)]
-
 ## [2.0.0](https://github.com/opencloud-eu/web-extensions/releases/tag/maps-v2.0.0) - 2026-02-24
 
 ### Breaking changes
