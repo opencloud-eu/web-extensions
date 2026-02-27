@@ -40,6 +40,11 @@ steps:
       - mkdir -p /woodpecker/github
       - echo "PLUGIN_PRERELEASE=$PLUGIN_PRERELEASE" >> /woodpecker/github/.env
 
+      # export docker build args for publish-docker step
+      - mkdir -p /woodpecker/docker
+      - echo "APP_PATH=./apps/$APP" >> /woodpecker/docker/.env
+      - echo "APP_NAME=$APP" >> /woodpecker/docker/.env
+
   - name: publish-github
     image: *release_image
     settings:
@@ -62,9 +67,10 @@ steps:
       tags:
         - ${CI_COMMIT_TAG%-v*}-${CI_COMMIT_TAG##*-v}
         - ${CI_COMMIT_TAG%-v*}-latest
-      build_args:
-        - app_path=./apps/${CI_COMMIT_TAG%-v*}
-        - app_name=${CI_COMMIT_TAG%-v*}
+      build_args_from_env:
+        - APP_PATH
+        - APP_NAME
+      env_file: /woodpecker/docker/.env
       http_proxy:
         from_secret: ci_http_proxy
       https_proxy:
