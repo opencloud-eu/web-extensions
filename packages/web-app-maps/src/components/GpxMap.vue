@@ -1,22 +1,21 @@
 <template>
-  <div class="ext:flex ext:flex-col">
-    <div ref="mapElement" class="ext:size-full ext:z-1">
-      <dl
-        class="ext:absolute ext:grid ext:grid-cols-[auto_minmax(0,1fr)] ext:gap-x-4 ext:z-990 ext:bg-white/90 ext:backdrop-blur-sm ext:rounded ext:p-3 ext:right-2 ext:top-2 ext:text-sm ext:shadow-sm"
-      >
-        <dt v-text="$gettext('Name')" />
-        <dd>{{ meta.name }}</dd>
+  <div class="ext:flex ext:flex-col ext:relative ext:size-full">
+    <div ref="mapElement" class="ext:size-full ext:z-1" />
+    <dl
+      class="ext:absolute ext:grid ext:grid-cols-[auto_minmax(0,1fr)] ext:gap-x-4 ext:z-990 ext:bg-white/90 ext:backdrop-blur-sm ext:rounded ext:p-3 ext:right-2 ext:top-2 ext:text-sm ext:shadow-sm"
+    >
+      <dt v-text="$gettext('Name')" />
+      <dd>{{ meta.name }}</dd>
 
-        <dt v-text="$gettext('Distance')" />
-        <dd>{{ meta.distance }}km</dd>
+      <dt v-text="$gettext('Distance')" />
+      <dd>{{ meta.distance }}km</dd>
 
-        <dt v-text="$gettext('Elevation Gain')" />
-        <dd>{{ meta.elevationGain }}m</dd>
+      <dt v-text="$gettext('Elevation Gain')" />
+      <dd>{{ meta.elevationGain }}m</dd>
 
-        <dt v-text="$gettext('Elevation Loss')" />
-        <dd>{{ meta.elevationLoss }}m</dd>
-      </dl>
-    </div>
+      <dt v-text="$gettext('Elevation Loss')" />
+      <dd>{{ meta.elevationLoss }}m</dd>
+    </dl>
   </div>
 </template>
 
