@@ -15,7 +15,7 @@ LABEL maintainer="OpenCloud GmbH <devops@opencloud.eu>" \
 
 ADD $APP_PATH /web/apps/$APP_NAME
 # backwards compatibility: previous images used nginx and served from /usr/share/nginx/html
-RUN mkdir -p /usr/share/nginx && ln -s /web/apps /usr/share/nginx/html \
+RUN mkdir -p /usr/share/nginx/html && ln -s /web/apps /usr/share/nginx/html/apps \
   && find /web/apps
 
 WORKDIR /web/apps
