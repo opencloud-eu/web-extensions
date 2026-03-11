@@ -34,6 +34,21 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
+      name: 'calculator-chromium',
+      testDir: './packages/web-app-calculator/tests/e2e',
+      use: { ...devices['Desktop Chrome'], browserName: 'chromium', ignoreHTTPSErrors: true }
+    },
+    {
+      name: 'calculator-firefox',
+      testDir: './packages/web-app-calculator/tests/e2e',
+      use: { ...devices['Desktop Firefox'], browserName: 'firefox', ignoreHTTPSErrors: true }
+    },
+    {
+      name: 'calculator-webkit',
+      testDir: './packages/web-app-calculator/tests/e2e',
+      use: { ...devices['Desktop Safari'], browserName: 'webkit', ignoreHTTPSErrors: true }
+    },
+    {
       name: 'draw-io-chromium',
       testDir: './packages/web-app-draw-io/tests/e2e',
       use: { ...devices['Desktop Chrome'], browserName: 'chromium', ignoreHTTPSErrors: true }

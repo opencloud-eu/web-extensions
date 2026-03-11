@@ -1,0 +1,23 @@
+{
+  "name": "web-app-calculator",
+  "version": "1.0.0",
+  "private": true,
+  "description": "OpenCloud Web calculator search provider",
+  "license": "AGPL-3.0",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm vite build",
+    "build:w": "pnpm vite build --watch --mode development",
+    "check:types": "vue-tsc --noEmit",
+    "test:unit": "NODE_OPTIONS=--unhandled-rejections=throw vitest"
+  },
+  "dependencies": {
+    "mathjs": "^14.0.0"
+  },
+  "devDependencies": {
+    "@opencloud-eu/web-pkg": "^5.0.0",
+    "@vueuse/core": "^14.0.0",
+    "vue": "^3.4.21",
+    "vue3-gettext": "^2.4.0"
+  }
+}
