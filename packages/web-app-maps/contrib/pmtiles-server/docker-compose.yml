@@ -1,6 +1,6 @@
 services:
   download:
-    image: alpine:3.21
+    image: alpine:3.23
     command: ['/bin/sh', '/download.sh']
     volumes:
       - ./wwwroot:/wwwroot
