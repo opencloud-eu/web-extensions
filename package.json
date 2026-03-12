@@ -37,7 +37,7 @@
     "uuid": "^13.0.0",
     "vitest-mock-extended": "3.1.0",
     "vue-tsc": "3.2.5",
-    "vue3-gettext": "^2.4.0"
+    "vue3-gettext": "^4.0.0-beta.1"
   },
   "packageManager": "pnpm@10.28.1"
 }
