@@ -6,7 +6,6 @@
 import { ref, unref, computed, onMounted, onUnmounted, useTemplateRef } from 'vue'
 import maplibregl from 'maplibre-gl'
 import { useMap, useMapPins } from '../composables'
-import { useSideBar } from '@opencloud-eu/web-pkg'
 import { Resource } from '@opencloud-eu/web-client'
 
 const { panelContext, applicationConfig } = defineProps<{
@@ -15,7 +14,6 @@ const { panelContext, applicationConfig } = defineProps<{
 }>()
 
 const { createMap } = useMap()
-const { onPanelActive } = useSideBar()
 
 const mapElement = useTemplateRef('mapElement')
 const initialized = ref(false)
@@ -38,10 +36,5 @@ onMounted(() => {
 
 onUnmounted(() => {
   mapObject.value?.remove()
-})
-
-onPanelActive('location-details', () => {
-  initialized.value = true
-  setView()
 })
 </script>
