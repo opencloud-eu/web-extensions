@@ -25,6 +25,7 @@ import { Resource, SpaceResource } from '@opencloud-eu/web-client'
 import { computed, onBeforeUnmount, onMounted, unref, watchEffect } from 'vue'
 import {
   AppLoadingSpinner,
+  // @ts-ignore
   TextEditor,
   UnsavedChangesModal,
   queryItemAsString,

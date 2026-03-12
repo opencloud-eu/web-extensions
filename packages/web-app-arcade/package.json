@@ -13,12 +13,12 @@
   },
   "devDependencies": {
     "vue": "^3.4.21",
-    "vue3-gettext": "^2.4.0"
+    "vue3-gettext": "^4.0.0-beta.1"
   },
   "dependencies": {
     "nes-vue": "^1.6.10"
   },
   "peerDependencies": {
-    "@opencloud-eu/web-pkg": "^4.0.0 || ^5.0.0"
+    "@opencloud-eu/web-pkg": "^6.0.0"
   }
 }

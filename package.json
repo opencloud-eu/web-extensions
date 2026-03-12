@@ -21,10 +21,10 @@
     "@opencloud-eu/eslint-config": "^6.0.0",
     "@opencloud-eu/extension-sdk": "^6.0.0",
     "@opencloud-eu/prettier-config": "^6.0.0",
-    "@opencloud-eu/tsconfig": "^5.0.0",
-    "@opencloud-eu/web-test-helpers": "^5.0.0",
+    "@opencloud-eu/tsconfig": "^6.0.0",
+    "@opencloud-eu/web-test-helpers": "^6.0.0",
     "@playwright/test": "^1.50.1",
-    "@types/node": "24.10.15",
+    "@types/node": "24.12.0",
     "@vue/test-utils": "^2.4.6",
     "eslint": "10.0.3",
     "happy-dom": "^20.0.0",
@@ -33,11 +33,11 @@
     "ts-node": "^10.9.2",
     "typescript": "5.9.3",
     "vite": "7.3.1",
-    "vitest": "4.0.18",
+    "vitest": "4.1.0",
     "uuid": "^13.0.0",
     "vitest-mock-extended": "3.1.0",
     "vue-tsc": "3.2.5",
-    "vue3-gettext": "^2.4.0"
+    "vue3-gettext": "^4.0.0-beta.1"
   },
   "packageManager": "pnpm@10.28.1"
 }
