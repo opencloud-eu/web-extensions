@@ -16,7 +16,6 @@ const { panelContext, applicationConfig } = defineProps<{
 const { createMap } = useMap()
 
 const mapElement = useTemplateRef('mapElement')
-const initialized = ref(false)
 const mapObject = ref<maplibregl.Map>()
 
 const resources = computed(() => {
@@ -24,10 +23,9 @@ const resources = computed(() => {
   return (unref(panelContext.items.filter((r: Resource) => !!r.location)) || []) as Resource[]
 })
 
-const { setView } = useMapPins(resources, mapObject, initialized)
+const { setView } = useMapPins(resources, mapObject)
 
 onMounted(() => {
-  initialized.value = true
   mapObject.value = createMap(applicationConfig, unref(mapElement)!)
   mapObject.value.on('load', () => {
     setView()

@@ -4,8 +4,7 @@ import maplibregl from 'maplibre-gl'
 
 export const useMapPins = (
   resources: Ref<Resource[]> | ComputedRef<Resource[]>,
-  mapObject: Ref<maplibregl.Map | null>,
-  initialized: Ref<boolean>
+  mapObject: Ref<maplibregl.Map | null>
 ) => {
   const pinLocations = computed(() => {
     return unref(resources).map(
@@ -25,7 +24,7 @@ export const useMapPins = (
   let hasSetInitialView = false
 
   const updatePins = () => {
-    if (!initialized.value || !mapObject.value) return
+    if (!mapObject.value) return
 
     // Remove old pins
     pins.forEach((pin) => pin.remove())
@@ -38,7 +37,7 @@ export const useMapPins = (
   }
 
   const setView = () => {
-    if (!initialized.value || !mapObject.value) return
+    if (!mapObject.value) return
     mapObject.value.resize()
 
     updatePins()
