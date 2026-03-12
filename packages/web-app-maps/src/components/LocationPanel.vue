@@ -6,7 +6,6 @@
 import { ref, unref, computed, onMounted, onUnmounted, useTemplateRef } from 'vue'
 import maplibregl from 'maplibre-gl'
 import { useMap, useMapPins } from '../composables'
-import { useSideBar } from '@opencloud-eu/web-pkg'
 import { Resource } from '@opencloud-eu/web-client'
 
 const { panelContext, applicationConfig } = defineProps<{
@@ -15,10 +14,8 @@ const { panelContext, applicationConfig } = defineProps<{
 }>()
 
 const { createMap } = useMap()
-const { onPanelActive } = useSideBar()
 
 const mapElement = useTemplateRef('mapElement')
-const initialized = ref(false)
 const mapObject = ref<maplibregl.Map>()
 
 const resources = computed(() => {
@@ -26,10 +23,9 @@ const resources = computed(() => {
   return (unref(panelContext.items.filter((r: Resource) => !!r.location)) || []) as Resource[]
 })
 
-const { setView } = useMapPins(resources, mapObject, initialized)
+const { setView } = useMapPins(resources, mapObject)
 
 onMounted(() => {
-  initialized.value = true
   mapObject.value = createMap(applicationConfig, unref(mapElement)!)
   mapObject.value.on('load', () => {
     setView()
@@ -38,10 +34,5 @@ onMounted(() => {
 
 onUnmounted(() => {
   mapObject.value?.remove()
-})
-
-onPanelActive('location-details', () => {
-  initialized.value = true
-  setView()
 })
 </script>

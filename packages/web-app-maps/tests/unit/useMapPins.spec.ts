@@ -39,9 +39,8 @@ describe('useMapPins', () => {
   it('calls fitBounds on initial setView', () => {
     const resources = ref([createResource(48.0, 11.0)])
     const mapObject = ref(createMap())
-    const initialized = ref(true)
 
-    const { setView } = useMapPins(resources, mapObject, initialized)
+    const { setView } = useMapPins(resources, mapObject)
     setView()
 
     expect(mapObject.value.fitBounds).toHaveBeenCalledOnce()
@@ -50,9 +49,8 @@ describe('useMapPins', () => {
   it('pans to new location via flyTo when coordinates change but pin count stays the same', async () => {
     const resources = ref([createResource(48.0, 11.0)])
     const mapObject = ref(createMap())
-    const initialized = ref(true)
 
-    const { setView } = useMapPins(resources, mapObject, initialized)
+    const { setView } = useMapPins(resources, mapObject)
     setView()
 
     mapObject.value.fitBounds.mockClear()
@@ -72,9 +70,8 @@ describe('useMapPins', () => {
   it('recenters map when pin count changes', async () => {
     const resources = ref([createResource(48.0, 11.0)])
     const mapObject = ref(createMap())
-    const initialized = ref(true)
 
-    const { setView } = useMapPins(resources, mapObject, initialized)
+    const { setView } = useMapPins(resources, mapObject)
     setView()
 
     mapObject.value.fitBounds.mockClear()

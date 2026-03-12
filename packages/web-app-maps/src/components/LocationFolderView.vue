@@ -25,17 +25,15 @@ const { resources, applicationConfig } = defineProps<{
 const { $gettext } = useGettext()
 const { createMap } = useMap()
 const mapElement = useTemplateRef('mapElement')
-const initialized = ref(false)
 const mapObject = ref<maplibregl.Map>()
 
 const resourcesWithLocation = computed(() => {
   return (unref(resources?.filter((r) => !!r.location)) || []) as Resource[]
 })
 
-const { pinLocations, setView } = useMapPins(resourcesWithLocation, mapObject, initialized)
+const { pinLocations, setView } = useMapPins(resourcesWithLocation, mapObject)
 
 onMounted(() => {
-  initialized.value = true
   mapObject.value = createMap(applicationConfig, unref(mapElement)!)
   mapObject.value.on('load', () => {
     setView()

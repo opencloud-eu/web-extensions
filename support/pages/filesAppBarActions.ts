@@ -8,7 +8,7 @@ export class FilesAppBar {
 
   constructor(page: Page) {
     this.page = page
-    this.uploadBtn = this.page.locator('#upload-menu-btn')
+    this.uploadBtn = this.page.locator('.oc-app-floating-action-button')
     this.uploadFileBtn = this.page.locator('#files-file-upload-input')
   }
 
