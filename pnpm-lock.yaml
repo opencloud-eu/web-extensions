@@ -18,11 +18,11 @@ importers:
         specifier: ^6.0.0
         version: 6.0.0(prettier@3.8.1)
       '@opencloud-eu/tsconfig':
-        specifier: ^5.0.0
-        version: 5.1.0
+        specifier: ^6.0.0
+        version: 6.0.0
       '@opencloud-eu/web-test-helpers':
-        specifier: ^5.0.0
-        version: 5.1.0(@opencloud-eu/web-pkg@5.1.0(@vue/compiler-sfc@3.5.30)(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3)))(@vue/compiler-sfc@3.5.30)(@vue/test-utils@2.4.6)(typescript@5.9.3)(vitest@4.1.0(@types/node@24.12.0)(happy-dom@20.8.3)(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(lightningcss@1.31.1)(sass@1.80.7)(yaml@2.8.2)))(vue@3.5.30(typescript@5.9.3))
+        specifier: ^6.0.0
+        version: 6.0.0(@opencloud-eu/web-pkg@6.0.0(@vue/compiler-sfc@3.5.30)(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3)))(@vue/compiler-sfc@3.5.30)(@vue/test-utils@2.4.6)(typescript@5.9.3)(vitest@4.1.0(@types/node@24.12.0)(happy-dom@20.8.3)(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(lightningcss@1.31.1)(sass@1.80.7)(yaml@2.8.2)))(vue@3.5.30(typescript@5.9.3))
       '@playwright/test':
         specifier: ^1.50.1
         version: 1.58.2
@@ -72,8 +72,8 @@ importers:
   packages/web-app-arcade:
     dependencies:
       '@opencloud-eu/web-pkg':
-        specifier: ^4.0.0 || ^5.0.0
-        version: 5.1.0(@vue/compiler-sfc@3.5.30)(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3))
+        specifier: ^6.0.0
+        version: 6.0.0(@vue/compiler-sfc@3.5.30)(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3))
       nes-vue:
         specifier: ^1.6.10
         version: 1.9.0
@@ -88,11 +88,11 @@ importers:
   packages/web-app-cast:
     devDependencies:
       '@opencloud-eu/web-client':
-        specifier: ^5.0.0
-        version: 5.1.0
+        specifier: ^6.0.0
+        version: 6.0.0
       '@opencloud-eu/web-pkg':
-        specifier: ^5.0.0
-        version: 5.1.0(@vue/compiler-sfc@3.5.30)(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3))
+        specifier: ^6.0.0
+        version: 6.0.0(@vue/compiler-sfc@3.5.30)(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3))
       '@types/chromecast-caf-sender':
         specifier: ^1.0.8
         version: 1.0.11
@@ -106,11 +106,11 @@ importers:
   packages/web-app-draw-io:
     devDependencies:
       '@opencloud-eu/web-client':
-        specifier: ^5.0.0
-        version: 5.1.0
+        specifier: ^6.0.0
+        version: 6.0.0
       '@opencloud-eu/web-pkg':
-        specifier: ^5.0.0
-        version: 5.1.0(@vue/compiler-sfc@3.5.30)(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3))
+        specifier: ^6.0.0
+        version: 6.0.0(@vue/compiler-sfc@3.5.30)(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3))
       qs:
         specifier: ^6.11.2
         version: 6.15.0
@@ -124,11 +124,11 @@ importers:
   packages/web-app-external-sites:
     devDependencies:
       '@opencloud-eu/web-client':
-        specifier: ^5.0.0
-        version: 5.1.0
+        specifier: ^6.0.0
+        version: 6.0.0
       '@opencloud-eu/web-pkg':
-        specifier: ^5.0.0
-        version: 5.1.0(@vue/compiler-sfc@3.5.30)(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3))
+        specifier: ^6.0.0
+        version: 6.0.0(@vue/compiler-sfc@3.5.30)(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3))
       vue:
         specifier: ^3.4.21
         version: 3.5.30(typescript@5.9.3)
@@ -158,11 +158,11 @@ importers:
         version: 1.1.1(@uppy/core@5.2.0)
     devDependencies:
       '@opencloud-eu/web-client':
-        specifier: ^5.0.0
-        version: 5.1.0
+        specifier: ^6.0.0
+        version: 6.0.0
       '@opencloud-eu/web-pkg':
-        specifier: ^5.0.0
-        version: 5.1.0(@vue/compiler-sfc@3.5.30)(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3))
+        specifier: ^6.0.0
+        version: 6.0.0(@vue/compiler-sfc@3.5.30)(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3))
       '@uppy/core':
         specifier: ^5.1.1
         version: 5.2.0
@@ -183,11 +183,11 @@ importers:
         version: 3.11.0
     devDependencies:
       '@opencloud-eu/web-client':
-        specifier: ^5.0.0
-        version: 5.1.0
+        specifier: ^6.0.0
+        version: 6.0.0
       '@opencloud-eu/web-pkg':
-        specifier: ^5.0.0
-        version: 5.1.0(@vue/compiler-sfc@3.5.30)(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3))
+        specifier: ^6.0.0
+        version: 6.0.0(@vue/compiler-sfc@3.5.30)(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3))
       vue:
         specifier: ^3.4.21
         version: 3.5.30(typescript@5.9.3)
@@ -198,11 +198,11 @@ importers:
   packages/web-app-maps:
     dependencies:
       '@opencloud-eu/web-client':
-        specifier: ^4.0.0 || ^5.0.0
-        version: 5.1.0
+        specifier: ^6.0.0
+        version: 6.0.0
       '@opencloud-eu/web-pkg':
-        specifier: ^4.0.0 || ^5.0.0
-        version: 5.1.0(@vue/compiler-sfc@3.5.30)(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3))
+        specifier: ^6.0.0
+        version: 6.0.0(@vue/compiler-sfc@3.5.30)(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3))
       '@protomaps/basemaps':
         specifier: ^5.7.0
         version: 5.7.0
@@ -232,11 +232,11 @@ importers:
         specifier: ^6.0.0
         version: 6.0.0(@vue/compiler-sfc@3.5.30)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3)))(vue@3.5.30(typescript@5.9.3))
       '@opencloud-eu/web-client':
-        specifier: ^5.0.0-alpha.1
-        version: 5.1.0
+        specifier: ^6.0.0
+        version: 6.0.0
       '@opencloud-eu/web-pkg':
-        specifier: ^5.0.0-alpha.1
-        version: 5.1.0(@vue/compiler-sfc@3.5.30)(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3))
+        specifier: ^6.0.0
+        version: 6.0.0(@vue/compiler-sfc@3.5.30)(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3))
     devDependencies:
       pinia:
         specifier: 3.0.4
@@ -257,8 +257,8 @@ importers:
   packages/web-app-progress-bars:
     devDependencies:
       '@opencloud-eu/web-pkg':
-        specifier: ^5.0.0
-        version: 5.1.0(@vue/compiler-sfc@3.5.30)(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3))
+        specifier: ^6.0.0
+        version: 6.0.0(@vue/compiler-sfc@3.5.30)(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3))
       '@vueuse/core':
         specifier: ^14.0.0
         version: 14.2.1(vue@3.5.30(typescript@5.9.3))
@@ -276,11 +276,11 @@ importers:
         version: 2.8.21
     devDependencies:
       '@opencloud-eu/web-client':
-        specifier: ^5.0.0
-        version: 5.1.0
+        specifier: ^6.0.0
+        version: 6.0.0
       '@opencloud-eu/web-pkg':
-        specifier: ^5.0.0
-        version: 5.1.0(@vue/compiler-sfc@3.5.30)(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3))
+        specifier: ^6.0.0
+        version: 6.0.0(@vue/compiler-sfc@3.5.30)(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3))
       uuid:
         specifier: ^13.0.0
         version: 13.0.0
@@ -797,11 +797,6 @@ packages:
   '@one-ini/wasm@0.1.1':
     resolution: {integrity: sha512-XuySG1E38YScSJoMlqovLru4KTUNSjgVTIjyh7qMX6aNN5HY5Ct5LhRJdxO79JtTzKfzV/bnWpz+zquYrISsvw==}
 
-  '@opencloud-eu/design-system@5.1.0':
-    resolution: {integrity: sha512-BzOYNSTjx1audLI0pMrAah5LT0v1De+fS8smZ1LgK5Os+eFixARcZMeJJhf/fr7SXIw4or4NFxV3V8wYeT7ZuA==}
-    peerDependencies:
-      pinia: ^3.0.3
-
   '@opencloud-eu/design-system@6.0.0':
     resolution: {integrity: sha512-sZsPg/QCiPSv8KdjIUx41GufMjNsRQ0cHkI2zPiSjjLhathQV9pDtnKE+rJdgTdEQxreKcOO9lAiEMxeXSjWxA==}
     peerDependencies:
@@ -822,19 +817,19 @@ packages:
     peerDependencies:
       prettier: ^3.0.0
 
-  '@opencloud-eu/tsconfig@5.1.0':
-    resolution: {integrity: sha512-sD3Fi0i0Y7KI1tXPzOIAyhWOgpL8/gzrT/og2/g4nejANPKpGkw+sa0RrXjoCRiHVoamHERrOU9/k22vAt9o9Q==}
+  '@opencloud-eu/tsconfig@6.0.0':
+    resolution: {integrity: sha512-BSdoNRuk5iYrVYYeG3wOwtUzjeFbHkJPraxGfw2mFZZJf0T9r6KnWWK6RjtCuG9bUsj4h5qCBdlecTjY97UXKA==}
 
-  '@opencloud-eu/web-client@5.1.0':
-    resolution: {integrity: sha512-PvWN1ptX9mNdvlR5l0aQSOasXlSFSX3sa5gGm0wcKNlqXBwg/Rtl5VppSKn3GQVCvrYWwQSSakLbznJ1gj7Bog==}
+  '@opencloud-eu/web-client@6.0.0':
+    resolution: {integrity: sha512-b1MgYaUO/n96wy93712DL2MniXCW8xw2I+D0siPsAVmLUNVTPm65W8U53K0WBMAmr0S8gVJjAZwmvbX5AGLF6A==}
 
-  '@opencloud-eu/web-pkg@5.1.0':
-    resolution: {integrity: sha512-k2pr9gJf2YvnlcBvfw4CRncivZpDf+/EjUyCLYEsXOH13ZfSZ0nMHhEYGmLIjfL4wzka0f6m/gYPiakbYnel1g==}
+  '@opencloud-eu/web-pkg@6.0.0':
+    resolution: {integrity: sha512-9wBDeZnJ98Zu7ZLofn8mCwThPvkHsuJc9Prd2ZV1oVfrZS89dhxGUv+ebnxoLIqKDnSdAllwWmufY31C1N5wxA==}
 
-  '@opencloud-eu/web-test-helpers@5.1.0':
-    resolution: {integrity: sha512-xbJULFKp+rZfuJJRoW67mxAyNgO5IuhToj3VcBx/O1R6goj7qz9y9ctz3FVXT0KkCrst57keKyLOqBjN8YJySQ==}
+  '@opencloud-eu/web-test-helpers@6.0.0':
+    resolution: {integrity: sha512-MlPZLyZEgQZ/h2GYy1ifaHWBaZF7EKom4GjG7+aVqZxXQAVxjo2eZ8yu2D7liSbXKQihqwMMvHB301k9IfdXng==}
     peerDependencies:
-      '@opencloud-eu/web-pkg': ^5.1.0
+      '@opencloud-eu/web-pkg': ^6.0.0
       '@vue/test-utils': ^2.4.6
       vue: ^3.5.10
 
@@ -933,9 +928,6 @@ packages:
     resolution: {integrity: sha512-akea+6bHYBBfA9uQqSYmlJXn61cTa+jbO87xVLCWbTqbWadRVmhxlXATaOjOgcBaWU4ePo0wB41KMFv3o35IXA==}
     engines: {node: '>=18'}
     hasBin: true
-
-  '@popperjs/core@2.11.8':
-    resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
 
   '@protomaps/basemaps@5.7.0':
     resolution: {integrity: sha512-vIInnzVSxHuOcvj1BFGkCjlFxG/9a1GV23t98kGEVcPUM7aEqTnf6loUHTRJYX5eCz+WCO16N0aibr1SLg830Q==}
@@ -2851,15 +2843,6 @@ packages:
   pofile@1.1.4:
     resolution: {integrity: sha512-r6Q21sKsY1AjTVVjOuU02VYKVNQGJNQHjTIvs4dEbeuuYfxgYk/DGD2mqqq4RDaVkwdSq0VEtmQUOPe/wH8X3g==}
 
-  portal-vue@3.0.0:
-    resolution: {integrity: sha512-9eprMxNURLx6ijbcgkWjYNcTWJYu/H8QF8nyAeBzOmk9lKCea01BW1hYBeLkgz+AestmPOvznAEOFmNuO4Adjw==}
-    engines: {node: '>=14.19'}
-    peerDependencies:
-      vue: ^3.0.4
-    peerDependenciesMeta:
-      vue:
-        optional: true
-
   postcss-selector-parser@7.1.1:
     resolution: {integrity: sha512-orRsuYpJVw8LdAwqqLykBj9ecS5/cRHlI5+nvTo8LcCKmzDmqVORXtOIYEEQuL9D4BxtA1lm5isAqzQZCoQ6Eg==}
     engines: {node: '>=4'}
@@ -3092,9 +3075,6 @@ packages:
   tinyrainbow@3.0.3:
     resolution: {integrity: sha512-PSkbLUoxOFRzJYjjxHJt9xro7D+iilgMX/C9lawzVuYiIdcihh9DXmVibBe8lmcFrRi/VzlPjBxbN7rH24q8/Q==}
     engines: {node: '>=14.0.0'}
-
-  tippy.js@6.3.7:
-    resolution: {integrity: sha512-E1d3oP2emgJ9dRQZdf3Kkn0qJgI6ZLpyS5z6ZkY1DF3kaQaBsGZsndEpHwx+eC+tYM41HaSNvNtLx8tU57FzTQ==}
 
   ts-api-utils@2.4.0:
     resolution: {integrity: sha512-3TaVTaAv2gTiMB35i3FiGJaRfwb3Pyn/j3m/bfAvGe8FB7CF6u+LMYqYlDh7reQf7UNvoTvdfAqHGmPGOSsPmA==}
@@ -4079,30 +4059,6 @@ snapshots:
 
   '@one-ini/wasm@0.1.1': {}
 
-  '@opencloud-eu/design-system@5.1.0(@vue/compiler-sfc@3.5.30)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3)))(vue@3.5.30(typescript@5.9.3))':
-    dependencies:
-      '@emoji-mart/data': 1.2.1
-      '@popperjs/core': 2.11.8
-      '@vueuse/core': 14.2.1(vue@3.5.30(typescript@5.9.3))
-      deepmerge: 4.3.1
-      emoji-mart: 5.6.0
-      focus-trap: 7.8.0
-      focus-trap-vue: 4.1.0(focus-trap@7.8.0)(vue@3.5.30(typescript@5.9.3))
-      fuse.js: 7.1.0
-      lodash-es: 4.17.23
-      luxon: 3.7.2
-      pinia: 3.0.4(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3))
-      portal-vue: 3.0.0(vue@3.5.30(typescript@5.9.3))
-      tippy.js: 6.3.7
-      vue-inline-svg: 4.0.1(vue@3.5.30(typescript@5.9.3))
-      vue-router: 5.0.3(@vue/compiler-sfc@3.5.30)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3)))(vue@3.5.30(typescript@5.9.3))
-      vue-select: 4.0.0-beta.6(vue@3.5.30(typescript@5.9.3))
-      vue3-gettext: 2.4.0(@vue/compiler-sfc@3.5.30)(vue@3.5.30(typescript@5.9.3))
-    transitivePeerDependencies:
-      - '@pinia/colada'
-      - '@vue/compiler-sfc'
-      - vue
-
   '@opencloud-eu/design-system@6.0.0(@vue/compiler-sfc@3.5.30)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3)))(vue@3.5.30(typescript@5.9.3))':
     dependencies:
       '@emoji-mart/data': 1.2.1
@@ -4156,9 +4112,9 @@ snapshots:
     dependencies:
       prettier: 3.8.1
 
-  '@opencloud-eu/tsconfig@5.1.0': {}
+  '@opencloud-eu/tsconfig@6.0.0': {}
 
-  '@opencloud-eu/web-client@5.1.0':
+  '@opencloud-eu/web-client@6.0.0':
     dependencies:
       '@casl/ability': 6.8.0
       '@microsoft/fetch-event-source': 2.0.1
@@ -4172,14 +4128,14 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  '@opencloud-eu/web-pkg@5.1.0(@vue/compiler-sfc@3.5.30)(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3))':
+  '@opencloud-eu/web-pkg@6.0.0(@vue/compiler-sfc@3.5.30)(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3))':
     dependencies:
       '@casl/ability': 6.8.0
       '@casl/vue': 2.2.6(@casl/ability@6.8.0)(vue@3.5.30(typescript@5.9.3))
       '@codemirror/view': 6.39.15
       '@microsoft/fetch-event-source': 2.0.1
-      '@opencloud-eu/design-system': 5.1.0(@vue/compiler-sfc@3.5.30)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3)))(vue@3.5.30(typescript@5.9.3))
-      '@opencloud-eu/web-client': 5.1.0
+      '@opencloud-eu/design-system': 6.0.0(@vue/compiler-sfc@3.5.30)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3)))(vue@3.5.30(typescript@5.9.3))
+      '@opencloud-eu/web-client': 6.0.0
       '@sentry/vue': 10.39.0(pinia@3.0.4(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3)))(vue@3.5.30(typescript@5.9.3))
       '@uppy/core': 5.2.0
       '@uppy/tus': 5.1.1(@uppy/core@5.2.0)
@@ -4202,15 +4158,15 @@ snapshots:
       p-queue: 9.1.0
       password-sheriff: 2.0.0
       pinia: 3.0.4(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3))
-      portal-vue: 3.0.0(vue@3.5.30(typescript@5.9.3))
       qs: 6.15.0
       screenfull: 6.0.2
       uuid: 13.0.0
       vue-concurrency: 5.0.3(vue@3.5.30(typescript@5.9.3))
       vue-router: 5.0.3(@vue/compiler-sfc@3.5.30)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3)))(vue@3.5.30(typescript@5.9.3))
-      vue3-gettext: 2.4.0(@vue/compiler-sfc@3.5.30)(vue@3.5.30(typescript@5.9.3))
+      vue3-gettext: 4.0.0-beta.1(@vue/compiler-sfc@3.5.30)(vue@3.5.30(typescript@5.9.3))
       zod: 4.3.6
     transitivePeerDependencies:
+      - '@75lb/nature'
       - '@pinia/colada'
       - '@tanstack/vue-router'
       - '@vue/compiler-sfc'
@@ -4218,13 +4174,13 @@ snapshots:
       - typescript
       - vue
 
-  '@opencloud-eu/web-test-helpers@5.1.0(@opencloud-eu/web-pkg@5.1.0(@vue/compiler-sfc@3.5.30)(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3)))(@vue/compiler-sfc@3.5.30)(@vue/test-utils@2.4.6)(typescript@5.9.3)(vitest@4.1.0(@types/node@24.12.0)(happy-dom@20.8.3)(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(lightningcss@1.31.1)(sass@1.80.7)(yaml@2.8.2)))(vue@3.5.30(typescript@5.9.3))':
+  '@opencloud-eu/web-test-helpers@6.0.0(@opencloud-eu/web-pkg@6.0.0(@vue/compiler-sfc@3.5.30)(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3)))(@vue/compiler-sfc@3.5.30)(@vue/test-utils@2.4.6)(typescript@5.9.3)(vitest@4.1.0(@types/node@24.12.0)(happy-dom@20.8.3)(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(lightningcss@1.31.1)(sass@1.80.7)(yaml@2.8.2)))(vue@3.5.30(typescript@5.9.3))':
     dependencies:
       '@casl/ability': 6.8.0
       '@casl/vue': 2.2.6(@casl/ability@6.8.0)(vue@3.5.30(typescript@5.9.3))
-      '@opencloud-eu/design-system': 5.1.0(@vue/compiler-sfc@3.5.30)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3)))(vue@3.5.30(typescript@5.9.3))
-      '@opencloud-eu/web-client': 5.1.0
-      '@opencloud-eu/web-pkg': 5.1.0(@vue/compiler-sfc@3.5.30)(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3))
+      '@opencloud-eu/design-system': 6.0.0(@vue/compiler-sfc@3.5.30)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3)))(vue@3.5.30(typescript@5.9.3))
+      '@opencloud-eu/web-client': 6.0.0
+      '@opencloud-eu/web-pkg': 6.0.0(@vue/compiler-sfc@3.5.30)(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3))
       '@pinia/testing': 1.0.3(pinia@3.0.4(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3)))
       '@vue/test-utils': 2.4.6
       axios: 1.13.5
@@ -4232,8 +4188,9 @@ snapshots:
       vitest-mock-extended: 3.1.0(typescript@5.9.3)(vitest@4.1.0(@types/node@24.12.0)(happy-dom@20.8.3)(vite@7.3.1(@types/node@24.12.0)(jiti@2.6.1)(lightningcss@1.31.1)(sass@1.80.7)(yaml@2.8.2)))
       vue: 3.5.30(typescript@5.9.3)
       vue-router: 5.0.3(@vue/compiler-sfc@3.5.30)(pinia@3.0.4(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3)))(vue@3.5.30(typescript@5.9.3))
-      vue3-gettext: 2.4.0(@vue/compiler-sfc@3.5.30)(vue@3.5.30(typescript@5.9.3))
+      vue3-gettext: 4.0.0-beta.1(@vue/compiler-sfc@3.5.30)(vue@3.5.30(typescript@5.9.3))
     transitivePeerDependencies:
+      - '@75lb/nature'
       - '@pinia/colada'
       - '@vue/compiler-sfc'
       - debug
@@ -4311,8 +4268,6 @@ snapshots:
   '@playwright/test@1.58.2':
     dependencies:
       playwright: 1.58.2
-
-  '@popperjs/core@2.11.8': {}
 
   '@protomaps/basemaps@5.7.0': {}
 
@@ -6216,10 +6171,6 @@ snapshots:
 
   pofile@1.1.4: {}
 
-  portal-vue@3.0.0(vue@3.5.30(typescript@5.9.3)):
-    optionalDependencies:
-      vue: 3.5.30(typescript@5.9.3)
-
   postcss-selector-parser@7.1.1:
     dependencies:
       cssesc: 3.0.0
@@ -6455,10 +6406,6 @@ snapshots:
   tinyqueue@3.0.0: {}
 
   tinyrainbow@3.0.3: {}
-
-  tippy.js@6.3.7:
-    dependencies:
-      '@popperjs/core': 2.11.8
 
   ts-api-utils@2.4.0(typescript@5.9.3):
     dependencies:

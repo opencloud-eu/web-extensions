@@ -20,7 +20,7 @@
   },
   "peerDependencies": {
     "@opencloud-eu/design-system": "^6.0.0",
-    "@opencloud-eu/web-client": "^5.0.0-alpha.1",
-    "@opencloud-eu/web-pkg": "^5.0.0-alpha.1"
+    "@opencloud-eu/web-client": "^6.0.0",
+    "@opencloud-eu/web-pkg": "^6.0.0"
   }
 }
