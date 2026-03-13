@@ -3,8 +3,8 @@ when:
   - event: [tag]
 
 variables:
-  - &node_image 'owncloudci/nodejs:24'
-  - &alpine_image 'owncloudci/alpine:latest'
+  - &node_image 'quay.io/opencloudeu/nodejs-ci:24'
+  - &alpine_image 'quay.io/opencloudeu/nodejs-alpine-ci:24'
   - &release_image 'woodpeckerci/plugin-release:0.2.6'
   - &docker_image 'woodpeckerci/plugin-docker-buildx:latest'
   - &extract_app_and_version
