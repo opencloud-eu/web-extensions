@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.0.2](https://github.com/opencloud-eu/web-extensions/releases/tag/maps-v2.0.2) - 2026-03-13
+
+### 🐛 Bug Fixes
+
+This version is needed for compatibility with OpenCloud version >= 5.2.0.
+
+- Fix visual representation of the maps meta overlay [[#380](https://github.com/opencloud-eu/web-extensions/pull/380)]
+- Location panel rendering [[#387](https://github.com/opencloud-eu/web-extensions/pull/387)]
+
 ## [2.0.1](https://github.com/opencloud-eu/web-extensions/releases/tag/maps-v2.0.1) - 2026-02-27
 
 ### 🐛 Bug Fixes
