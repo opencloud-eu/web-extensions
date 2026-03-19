@@ -7,7 +7,7 @@
     {
       "customType": "regex",
       "managerFilePatterns": ["^\\.woodpecker/.+\\.ya?ml$"],
-      "matchStrings": ["&oc_image '(?<depName>[^:]+):(?<currentValue>[^']+)'"],
+      "matchStrings": ["&.*_image '(?<depName>[^:]+):(?<currentValue>[^']+)'"],
       "datasourceTemplate": "docker"
     }
   ],
