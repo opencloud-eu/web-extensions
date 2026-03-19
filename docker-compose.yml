@@ -1,6 +1,6 @@
 services:
   opencloud:
-    image: ${OC_IMAGE:-opencloudeu/opencloud-rolling:latest}
+    image: ${OC_IMAGE:-opencloudeu/opencloud-rolling:5.2.0}
     extra_hosts:
       - host.docker.internal:${DOCKER_HOST:-host-gateway}
     entrypoint: /bin/sh
@@ -79,7 +79,7 @@ services:
       traefik.http.services.companion.loadbalancer.server.port: 3020
 
   tika-service:
-    image: dadarek/wait-for-dependencies:latest
+    image: dadarek/wait-for-dependencies:0.2
     depends_on:
       - tika
     command:

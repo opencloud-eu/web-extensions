@@ -6,7 +6,7 @@ variables:
   - &node_image 'quay.io/opencloudeu/nodejs-ci:24'
   - &alpine_image 'quay.io/opencloudeu/nodejs-alpine-ci:24'
   - &release_image 'woodpeckerci/plugin-release:0.2.6'
-  - &docker_image 'woodpeckerci/plugin-docker-buildx:latest'
+  - &docker_image 'woodpeckerci/plugin-docker-buildx:6.0.4'
   - &extract_app_and_version
     - APP=${CI_COMMIT_TAG%-v*}
     - VERSION=${CI_COMMIT_TAG##*-v}
