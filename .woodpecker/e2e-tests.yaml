@@ -5,9 +5,9 @@ when:
   - event: [pull_request, manual]
 
 variables:
-  - &node_image 'owncloudci/nodejs:24'
-  - &oc_image 'opencloudeu/opencloud-rolling:latest'
-  - &alpine_image 'owncloudci/alpine:latest'
+  - &node_image 'quay.io/opencloudeu/nodejs-ci:24'
+  - &oc_image 'opencloudeu/opencloud-rolling:5.2.0'
+  - &alpine_image 'quay.io/opencloudeu/nodejs-alpine-ci:24'
   - &minio_mc_image 'minio/mc:RELEASE.2021-10-07T04-19-58Z'
   - &tika_image 'apache/tika:3.2.3.0'
 

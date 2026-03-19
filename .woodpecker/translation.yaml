@@ -4,7 +4,7 @@ when:
     cron: translation-sync
 
 variables:
-  - &node_image 'owncloudci/nodejs:24'
+  - &node_image 'quay.io/opencloudeu/nodejs-ci:24'
   - &git_action_plugin 'quay.io/thegeeklab/wp-git-action:2'
 
 steps:

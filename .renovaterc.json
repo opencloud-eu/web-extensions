@@ -3,6 +3,14 @@
   "extends": ["config:recommended"],
   "prConcurrentLimit": 15,
   "postUpdateOptions": ["pnpmDedupe"],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["^\\.woodpecker/.+\\.ya?ml$"],
+      "matchStrings": ["&.*_image '(?<depName>[^:]+):(?<currentValue>[^']+)'"],
+      "datasourceTemplate": "docker"
+    }
+  ],
   "packageRules": [
     {
       "matchDepTypes": ["devDependencies"],
