@@ -9,6 +9,10 @@
       "matchUpdateTypes": ["patch", "minor"],
       "groupName": "devDependencies (non-major)",
       "groupSlug": "dev-dependencies"
+    },
+    {
+      "matchPackageNames": ["woodpeckerci/plugin-docker-buildx"],
+      "enabled": false
     }
   ]
 }
