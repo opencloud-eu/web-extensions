@@ -4,8 +4,8 @@ when:
     cron: translation-sync
 
 variables:
-  - &node_image 'quay.io/opencloudeu/nodejs-ci:24'
-  - &git_action_plugin 'quay.io/thegeeklab/wp-git-action:2'
+  - &node_image 'quay.io/opencloudeu/nodejs-ci:24@sha256:efb3ac3e7e7180aa24fec6f6811d7a59385798676a6a7081dc092faa0800951b'
+  - &git_action_plugin 'quay.io/thegeeklab/wp-git-action:2@sha256:aeee8dc3724a8f3d432c8be185e483afa0c217fa2e3c892a5b41b08ced7237f7'
 
 steps:
   - name: translation-update

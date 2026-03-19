@@ -1,13 +1,13 @@
 services:
   download:
-    image: alpine:3.21
+    image: alpine:3.21@sha256:c3f8e73fdb79deaebaa2037150150191b9dcbfba68b4a46d70103204c53f4709
     command: ['/bin/sh', '/download.sh']
     volumes:
       - ./wwwroot:/wwwroot
       - ./download.sh:/download.sh:ro
 
   server:
-    image: joseluisq/static-web-server:2
+    image: joseluisq/static-web-server:2@sha256:34bb160fd62d2145dabd0598f36352653ec58cf80a8d58c8cd2617097d34564d
     depends_on:
       download:
         condition: service_completed_successfully

@@ -3,10 +3,10 @@ when:
   - event: [tag]
 
 variables:
-  - &node_image 'quay.io/opencloudeu/nodejs-ci:24'
-  - &alpine_image 'quay.io/opencloudeu/nodejs-alpine-ci:24'
-  - &release_image 'woodpeckerci/plugin-release:0.2.6'
-  - &docker_image 'woodpeckerci/plugin-docker-buildx:6.0.4'
+  - &node_image 'quay.io/opencloudeu/nodejs-ci:24@sha256:efb3ac3e7e7180aa24fec6f6811d7a59385798676a6a7081dc092faa0800951b'
+  - &alpine_image 'quay.io/opencloudeu/nodejs-alpine-ci:24@sha256:e336ffb29650e09ed07cbc6c94de18da6e83a1777e4fa28252729124775f1c48'
+  - &release_image 'woodpeckerci/plugin-release:0.2.6@sha256:4a1eb273b61b162345d875d52ef1d788f69b2d829820a715d9c67b3e19e32387'
+  - &docker_image 'woodpeckerci/plugin-docker-buildx:6.0.4@sha256:765ebfaa6f71383197babb2352c7902bafe141e6232a62cafb740510a788c550'
   - &extract_app_and_version
     - APP=${CI_COMMIT_TAG%-v*}
     - VERSION=${CI_COMMIT_TAG##*-v}
