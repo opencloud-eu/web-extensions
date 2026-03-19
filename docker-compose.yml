@@ -1,6 +1,6 @@
 services:
   opencloud:
-    image: ${OC_IMAGE:-opencloudeu/opencloud-rolling:5.2.0}
+    image: ${OC_IMAGE:-opencloudeu/opencloud-rolling:5.2.0@sha256:c840de29b7287da070ffc9d5eb52a1b291a046877402bf70f387ccf56c820aee}
     extra_hosts:
       - host.docker.internal:${DOCKER_HOST:-host-gateway}
     entrypoint: /bin/sh
@@ -55,7 +55,7 @@ services:
       - traefik
 
   companion:
-    image: transloadit/companion:6.2.1
+    image: transloadit/companion:6.2.1@sha256:ca1ac37b7c2d4d19d06f1423cce629eadf14ad7b344326cdf4c1731974bf62ff
     extra_hosts:
       - host.docker.internal:${DOCKER_HOST:-host-gateway}
     environment:
@@ -79,20 +79,20 @@ services:
       traefik.http.services.companion.loadbalancer.server.port: 3020
 
   tika-service:
-    image: dadarek/wait-for-dependencies:0.2
+    image: dadarek/wait-for-dependencies:0.2@sha256:b38e28108dee0aad90984e176adcc014dbf31b528602640f6c9a280cdc7ce2f0
     depends_on:
       - tika
     command:
       - 'wait-for -it tika:9998 -t 300'
 
   tika:
-    image: apache/tika:3.2.3.0
+    image: apache/tika:3.2.3.0@sha256:c0154cb95587cde64be74f35ada1a2bd7892219f3f0ac3c9dc6cab34046b3573
     ports:
       - '9998:9998'
     restart: unless-stopped
 
   traefik:
-    image: traefik:v3.6.10
+    image: traefik:v3.6.10@sha256:c549d482c55d7a797398562064f35428cc53e748d84d7190997930e7b31bcc32
     restart: unless-stopped
     entrypoint:
       [
