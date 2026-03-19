@@ -9,12 +9,14 @@ This repository contains a collection of [OpenCloud Web](https://github.com/open
 Extensions are provided by apps. These are the apps, that are provided by this repository.
 
 - [web-app-arcade](./packages/web-app-arcade/)
+- [web-app-calculator](./packages/web-app-calculator/)
 - [web-app-cast](./packages/web-app-cast/)
 - [web-app-draw-io](./packages/web-app-draw-io/)
 - [web-app-external-sites](./packages/web-app-external-sites/)
 - [web-app-importer](./packages/web-app-importer/)
 - [web-app-json-viewer](./packages/web-app-json-viewer/)
 - [web-app-maps](./packages/web-app-maps/)
+- [web-app-notes](./packages/web-app-notes/)
 - [web-app-progress-bars](./packages/web-app-progress-bars/)
 - [web-app-unzip](./packages/web-app-unzip/)
 
