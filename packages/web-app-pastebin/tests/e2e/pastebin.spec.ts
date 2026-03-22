@@ -316,6 +316,47 @@ test.describe('public links', () => {
 
     await freshContext.close()
   })
+
+  // Requires fix in web-pkg: replaceInvalidFileRoute must preserve existing query params
+  // See: https://github.com/opencloud-eu/web/pull/2199
+  test.skip('scrollTo works on public link', async ({ browser }) => {
+    await pastebin.navigateToPastebin()
+    const { password } = await pastebin.createPastebin({
+      files: [
+        { name: 'top.py', content: '# this is the top file\n'.repeat(30) },
+        { name: 'bottom.js', content: '// this is the bottom file' }
+      ]
+    })
+
+    await pastebin.expectFileVisible('top.py')
+    await pastebin.expectFileVisible('bottom.js')
+
+    // wait for share URL to resolve, then get anchor href for bottom file
+    const linkIcon = userPage.locator('header a[title="Open public link"]')
+    await expect(linkIcon).toBeVisible({ timeout: 15000 })
+    const anchorHref = await pastebin.getAnchorHref('bottom.js')
+    expect(anchorHref).toContain('scrollTo=bottom.js')
+
+    // open the anchor link in a fresh unauthenticated context
+    const freshContext = await browser.newContext({ ignoreHTTPSErrors: true })
+    const freshPage = await freshContext.newPage()
+    await freshPage.goto(anchorHref!, { timeout: 30000 })
+
+    if (password) {
+      const passwordField = freshPage.locator('input[type="password"]')
+      await expect(passwordField).toBeVisible({ timeout: 15000 })
+      await passwordField.fill(password)
+      await freshPage.getByRole('button', { name: 'Continue', exact: true }).click()
+    }
+
+    // the bottom file should be visible (scrolled into view)
+    await expect(freshPage.locator('[data-item-id="bottom.js"]')).toBeVisible({ timeout: 15000 })
+
+    // scrollTo should be preserved in the URL
+    await expect(freshPage).toHaveURL(/scrollTo=bottom\.js/, { timeout: 5000 })
+
+    await freshContext.close()
+  })
 })
 
 test.describe('navigation', () => {

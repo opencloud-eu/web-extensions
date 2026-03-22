@@ -71,6 +71,7 @@
             :resource="file"
             :space="space"
             :share-url="shareUrl"
+            :folder-file-id="currentFolder?.fileId"
             @loaded="onFileLoaded"
           />
         </div>
@@ -200,7 +201,6 @@ const totalFiles = computed(() => folderResources.value.filter((r) => !r.isFolde
 const onFileLoaded = async () => {
   filesLoadedCount.value++
   if (filesLoadedCount.value < totalFiles.value) return
-
   const target = scrollTarget.value
   if (!target) return
 

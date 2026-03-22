@@ -108,6 +108,7 @@ const props = defineProps<{
   resource: Resource
   space: SpaceResource
   shareUrl?: string
+  folderFileId?: string
 }>()
 
 const emit = defineEmits<{ loaded: [] }>()
@@ -117,9 +118,16 @@ const clientService = useClientService()
 const { copy, copied } = useClipboard({ legacy: true, copiedDuring: 1500 })
 
 const anchorHref = computed(() => {
-  if (!props.shareUrl) return ''
-  const url = new URL(props.shareUrl)
+  // Use the share URL when available (authenticated view), fall back to the current URL
+  // so anchor links also work on public link views
+  const base = props.shareUrl || window.location.href
+  const url = new URL(base)
   url.searchParams.set('scrollTo', props.resource.name)
+  // fileId of the .ocpb folder is needed so AppWrapper's replaceInvalidFileRoute
+  // doesn't strip scrollTo when rewriting the URL
+  if (props.folderFileId) {
+    url.searchParams.set('fileId', props.folderFileId)
+  }
   return url.toString()
 })
 
