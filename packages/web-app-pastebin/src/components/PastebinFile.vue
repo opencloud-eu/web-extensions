@@ -18,7 +18,6 @@
         size="small"
         class="ext:ml-1.5 ext:opacity-30 hover:ext:opacity-100"
         :title="$gettext('Link to this file')"
-        :data-href="anchorHref"
         @click="copyAnchorLink"
       >
         <oc-icon :name="anchorCopied ? 'checkbox-circle' : 'link'" size="small" />

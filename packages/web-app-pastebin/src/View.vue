@@ -30,7 +30,6 @@
             size="small"
             class="ext:ml-2 ext:opacity-40 hover:ext:opacity-100"
             :title="$gettext('Copy public link')"
-            :data-href="shareUrl"
             @click="copyShareUrl"
           >
             <oc-icon :name="shareCopied ? 'checkbox-circle' : 'link'" size="small" />

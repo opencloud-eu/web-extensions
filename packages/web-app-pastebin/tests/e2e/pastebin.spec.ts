@@ -250,8 +250,7 @@ test.describe('public links', () => {
     // the share link button should be visible in the header
     const linkIcon = userPage.locator('header button[title="Copy public link"]')
     await expect(linkIcon).toBeVisible({ timeout: 15000 })
-    const href = await linkIcon.getAttribute('data-href')
-    expect(href).toBeTruthy()
+    const href = await pastebin.getShareLinkHref()
     expect(href).toContain('/pastebin/')
   })
 
@@ -284,10 +283,8 @@ test.describe('public links', () => {
       files: [{ name: 'public.txt', content: 'visible without login' }]
     })
 
-    // wait for the share link to resolve
-    const linkIcon = userPage.locator('header button[title="Copy public link"]')
-    await expect(linkIcon).toBeVisible({ timeout: 15000 })
-    const shareHref = await linkIcon.getAttribute('data-href')
+    // copy the share link via clipboard
+    const shareHref = await pastebin.getShareLinkHref()
     expect(shareHref).toBeTruthy()
 
     // open in a fresh unauthenticated browser context
@@ -332,8 +329,9 @@ test.describe('public links', () => {
     await pastebin.expectFileVisible('bottom.js')
 
     // wait for share URL to resolve, then get anchor href for bottom file
-    const linkIcon = userPage.locator('header button[title="Copy public link"]')
-    await expect(linkIcon).toBeVisible({ timeout: 15000 })
+    await expect(userPage.locator('header button[title="Copy public link"]')).toBeVisible({
+      timeout: 15000
+    })
     const anchorHref = await pastebin.getAnchorHref('bottom.js')
     expect(anchorHref).toContain('scrollTo=bottom.js')
 

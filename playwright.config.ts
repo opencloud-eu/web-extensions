@@ -126,7 +126,12 @@ export default defineConfig({
     {
       name: 'pastebin-chromium',
       testDir: './packages/web-app-pastebin/tests/e2e',
-      use: { ...devices['Desktop Chrome'], browserName: 'chromium', ignoreHTTPSErrors: true }
+      use: {
+        ...devices['Desktop Chrome'],
+        browserName: 'chromium',
+        ignoreHTTPSErrors: true,
+        permissions: ['clipboard-read', 'clipboard-write']
+      }
     },
     {
       name: 'pastebin-firefox',

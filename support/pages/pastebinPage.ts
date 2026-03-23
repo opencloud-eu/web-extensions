@@ -130,17 +130,17 @@ export class PastebinPage {
     await this.page.locator('.oc-modal-body-actions-confirm').click()
   }
 
-  // Share links
-  async getShareLinkHref(): Promise<string | null> {
-    const linkIcon = this.page.locator('header button[title="Copy public link"]').first()
-    if ((await linkIcon.count()) === 0) return null
-    return linkIcon.getAttribute('data-href')
+  // Share links — clicks the button to copy to clipboard and reads back the content
+  async getShareLinkHref(): Promise<string> {
+    const btn = this.page.locator('header button[title="Copy public link"]')
+    await btn.click()
+    return this.page.evaluate(() => navigator.clipboard.readText())
   }
 
-  async getAnchorHref(filename: string): Promise<string | null> {
+  async getAnchorHref(filename: string): Promise<string> {
     const container = this.getFileContainer(filename)
-    const anchorLink = container.locator('button[title="Link to this file"]')
-    if ((await anchorLink.count()) === 0) return null
-    return anchorLink.getAttribute('data-href')
+    const btn = container.locator('button[title="Link to this file"]')
+    await btn.click()
+    return this.page.evaluate(() => navigator.clipboard.readText())
   }
 }
