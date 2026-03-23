@@ -35,7 +35,9 @@ test.describe('create', () => {
     })
 
     // title should appear in the header
-    await expect(userPage.getByRole('navigation', { name: 'Breadcrumb' })).toContainText('My Test Pastebin')
+    await expect(userPage.getByRole('navigation', { name: 'Breadcrumb' })).toContainText(
+      'My Test Pastebin'
+    )
   })
 
   test('create multi-file pastebin', async () => {
