@@ -132,15 +132,15 @@ export class PastebinPage {
 
   // Share links
   async getShareLinkHref(): Promise<string | null> {
-    const linkIcon = this.page.locator('header a[title]').first()
+    const linkIcon = this.page.locator('header button[title="Copy public link"]').first()
     if ((await linkIcon.count()) === 0) return null
-    return linkIcon.getAttribute('href')
+    return linkIcon.getAttribute('data-href')
   }
 
   async getAnchorHref(filename: string): Promise<string | null> {
     const container = this.getFileContainer(filename)
-    const anchorLink = container.locator('a[title="Link to this file"]')
+    const anchorLink = container.locator('button[title="Link to this file"]')
     if ((await anchorLink.count()) === 0) return null
-    return anchorLink.getAttribute('href')
+    return anchorLink.getAttribute('data-href')
   }
 }

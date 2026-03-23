@@ -247,10 +247,10 @@ test.describe('public links', () => {
       files: [{ name: '', content: 'public link test' }]
     })
 
-    // the share link icon should be visible in the header with an href
-    const linkIcon = userPage.locator('header a[title="Copy public link"]')
+    // the share link button should be visible in the header
+    const linkIcon = userPage.locator('header button[title="Copy public link"]')
     await expect(linkIcon).toBeVisible({ timeout: 15000 })
-    const href = await linkIcon.getAttribute('href')
+    const href = await linkIcon.getAttribute('data-href')
     expect(href).toBeTruthy()
     expect(href).toContain('/pastebin/')
   })
@@ -268,7 +268,7 @@ test.describe('public links', () => {
     await pastebin.expectFileVisible('beta.js')
 
     // wait for the share URL to resolve (anchor links depend on it)
-    const linkIcon = userPage.locator('header a[title="Copy public link"]')
+    const linkIcon = userPage.locator('header button[title="Copy public link"]')
     await expect(linkIcon).toBeVisible({ timeout: 15000 })
 
     const alphaHref = await pastebin.getAnchorHref('alpha.py')
@@ -285,9 +285,9 @@ test.describe('public links', () => {
     })
 
     // wait for the share link to resolve
-    const linkIcon = userPage.locator('header a[title="Copy public link"]')
+    const linkIcon = userPage.locator('header button[title="Copy public link"]')
     await expect(linkIcon).toBeVisible({ timeout: 15000 })
-    const shareHref = await linkIcon.getAttribute('href')
+    const shareHref = await linkIcon.getAttribute('data-href')
     expect(shareHref).toBeTruthy()
 
     // open in a fresh unauthenticated browser context
@@ -332,7 +332,7 @@ test.describe('public links', () => {
     await pastebin.expectFileVisible('bottom.js')
 
     // wait for share URL to resolve, then get anchor href for bottom file
-    const linkIcon = userPage.locator('header a[title="Copy public link"]')
+    const linkIcon = userPage.locator('header button[title="Copy public link"]')
     await expect(linkIcon).toBeVisible({ timeout: 15000 })
     const anchorHref = await pastebin.getAnchorHref('bottom.js')
     expect(anchorHref).toContain('scrollTo=bottom.js')

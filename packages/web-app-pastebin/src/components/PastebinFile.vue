@@ -12,17 +12,17 @@
         class="ext:font-mono ext:text-sm ext:font-medium ext:text-[var(--oc-role-on-surface)]"
         >{{ resource.name }}</span
       >
-      <!-- Using <a> intentionally: the href enables standard browser link interactions
-           (open in new tab, copy link address) while @click.prevent adds clipboard copy -->
-      <a
+      <oc-button
         v-if="anchorHref"
-        :href="anchorHref"
-        class="ext:inline-flex ext:items-center ext:ml-1.5 ext:opacity-30 hover:ext:opacity-100 ext:align-middle"
+        appearance="raw"
+        size="small"
+        class="ext:ml-1.5 ext:opacity-30 hover:ext:opacity-100"
         :title="$gettext('Link to this file')"
-        @click.prevent="copyAnchorLink"
+        :data-href="anchorHref"
+        @click="copyAnchorLink"
       >
         <oc-icon :name="anchorCopied ? 'checkbox-circle' : 'link'" size="small" />
-      </a>
+      </oc-button>
       <div class="ext:ml-auto ext:flex ext:items-center ext:gap-2">
         <oc-button
           v-if="content"

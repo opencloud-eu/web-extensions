@@ -24,18 +24,17 @@
             <span class="ext:mx-2 ext:opacity-40">/</span>
           </template>
           {{ folderName }}
-          <!-- Using <a> intentionally: the href enables standard browser link interactions
-               (open in new tab, copy link address) while @click.prevent adds clipboard copy -->
-          <a
+          <oc-button
             v-if="shareUrl"
-            :href="shareUrl"
-            target="_blank"
-            class="ext:inline-flex ext:items-center ext:ml-2 ext:opacity-40 hover:ext:opacity-100 ext:align-middle"
+            appearance="raw"
+            size="small"
+            class="ext:ml-2 ext:opacity-40 hover:ext:opacity-100"
             :title="$gettext('Copy public link')"
-            @click.prevent="copyShareUrl"
+            :data-href="shareUrl"
+            @click="copyShareUrl"
           >
             <oc-icon :name="shareCopied ? 'checkbox-circle' : 'link'" size="small" />
-          </a>
+          </oc-button>
         </template>
         <template #actions>
           <template v-if="isAuthenticated">
