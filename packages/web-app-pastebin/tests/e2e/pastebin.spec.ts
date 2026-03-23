@@ -35,7 +35,7 @@ test.describe('create', () => {
     })
 
     // title should appear in the header
-    await expect(userPage.locator('header h1')).toContainText('My Test Pastebin')
+    await expect(userPage.locator('header nav')).toContainText('My Test Pastebin')
   })
 
   test('create multi-file pastebin', async () => {
@@ -248,7 +248,7 @@ test.describe('public links', () => {
     })
 
     // the share link icon should be visible in the header with an href
-    const linkIcon = userPage.locator('header a[title="Open public link"]')
+    const linkIcon = userPage.locator('header a[title="Copy public link"]')
     await expect(linkIcon).toBeVisible({ timeout: 15000 })
     const href = await linkIcon.getAttribute('href')
     expect(href).toBeTruthy()
@@ -268,7 +268,7 @@ test.describe('public links', () => {
     await pastebin.expectFileVisible('beta.js')
 
     // wait for the share URL to resolve (anchor links depend on it)
-    const linkIcon = userPage.locator('header a[title="Open public link"]')
+    const linkIcon = userPage.locator('header a[title="Copy public link"]')
     await expect(linkIcon).toBeVisible({ timeout: 15000 })
 
     const alphaHref = await pastebin.getAnchorHref('alpha.py')
@@ -285,7 +285,7 @@ test.describe('public links', () => {
     })
 
     // wait for the share link to resolve
-    const linkIcon = userPage.locator('header a[title="Open public link"]')
+    const linkIcon = userPage.locator('header a[title="Copy public link"]')
     await expect(linkIcon).toBeVisible({ timeout: 15000 })
     const shareHref = await linkIcon.getAttribute('href')
     expect(shareHref).toBeTruthy()
@@ -332,7 +332,7 @@ test.describe('public links', () => {
     await pastebin.expectFileVisible('bottom.js')
 
     // wait for share URL to resolve, then get anchor href for bottom file
-    const linkIcon = userPage.locator('header a[title="Open public link"]')
+    const linkIcon = userPage.locator('header a[title="Copy public link"]')
     await expect(linkIcon).toBeVisible({ timeout: 15000 })
     const anchorHref = await pastebin.getAnchorHref('bottom.js')
     expect(anchorHref).toContain('scrollTo=bottom.js')

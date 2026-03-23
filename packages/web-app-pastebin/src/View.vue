@@ -24,12 +24,14 @@
             <span class="ext:mx-2 ext:opacity-40">/</span>
           </template>
           {{ folderName }}
+          <!-- Using <a> intentionally: the href enables standard browser link interactions
+               (open in new tab, copy link address) while @click.prevent adds clipboard copy -->
           <a
             v-if="shareUrl"
             :href="shareUrl"
             target="_blank"
             class="ext:inline-flex ext:items-center ext:ml-2 ext:opacity-40 hover:ext:opacity-100 ext:align-middle"
-            :title="$gettext('Open public link')"
+            :title="$gettext('Copy public link')"
             @click.prevent="copyShareUrl"
           >
             <oc-icon :name="shareCopied ? 'checkbox-circle' : 'link'" size="small" />
@@ -37,22 +39,29 @@
         </template>
         <template #actions>
           <template v-if="isAuthenticated">
-            <oc-button appearance="filled" size="small" @click="deletePastebin">
+            <oc-button appearance="outline" size="small" @click="deletePastebin">
               <oc-icon name="delete-bin" size="small" class="ext:mr-1" />
               {{ $gettext('Delete') }}
             </oc-button>
-            <router-link v-if="!isReadOnly" :to="editRoute" class="ext:no-underline">
-              <oc-button appearance="filled" size="small">
-                <oc-icon name="edit" size="small" class="ext:mr-1" />
-                {{ $gettext('Edit') }}
-              </oc-button>
-            </router-link>
-            <router-link :to="{ name: 'pastebin-create' }" class="ext:no-underline">
-              <oc-button appearance="filled" size="small">
-                <oc-icon name="add" size="small" class="ext:mr-1" />
-                {{ $gettext('New') }}
-              </oc-button>
-            </router-link>
+            <oc-button
+              v-if="!isReadOnly"
+              type="router-link"
+              :to="editRoute"
+              appearance="outline"
+              size="small"
+            >
+              <oc-icon name="edit" size="small" class="ext:mr-1" />
+              {{ $gettext('Edit') }}
+            </oc-button>
+            <oc-button
+              type="router-link"
+              :to="{ name: 'pastebin-create' }"
+              appearance="filled"
+              size="small"
+            >
+              <oc-icon name="add" size="small" class="ext:mr-1" />
+              {{ $gettext('New') }}
+            </oc-button>
           </template>
         </template>
       </AppHeader>

@@ -12,6 +12,8 @@
         class="ext:font-mono ext:text-sm ext:font-medium ext:text-[var(--oc-role-on-surface)]"
         >{{ resource.name }}</span
       >
+      <!-- Using <a> intentionally: the href enables standard browser link interactions
+           (open in new tab, copy link address) while @click.prevent adds clipboard copy -->
       <a
         v-if="anchorHref"
         :href="anchorHref"
@@ -44,7 +46,7 @@
     </div>
     <div>
       <div v-if="loading" class="ext:flex ext:justify-center ext:py-8">
-        <oc-spinner size="small" />
+        <oc-spinner size="small" :aria-label="$gettext('Loading pastebin')" />
       </div>
       <div
         v-else-if="error"

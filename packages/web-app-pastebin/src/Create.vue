@@ -24,7 +24,7 @@
         <div class="ext:flex ext:flex-col ext:gap-4">
           <PastebinEditor
             v-for="(file, index) in files"
-            :key="index"
+            :key="file.clientId"
             :filename="file.filename"
             :content="file.content"
             :removable="files.length > 1"
@@ -59,7 +59,7 @@
             appearance="filled"
             size="medium"
             :disabled="saving || !hasContent || (passwordRequired && !passwordValid)"
-            @click="save"
+            @click="loadingService.addTask(() => save())"
           >
             {{ saving ? $gettext('Creating…') : $gettext('Create Pastebin') }}
           </oc-button>
@@ -73,6 +73,7 @@
 import { computed, reactive, ref, unref } from 'vue'
 import {
   useClientService,
+  useLoadingService,
   useMessages,
   usePasswordPolicyService,
   useResourcesStore,
@@ -86,6 +87,7 @@ import { useGettext } from 'vue3-gettext'
 import { useClipboard } from '@vueuse/core'
 import AppHeader from './components/AppHeader.vue'
 import PastebinEditor from './components/PastebinEditor.vue'
+import { SharingLinkType } from '@opencloud-eu/web-client/graph/generated'
 import {
   slugify,
   ensurePastebinFolders,
@@ -98,7 +100,8 @@ import {
 const { $gettext } = useGettext()
 
 const title = ref('')
-const files = reactive([{ filename: '', content: '' }])
+const createFile = () => ({ clientId: crypto.randomUUID(), filename: '', content: '' })
+const files = reactive([createFile()])
 const saving = ref(false)
 
 const { showMessage, showErrorMessage } = useMessages()
@@ -107,12 +110,13 @@ const spacesStore = useSpacesStore()
 const resourcesStore = useResourcesStore()
 const { addLink } = useSharesStore()
 const { defaultLinkType, isPasswordEnforcedForLinkType } = useLinkTypes()
+const loadingService = useLoadingService()
 const { copy } = useClipboard({ legacy: true })
 const passwordPolicyService = usePasswordPolicyService()
 const router = useRouter()
 
 const passwordRequired = computed(() => {
-  const linkType = unref(defaultLinkType) || 'view'
+  const linkType = unref(defaultLinkType) || SharingLinkType.View
   return isPasswordEnforcedForLinkType(linkType)
 })
 const password = ref('')
@@ -126,7 +130,7 @@ const generatePassword = () => passwordPolicyService.generatePassword()
 const hasContent = computed(() => files.some((f) => f.content.trim()))
 
 const addFile = () => {
-  files.push({ filename: '', content: '' })
+  files.push(createFile())
 }
 
 const save = async () => {
@@ -195,7 +199,7 @@ const save = async () => {
     resourcesStore.initResourceList({ currentFolder: folderResource, resources: [] })
 
     try {
-      const linkType = unref(defaultLinkType) || 'view'
+      const linkType = unref(defaultLinkType) || SharingLinkType.View
 
       const linkShare = await addLink({
         clientService,
@@ -216,9 +220,7 @@ const save = async () => {
 
       showMessage({
         title: $gettext('Pastebin created and link copied to clipboard!'),
-        desc: linkShare.hasPassword
-          ? `${linkShare.webUrl} (Password: ${password.value})`
-          : linkShare.webUrl
+        desc: linkShare.webUrl
       })
     } catch (linkError) {
       console.error('Failed to create public link:', linkError)

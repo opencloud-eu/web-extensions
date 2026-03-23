@@ -1,7 +1,7 @@
 <template>
   <div class="ext:flex ext:flex-col ext:size-full">
     <div v-if="loading" class="ext:flex ext:items-center ext:justify-center ext:h-full">
-      <oc-spinner size="medium" />
+      <oc-spinner size="medium" :aria-label="$gettext('Loading pastebin')" />
     </div>
 
     <div
@@ -14,9 +14,16 @@
       <p class="ext:text-[var(--oc-role-on-surface-variant)]">
         {{ isReadOnly ? $gettext('This pastebin is read-only.') : error }}
       </p>
-      <router-link v-if="isReadOnly" :to="viewRoute" class="ext:mt-4 ext:no-underline">
-        <oc-button appearance="filled" size="small">{{ $gettext('View pastebin') }}</oc-button>
-      </router-link>
+      <oc-button
+        v-if="isReadOnly"
+        type="router-link"
+        :to="viewRoute"
+        appearance="filled"
+        size="small"
+        class="ext:mt-4"
+      >
+        {{ $gettext('View pastebin') }}
+      </oc-button>
     </div>
 
     <template v-else>
@@ -37,12 +44,10 @@
           {{ $gettext('Edit') }}
         </template>
         <template #actions>
-          <router-link :to="viewRoute" class="ext:no-underline">
-            <oc-button appearance="filled" size="small">
-              <oc-icon name="close" size="small" class="ext:mr-1" />
-              {{ $gettext('Cancel') }}
-            </oc-button>
-          </router-link>
+          <oc-button type="router-link" :to="viewRoute" appearance="outline" size="small">
+            <oc-icon name="close" size="small" class="ext:mr-1" />
+            {{ $gettext('Cancel') }}
+          </oc-button>
         </template>
       </AppHeader>
 
@@ -51,7 +56,7 @@
           <div class="ext:flex ext:flex-col ext:gap-4">
             <PastebinEditor
               v-for="(file, index) in editableFiles"
-              :key="file.id || index"
+              :key="file.clientId"
               :filename="file.filename"
               :content="file.content"
               :removable="editableFiles.length > 1"
@@ -66,7 +71,7 @@
               <oc-icon name="add" size="small" class="ext:mr-1" />
               {{ $gettext('Add file') }}
             </oc-button>
-            <oc-button appearance="filled" size="medium" :disabled="saving" @click="save">
+            <oc-button appearance="filled" size="medium" :disabled="saving" @click="loadingService.addTask(() => save())">
               {{ saving ? $gettext('Saving…') : $gettext('Save Changes') }}
             </oc-button>
           </div>
@@ -81,6 +86,7 @@ import { computed, onMounted, reactive, ref } from 'vue'
 import { Resource, SpaceResource } from '@opencloud-eu/web-client'
 import {
   useClientService,
+  useLoadingService,
   useMessages,
   useRouter,
   contextRouteNameKey
@@ -91,6 +97,7 @@ import PastebinEditor from './components/PastebinEditor.vue'
 import { parsePastebinName, DEFAULT_FILENAME, loadRevisionFiles } from './utils'
 
 interface EditableFile {
+  clientId: string
   id?: string
   filename: string
   originalFilename?: string
@@ -110,6 +117,7 @@ const {
 }>()
 
 const clientService = useClientService()
+const loadingService = useLoadingService()
 const { showMessage, showErrorMessage } = useMessages()
 const router = useRouter()
 const { $gettext } = useGettext()
@@ -137,7 +145,7 @@ const updateFileContent = (file: EditableFile, content: string) => {
 }
 
 const addFile = () => {
-  editableFiles.push({ filename: '', content: '', dirty: false, isNew: true })
+  editableFiles.push({ clientId: crypto.randomUUID(), filename: '', content: '', dirty: false, isNew: true })
 }
 
 const removeFile = (index: number) => {
@@ -218,6 +226,7 @@ onMounted(async () => {
       ).body
 
       editableFiles.push({
+        clientId: crypto.randomUUID(),
         id: child.id,
         filename: child.name,
         originalFilename: child.name,

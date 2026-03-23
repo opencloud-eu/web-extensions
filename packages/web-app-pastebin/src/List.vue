@@ -3,19 +3,22 @@
     <AppHeader>
       <template #title>{{ $gettext('Your Pastebins') }}</template>
       <template #actions>
-        <router-link :to="{ name: 'pastebin-create' }" class="ext:no-underline">
-          <oc-button appearance="filled" size="small">
-            <oc-icon name="add" size="small" class="ext:mr-1" />
-            {{ $gettext('New') }}
-          </oc-button>
-        </router-link>
+        <oc-button
+          type="router-link"
+          :to="{ name: 'pastebin-create' }"
+          appearance="filled"
+          size="small"
+        >
+          <oc-icon name="add" size="small" class="ext:mr-1" />
+          {{ $gettext('New') }}
+        </oc-button>
       </template>
     </AppHeader>
 
     <div class="ext:flex-1 ext:overflow-y-auto ext:p-5">
       <div class="ext:max-w-4xl ext:mx-auto">
         <div v-if="loading" class="ext:flex ext:justify-center ext:py-12">
-          <oc-spinner size="medium" />
+          <oc-spinner size="medium" :aria-label="$gettext('Loading pastebins')" />
         </div>
 
         <div
@@ -23,11 +26,14 @@
           class="ext:text-center ext:py-12 ext:text-[var(--oc-role-on-surface-variant)]"
         >
           <p class="ext:mb-4">{{ $gettext('No pastebins yet.') }}</p>
-          <router-link :to="{ name: 'pastebin-create' }">
-            <oc-button appearance="filled" size="medium">{{
-              $gettext('Create your first pastebin')
-            }}</oc-button>
-          </router-link>
+          <oc-button
+            type="router-link"
+            :to="{ name: 'pastebin-create' }"
+            appearance="filled"
+            size="medium"
+          >
+            {{ $gettext('Create your first pastebin') }}
+          </oc-button>
         </div>
 
         <div v-else class="ext:flex ext:flex-col ext:gap-2">
