@@ -87,6 +87,7 @@ import { useGettext } from 'vue3-gettext'
 import { useClipboard } from '@vueuse/core'
 import AppHeader from './components/AppHeader.vue'
 import PastebinEditor from './components/PastebinEditor.vue'
+import { urlJoin } from '@opencloud-eu/web-client'
 import { SharingLinkType } from '@opencloud-eu/web-client/graph/generated'
 import {
   slugify,
@@ -157,7 +158,7 @@ const save = async () => {
     await ensurePastebinFolders(webdav, spacesStore.personalSpace)
 
     const slug = title.value.trim() ? `-${slugify(title.value)}` : ''
-    const folderPath = `${PASTEBIN_BASE_PATH}/${timestamp}${slug}.ocpb`
+    const folderPath = urlJoin(PASTEBIN_BASE_PATH, `${timestamp}${slug}.ocpb`)
 
     try {
       await webdav.createFolder(spacesStore.personalSpace, { path: folderPath })
@@ -168,18 +169,18 @@ const save = async () => {
     // Write manifest
     const manifest = { title: title.value.trim() || `pastebin-${timestamp}` }
     await webdav.putFileContents(spacesStore.personalSpace, {
-      path: `${folderPath}/${MANIFEST_FILENAME}`,
+      path: urlJoin(folderPath, MANIFEST_FILENAME),
       content: JSON.stringify(manifest, null, 2)
     })
 
     // Create revisions/0/ and save files there
-    const revisionPath = `${folderPath}/${REVISIONS_DIR}`
+    const revisionPath = urlJoin(folderPath, REVISIONS_DIR)
     try {
       await webdav.createFolder(spacesStore.personalSpace, { path: revisionPath })
     } catch {
       // may already exist
     }
-    const currentRevisionPath = `${revisionPath}/0`
+    const currentRevisionPath = urlJoin(revisionPath, '0')
     try {
       await webdav.createFolder(spacesStore.personalSpace, { path: currentRevisionPath })
     } catch {
@@ -189,7 +190,7 @@ const save = async () => {
     for (const file of nonEmptyFiles) {
       const filename = file.filename.trim() || DEFAULT_FILENAME
       await webdav.putFileContents(spacesStore.personalSpace, {
-        path: `${currentRevisionPath}/${filename}`,
+        path: urlJoin(currentRevisionPath, filename),
         content: file.content
       })
     }

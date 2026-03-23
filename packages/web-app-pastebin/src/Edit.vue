@@ -83,7 +83,7 @@
 
 <script setup lang="ts">
 import { computed, onMounted, reactive, ref } from 'vue'
-import { Resource, SpaceResource } from '@opencloud-eu/web-client'
+import { Resource, SpaceResource, urlJoin } from '@opencloud-eu/web-client'
 import {
   useClientService,
   useLoadingService,
@@ -164,7 +164,7 @@ const save = async () => {
     // Delete removed files
     for (const filename of deletedFiles) {
       try {
-        await webdav.deleteFile(space, { path: `${revisionPath.value}/${filename}` })
+        await webdav.deleteFile(space, { path: urlJoin(revisionPath.value, filename) })
       } catch {
         // file may already be gone
       }
@@ -177,14 +177,14 @@ const save = async () => {
       // If renamed, delete the old file first
       if (file.originalFilename && file.originalFilename !== filename) {
         try {
-          await webdav.deleteFile(space, { path: `${revisionPath.value}/${file.originalFilename}` })
+          await webdav.deleteFile(space, { path: urlJoin(revisionPath.value, file.originalFilename) })
         } catch {
           // old file may not exist
         }
       }
 
       await webdav.putFileContents(space, {
-        path: `${revisionPath.value}/${filename}`,
+        path: urlJoin(revisionPath.value, filename),
         content: file.content
       })
     }
