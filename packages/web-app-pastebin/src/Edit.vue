@@ -71,7 +71,12 @@
               <oc-icon name="add" size="small" class="ext:mr-1" />
               {{ $gettext('Add file') }}
             </oc-button>
-            <oc-button appearance="filled" size="medium" :disabled="saving" @click="loadingService.addTask(() => save())">
+            <oc-button
+              appearance="filled"
+              size="medium"
+              :disabled="saving"
+              @click="loadingService.addTask(() => save())"
+            >
               {{ saving ? $gettext('Saving…') : $gettext('Save Changes') }}
             </oc-button>
           </div>
@@ -145,7 +150,13 @@ const updateFileContent = (file: EditableFile, content: string) => {
 }
 
 const addFile = () => {
-  editableFiles.push({ clientId: crypto.randomUUID(), filename: '', content: '', dirty: false, isNew: true })
+  editableFiles.push({
+    clientId: crypto.randomUUID(),
+    filename: '',
+    content: '',
+    dirty: false,
+    isNew: true
+  })
 }
 
 const removeFile = (index: number) => {
@@ -177,7 +188,9 @@ const save = async () => {
       // If renamed, delete the old file first
       if (file.originalFilename && file.originalFilename !== filename) {
         try {
-          await webdav.deleteFile(space, { path: urlJoin(revisionPath.value, file.originalFilename) })
+          await webdav.deleteFile(space, {
+            path: urlJoin(revisionPath.value, file.originalFilename)
+          })
         } catch {
           // old file may not exist
         }
