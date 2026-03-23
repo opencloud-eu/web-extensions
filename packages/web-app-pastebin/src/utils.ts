@@ -6,13 +6,14 @@ export const PASTEBIN_BASE_PATH = '/.space/pastebin'
 export const MANIFEST_FILENAME = 'manifest.json'
 export const REVISIONS_DIR = 'revisions'
 export const DEFAULT_FILENAME = 'untitled.txt'
+export const FILE_EXTENSION = 'pastebin'
 
 export interface PastebinManifest {
   title: string
 }
 
 export function parsePastebinName(name: string): { timestamp: string; title: string } {
-  const stripped = name.replace(/\.ocpb$/, '')
+  const stripped = name.replace(`.${FILE_EXTENSION}`, '')
   const match = stripped.match(/^(\d{4}-\d{2}-\d{2}T[\d-]+Z)(?:-(.+))?$/)
   if (match) {
     return {

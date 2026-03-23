@@ -94,7 +94,7 @@ import {
 import { useGettext } from 'vue3-gettext'
 import AppHeader from './components/AppHeader.vue'
 import PastebinEditor from './components/PastebinEditor.vue'
-import { parsePastebinName, DEFAULT_FILENAME, loadRevisionFiles } from './utils'
+import { parsePastebinName, DEFAULT_FILENAME, FILE_EXTENSION, loadRevisionFiles } from './utils'
 
 interface EditableFile {
   clientId: string
@@ -131,7 +131,7 @@ const revisionPath = ref('')
 
 const folderName = computed(() => {
   const { title } = parsePastebinName(resource.name || '')
-  return title || resource.name?.replace(/\.ocpb$/, '') || $gettext('Pastebin')
+  return title || resource.name?.replace(`.${FILE_EXTENSION}`, '') || $gettext('Pastebin')
 })
 
 const viewRoute = computed(() => {

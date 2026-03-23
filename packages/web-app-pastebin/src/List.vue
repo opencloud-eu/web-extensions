@@ -79,7 +79,7 @@ import { Resource } from '@opencloud-eu/web-client'
 import { useClientService, useSpacesStore, contextRouteNameKey } from '@opencloud-eu/web-pkg'
 import { useGettext } from 'vue3-gettext'
 import AppHeader from './components/AppHeader.vue'
-import { displayName, formatDate, PASTEBIN_BASE_PATH } from './utils'
+import { displayName, formatDate, FILE_EXTENSION, PASTEBIN_BASE_PATH } from './utils'
 import { useDeletePastebin } from './composables/useDeletePastebin'
 
 const { $gettext, current: currentLanguage } = useGettext()
@@ -118,7 +118,7 @@ onMounted(async () => {
       path: PASTEBIN_BASE_PATH
     })
     pastebins.value = children
-      .filter((r) => r.isFolder && r.name.endsWith('.ocpb'))
+      .filter((r) => r.isFolder && r.name.endsWith(`.${FILE_EXTENSION}`))
       .sort((a, b) => new Date(b.mdate).getTime() - new Date(a.mdate).getTime())
   } catch {
     // folder may not exist yet

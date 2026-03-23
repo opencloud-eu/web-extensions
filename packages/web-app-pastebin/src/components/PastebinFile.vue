@@ -125,7 +125,7 @@ const anchorHref = computed(() => {
   const base = props.shareUrl || window.location.href
   const url = new URL(base)
   url.searchParams.set('scrollTo', props.resource.name)
-  // fileId of the .ocpb folder is needed so AppWrapper's replaceInvalidFileRoute
+  // fileId of the .pastebin folder is needed so AppWrapper's replaceInvalidFileRoute
   // doesn't strip scrollTo when rewriting the URL
   if (props.folderFileId) {
     url.searchParams.set('fileId', props.folderFileId)

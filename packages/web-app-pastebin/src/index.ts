@@ -14,9 +14,9 @@ import Create from './Create.vue'
 import Edit from './Edit.vue'
 import List from './List.vue'
 import View from './View.vue'
+import { FILE_EXTENSION } from './utils'
 
 const applicationId = 'pastebin'
-const fileExtension = 'ocpb'
 
 export default defineWebApplication({
   setup() {
@@ -71,7 +71,7 @@ export default defineWebApplication({
       icon: 'upload',
       extensions: [
         {
-          extension: fileExtension,
+          extension: FILE_EXTENSION,
           type: 'folder',
           routeName: `${applicationId}-view`
         }

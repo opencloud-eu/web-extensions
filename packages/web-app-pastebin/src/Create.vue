@@ -95,7 +95,8 @@ import {
   PASTEBIN_BASE_PATH,
   MANIFEST_FILENAME,
   REVISIONS_DIR,
-  DEFAULT_FILENAME
+  DEFAULT_FILENAME,
+  FILE_EXTENSION
 } from './utils'
 
 const { $gettext } = useGettext()
@@ -158,7 +159,7 @@ const save = async () => {
     await ensurePastebinFolders(webdav, spacesStore.personalSpace)
 
     const slug = title.value.trim() ? `-${slugify(title.value)}` : ''
-    const folderPath = urlJoin(PASTEBIN_BASE_PATH, `${timestamp}${slug}.ocpb`)
+    const folderPath = urlJoin(PASTEBIN_BASE_PATH, `${timestamp}${slug}.${FILE_EXTENSION}`)
 
     try {
       await webdav.createFolder(spacesStore.personalSpace, { path: folderPath })

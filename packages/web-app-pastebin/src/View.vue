@@ -119,6 +119,7 @@ import {
   loadManifest,
   loadRevisionFiles,
   scrollToFile,
+  FILE_EXTENSION,
   type PastebinManifest
 } from './utils'
 import { useDeletePastebin } from './composables/useDeletePastebin'
@@ -156,12 +157,12 @@ const folderName = computed(() => {
   const link = publicLink.value
   if (link?.displayName) return link.displayName
 
-  // Parse title from folder name (.ocpb)
+  // Parse title from folder name (.pastebin)
   const name = currentFolder.value?.name || resource.name || ''
   const { title } = parsePastebinName(name)
   if (title) return title
 
-  return name.replace(/\.ocpb$/, '') || $gettext('Pastebin')
+  return name.replace(`.${FILE_EXTENSION}`, '') || $gettext('Pastebin')
 })
 
 const editRoute = computed(() => {
@@ -237,7 +238,7 @@ onMounted(async () => {
     loading.value = true
     const { webdav } = clientService
 
-    // Load root of .ocpb folder
+    // Load root of .pastebin folder
     const { resource: folder, children } = await webdav.listFiles(space, {
       path: resource.path
     })
