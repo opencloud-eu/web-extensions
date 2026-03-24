@@ -9,7 +9,7 @@ variables:
   - &oc_image 'opencloudeu/opencloud-rolling:5.2.0@sha256:c840de29b7287da070ffc9d5eb52a1b291a046877402bf70f387ccf56c820aee'
   - &alpine_image 'quay.io/opencloudeu/nodejs-alpine-ci:24@sha256:e336ffb29650e09ed07cbc6c94de18da6e83a1777e4fa28252729124775f1c48'
   - &minio_mc_image 'minio/mc:RELEASE.2021-10-07T04-19-58Z@sha256:a1d9629e969a55e5b957dc7656c3ee893a95cf6c5733223fa0283b1f23f7142e'
-  - &tika_image 'apache/tika:3.2.3.0@sha256:c0154cb95587cde64be74f35ada1a2bd7892219f3f0ac3c9dc6cab34046b3573'
+  - &tika_image 'apache/tika:3.3.0.0@sha256:2a565f1ea1290bdcb74a7d35957d16a989ed44ef98790dcdcc28121d728fa583'
 
 services:
   - name: tika
