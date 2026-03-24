@@ -4,4 +4,4 @@
 
 ### ✨ Features
 
-- Create app [[#268](https://github.com/opencloud-eu/web-extensions/pull/268)]
+- Add an app for creating and sharing text snippets and files [[#268](https://github.com/opencloud-eu/web-extensions/pull/268)]
