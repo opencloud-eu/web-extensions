@@ -17,6 +17,7 @@ Extensions are provided by apps. These are the apps, that are provided by this r
 - [web-app-json-viewer](./packages/web-app-json-viewer/)
 - [web-app-maps](./packages/web-app-maps/)
 - [web-app-notes](./packages/web-app-notes/)
+- [web-app-pastebin](./packages/web-app-pastebin/)
 - [web-app-progress-bars](./packages/web-app-progress-bars/)
 - [web-app-unzip](./packages/web-app-unzip/)
 
