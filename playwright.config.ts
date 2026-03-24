@@ -122,6 +122,26 @@ export default defineConfig({
       name: 'app-maps-webkit',
       testDir: './packages/web-app-maps/tests/e2e',
       use: { ...devices['Desktop Safari'], browserName: 'webkit', ignoreHTTPSErrors: true }
+    },
+    {
+      name: 'pastebin-chromium',
+      testDir: './packages/web-app-pastebin/tests/e2e',
+      use: {
+        ...devices['Desktop Chrome'],
+        browserName: 'chromium',
+        ignoreHTTPSErrors: true,
+        permissions: ['clipboard-read', 'clipboard-write']
+      }
+    },
+    {
+      name: 'pastebin-firefox',
+      testDir: './packages/web-app-pastebin/tests/e2e',
+      use: { ...devices['Desktop Firefox'], browserName: 'firefox', ignoreHTTPSErrors: true }
+    },
+    {
+      name: 'pastebin-webkit',
+      testDir: './packages/web-app-pastebin/tests/e2e',
+      use: { ...devices['Desktop Safari'], browserName: 'webkit', ignoreHTTPSErrors: true }
     }
 
     /* Test against mobile viewports. */

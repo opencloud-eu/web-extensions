@@ -273,6 +273,28 @@ importers:
         specifier: ^4.3.0
         version: 4.3.6
 
+  packages/web-app-pastebin:
+    dependencies:
+      highlight.js:
+        specifier: ^11.11.0
+        version: 11.11.1
+    devDependencies:
+      '@opencloud-eu/web-client':
+        specifier: ^6.0.0
+        version: 6.0.0
+      '@opencloud-eu/web-pkg':
+        specifier: ^6.0.0
+        version: 6.0.0(@vue/compiler-sfc@3.5.29)(typescript@5.9.3)(vue@3.5.29(typescript@5.9.3))
+      '@vueuse/core':
+        specifier: ^14.0.0
+        version: 14.2.1(vue@3.5.29(typescript@5.9.3))
+      vue:
+        specifier: ^3.4.21
+        version: 3.5.29(typescript@5.9.3)
+      vue3-gettext:
+        specifier: ^4.0.0-beta.1
+        version: 4.0.0-beta.1(@vue/compiler-sfc@3.5.29)(vue@3.5.29(typescript@5.9.3))
+
   packages/web-app-progress-bars:
     devDependencies:
       '@opencloud-eu/web-pkg':
@@ -2213,6 +2235,10 @@ packages:
   hasown@2.0.2:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
+
+  highlight.js@11.11.1:
+    resolution: {integrity: sha512-Xwwo44whKBVCYoliBQwaPvtd/2tYFkRQtXDWj1nackaV2JPXx3L0+Jvd8/qCJ2p+ML0/XVkJ2q+Mr+UVdpJK5w==}
+    engines: {node: '>=12.0.0'}
 
   hookable@5.5.3:
     resolution: {integrity: sha512-Yc+BQe8SvoXH1643Qez1zqLRmbA5rCL+sSmk6TVos0LWVfNIB7PGncdlId77WzLGSIB5KaWgTaNTs2lNVEI6VQ==}
@@ -5470,6 +5496,8 @@ snapshots:
   hasown@2.0.2:
     dependencies:
       function-bind: 1.1.2
+
+  highlight.js@11.11.1: {}
 
   hookable@5.5.3: {}
 
