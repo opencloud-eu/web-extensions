@@ -51,6 +51,7 @@ steps:
       api_key:
         from_secret: github_token
       title: ${CI_COMMIT_TAG%-v*} ${CI_COMMIT_TAG##*-v}
+      note: 'Please refer to [CHANGELOG.md](https://github.com/opencloud-eu/web-extensions/blob/main/packages/web-app-${CI_COMMIT_TAG%-v*}/CHANGELOG.md) for the list of changes.'
       overwrite: true
       env_file: /woodpecker/github/.env
       files:
