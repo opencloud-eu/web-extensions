@@ -224,7 +224,7 @@ importers:
         version: 6.0.0(@vue/compiler-sfc@3.5.30)(typescript@5.9.3)(vue@3.5.30(typescript@5.9.3))
       '@protomaps/basemaps':
         specifier: ^5.7.0
-        version: 5.7.0
+        version: 5.7.2
       '@tmcw/togeojson':
         specifier: ^6.0.0
         version: 6.0.1(@types/geojson@7946.0.16)(@xmldom/xmldom@0.9.8)
@@ -976,8 +976,8 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  '@protomaps/basemaps@5.7.0':
-    resolution: {integrity: sha512-vIInnzVSxHuOcvj1BFGkCjlFxG/9a1GV23t98kGEVcPUM7aEqTnf6loUHTRJYX5eCz+WCO16N0aibr1SLg830Q==}
+  '@protomaps/basemaps@5.7.2':
+    resolution: {integrity: sha512-K1Yk6bWdULulYg+R2QRVXx4NzJZan5YQhpejEG0c1/sXruJrfPIPZuakpf3jwAgVmjIRVQwAv+yRafDeN0aaUQ==}
     hasBin: true
 
   '@replit/codemirror-indentation-markers@6.5.3':
@@ -4221,7 +4221,7 @@ snapshots:
     dependencies:
       playwright: 1.58.2
 
-  '@protomaps/basemaps@5.7.0': {}
+  '@protomaps/basemaps@5.7.2': {}
 
   '@replit/codemirror-indentation-markers@6.5.3(@codemirror/language@6.12.1)(@codemirror/state@6.5.4)(@codemirror/view@6.39.15)':
     dependencies:
