@@ -19,3 +19,6 @@ docker-compose.override.yml
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# module federation temp files
+.__mf__temp/
