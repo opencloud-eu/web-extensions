@@ -316,8 +316,8 @@ importers:
   packages/web-app-unzip:
     dependencies:
       '@zip.js/zip.js':
-        specifier: 2.8.23
-        version: 2.8.23
+        specifier: 2.8.26
+        version: 2.8.26
     devDependencies:
       '@opencloud-eu/web-client':
         specifier: ^6.0.0
@@ -1612,9 +1612,10 @@ packages:
   '@xmldom/xmldom@0.9.8':
     resolution: {integrity: sha512-p96FSY54r+WJ50FIOsCOjyj/wavs8921hG5+kVMmZgKcvIKxMXHTrjNJvRgWa/zuX3B6t2lijLNFaOyuxUH+2A==}
     engines: {node: '>=14.6'}
+    deprecated: this version has critical issues, please update to the latest version
 
-  '@zip.js/zip.js@2.8.23':
-    resolution: {integrity: sha512-RB+RLnxPJFPrGvQ9rgO+4JOcsob6lD32OcF0QE0yg24oeW9q8KnTTNlugcDaIveEcCbclobJcZP+fLQ++sH0bw==}
+  '@zip.js/zip.js@2.8.26':
+    resolution: {integrity: sha512-RQ4h9F6DOiHxpdocUDrOl6xBM+yOtz+LkUol47AVWcfebGBDpZ7w7Xvz9PS24JgXvLGiXXzSAfdCdVy1tPlaFA==}
     engines: {bun: '>=0.7.0', deno: '>=1.0.0', node: '>=18.0.0'}
 
   abbrev@2.0.0:
@@ -5048,7 +5049,7 @@ snapshots:
 
   '@xmldom/xmldom@0.9.8': {}
 
-  '@zip.js/zip.js@2.8.23': {}
+  '@zip.js/zip.js@2.8.26': {}
 
   abbrev@2.0.0: {}
 
