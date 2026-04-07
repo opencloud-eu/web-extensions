@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.0.0](https://github.com/opencloud-eu/web-extensions/releases/tag/draw-io-v2.0.0) - 2026-04-07
+
+### Breaking changes
+
+- The extension is now bundled as ESM instead of AMD and only loads with OpenCloud versions >= 6.
+
 ## [1.0.1](https://github.com/opencloud-eu/web-extensions/releases/tag/draw-io-v1.0.1) - 2025-10-01
 
 ### 🐛 Bug Fixes
