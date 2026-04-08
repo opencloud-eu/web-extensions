@@ -58,6 +58,7 @@ import {
 } from '@opencloud-eu/web-pkg'
 import { unref } from 'vue'
 import { useGettext } from 'vue3-gettext'
+import { flattenTocNodes } from '../util'
 
 const { node } = defineProps<{
   node: TocNode
@@ -101,7 +102,8 @@ const getFolderMenuSections = (node: TocNode): MenuSection[] => {
 }
 
 const itemCount = (node: TocNode) => {
-  return node.children?.length || 0
+  const originalNode = flattenTocNodes(tocStore.tocNodes || []).find((n) => n.resource.id === node.resource.id)
+  return originalNode?.children?.length || 0
 }
 </script>
 

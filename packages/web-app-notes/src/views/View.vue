@@ -155,6 +155,14 @@ const { notebook } = storeToRefs(notebookStore)
 const { tocNodes } = storeToRefs(tocStore)
 const { loadToc } = useLoadToc()
 watchEffect(async () => {
+  if (
+    notebookStore.space?.id === space?.id &&
+    notebookStore.notebook?.id === resource?.id &&
+    tocStore.isLoaded
+  ) {
+    return
+  }
+
   folderStore.clearActiveFolder()
   notebookStore.setNotebook(space, resource)
   await loadToc()
