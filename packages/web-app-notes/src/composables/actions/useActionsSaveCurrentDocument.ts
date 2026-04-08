@@ -2,7 +2,7 @@ import { TocNode } from '../../types'
 import { FileAction, useClientService, useMessages, useUserStore } from '@opencloud-eu/web-pkg'
 import { useGettext } from 'vue3-gettext'
 import { useTask } from 'vue-concurrency'
-import { useDocumentStore, useNotebookStore } from '../stores'
+import { useDocumentStore, useNotebookStore } from '../stores/index'
 import { storeToRefs } from 'pinia'
 import { unref } from 'vue'
 
@@ -20,23 +20,28 @@ export const useActionsSaveCurrentDocument = (node?: TocNode) => {
     newContent: string,
     onSuccessCallback?: () => void
   ) {
+    const currentResource = unref(documentResource)
+    if (!currentResource || !notebookStore.space) {
+      return
+    }
+
     try {
       const resource = yield webdav.putFileContents(notebookStore.space, {
-        fileName: unref(documentResource).name,
-        parentFolderId: unref(documentResource).parentFolderId,
-        path: unref(documentResource).path,
-        previousEntityTag: unref(documentResource).etag,
+        fileName: currentResource.name,
+        parentFolderId: currentResource.parentFolderId,
+        path: currentResource.path,
+        previousEntityTag: currentResource.etag,
         content: newContent,
         signal
       })
       documentStore.setDocument(resource, newContent)
       showMessage({
-        title: $gettext('»%{name}« was saved successfully', { name: unref(documentResource).name })
+        title: $gettext('»%{name}« was saved successfully', { name: currentResource.name || 'Note' })
       })
       onSuccessCallback?.()
     } catch (e) {
       console.error('Failed to save the new page content', e)
-      showErrorMessage({ title: $gettext('Failed to save document'), errors: [e] })
+      showErrorMessage({ title: $gettext('Failed to save document'), errors: [e as Error] })
     }
   }).drop()
   const savePage = async (onSuccessCallback?: () => void) => {

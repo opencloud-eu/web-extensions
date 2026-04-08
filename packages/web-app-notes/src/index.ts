@@ -1,3 +1,4 @@
+import './index.css'
 import '@opencloud-eu/extension-sdk/tailwind.css'
 import {
   defineWebApplication,
@@ -16,6 +17,9 @@ import View from './views/View.vue'
 export default defineWebApplication({
   setup() {
     const { $gettext } = useGettext()
+    const appName = $gettext('Notes')
+    const appColor = 'var(--oc-color-icon-notes)'
+    const appIcon = 'sticky-note'
 
     const routes = [
       {
@@ -40,10 +44,10 @@ export default defineWebApplication({
     ]
 
     const appInfo: ApplicationInformation = {
-      name: $gettext('Notes'),
+      name: appName,
       id: appId,
-      icon: 'sticky-note',
-      color: 'var(--oc-color-icon-notes)',
+      icon: appIcon,
+      color: appColor,
       extensions: [
         {
           extension: fileExtensionNotes,
@@ -63,11 +67,11 @@ export default defineWebApplication({
         {
           id: `app.${appInfo.id}.menuItem`,
           type: 'appMenuItem',
-          label: () => appInfo.name,
-          color: appInfo.color,
-          icon: appInfo.icon,
+          label: () => appName,
+          color: appColor,
+          icon: appIcon,
           priority: 20,
-          path: urlJoin(appInfo.id)
+          path: urlJoin(appId)
         }
       ]
     })

@@ -1,5 +1,6 @@
 import { useModals } from '@opencloud-eu/web-pkg'
 import { useGettext } from 'vue3-gettext'
+import TextInputModal from '../components/TextInputModal.vue'
 
 export const useAskForResourceName = () => {
   const { $gettext } = useGettext()
@@ -13,12 +14,16 @@ export const useAskForResourceName = () => {
     return new Promise((resolve) => {
       dispatchModal({
         title,
-        confirmText: $gettext('Create'),
-        hasInput: true,
-        inputValue: defaultValue,
-        inputLabel: label,
-        inputRequiredMark: true,
-        onConfirm: (value: string) => resolve(value),
+        customComponent: TextInputModal,
+        hideActions: true,
+        customComponentAttrs: () => ({
+          defaultValue,
+          label,
+          placeholder: label,
+          confirmText: $gettext('Create'),
+          actionCallback: (value: string) => resolve(value),
+          cancelCallback: () => resolve(null)
+        }),
         onCancel: () => resolve(null)
       })
     })

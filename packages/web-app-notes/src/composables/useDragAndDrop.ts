@@ -1,5 +1,5 @@
 import { TocNode } from '../types'
-import { useNotebookStore, useTocStore } from './stores'
+import { useNotebookStore, useTocStore } from './stores/index'
 import { useClientService, useMessages } from '@opencloud-eu/web-pkg'
 import { useGettext } from 'vue3-gettext'
 import { urlJoin } from '@opencloud-eu/web-client'
@@ -24,7 +24,7 @@ export const useDragAndDrop = () => {
     clone.style.left = '-1000px'
     clone.style.pointerEvents = 'none'
     clone.style.width = rect.width + 'px'
-    clone.style.background = 'rgba(255, 255, 255, 0.9)'
+    clone.style.background = 'var(--oc-color-role-surface, #ffffff)'
     clone.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)'
     document.body.appendChild(clone)
     const offsetX = Math.round(ev.clientX - rect.left)
@@ -86,14 +86,12 @@ export const useDragAndDrop = () => {
         return
       }
 
-      // no-op if already in target folder
       const sourceParentPath = urlJoin(...sourceNode.resource.path.split('/').slice(0, -1))
       const targetPath = urlJoin(targetNode.resource.path)
       if (sourceParentPath === targetPath) {
         return
       }
 
-      // error if moving a folder into itself
       if (
         sourceNode.resource.isFolder &&
         targetNode.resource.path.startsWith(sourceNode.resource.path)
@@ -114,10 +112,9 @@ export const useDragAndDrop = () => {
       )
 
       showMessage({ title: $gettext('Moved »%{name}«', { name: sourceNode.resource.name }) })
-      // note: ToC gets reloaded via SSE event
     } catch (e) {
       console.error(e)
-      showErrorMessage({ title: $gettext('Failed to move item'), errors: [e] })
+      showErrorMessage({ title: $gettext('Failed to move item'), errors: [e as Error] })
     } finally {
       onDragEnd()
     }
@@ -150,7 +147,6 @@ export const useDragAndDrop = () => {
         return
       }
 
-      // no-op if already in root
       const parentFolderPath = urlJoin(...sourceNode.resource.path.split('/').slice(0, -1))
       const rootFolderPath = urlJoin(notebookStore.notebook?.path)
       if (parentFolderPath === rootFolderPath) {
@@ -171,10 +167,9 @@ export const useDragAndDrop = () => {
       showMessage({
         title: $gettext('Moved »%{name}« to root', { name: sourceNode.resource.name })
       })
-      // note: ToC gets reloaded via SSE event
     } catch (e) {
       console.error(e)
-      showErrorMessage({ title: $gettext('Failed to move item'), errors: [e] })
+      showErrorMessage({ title: $gettext('Failed to move item'), errors: [e as Error] })
     } finally {
       onDragEnd()
     }

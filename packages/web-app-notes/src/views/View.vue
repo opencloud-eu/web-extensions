@@ -1,28 +1,112 @@
 <template>
-  <main class="ext:flex ext:size-full ext:rounded-l-xl">
+  <main class="notes-shell ext:min-h-full ext:p-4 md:ext:p-6">
     <AppLoadingSpinner v-if="isLoading" />
+
     <template v-else>
-      <TocWrapper class="ext:w-sm ext:min-w-[14rem] ext:max-w-[20rem] ext:px-4" />
-      <div class="ext:w-full">
-        <NoPageSelected v-if="!documentResource" />
-        <TextEditor
-          v-else
-          :resource="documentResource"
-          :current-content="documentContent"
-          :is-read-only="isReadOnly"
-          :application-config="{}"
-          @update:current-content="setDocumentContent"
-        />
-      </div>
+      <section class="notes-layout">
+        <header class="notes-hero ext:rounded-[2rem] ext:p-5 md:ext:p-6">
+          <div class="notes-hero__layout">
+            <div class="notes-hero__content ext:max-w-3xl">
+              <div class="notes-hero__eyebrow">
+                <oc-icon name="sticky-note" fill-type="line" size="small" />
+                <span>{{ $gettext('Notes workspace') }}</span>
+              </div>
+
+              <h1 class="ext:mt-4 ext:mb-2 ext:text-3xl ext:leading-tight md:ext:text-4xl">
+                {{ notebookTitle }}
+              </h1>
+              <p class="notes-hero__copy ext:mb-0 ext:text-base md:ext:text-lg">
+                {{
+                  $gettext(
+                    'Markdown pages, nested sections and file-native structure. Fast enough for working notes, boring enough to stay maintainable.'
+                  )
+                }}
+              </p>
+            </div>
+
+            <div class="notes-hero__search">
+              <oc-text-input
+                v-model="filterTerm"
+                :label="$gettext('Search notes')"
+                :clear-button-enabled="true"
+                :fix-message-line="true"
+                :placeholder="$gettext('Find a note by title')"
+              />
+              <p class="notes-hero__summary ext:mt-2 ext:mb-0 ext:text-sm">
+                {{ searchSummary }}
+              </p>
+            </div>
+          </div>
+
+          <div class="notes-hero__stats ext:mt-5">
+            <div class="notes-stat-chip">
+              <span class="notes-stat-chip__value">{{ noteCount }}</span>
+              <span>{{ $gettext('pages') }}</span>
+            </div>
+            <div class="notes-stat-chip">
+              <span class="notes-stat-chip__value">{{ folderCount }}</span>
+              <span>{{ $gettext('sections') }}</span>
+            </div>
+            <div class="notes-stat-chip" :class="{ 'notes-stat-chip--dirty': isDocumentDirty }">
+              <span class="notes-stat-chip__value">{{ statusLabel }}</span>
+              <span>{{ $gettext('editor state') }}</span>
+            </div>
+          </div>
+        </header>
+
+        <div class="notes-workspace">
+          <oc-card class="notes-panel notes-panel--sidebar bg-role-surface-container ext:border">
+            <FolderSidebar class="ext:h-full" />
+          </oc-card>
+
+          <oc-card class="notes-panel notes-panel--middle bg-role-surface-container ext:border">
+            <NoteListSidebar class="ext:h-full" :filter-term="filterTerm" />
+          </oc-card>
+
+          <oc-card class="notes-panel notes-panel--editor bg-role-surface-container ext:border">
+            <div class="notes-editor">
+              <div class="notes-editor__header ext:px-5 ext:py-4 md:ext:px-6">
+                <div class="notes-editor__header-layout">
+                  <div class="ext:min-w-0">
+                    <p class="notes-editor__eyebrow ext:mb-2">{{ $gettext('Current page') }}</p>
+                    <h2 class="ext:my-0 ext:truncate ext:text-2xl">{{ documentTitle }}</h2>
+                    <p class="notes-editor__subcopy ext:mt-2 ext:mb-0">
+                      {{ documentSubtitle }}
+                    </p>
+                  </div>
+
+                  <span class="notes-status-pill" :class="{ 'notes-status-pill--dirty': isDocumentDirty }">
+                    {{ statusLabel }}
+                  </span>
+                </div>
+              </div>
+
+              <div class="ext:min-h-0 ext:flex-1 ext:overflow-hidden">
+                <NoPageSelected v-if="!documentResource" :filter-term="filterTerm" :note-count="noteCount" />
+                <TextEditor
+                  v-else
+                  :resource="documentResource"
+                  :current-content="documentContent"
+                  :is-read-only="isReadOnly"
+                  :application-config="{}"
+                  @update:current-content="setDocumentContent"
+                />
+              </div>
+            </div>
+          </oc-card>
+        </div>
+      </section>
     </template>
   </main>
 </template>
 
 <script setup lang="ts">
+import FolderSidebar from '../components/FolderSidebar.vue'
 import NoPageSelected from '../components/NoPageSelected.vue'
-import TocWrapper from '../components/TocWrapper.vue'
-import { Resource, SpaceResource } from '@opencloud-eu/web-client'
-import { computed, onBeforeUnmount, onMounted, unref, watchEffect } from 'vue'
+import NoteListSidebar from '../components/NoteListSidebar.vue'
+import { extractNameWithoutExtension, Resource, SpaceResource } from '@opencloud-eu/web-client'
+import { storeToRefs } from 'pinia'
+import { computed, onBeforeUnmount, onMounted, ref, unref, watchEffect } from 'vue'
 import {
   AppLoadingSpinner,
   // @ts-ignore
@@ -37,13 +121,14 @@ import {
 import {
   useActionsSaveCurrentDocument,
   useDocumentStore,
+  useFolderStore,
   useLoadToc,
   useNotebookStore,
   useSSE,
   useTocStore
 } from '../composables'
-import { storeToRefs } from 'pinia'
 import { useGettext } from 'vue3-gettext'
+import { countFolders, countNotes, getResourceLabel, searchNoteNodes } from '../util'
 
 const { $gettext } = useGettext()
 const { webdav } = useClientService()
@@ -64,9 +149,13 @@ const {
 }>()
 
 const notebookStore = useNotebookStore()
+const folderStore = useFolderStore()
 const tocStore = useTocStore()
+const { notebook } = storeToRefs(notebookStore)
+const { tocNodes } = storeToRefs(tocStore)
 const { loadToc } = useLoadToc()
 watchEffect(async () => {
+  folderStore.clearActiveFolder()
   notebookStore.setNotebook(space, resource)
   await loadToc()
 })
@@ -81,10 +170,60 @@ const pageFileId = computed(() => {
 const documentStore = useDocumentStore()
 const { setDocumentContent } = documentStore
 const { documentResource, documentContent, isDocumentDirty } = storeToRefs(documentStore)
+const filterTerm = ref('')
+
+const notebookTitle = computed(() => {
+  return notebook.value ? getResourceLabel(notebook.value) : $gettext('Notes')
+})
+
+const noteCount = computed(() => countNotes(unref(tocNodes) || []))
+const folderCount = computed(() => countFolders(unref(tocNodes) || []))
+const searchMatchCount = computed(() => searchNoteNodes(unref(tocNodes) || [], unref(filterTerm)).length)
+
+const searchSummary = computed(() => {
+  if (unref(filterTerm).trim()) {
+    return $gettext('%{count} matching pages', { count: searchMatchCount.value })
+  }
+
+  return $gettext('%{notes} pages across %{folders} sections', {
+    notes: noteCount.value,
+    folders: folderCount.value
+  })
+})
+
+const documentTitle = computed(() => {
+  if (!unref(documentResource)) {
+    return $gettext('Nothing open yet')
+  }
+
+  return extractNameWithoutExtension(unref(documentResource))
+})
+
+const documentSubtitle = computed(() => {
+  if (!unref(documentResource)) {
+    if (unref(filterTerm).trim()) {
+      return $gettext('Use the search results in the navigator to jump straight into a page.')
+    }
+
+    return $gettext('Select a page from the navigator or create a new note to begin writing.')
+  }
+
+  return $gettext('Markdown page inside %{name}', { name: notebookTitle.value })
+})
+
+const statusLabel = computed(() => {
+  if (!unref(documentResource)) {
+    return $gettext('Ready')
+  }
+
+  return unref(isDocumentDirty) ? $gettext('Unsaved') : $gettext('Saved')
+})
+
 watchEffect(async () => {
   if (!unref(pageFileId)) {
     return
   }
+
   const path = await webdav.getPathForFileId(unref(pageFileId))
   const [resource, content] = await Promise.all([
     webdav.getFileInfo(space, { fileId: unref(pageFileId), path }),
@@ -103,7 +242,6 @@ const preventBrowserClose = (e: Event) => {
 onMounted(() => {
   registerSSE()
 
-  // register document-content safeguards
   window.addEventListener('beforeunload', preventBrowserClose)
   unregisterRouterGuard = router.beforeEach((_to, _from, next) => {
     if (unref(isDocumentDirty)) {
@@ -127,18 +265,185 @@ onMounted(() => {
       })
       return
     }
+
     next()
   })
 })
 
 onBeforeUnmount(() => {
+  folderStore.clearActiveFolder()
   notebookStore.clearNotebook()
   tocStore.clearTocNodes()
   documentStore.clearDocument()
   deregisterSSE()
 
-  // unregister document-content safeguards
   unregisterRouterGuard?.()
   window.removeEventListener('beforeunload', preventBrowserClose)
 })
 </script>
+
+<style scoped>
+.notes-shell {
+  min-height: 100%;
+  overflow: auto;
+  background:
+    radial-gradient(circle at top left, rgba(244, 187, 68, 0.14), transparent 28%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.03), transparent 34%);
+}
+
+.notes-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 100%;
+}
+
+.notes-hero,
+.notes-panel {
+  border-color: var(--oc-color-role-outline-variant, #d7dde5);
+}
+
+.notes-hero {
+  background:
+    linear-gradient(135deg, rgba(244, 187, 68, 0.08), rgba(37, 99, 235, 0.05) 42%, transparent 72%),
+    var(--oc-color-role-surface-container, var(--oc-color-role-surface, transparent));
+  border: 1px solid var(--oc-color-role-outline-variant, #d7dde5);
+}
+
+.notes-hero__layout {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.notes-hero__search {
+  width: 100%;
+  max-width: 32rem;
+}
+
+.notes-hero__eyebrow,
+.notes-status-pill,
+.notes-stat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  border-radius: 999px;
+  border: 1px solid var(--oc-color-role-outline-variant, #d7dde5);
+  background: var(--oc-color-role-surface-container, var(--oc-color-interaction-hover));
+}
+
+.notes-hero__eyebrow {
+  padding: 0.45rem 0.85rem;
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.notes-hero__copy,
+.notes-hero__summary,
+.notes-editor__subcopy,
+.notes-editor__eyebrow {
+  color: var(--oc-color-role-on-surface-variant, rgba(15, 23, 42, 0.7));
+}
+
+.notes-hero__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.notes-workspace {
+  display: grid;
+  gap: 1rem;
+  align-items: start;
+}
+
+.notes-panel {
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.notes-panel--sidebar {
+  max-height: min(32rem, 48vh);
+}
+
+.notes-panel--editor {
+  min-height: clamp(20rem, 44vh, 34rem);
+}
+
+.notes-editor {
+  display: flex;
+  height: 100%;
+  min-height: inherit;
+  flex-direction: column;
+}
+
+.notes-stat-chip {
+  padding: 0.5rem 0.85rem;
+  font-size: 0.85rem;
+}
+
+.notes-stat-chip__value {
+  font-weight: 800;
+}
+
+.notes-stat-chip--dirty,
+.notes-status-pill--dirty {
+  background: rgba(244, 187, 68, 0.18);
+}
+
+.notes-editor__header {
+  border-bottom: 1px solid var(--oc-color-role-outline-variant, #d7dde5);
+}
+
+.notes-editor__eyebrow {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.notes-editor__header-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.notes-status-pill {
+  padding: 0.5rem 0.8rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+@media (min-width: 48rem) {
+  .notes-editor__header-layout {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 64rem) {
+  .notes-layout {
+    height: 100%;
+  }
+
+  .notes-hero__layout {
+    grid-template-columns: minmax(0, 1fr) minmax(20rem, 24rem);
+    align-items: end;
+  }
+
+  .notes-workspace {
+    flex: 1 1 auto;
+    min-height: 0;
+    grid-template-columns: minmax(14rem, 18rem) minmax(16rem, 22rem) minmax(0, 1fr);
+    align-items: stretch;
+  }
+
+  .notes-panel--sidebar,
+  .notes-panel--middle,
+  .notes-panel--editor {
+    max-height: none;
+    min-height: 0;
+  }
+}
+</style>

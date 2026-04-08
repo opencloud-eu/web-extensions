@@ -17,11 +17,11 @@ export const useTocStore = defineStore('toc', () => {
   }
   const addTocNode = (node: TocNode, parentNode?: TocNode) => {
     if (parentNode) {
-      // FIXME: we should find the parentNode in the tocNodes ref instead of mutating the parentNode
-      // (as it might be a copy of the original node)
+      parentNode.children = parentNode.children || []
       parentNode.children.push(node)
       parentNode.children.sort(sortTocNodes)
     } else {
+      tocNodes.value = tocNodes.value || []
       tocNodes.value.push(node)
       tocNodes.value.sort(sortTocNodes)
     }
@@ -57,8 +57,6 @@ export const useTocStore = defineStore('toc', () => {
   }
 
   const toggleNodeCollapse = (node: TocNode) => {
-    // FIXME: we should find the node in the tocNodes ref instead of mutating the node
-    // (as it might be a copy of the original node)
     node.collapsed = !node.collapsed
   }
 
