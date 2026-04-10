@@ -43,9 +43,6 @@
   "pnpm": {
     "patchedDependencies": {
       "@opencloud-eu/extension-sdk": "patches/@opencloud-eu__extension-sdk@6.1.0.patch"
-    },
-    "overrides": {
-      "@xmldom/xmldom": "^0.9.9"
     }
   }
 }

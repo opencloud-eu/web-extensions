@@ -18,7 +18,6 @@
   "dependencies": {
     "@protomaps/basemaps": "^5.7.0",
     "@tmcw/togeojson": "^6.0.0",
-    "@xmldom/xmldom": "^0.9.9",
     "maplibre-gl": "^5.1.1",
     "pmtiles": "^4.0.1",
     "zod": "^4.0.17"
