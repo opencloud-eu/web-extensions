@@ -24,7 +24,7 @@ export const useDragAndDrop = () => {
     clone.style.left = '-1000px'
     clone.style.pointerEvents = 'none'
     clone.style.width = rect.width + 'px'
-    clone.style.background = 'var(--oc-color-role-surface, #ffffff)'
+    clone.style.background = 'var(--oc-role-surface, #ffffff)'
     clone.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)'
     document.body.appendChild(clone)
     const offsetX = Math.round(ev.clientX - rect.left)

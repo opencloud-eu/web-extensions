@@ -63,10 +63,10 @@ const message = computed(() => {
   gap: 1rem;
   padding: 1.5rem;
   border-radius: 1.6rem;
-  border: 1px solid var(--oc-color-role-outline-variant, #d7dde5);
+  border: 1px solid var(--oc-role-outline-variant, #d7dde5);
   background:
     linear-gradient(135deg, rgba(244, 187, 68, 0.12), rgba(37, 99, 235, 0.04) 55%, transparent),
-    var(--oc-color-role-surface-container, var(--oc-color-role-surface, transparent));
+    var(--oc-role-surface-container, var(--oc-role-surface, transparent));
 }
 
 .notes-empty__icon {
@@ -81,6 +81,6 @@ const message = computed(() => {
 }
 
 .notes-empty__copy {
-  color: var(--oc-color-role-on-surface-variant, rgba(15, 23, 42, 0.7));
+  color: var(--oc-role-on-surface-variant, rgba(15, 23, 42, 0.7));
 }
 </style>

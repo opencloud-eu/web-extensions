@@ -62,7 +62,7 @@
       </oc-card>
 
       <oc-card class="notes-overview__card bg-role-surface-container ext:border">
-        <oc-icon name="article" fill-type="line" size="large" color="var(--oc-color-role-primary, #2563eb)" />
+        <oc-icon name="article" fill-type="line" size="large" color="var(--oc-role-primary, #2563eb)" />
         <h3 class="ext:mb-2 ext:mt-4">{{ $gettext('Markdown first') }}</h3>
         <p class="notes-overview__muted ext:my-0">
           {{
@@ -74,7 +74,7 @@
       </oc-card>
 
       <oc-card class="notes-overview__card bg-role-surface-container ext:border">
-        <oc-icon name="search" fill-type="line" size="large" color="var(--oc-color-role-primary, #2563eb)" />
+        <oc-icon name="search" fill-type="line" size="large" color="var(--oc-role-primary, #2563eb)" />
         <h3 class="ext:mb-2 ext:mt-4">{{ $gettext('Fast retrieval') }}</h3>
         <p class="notes-overview__muted ext:my-0">
           {{
@@ -111,10 +111,10 @@ const { $gettext } = useGettext()
 }
 
 .notes-overview__hero {
-  border: 1px solid var(--oc-color-role-outline-variant, #d7dde5);
+  border: 1px solid var(--oc-role-outline-variant, #d7dde5);
   background:
     linear-gradient(135deg, rgba(244, 187, 68, 0.08), rgba(37, 99, 235, 0.04) 45%, transparent 72%),
-    var(--oc-color-role-surface-container, var(--oc-color-role-surface, transparent));
+    var(--oc-role-surface-container, var(--oc-role-surface, transparent));
 }
 
 .notes-overview__eyebrow {
@@ -123,20 +123,20 @@ const { $gettext } = useGettext()
   gap: 0.5rem;
   padding: 0.5rem 0.85rem;
   border-radius: 999px;
-  border: 1px solid var(--oc-color-role-outline-variant, #d7dde5);
-  background: var(--oc-color-role-surface-container, var(--oc-color-interaction-hover));
+  border: 1px solid var(--oc-role-outline-variant, #d7dde5);
+  background: var(--oc-role-surface-container, var(--oc-color-interaction-hover));
   font-size: 0.85rem;
   font-weight: 600;
 }
 
 .notes-overview__lede,
 .notes-overview__muted {
-  color: var(--oc-color-role-on-surface-variant, rgba(15, 23, 42, 0.7));
+  color: var(--oc-role-on-surface-variant, rgba(15, 23, 42, 0.7));
 }
 
 .notes-overview__aside,
 .notes-overview__card {
-  border-color: var(--oc-color-role-outline-variant, #d7dde5);
+  border-color: var(--oc-role-outline-variant, #d7dde5);
 }
 
 .notes-overview__label,
@@ -146,7 +146,7 @@ const { $gettext } = useGettext()
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--oc-color-role-on-surface-variant, rgba(15, 23, 42, 0.7));
+  color: var(--oc-role-on-surface-variant, rgba(15, 23, 42, 0.7));
 }
 
 .notes-overview__stack {
@@ -159,8 +159,8 @@ const { $gettext } = useGettext()
   gap: 0.45rem;
   padding: 1rem;
   border-radius: 1.1rem;
-  border: 1px solid var(--oc-color-role-outline-variant, #d7dde5);
-  background: var(--oc-color-role-surface-container);
+  border: 1px solid var(--oc-role-outline-variant, #d7dde5);
+  background: var(--oc-role-surface-container);
 }
 
 .notes-overview__stack-card--nested {

@@ -122,7 +122,7 @@ const itemCount = (node: TocNode) => {
 }
 
 .toc-item-wrapper:hover {
-  border-color: var(--oc-color-role-outline-variant, #d7dde5);
+  border-color: var(--oc-role-outline-variant, #d7dde5);
   background: var(--oc-color-interaction-hover);
 }
 
@@ -152,7 +152,7 @@ const itemCount = (node: TocNode) => {
   margin-right: 0.75rem;
   border-radius: 0.8rem;
   background: rgba(37, 99, 235, 0.08);
-  color: var(--oc-color-role-primary, #2563eb);
+  color: var(--oc-role-primary, #2563eb);
 }
 
 .folder-row__copy {
@@ -175,6 +175,6 @@ const itemCount = (node: TocNode) => {
 
 .folder-row__meta {
   font-size: 0.78rem;
-  color: var(--oc-color-role-on-surface-variant, rgba(15, 23, 42, 0.7));
+  color: var(--oc-role-on-surface-variant, rgba(15, 23, 42, 0.7));
 }
 </style>

@@ -298,14 +298,14 @@ onBeforeUnmount(() => {
 
 .notes-hero,
 .notes-panel {
-  border-color: var(--oc-color-role-outline-variant, #d7dde5);
+  border-color: var(--oc-role-outline-variant, #d7dde5);
 }
 
 .notes-hero {
   background:
     linear-gradient(135deg, rgba(244, 187, 68, 0.08), rgba(37, 99, 235, 0.05) 42%, transparent 72%),
-    var(--oc-color-role-surface-container, var(--oc-color-role-surface, transparent));
-  border: 1px solid var(--oc-color-role-outline-variant, #d7dde5);
+    var(--oc-role-surface-container, var(--oc-role-surface, transparent));
+  border: 1px solid var(--oc-role-outline-variant, #d7dde5);
 }
 
 .notes-hero__layout {
@@ -325,8 +325,8 @@ onBeforeUnmount(() => {
   align-items: center;
   gap: 0.55rem;
   border-radius: 999px;
-  border: 1px solid var(--oc-color-role-outline-variant, #d7dde5);
-  background: var(--oc-color-role-surface-container, var(--oc-color-interaction-hover));
+  border: 1px solid var(--oc-role-outline-variant, #d7dde5);
+  background: var(--oc-role-surface-container, var(--oc-color-interaction-hover));
 }
 
 .notes-hero__eyebrow {
@@ -339,7 +339,7 @@ onBeforeUnmount(() => {
 .notes-hero__summary,
 .notes-editor__subcopy,
 .notes-editor__eyebrow {
-  color: var(--oc-color-role-on-surface-variant, rgba(15, 23, 42, 0.7));
+  color: var(--oc-role-on-surface-variant, rgba(15, 23, 42, 0.7));
 }
 
 .notes-hero__stats {
@@ -390,7 +390,7 @@ onBeforeUnmount(() => {
 }
 
 .notes-editor__header {
-  border-bottom: 1px solid var(--oc-color-role-outline-variant, #d7dde5);
+  border-bottom: 1px solid var(--oc-role-outline-variant, #d7dde5);
 }
 
 .notes-editor__eyebrow {

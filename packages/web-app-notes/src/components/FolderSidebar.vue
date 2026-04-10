@@ -174,7 +174,7 @@ const displayedNotes = computed(() => {
 
 <style scoped>
 .notes-sidebar__header {
-  border-bottom: 1px solid var(--oc-color-role-outline-variant, #d7dde5);
+  border-bottom: 1px solid var(--oc-role-outline-variant, #d7dde5);
 }
 
 .notes-sidebar__eyebrow {
@@ -182,29 +182,29 @@ const displayedNotes = computed(() => {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--oc-color-role-on-surface-variant, rgba(15, 23, 42, 0.7));
+  color: var(--oc-role-on-surface-variant, rgba(15, 23, 42, 0.7));
 }
 
 .notes-sidebar__copy,
 .text-role-on-surface-variant {
   font-size: 0.85rem;
-  color: var(--oc-color-role-on-surface-variant, rgba(15, 23, 42, 0.7));
+  color: var(--oc-role-on-surface-variant, rgba(15, 23, 42, 0.7));
 }
 
 .notes-root-dropzone {
   margin-top: 1rem;
   padding: 1.5rem 1rem;
   border-radius: 1rem;
-  border: 2px dashed var(--oc-color-role-outline, #cbd5e1);
+  border: 2px dashed var(--oc-role-outline, #cbd5e1);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--oc-color-role-on-surface-variant, rgba(15, 23, 42, 0.7));
+  color: var(--oc-role-on-surface-variant, rgba(15, 23, 42, 0.7));
   transition: all 120ms ease;
 }
 
 .notes-root-dropzone--active {
-  border-color: var(--oc-color-role-primary, #2563eb);
+  border-color: var(--oc-role-primary, #2563eb);
   background: rgba(37, 99, 235, 0.05);
 }
 </style>

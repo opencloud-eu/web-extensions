@@ -111,7 +111,7 @@ const getFileMenuSections = (node: TocNode): MenuSection[] => {
 }
 
 .toc-item-wrapper:hover {
-  border-color: var(--oc-color-role-outline-variant, #d7dde5);
+  border-color: var(--oc-role-outline-variant, #d7dde5);
   background: var(--oc-color-interaction-hover);
 }
 
@@ -156,7 +156,7 @@ const getFileMenuSections = (node: TocNode): MenuSection[] => {
 
 .note-row__meta {
   font-size: 0.78rem;
-  color: var(--oc-color-role-on-surface-variant, rgba(15, 23, 42, 0.7));
+  color: var(--oc-role-on-surface-variant, rgba(15, 23, 42, 0.7));
 }
 
 .note-row__actions {
