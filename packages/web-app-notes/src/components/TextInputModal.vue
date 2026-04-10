@@ -1,5 +1,5 @@
 <template>
-  <div class="ext:p-6 ext:pt-2">
+  <div class="ext:pt-2">
     <oc-text-input
       v-model="internalValue"
       :label="label"
@@ -31,18 +31,18 @@ const props = defineProps<{
   cancelCallback: () => void
 }>()
 
-const { closeModal } = useModals()
+const { cancelModal } = useModals()
 const internalValue = ref(props.defaultValue)
 
 const submit = () => {
   if (internalValue.value.trim()) {
     props.actionCallback(internalValue.value.trim())
-    closeModal()
+    if (cancelModal) cancelModal()
   }
 }
 
 const cancel = () => {
   props.cancelCallback()
-  closeModal()
+  if (cancelModal) cancelModal()
 }
 </script>

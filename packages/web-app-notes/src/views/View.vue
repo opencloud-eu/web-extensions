@@ -4,18 +4,13 @@
 
     <template v-else>
       <section class="notes-layout">
-        <header class="notes-hero ext:rounded-[2rem] ext:p-5 md:ext:p-6">
+        <header class="notes-hero ext:rounded-2xl ext:p-4 md:ext:p-5">
           <div class="notes-hero__layout">
             <div class="notes-hero__content ext:max-w-3xl">
-              <div class="notes-hero__eyebrow">
-                <oc-icon name="sticky-note" fill-type="line" size="small" />
-                <span>{{ $gettext('Notes workspace') }}</span>
-              </div>
-
-              <h1 class="ext:mt-4 ext:mb-2 ext:text-3xl ext:leading-tight md:ext:text-4xl">
+              <h1 class="ext:mt-2 ext:mb-1 ext:text-2xl md:ext:text-3xl">
                 {{ notebookTitle }}
               </h1>
-              <p class="notes-hero__copy ext:mb-0 ext:text-base md:ext:text-lg">
+              <p class="notes-hero__copy ext:mb-0 ext:text-sm md:ext:text-base">
                 {{
                   $gettext(
                     'Markdown pages, nested sections and file-native structure. Fast enough for working notes, boring enough to stay maintainable.'
@@ -38,7 +33,7 @@
             </div>
           </div>
 
-          <div class="notes-hero__stats ext:mt-5">
+          <div class="notes-hero__stats ext:mt-4">
             <div class="notes-stat-chip">
               <span class="notes-stat-chip__value">{{ noteCount }}</span>
               <span>{{ $gettext('pages') }}</span>
@@ -56,11 +51,7 @@
 
         <div class="notes-workspace">
           <oc-card class="notes-panel notes-panel--sidebar bg-role-surface-container ext:border">
-            <FolderSidebar class="ext:h-full" />
-          </oc-card>
-
-          <oc-card class="notes-panel notes-panel--middle bg-role-surface-container ext:border">
-            <NoteListSidebar class="ext:h-full" :filter-term="filterTerm" />
+            <FolderSidebar class="ext:h-full" :filter-term="filterTerm" />
           </oc-card>
 
           <oc-card class="notes-panel notes-panel--editor bg-role-surface-container ext:border">
@@ -103,7 +94,6 @@
 <script setup lang="ts">
 import FolderSidebar from '../components/FolderSidebar.vue'
 import NoPageSelected from '../components/NoPageSelected.vue'
-import NoteListSidebar from '../components/NoteListSidebar.vue'
 import { extractNameWithoutExtension, Resource, SpaceResource } from '@opencloud-eu/web-client'
 import { storeToRefs } from 'pinia'
 import { computed, onBeforeUnmount, onMounted, ref, unref, watchEffect } from 'vue'
@@ -292,7 +282,7 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .notes-shell {
-  min-height: 100%;
+  height: 100%;
   overflow: auto;
   background:
     radial-gradient(circle at top left, rgba(244, 187, 68, 0.14), transparent 28%),
@@ -303,7 +293,7 @@ onBeforeUnmount(() => {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  min-height: 100%;
+  height: 100%;
 }
 
 .notes-hero,
@@ -441,14 +431,13 @@ onBeforeUnmount(() => {
   }
 
   .notes-workspace {
-    flex: 1 1 auto;
+    flex: 1 1 0;
     min-height: 0;
-    grid-template-columns: minmax(14rem, 18rem) minmax(16rem, 22rem) minmax(0, 1fr);
+    grid-template-columns: minmax(18rem, 24rem) minmax(0, 1fr);
     align-items: stretch;
   }
 
   .notes-panel--sidebar,
-  .notes-panel--middle,
   .notes-panel--editor {
     max-height: none;
     min-height: 0;
