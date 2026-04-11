@@ -12,7 +12,7 @@
     "test:unit": "NODE_OPTIONS=--unhandled-rejections=throw vitest"
   },
   "dependencies": {
-    "mathjs": "^14.0.0"
+    "mathjs": "^15.0.0"
   },
   "devDependencies": {
     "@opencloud-eu/web-pkg": "^6.0.0",
