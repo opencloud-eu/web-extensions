@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.0.0](https://github.com/opencloud-eu/web-extensions/releases/tag/maps-v3.0.0) - 2026-04-07
+
+### Breaking changes
+
+- The extension is now bundled as ESM instead of AMD and only loads with OpenCloud versions >= 6.
+
+### 📦️ Dependencies
+
+- Update dependency @tmcw/togeojson to v7 [[#369](https://github.com/opencloud-eu/web-extensions/pull/369)]
+
 ## [2.0.2](https://github.com/opencloud-eu/web-extensions/releases/tag/maps-v2.0.2) - 2026-03-13
 
 ### 🐛 Bug Fixes
