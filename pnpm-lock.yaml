@@ -241,7 +241,7 @@ importers:
         version: 5.21.1
       pmtiles:
         specifier: ^4.0.1
-        version: 4.4.0
+        version: 4.4.1
       zod:
         specifier: ^4.0.17
         version: 4.3.6
@@ -3047,8 +3047,8 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  pmtiles@4.4.0:
-    resolution: {integrity: sha512-tCLI1C5134MR54i8izUWhse0QUtO/EC33n9yWp1N5dYLLvyc197U0fkF5gAJhq1TdWO9Tvl+9hgvFvM0fR27Zg==}
+  pmtiles@4.4.1:
+    resolution: {integrity: sha512-5oTeQc/yX/ft1evbpIlnoCZugQuug/iYIAj/ZTqIqzdGek4uZEho99En890EE6NOSI3JTI3IG8R7r8+SltphxA==}
 
   pofile@1.1.4:
     resolution: {integrity: sha512-r6Q21sKsY1AjTVVjOuU02VYKVNQGJNQHjTIvs4dEbeuuYfxgYk/DGD2mqqq4RDaVkwdSq0VEtmQUOPe/wH8X3g==}
@@ -6635,7 +6635,7 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.2
 
-  pmtiles@4.4.0:
+  pmtiles@4.4.1:
     dependencies:
       fflate: 0.8.2
 
