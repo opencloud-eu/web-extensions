@@ -1,17 +1,16 @@
 <template>
   <div
     :data-item-id="resource.name"
-    class="pastebin-file ext:rounded-lg ext:border ext:border-[var(--oc-role-outline-variant)] ext:overflow-hidden ext:bg-[var(--oc-role-surface)] ext:mb-6"
+    class="pastebin-file ext:rounded-lg ext:border ext:border-role-outline-variant ext:overflow-hidden ext:bg-role-surface ext:mb-6"
   >
     <div
-      class="ext:flex ext:items-center ext:px-4 ext:py-2.5 ext:bg-[var(--oc-role-surface-container)] ext:border-b ext:border-[var(--oc-role-outline-variant)] ext:cursor-pointer"
+      class="ext:flex ext:items-center ext:px-4 ext:py-2.5 ext:bg-role-surface-container ext:border-b ext:border-role-outline-variant ext:cursor-pointer"
       @click="scrollToSelf"
     >
       <ResourceIcon :resource="resource" size="small" class="ext:mr-2" />
-      <span
-        class="ext:font-mono ext:text-sm ext:font-medium ext:text-[var(--oc-role-on-surface)]"
-        >{{ resource.name }}</span
-      >
+      <span class="ext:font-mono ext:text-sm ext:font-medium ext:text-role-on-surface">{{
+        resource.name
+      }}</span>
       <oc-button
         v-if="anchorHref"
         appearance="raw"
@@ -47,10 +46,7 @@
       <div v-if="loading" class="ext:flex ext:justify-center ext:py-8">
         <oc-spinner size="small" :aria-label="$gettext('Loading pastebin')" />
       </div>
-      <div
-        v-else-if="error"
-        class="ext:p-6 ext:text-center ext:text-sm ext:text-[var(--oc-role-error)]"
-      >
+      <div v-else-if="error" class="ext:p-6 ext:text-center ext:text-sm ext:text-role-error">
         {{ error }}
       </div>
       <div v-else-if="content" class="ext:overflow-x-auto">

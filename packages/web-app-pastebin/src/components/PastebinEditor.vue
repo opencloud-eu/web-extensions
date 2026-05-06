@@ -1,15 +1,15 @@
 <template>
   <div
-    class="ext:rounded-md ext:border ext:border-[var(--oc-role-outline-variant)] ext:overflow-hidden ext:bg-[var(--oc-role-surface)]"
+    class="ext:rounded-md ext:border ext:border-role-outline-variant ext:overflow-hidden ext:bg-role-surface"
   >
     <div
-      class="ext:flex ext:items-center ext:justify-between ext:px-3 ext:py-2 ext:bg-[var(--oc-role-surface-container)] ext:border-b ext:border-[var(--oc-role-outline-variant)]"
+      class="ext:flex ext:items-center ext:justify-between ext:px-3 ext:py-2 ext:bg-role-surface-container ext:border-b ext:border-role-outline-variant"
     >
       <input
         :value="filename"
         type="text"
         :aria-label="$gettext('Filename')"
-        class="ext:w-[260px] ext:border ext:border-[var(--oc-role-outline-variant)] ext:rounded ext:px-2 ext:py-0.5 ext:font-mono ext:text-xs ext:bg-[var(--oc-role-surface)] ext:text-[var(--oc-role-on-surface)] ext:outline-none focus:ext:border-[var(--oc-role-primary)]"
+        class="ext:w-[260px] ext:border ext:border-role-outline-variant ext:rounded ext:px-2 ext:py-0.5 ext:font-mono ext:text-xs ext:bg-role-surface ext:text-role-on-surface ext:outline-none focus:ext:border-role-primary"
         :placeholder="$gettext('Filename including extension…')"
         @input="$emit('update:filename', ($event.target as HTMLInputElement).value)"
       />
@@ -26,21 +26,18 @@
     <div class="editor-body ext:flex">
       <div
         ref="lineNumbersRef"
-        class="line-numbers ext:bg-[var(--oc-role-surface-container)] ext:border-r ext:border-[var(--oc-role-outline-variant)]"
+        class="line-numbers ext:bg-role-surface-container ext:border-r ext:border-role-outline-variant"
         aria-hidden="true"
       >
-        <span
-          v-for="n in lineCount"
-          :key="n"
-          class="ext:text-[var(--oc-role-on-surface-variant)]"
-          >{{ n }}</span
-        >
+        <span v-for="n in lineCount" :key="n" class="ext:text-role-on-surface-variant">{{
+          n
+        }}</span>
       </div>
       <textarea
         ref="textareaRef"
         :value="content"
         :aria-label="$gettext('File content')"
-        class="code-textarea ext:flex-1 ext:text-[var(--oc-role-on-surface)] ext:bg-[var(--oc-role-surface)]"
+        class="code-textarea ext:flex-1 ext:text-role-on-surface ext:bg-role-surface"
         spellcheck="false"
         @input="$emit('update:content', ($event.target as HTMLTextAreaElement).value)"
         @scroll="syncScroll"

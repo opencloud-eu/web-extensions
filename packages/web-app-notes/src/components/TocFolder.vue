@@ -2,7 +2,7 @@
   <div
     class="ext:w-100 toc-item-wrapper"
     :class="{
-      'bg-role-secondary-container': isDragOverNode(node),
+      'ext:bg-role-secondary-container': isDragOverNode(node),
       'ext:rounded': isDragOverNode(node)
     }"
     @dragover.prevent="onDragOverFolder(node)"

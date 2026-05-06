@@ -17,7 +17,7 @@
       <div
         v-if="isDragAndDropActive"
         class="ext:h-30 ext:border ext:border-dashed ext:flex ext:items-center ext:justify-center"
-        :class="{ 'bg-role-secondary-container': dragOverRoot, 'ext:rounded': dragOverRoot }"
+        :class="{ 'ext:bg-role-secondary-container': dragOverRoot, 'ext:rounded': dragOverRoot }"
         :aria-label="$gettext('Root drop zone')"
         @dragover.prevent="onDragOverRoot()"
         @dragleave="onDragLeaveRoot"
