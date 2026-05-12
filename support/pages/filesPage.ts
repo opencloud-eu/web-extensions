@@ -16,7 +16,7 @@ export class FilesPage {
     this.selectAllCheckbox = this.page.getByLabel('Select all')
     this.openInJsonViewerBtn = this.page.locator('.oc-files-actions-json-viewer-trigger')
     this.openWithButton = this.page.locator(
-      '//*[@id="oc-files-context-actions-context"]//span[text()="Open with..."]'
+      '//*[contains(@class, "oc-drop")]//span[text()="Open with..."]'
     )
     this.fileDetailsBtn = this.page.locator('.oc-files-actions-show-details-trigger')
     this.openInMapViewerBtn = this.page.locator('.oc-files-actions-maps-trigger')
