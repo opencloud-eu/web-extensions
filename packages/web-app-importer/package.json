@@ -18,7 +18,7 @@
     "@uppy/webdav": "1.1.1"
   },
   "devDependencies": {
-    "@opencloud-eu/web-client": "^6.0.0",
+    "@opencloud-eu/web-client": "^7.0.0",
     "@opencloud-eu/web-pkg": "^7.0.0",
     "@uppy/core": "^5.1.1",
     "pinia": "^3.0.1",
