@@ -91,6 +91,9 @@ importers:
         specifier: ^15.0.0
         version: 15.2.0
     devDependencies:
+      '@opencloud-eu/web-client':
+        specifier: ^7.0.0
+        version: 7.0.0
       '@opencloud-eu/web-pkg':
         specifier: ^7.0.0
         version: 7.0.0(@floating-ui/dom@1.7.6)(@tiptap/extension-list@3.23.1(@tiptap/core@3.23.1(@tiptap/pm@3.23.1))(@tiptap/pm@3.23.1))(@vue/compiler-sfc@3.5.33)(typescript@6.0.3)(vue@3.5.33(typescript@6.0.3))
