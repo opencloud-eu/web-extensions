@@ -29,18 +29,18 @@ export class FilesPage {
   }
 
   async extractZip(file: string) {
+    const respWaitPromise = this.page.waitForResponse(
+      (resp) =>
+        resp.url().includes('graph/v1.0/drives/') &&
+        resp.status() === 200 &&
+        resp.request().method() === 'GET'
+    )
+
     const fileLocator = this.getResourceNameSelector(file)
     await fileLocator.click({ button: 'right' })
 
-    await Promise.all([
-      this.page.waitForResponse(
-        (resp) =>
-          resp.url().includes('graph/v1.0/drives/') &&
-          resp.status() === 200 &&
-          resp.request().method() === 'GET'
-      ),
-      this.extractHereBtnBtn.click()
-    ])
+    await this.extractHereBtnBtn.click()
+    await respWaitPromise
   }
 
   async deleteAllFromPersonal() {
@@ -65,18 +65,18 @@ export class FilesPage {
   }
 
   async openFileInViewer(file: string, fileType: 'gpx' | 'json') {
+    const respWaitPromise = this.page.waitForResponse(
+      (resp) =>
+        resp.status() === 200 && resp.request().method() === 'GET' && resp.url().includes(file)
+    )
+
     const fileLocator = this.getResourceNameSelector(file)
     await fileLocator.click({ button: 'right' })
     await this.openWithButton.hover()
 
     const viewerButton = fileType === 'gpx' ? this.openInMapViewerBtn : this.openInJsonViewerBtn
 
-    await Promise.all([
-      this.page.waitForResponse(
-        (resp) =>
-          resp.status() === 200 && resp.request().method() === 'GET' && resp.url().includes(file)
-      ),
-      viewerButton.click()
-    ])
+    await viewerButton.click()
+    await respWaitPromise
   }
 }

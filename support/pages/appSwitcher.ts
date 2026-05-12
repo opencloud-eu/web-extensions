@@ -33,15 +33,13 @@ export class AppSwitcher {
   }
 
   async createDrawIoFile() {
-    await Promise.all([
-      this.page.waitForResponse(
-        (resp) =>
-          resp.url().endsWith('drawio') &&
-          resp.status() === 201 &&
-          resp.request().method() === 'PUT'
-      ),
-      this.drawIoBtn.click()
-    ])
+    const respWaitPromise = this.page.waitForResponse(
+      (resp) =>
+        resp.url().endsWith('drawio') && resp.status() === 201 && resp.request().method() === 'PUT'
+    )
+
+    await this.drawIoBtn.click()
+    await respWaitPromise
   }
 
   async openExternalSite(site: string) {
