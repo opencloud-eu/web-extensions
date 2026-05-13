@@ -23,7 +23,7 @@
 
         <div
           v-else-if="pastebins.length === 0"
-          class="ext:text-center ext:py-12 ext:text-[var(--oc-role-on-surface-variant)]"
+          class="ext:text-center ext:py-12 ext:text-role-on-surface-variant"
         >
           <p class="ext:mb-4">{{ $gettext('No pastebins yet.') }}</p>
           <oc-button
@@ -41,22 +41,17 @@
             v-for="pb in pastebins"
             :key="pb.id"
             :to="getPastebinRoute(pb)"
-            class="pastebin-item ext:flex ext:items-center ext:gap-3 ext:px-4 ext:py-3 ext:rounded-lg ext:border ext:border-[var(--oc-role-outline-variant)] ext:bg-[var(--oc-role-surface)] ext:no-underline ext:text-[var(--oc-role-on-surface)]"
+            class="pastebin-item ext:flex ext:items-center ext:gap-3 ext:px-4 ext:py-3 ext:rounded-lg ext:border ext:border-role-outline-variant ext:bg-role-surface ext:no-underline ext:text-role-on-surface"
           >
-            <oc-icon
-              name="file-text"
-              size="small"
-              class="ext:text-[var(--oc-role-on-surface-variant)]"
-            />
+            <oc-icon name="file-text" size="small" class="ext:text-role-on-surface-variant" />
             <div class="ext:flex-1 ext:min-w-0">
               <div class="ext:text-sm ext:font-medium ext:truncate">
                 {{ getPastebinDisplayName(pb) }}
               </div>
             </div>
-            <span
-              class="ext:text-xs ext:text-[var(--oc-role-on-surface-variant)] ext:whitespace-nowrap"
-              >{{ formatDate(pb.mdate, currentLanguage) }}</span
-            >
+            <span class="ext:text-xs ext:text-role-on-surface-variant ext:whitespace-nowrap">{{
+              formatDate(pb.mdate, currentLanguage)
+            }}</span>
             <oc-button
               appearance="raw"
               size="small"

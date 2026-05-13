@@ -8,10 +8,10 @@
       v-else-if="error || isReadOnly"
       class="ext:flex ext:flex-col ext:items-center ext:justify-center ext:h-full ext:text-center"
     >
-      <h2 class="ext:text-[var(--oc-role-error)] ext:mb-4">
+      <h2 class="ext:text-role-error ext:mb-4">
         {{ isReadOnly ? $gettext('Read-only') : $gettext('Failed to load') }}
       </h2>
-      <p class="ext:text-[var(--oc-role-on-surface-variant)]">
+      <p class="ext:text-role-on-surface-variant">
         {{ isReadOnly ? $gettext('This pastebin is read-only.') : error }}
       </p>
       <oc-button

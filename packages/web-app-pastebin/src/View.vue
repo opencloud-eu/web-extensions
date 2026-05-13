@@ -8,8 +8,8 @@
       v-else-if="error"
       class="ext:flex ext:flex-col ext:items-center ext:justify-center ext:h-full ext:text-center"
     >
-      <h2 class="ext:text-[var(--oc-role-error)] ext:mb-4">{{ $gettext('Failed to load') }}</h2>
-      <p class="ext:text-[var(--oc-role-on-surface-variant)]">{{ error }}</p>
+      <h2 class="ext:text-role-error ext:mb-4">{{ $gettext('Failed to load') }}</h2>
+      <p class="ext:text-role-on-surface-variant">{{ error }}</p>
     </div>
 
     <template v-else>
@@ -68,7 +68,7 @@
         <div class="ext:max-w-4xl ext:mx-auto">
           <div
             v-if="folderResources.length === 0"
-            class="ext:text-center ext:py-12 ext:text-[var(--oc-role-on-surface-variant)]"
+            class="ext:text-center ext:py-12 ext:text-role-on-surface-variant"
           >
             {{ $gettext('No files in this pastebin.') }}
           </div>

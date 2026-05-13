@@ -1,5 +1,5 @@
 <template>
-  <oc-card class="bg-role-surface-container ext:border">
+  <oc-card class="ext:bg-role-surface-container ext:border">
     <component :is="site.target === 'embedded' ? 'router-link' : 'a'" v-bind="linkProps">
       <div class="ext:flex ext:items-center ext:gap-4">
         <oc-icon v-if="site.icon" :name="site.icon" :color="site.color" size="large" />
