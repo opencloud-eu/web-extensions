@@ -15,7 +15,8 @@
     "mathjs": "^15.0.0"
   },
   "devDependencies": {
-    "@opencloud-eu/web-pkg": "^6.0.0",
+    "@opencloud-eu/web-client": "^7.0.0",
+    "@opencloud-eu/web-pkg": "^7.0.0",
     "@vueuse/core": "^14.0.0",
     "vue": "^3.4.21",
     "vue3-gettext": "^4.0.0-beta.1"

@@ -13,18 +13,15 @@ export class FilesAppBar {
   }
 
   async uploadFile(file: string) {
+    const respWaitPromise = this.page.waitForResponse(
+      (resp) =>
+        [201, 204].includes(resp.status()) &&
+        ['POST', 'PUT', 'PATCH'].includes(resp.request().method())
+    )
     await this.uploadBtn.click()
     const realPath = path.join('./support/filesForUpload', file)
-    const uploadAction: Promise<void> = this.uploadFileBtn.setInputFiles(path.resolve(realPath))
-
-    await Promise.all([
-      this.page.waitForResponse(
-        (resp) =>
-          [201, 204].includes(resp.status()) &&
-          ['POST', 'PUT', 'PATCH'].includes(resp.request().method())
-      ),
-      uploadAction
-    ])
+    await this.uploadFileBtn.setInputFiles(path.resolve(realPath))
+    await respWaitPromise
     // close upload menu. Sometimes it hangs
     await this.page.keyboard.press('Escape')
   }

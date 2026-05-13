@@ -39,12 +39,13 @@ import {
 import { storeToRefs } from 'pinia'
 import {
   Action,
+  ActionExtension,
   type MenuSection,
+  useExtensionRegistry,
   useFileActionsDelete,
-  useFileActionsRename,
   useRouter
 } from '@opencloud-eu/web-pkg'
-import { unref } from 'vue'
+import { computed, unref } from 'vue'
 
 const router = useRouter()
 
@@ -52,6 +53,7 @@ const { node } = defineProps<{
   node: TocNode
 }>()
 
+const { getExtensionById } = useExtensionRegistry()
 const notebookStore = useNotebookStore()
 const documentStore = useDocumentStore()
 const { documentId } = storeToRefs(documentStore)
@@ -60,7 +62,14 @@ const openDocument = async (node: TocNode) => {
   await router.push(buildDocumentRoute(notebookStore.space, notebookStore.notebook, node))
 }
 
-const { actions: actionsRename } = useFileActionsRename()
+const renameAction = computed(() => {
+  const renameExtension = getExtensionById<ActionExtension>(
+    'com.github.opencloud-eu.web.files.context-action.rename'
+  )
+
+  return renameExtension?.action
+})
+
 const { actions: actionsDelete } = useFileActionsDelete()
 const { actions: actionsOpenDocument } = useActionsOpenDocument(node)
 const { actions: actionsSaveDocument } = useActionsSaveCurrentDocument(node)
@@ -77,8 +86,8 @@ const getFileMenuSections = (node: TocNode): MenuSection[] => {
   const items: Action[] = [
     ...actionsOpenDocument,
     ...actionsSaveDocument,
-    ...unref(actionsRename),
-    ...unref(actionsDelete)
+    ...unref(actionsDelete),
+    ...(unref(renameAction) ? [unref(renameAction)] : [])
   ].filter((action) => action.isVisible(getActionOptions(node)))
   return [
     {

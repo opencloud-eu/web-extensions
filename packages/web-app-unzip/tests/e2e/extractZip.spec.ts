@@ -15,7 +15,9 @@ test.afterEach(async () => {
   await logout(userPage)
 })
 
-test('extract zip file', async () => {
+// FIXME: currently skipped because of https://github.com/opencloud-eu/web/pull/2506
+// unskip with the next OpenCloud release (v7 probably)
+test.skip('extract zip file', async () => {
   const uploadFile = new FilesAppBar(userPage)
   await uploadFile.uploadFile('data.zip')
 

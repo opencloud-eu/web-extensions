@@ -28,15 +28,13 @@ export class DrawIoPage {
   }
 
   async save() {
-    await Promise.all([
-      this.page.waitForResponse(
-        (resp) =>
-          resp.url().endsWith('drawio') &&
-          resp.status() === 204 &&
-          resp.request().method() === 'PUT'
-      ),
-      this.saveBtn.click()
-    ])
+    const waitRespPromise = this.page.waitForResponse(
+      (resp) =>
+        resp.url().endsWith('drawio') && resp.status() === 204 && resp.request().method() === 'PUT'
+    )
+
+    await this.saveBtn.click()
+    await waitRespPromise
   }
 
   async close() {

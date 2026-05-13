@@ -42,24 +42,33 @@ import {
 } from '../composables'
 import {
   Action,
+  ActionExtension,
   MenuSection,
-  useFileActionsDelete,
-  useFileActionsRename
+  useExtensionRegistry,
+  useFileActionsDelete
 } from '@opencloud-eu/web-pkg'
-import { unref } from 'vue'
+import { computed, unref } from 'vue'
 
 const { node } = defineProps<{
   node: TocNode
 }>()
 
+const { getExtensionById } = useExtensionRegistry()
 const tocStore = useTocStore()
 const { isDragOverNode, toggleNodeCollapse } = tocStore
 const notebookStore = useNotebookStore()
 const { onDragOverFolder, onDragLeaveFolder, onDropOnFolder } = useDragAndDrop()
 
+const renameAction = computed(() => {
+  const renameExtension = getExtensionById<ActionExtension>(
+    'com.github.opencloud-eu.web.files.context-action.rename'
+  )
+
+  return renameExtension?.action
+})
+
 const { actions: actionsCreateFolder } = useActionsCreateFolder(unref(node))
 const { actions: actionsCreateNote } = useActionsCreateNote(unref(node))
-const { actions: actionsRename } = useFileActionsRename()
 const { actions: actionsDelete } = useFileActionsDelete()
 
 const getActionOptions = (node: TocNode) => ({
@@ -71,8 +80,8 @@ const getFolderMenuSections = (node: TocNode): MenuSection[] => {
   const items: Action[] = [
     ...actionsCreateFolder,
     ...actionsCreateNote,
-    ...unref(actionsRename),
-    ...unref(actionsDelete)
+    ...unref(actionsDelete),
+    ...(unref(renameAction) ? [unref(renameAction)] : [])
   ].filter((action) => action.isVisible(getActionOptions(node)))
   return [
     {

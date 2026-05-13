@@ -5,14 +5,10 @@
       <TocWrapper class="ext:w-sm ext:min-w-[14rem] ext:max-w-[20rem] ext:px-4" />
       <div class="ext:w-full">
         <NoPageSelected v-if="!documentResource" />
-        <TextEditor
-          v-else
-          :resource="documentResource"
-          :current-content="documentContent"
-          :is-read-only="isReadOnly"
-          :application-config="{}"
-          @update:current-content="setDocumentContent"
-        />
+        <TextEditorProvider v-else :editor="textEditor">
+          <TextEditorToolbar />
+          <TextEditorContent />
+        </TextEditorProvider>
       </div>
     </template>
   </main>
@@ -25,8 +21,6 @@ import { Resource, SpaceResource } from '@opencloud-eu/web-client'
 import { computed, onBeforeUnmount, onMounted, unref, watchEffect } from 'vue'
 import {
   AppLoadingSpinner,
-  // @ts-ignore
-  TextEditor,
   UnsavedChangesModal,
   queryItemAsString,
   useClientService,
@@ -34,6 +28,12 @@ import {
   useRouteQuery,
   useRouter
 } from '@opencloud-eu/web-pkg'
+import {
+  useTextEditor,
+  TextEditorProvider,
+  TextEditorContent,
+  TextEditorToolbar
+} from '@opencloud-eu/web-pkg/editor'
 import {
   useActionsSaveCurrentDocument,
   useDocumentStore,
@@ -91,6 +91,13 @@ watchEffect(async () => {
     webdav.getFileContents(space, { fileId: unref(pageFileId), path })
   ])
   documentStore.setDocument(resource, content.body)
+})
+
+const textEditor = useTextEditor({
+  contentType: 'markdown',
+  modelValue: documentContent,
+  readonly: isReadOnly,
+  onUpdate: setDocumentContent
 })
 
 let unregisterRouterGuard: (() => void) | undefined

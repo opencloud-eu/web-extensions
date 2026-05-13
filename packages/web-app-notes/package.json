@@ -19,8 +19,8 @@
     "zod": "^4.3.0"
   },
   "peerDependencies": {
-    "@opencloud-eu/design-system": "^6.0.0",
-    "@opencloud-eu/web-client": "^6.0.0",
-    "@opencloud-eu/web-pkg": "^6.0.0"
+    "@opencloud-eu/design-system": "^7.0.0",
+    "@opencloud-eu/web-client": "^7.0.0",
+    "@opencloud-eu/web-pkg": "^7.0.0"
   }
 }

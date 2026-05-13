@@ -16,7 +16,7 @@ export class FilesPage {
     this.selectAllCheckbox = this.page.getByLabel('Select all')
     this.openInJsonViewerBtn = this.page.locator('.oc-files-actions-json-viewer-trigger')
     this.openWithButton = this.page.locator(
-      '//*[@id="oc-files-context-actions-context"]//span[text()="Open with..."]'
+      '//*[contains(@class, "oc-drop")]//span[text()="Open with..."]'
     )
     this.fileDetailsBtn = this.page.locator('.oc-files-actions-show-details-trigger')
     this.openInMapViewerBtn = this.page.locator('.oc-files-actions-maps-trigger')
@@ -29,18 +29,18 @@ export class FilesPage {
   }
 
   async extractZip(file: string) {
+    const respWaitPromise = this.page.waitForResponse(
+      (resp) =>
+        resp.url().includes('graph/v1.0/drives/') &&
+        resp.status() === 200 &&
+        resp.request().method() === 'GET'
+    )
+
     const fileLocator = this.getResourceNameSelector(file)
     await fileLocator.click({ button: 'right' })
 
-    await Promise.all([
-      this.page.waitForResponse(
-        (resp) =>
-          resp.url().includes('graph/v1.0/drives/') &&
-          resp.status() === 200 &&
-          resp.request().method() === 'GET'
-      ),
-      this.extractHereBtnBtn.click()
-    ])
+    await this.extractHereBtnBtn.click()
+    await respWaitPromise
   }
 
   async deleteAllFromPersonal() {
@@ -65,18 +65,18 @@ export class FilesPage {
   }
 
   async openFileInViewer(file: string, fileType: 'gpx' | 'json') {
+    const respWaitPromise = this.page.waitForResponse(
+      (resp) =>
+        resp.status() === 200 && resp.request().method() === 'GET' && resp.url().includes(file)
+    )
+
     const fileLocator = this.getResourceNameSelector(file)
     await fileLocator.click({ button: 'right' })
     await this.openWithButton.hover()
 
     const viewerButton = fileType === 'gpx' ? this.openInMapViewerBtn : this.openInJsonViewerBtn
 
-    await Promise.all([
-      this.page.waitForResponse(
-        (resp) =>
-          resp.status() === 200 && resp.request().method() === 'GET' && resp.url().includes(file)
-      ),
-      viewerButton.click()
-    ])
+    await viewerButton.click()
+    await respWaitPromise
   }
 }
