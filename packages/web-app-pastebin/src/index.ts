@@ -4,7 +4,8 @@ import {
   AppMenuItemExtension,
   AppWrapperRoute,
   ApplicationInformation,
-  defineWebApplication
+  defineWebApplication,
+  useUserStore
 } from '@opencloud-eu/web-pkg'
 import { urlJoin } from '@opencloud-eu/web-client'
 import { computed } from 'vue'
@@ -21,6 +22,7 @@ const applicationId = 'pastebin'
 export default defineWebApplication({
   setup() {
     const { $gettext } = useGettext()
+    const userStore = useUserStore()
 
     const routes = [
       {
@@ -78,16 +80,19 @@ export default defineWebApplication({
       ]
     }
 
-    const menuItems = computed<AppMenuItemExtension[]>(() => [
-      {
-        id: `app.${applicationId}.menuItem`,
-        type: 'appMenuItem',
-        label: () => $gettext('Pastebin'),
-        icon: 'upload',
-        path: urlJoin(applicationId),
-        color: 'white'
-      }
-    ])
+    const menuItems = computed<AppMenuItemExtension[]>(() => {
+      if (!userStore.user) return []
+      return [
+        {
+          id: `app.${applicationId}.menuItem`,
+          type: 'appMenuItem',
+          label: () => $gettext('Pastebin'),
+          icon: 'upload',
+          path: urlJoin(applicationId),
+          color: 'white'
+        }
+      ]
+    })
 
     return {
       appInfo,
