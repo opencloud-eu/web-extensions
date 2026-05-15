@@ -3,7 +3,8 @@ import {
   defineWebApplication,
   AppMenuItemExtension,
   ApplicationInformation,
-  AppWrapperRoute
+  AppWrapperRoute,
+  useUserStore
 } from '@opencloud-eu/web-pkg'
 import { urlJoin } from '@opencloud-eu/web-client'
 import translations from '../l10n/translations.json'
@@ -16,6 +17,7 @@ import View from './views/View.vue'
 export default defineWebApplication({
   setup() {
     const { $gettext } = useGettext()
+    const userStore = useUserStore()
 
     const routes = [
       {
@@ -59,6 +61,7 @@ export default defineWebApplication({
     }
 
     const menuItems = computed<AppMenuItemExtension[]>(() => {
+      if (!userStore.user) return []
       return [
         {
           id: `app.${appInfo.id}.menuItem`,
