@@ -130,17 +130,35 @@ export class PastebinPage {
     await this.page.locator('.oc-modal-body-actions-confirm').click()
   }
 
-  // Share links — clicks the button to copy to clipboard and reads back the content
+  // Share links — clicks the button to copy to clipboard and reads back the content.
+  // The app uses `useClipboard` which writes asynchronously, and other flows
+  // (e.g. password-link creation) may have written a stale value already, so we
+  // clear the clipboard first and poll until the click handler has written a new one.
+  private async clickAndReadClipboard(click: () => Promise<void>): Promise<string> {
+    await this.page.evaluate(() => navigator.clipboard.writeText(''))
+    await click()
+    let value = ''
+    await expect
+      .poll(
+        async () => {
+          value = await this.page.evaluate(() => navigator.clipboard.readText())
+          return value.length
+        },
+        { timeout: 5000 }
+      )
+      .toBeGreaterThan(0)
+    return value
+  }
+
   async getShareLinkHref(): Promise<string> {
-    const btn = this.page.locator('header button[title="Copy public link"]')
-    await btn.click()
-    return this.page.evaluate(() => navigator.clipboard.readText())
+    return this.clickAndReadClipboard(() =>
+      this.page.locator('header button[title="Copy public link"]').click()
+    )
   }
 
   async getAnchorHref(filename: string): Promise<string> {
-    const container = this.getFileContainer(filename)
-    const btn = container.locator('button[title="Link to this file"]')
-    await btn.click()
-    return this.page.evaluate(() => navigator.clipboard.readText())
+    return this.clickAndReadClipboard(() =>
+      this.getFileContainer(filename).locator('button[title="Link to this file"]').click()
+    )
   }
 }
