@@ -1,4 +1,5 @@
-import { test, Page, expect } from '@playwright/test'
+import { Page } from '@playwright/test'
+import { test, expect } from '../../../../support/test'
 import { FilesAppBar } from '../../../../support/pages/filesAppBarActions'
 import { FilesPage } from '../../../../support/pages/filesPage'
 import { loginAsUser, logout } from '../../../../support/helpers/authHelper'
@@ -15,16 +16,12 @@ test.afterEach(async () => {
   await logout(userPage)
 })
 
-// FIXME: skipped until the bundled OpenCloud image ships a web build that contains
-// both:
-//   - https://github.com/opencloud-eu/web/pull/2506 (services announced before apps
-//     init, otherwise uppyService is undefined when the extract handler runs and the
-//     archive extraction fails)
-//   - https://github.com/opencloud-eu/web/pull/2513 (suppresses a false-positive
-//     "Folder already exists" dialog that fires whenever the zip's top-level folder
-//     name matches anything in the user's current folder, which is the case for
-//     data.zip)
-test.skip('extract zip file preserves subfolder structure', async () => {
+test('extract zip file preserves subfolder structure', async ({ skipIfWeb }) => {
+  // Subfolder structure preservation needs both web#2506 (services announced before
+  // apps init, otherwise uppyService is undefined when the extract handler runs) and
+  // web#2513 (suppresses a false-positive "Folder already exists" dialog).
+  skipIfWeb('<=7.0.0', 'needs web#2506 + web#2513')
+
   const uploadFile = new FilesAppBar(userPage)
   await uploadFile.uploadFile('data.zip')
 
