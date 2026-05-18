@@ -1,0 +1,30 @@
+{
+  "name": "tiptap",
+  "version": "0.1.0",
+  "private": true,
+  "description": "OpenCloud Web collaborative Tiptap rich-text editor",
+  "license": "AGPL-3.0",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm vite build",
+    "build:w": "pnpm vite build --watch --mode development",
+    "check:types": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "@hocuspocus/provider": "^4.0.0",
+    "@tiptap/core": "^2.10.0",
+    "@tiptap/extension-collaboration": "^2.10.0",
+    "@tiptap/extension-collaboration-cursor": "^2.10.0",
+    "@tiptap/extension-placeholder": "^2.10.0",
+    "@tiptap/starter-kit": "^2.10.0",
+    "@tiptap/vue-3": "^2.10.0",
+    "tiptap-markdown": "^0.8.10",
+    "yjs": "^13.6.0"
+  },
+  "devDependencies": {
+    "@opencloud-eu/web-client": "^3.0.0",
+    "@opencloud-eu/web-pkg": "^3.0.0",
+    "vue": "^3.4.21",
+    "vue3-gettext": "^2.4.0"
+  }
+}

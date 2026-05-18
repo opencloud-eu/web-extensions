@@ -43,6 +43,8 @@ services:
       - ./packages/web-app-calculator/dist:/web/apps/calculator
       - ./packages/web-app-arcade/dist:/web/apps/arcade
       - ./packages/web-app-cast/dist:/web/apps/cast
+      - ./packages/web-app-codemirror/dist:/web/apps/codemirror
+      - ./packages/web-app-tiptap/dist:/web/apps/tiptap
       - ./packages/web-app-draw-io/dist:/web/apps/draw-io
       - ./packages/web-app-external-sites/dist:/web/apps/external-sites
       - ./packages/web-app-importer/dist:/web/apps/importer
@@ -78,6 +80,34 @@ services:
       traefik.http.routers.companion.rule: Host(`host.docker.internal`) && PathPrefix(`/companion`)
       traefik.http.routers.companion.entrypoints: opencloud
       traefik.http.services.companion.loadbalancer.server.port: 3020
+
+  hocuspocus:
+    build: ./dev/docker/hocuspocus
+    extra_hosts:
+      - host.docker.internal:${DOCKER_HOST:-host-gateway}
+    environment:
+      PORT: '1234'
+      DB_PATH: /var/lib/hocuspocus/state.db
+      OPENCLOUD_URL: https://host.docker.internal:9200
+      # Dev only: self-signed cert from OC's Traefik
+      NODE_TLS_REJECT_UNAUTHORIZED: '0'
+      # Dev only: allows the integration tests to bypass real OIDC tokens.
+      # Remove for prod.
+      DEV_FAKE_TOKEN: dev-integration-token
+    volumes:
+      - hocuspocus-data:/var/lib/hocuspocus
+      # Dev override: edit server.js without rebuild; remove for prod
+      - ./dev/docker/hocuspocus/server.js:/app/server.js:ro
+    labels:
+      traefik.enable: true
+      traefik.http.routers.hocuspocus.tls: true
+      traefik.http.routers.hocuspocus.rule: Host(`host.docker.internal`) && PathPrefix(`/realtime`)
+      traefik.http.routers.hocuspocus.entrypoints: opencloud
+      traefik.http.services.hocuspocus.loadbalancer.server.port: 1234
+      traefik.http.middlewares.hocuspocus-strip.stripprefix.prefixes: /realtime
+      traefik.http.routers.hocuspocus.middlewares: hocuspocus-strip,cors
+    depends_on:
+      - traefik
 
   tika-service:
     image: dadarek/wait-for-dependencies:0.2@sha256:b38e28108dee0aad90984e176adcc014dbf31b528602640f6c9a280cdc7ce2f0
@@ -139,3 +169,4 @@ services:
 volumes:
   opencloud-config:
   uppy_companion_datadir:
+  hocuspocus-data:
