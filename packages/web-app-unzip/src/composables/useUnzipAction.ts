@@ -23,6 +23,11 @@ import workerUrl from '@zip.js/zip.js/dist/zip-web-worker.js?worker&url'
 const SUPPORTED_MIME_TYPES = ['application/zip']
 const MAX_SIZE_MB = 64 // in mb
 
+// uppy's convention for directory-upload metadata on the file object. mirrors the
+// (non-exported) FileWithPath in web/packages/web-pkg/src/services/uppy/uppyService.ts.
+// uppyService.getRelativeFilePath reads .relativePath from file.data.
+type FileWithPath = Blob & { relativePath?: string }
+
 export const useUnzipAction = () => {
   const { $gettext, current: currentLanguage } = useGettext()
   const clientService = useClientService()
@@ -88,13 +93,16 @@ export const useUnzipAction = () => {
             const path = dirname(result.filename)
             const name = path === '.' ? result.filename : result.filename.substring(path.length + 1)
 
+            if (path !== '.') {
+              // attach relativePath to the data blob so uppyService preserves
+              // the subfolder structure when uploading the extracted files.
+              ;(data as FileWithPath).relativePath = urlJoin(path, name)
+            }
+
             return {
               name,
               data,
-              meta: {
-                ...(path !== '.' && { webkitRelativePath: urlJoin(path, name) }),
-                uploadId
-              }
+              meta: { uploadId }
             } as unknown as OcMinimalUppyFile
           })
         })
