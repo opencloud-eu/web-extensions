@@ -12,18 +12,19 @@
   },
   "dependencies": {
     "@hocuspocus/provider": "^4.0.0",
-    "@tiptap/core": "^2.10.0",
-    "@tiptap/extension-collaboration": "^2.10.0",
-    "@tiptap/extension-collaboration-cursor": "^2.10.0",
-    "@tiptap/extension-placeholder": "^2.10.0",
-    "@tiptap/starter-kit": "^2.10.0",
-    "@tiptap/vue-3": "^2.10.0",
-    "tiptap-markdown": "^0.8.10",
+    "@tiptap/core": "^3.20.4",
+    "@tiptap/extension-collaboration": "^3.20.4",
+    "@tiptap/y-tiptap": "^3.0.0",
+    "@tiptap/extension-placeholder": "^3.20.4",
+    "@tiptap/markdown": "^3.20.4",
+    "@tiptap/pm": "^3.20.4",
+    "@tiptap/starter-kit": "^3.20.4",
+    "@tiptap/vue-3": "^3.20.4",
     "yjs": "^13.6.0"
   },
   "devDependencies": {
-    "@opencloud-eu/web-client": "^3.0.0",
-    "@opencloud-eu/web-pkg": "^3.0.0",
+    "@opencloud-eu/web-client": "^7.0.0",
+    "@opencloud-eu/web-pkg": "^7.0.0",
     "vue": "^3.4.21",
     "vue3-gettext": "^2.4.0"
   }

@@ -2,7 +2,7 @@ import * as Y from 'yjs'
 import { Editor } from '@tiptap/core'
 import StarterKit from '@tiptap/starter-kit'
 import { Collaboration } from '@tiptap/extension-collaboration'
-import { Markdown } from 'tiptap-markdown'
+import { Markdown } from '@tiptap/markdown'
 import type { CollaborativeAdapter } from '../../../web-app-codemirror/src/types'
 
 // Tiptap binds Collaboration to a named Y.XmlFragment on the doc. We use
@@ -22,13 +22,7 @@ function makeHeadlessEditor(ydoc: Y.Doc): Editor {
         // Yjs Collaboration replaces history with its own undo manager.
         history: false
       }),
-      Markdown.configure({
-        html: true,
-        tightLists: true,
-        linkify: true,
-        breaks: false,
-        transformPastedText: true
-      }),
+      Markdown,
       Collaboration.configure({ document: ydoc, field: FRAGMENT })
     ]
   })
@@ -39,10 +33,10 @@ export const tiptapMarkdownAdapter: CollaborativeAdapter = {
     if (!content) return
     const editor = makeHeadlessEditor(ydoc)
     try {
-      // setContent goes through tiptap-markdown's input handler when content
-      // is a Markdown string. The Collaboration plugin propagates the
-      // resulting ProseMirror state into the bound Y.XmlFragment.
-      editor.commands.setContent(content, false)
+      // contentType: 'markdown' routes the input through @tiptap/markdown's
+      // parser. The Collaboration plugin propagates the resulting
+      // ProseMirror state into the bound Y.XmlFragment.
+      editor.commands.setContent(content, { contentType: 'markdown' })
     } finally {
       editor.destroy()
     }
@@ -51,8 +45,7 @@ export const tiptapMarkdownAdapter: CollaborativeAdapter = {
   serialize(ydoc: Y.Doc): string {
     const editor = makeHeadlessEditor(ydoc)
     try {
-      // tiptap-markdown attaches `getMarkdown()` on editor.storage.markdown.
-      return editor.storage.markdown.getMarkdown() as string
+      return editor.getMarkdown()
     } finally {
       editor.destroy()
     }

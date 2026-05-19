@@ -2,15 +2,53 @@
 import { onBeforeUnmount, type PropType } from 'vue'
 import type * as Y from 'yjs'
 import type { Awareness } from 'y-protocols/awareness'
+import type { HocuspocusProvider } from '@hocuspocus/provider'
 import { EditorContent, useEditor } from '@tiptap/vue-3'
+import { Extension } from '@tiptap/core'
 import StarterKit from '@tiptap/starter-kit'
 import { Collaboration } from '@tiptap/extension-collaboration'
-import { CollaborationCursor } from '@tiptap/extension-collaboration-cursor'
-import { Markdown } from 'tiptap-markdown'
+import { yCursorPlugin } from '@tiptap/y-tiptap'
+import { Markdown } from '@tiptap/markdown'
+
+// Tiptap v3's @tiptap/extension-collaboration-cursor still pulls `yCursorPlugin`
+// from the upstream `y-prosemirror` package, while @tiptap/extension-collaboration
+// itself migrated to Tiptap's `@tiptap/y-tiptap` fork. The two libraries use
+// distinct `ySyncPluginKey` instances, so the official cursor extension never
+// finds the sync state in the editor and throws `Cannot read properties of
+// undefined (reading 'doc')` at first render. Wiring y-tiptap's cursor plugin
+// directly side-steps the mismatch.
+//
+// We pass a custom `cursorBuilder` that emits the same `.collaboration-cursor__caret`
+// / `.collaboration-cursor__label` DOM as the official extension would, so the
+// CSS in this file (and any consumer expecting the documented classes) keeps
+// working.
+function makeCursorExtension(awareness: Awareness) {
+  return Extension.create({
+    name: 'yCollaborationCursor',
+    addProseMirrorPlugins() {
+      return [
+        yCursorPlugin(awareness, {
+          cursorBuilder: (user: { name?: string; color?: string }) => {
+            const cursor = document.createElement('span')
+            cursor.classList.add('collaboration-cursor__caret')
+            cursor.setAttribute('style', `border-color: ${user.color ?? '#ffa500'}`)
+            const label = document.createElement('div')
+            label.classList.add('collaboration-cursor__label')
+            label.setAttribute('style', `background-color: ${user.color ?? '#ffa500'}`)
+            label.insertBefore(document.createTextNode(user.name ?? ''), null)
+            cursor.insertBefore(label, null)
+            return cursor
+          }
+        })
+      ]
+    }
+  })
+}
 
 const props = defineProps({
   ydoc: { type: Object as PropType<Y.Doc>, required: true },
   awareness: { type: Object as PropType<Awareness>, required: true },
+  provider: { type: Object as PropType<HocuspocusProvider>, required: true },
   isReadOnly: { type: Boolean, default: false }
 })
 
@@ -28,18 +66,9 @@ const editor = useEditor({
   },
   extensions: [
     StarterKit.configure({ history: false }),
-    Markdown.configure({
-      html: true,
-      tightLists: true,
-      linkify: true,
-      breaks: false,
-      transformPastedText: true
-    }),
+    Markdown,
     Collaboration.configure({ document: props.ydoc, field: 'default' }),
-    CollaborationCursor.configure({
-      provider: { awareness: props.awareness },
-      user: {}
-    })
+    makeCursorExtension(props.awareness)
   ]
 })
 

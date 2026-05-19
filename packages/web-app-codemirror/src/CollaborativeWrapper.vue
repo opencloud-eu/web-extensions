@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, ref, shallowRef, unref, watchEffect, type Component, type PropType } from 'vue'
-import { storeToRefs } from 'pinia'
 import * as Y from 'yjs'
 import { HocuspocusProvider } from '@hocuspocus/provider'
 import { Resource } from '@opencloud-eu/web-client'
@@ -38,7 +37,6 @@ function compareVersion(a: string, b: string): number {
 }
 
 const configStore = useConfigStore()
-const { serverUrl } = storeToRefs(configStore)
 const authStore = useAuthStore()
 const clientService = useClientService()
 
@@ -83,7 +81,7 @@ const documentName = computed(() => {
 })
 
 const realtimeBaseUrl = computed(() => {
-  const base = unref(serverUrl).replace(/\/$/, '')
+  const base = configStore.serverUrl.replace(/\/$/, '')
   return base.replace(/^http/, 'ws') + '/realtime'
 })
 
@@ -428,6 +426,7 @@ defineExpose({ saveNow: saveNowFromButton })
       v-if="ydoc && provider?.awareness"
       :ydoc="ydoc"
       :awareness="provider.awareness"
+      :provider="provider"
       :is-read-only="effectiveReadOnly"
       class="oc-width-1-1 oc-flex-1"
     />

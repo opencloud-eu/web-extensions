@@ -21,8 +21,8 @@
     "yjs": "^13.6.0"
   },
   "devDependencies": {
-    "@opencloud-eu/web-client": "^3.0.0",
-    "@opencloud-eu/web-pkg": "^3.0.0",
+    "@opencloud-eu/web-client": "^7.0.0",
+    "@opencloud-eu/web-pkg": "^7.0.0",
     "@types/semver": "^7.7.0",
     "@types/ws": "^8.5.0",
     "vue": "^3.4.21",
