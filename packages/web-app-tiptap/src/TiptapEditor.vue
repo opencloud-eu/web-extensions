@@ -48,9 +48,25 @@ function makeCursorExtension(awareness: Awareness) {
 const props = defineProps({
   ydoc: { type: Object as PropType<Y.Doc>, required: true },
   awareness: { type: Object as PropType<Awareness>, required: true },
-  provider: { type: Object as PropType<HocuspocusProvider>, required: true },
+  // Optional: present only in collab-mode (when the wrapper has a
+  // HocuspocusProvider). In local-mode the wrapper passes null and we
+  // skip cursor wiring entirely — there are no peers to render.
+  provider: {
+    type: Object as PropType<HocuspocusProvider | null>,
+    required: false,
+    default: null
+  },
   isReadOnly: { type: Boolean, default: false }
 })
+
+const extensions = [
+  StarterKit.configure({ history: false }),
+  Markdown,
+  Collaboration.configure({ document: props.ydoc, field: 'default' })
+]
+if (props.provider) {
+  extensions.push(makeCursorExtension(props.awareness))
+}
 
 const editor = useEditor({
   editable: !props.isReadOnly,
@@ -64,12 +80,7 @@ const editor = useEditor({
   onContentError({ disableCollaboration }) {
     disableCollaboration()
   },
-  extensions: [
-    StarterKit.configure({ history: false }),
-    Markdown,
-    Collaboration.configure({ document: props.ydoc, field: 'default' }),
-    makeCursorExtension(props.awareness)
-  ]
+  extensions
 })
 
 onBeforeUnmount(() => {

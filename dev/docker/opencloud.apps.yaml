@@ -1,6 +1,12 @@
 importer:
   config:
     companionUrl: 'https://host.docker.internal:9200/companion'
+codemirror:
+  config:
+    realtimeUrl: 'wss://host.docker.internal:9200/realtime'
+tiptap:
+  config:
+    realtimeUrl: 'wss://host.docker.internal:9200/realtime'
 external-sites:
   config:
     defaultDashboard: 'Main Dashboard'

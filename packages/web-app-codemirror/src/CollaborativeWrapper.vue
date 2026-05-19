@@ -10,9 +10,10 @@ import {
   type PropType
 } from 'vue'
 import * as Y from 'yjs'
+import { Awareness } from 'y-protocols/awareness'
 import { HocuspocusProvider } from '@hocuspocus/provider'
 import { Resource } from '@opencloud-eu/web-client'
-import { useAuthStore, useConfigStore } from '@opencloud-eu/web-pkg'
+import { useAuthStore } from '@opencloud-eu/web-pkg'
 import semverCompare from 'semver/functions/compare'
 import semverValid from 'semver/functions/valid'
 import type { CollaborativeAdapter } from './types'
@@ -27,7 +28,13 @@ const props = defineProps({
   // its own package.json, baked in at build time by Vite. Used to detect
   // schema mismatch between peers in the same Y.Doc room. The wrapper
   // itself stays agnostic of where the version comes from.
-  appVersion: { type: String, required: true }
+  appVersion: { type: String, required: true },
+  // Realtime sync URL (wss://.../realtime). When null/undefined we run
+  // in local-only mode: still a Y.Doc + Awareness pair (so editor bindings
+  // stay on a single codepath) but no Hocuspocus provider, no cross-peer
+  // sync, no stale-state probe. Hydration runs immediately from
+  // `currentContent` instead of waiting for `onSynced`.
+  realtimeUrl: { type: String as PropType<string | null>, required: false, default: null }
 })
 
 // The hosting AppWrapper drives isEditor / isDirty / autoSave / Ctrl+S /
@@ -53,12 +60,12 @@ function compareVersion(a: string, b: string): number {
   return a === b ? 0 : Number.NaN
 }
 
-const configStore = useConfigStore()
 const authStore = useAuthStore()
 
 const ydoc = shallowRef<Y.Doc | null>(null)
 const provider = shallowRef<HocuspocusProvider | null>(null)
-const status = shallowRef<'connecting' | 'connected' | 'disconnected'>('connecting')
+const awareness = shallowRef<Awareness | null>(null)
+const status = shallowRef<'connecting' | 'connected' | 'disconnected' | 'local'>('connecting')
 // Set when the sidecar told us the persisted state is stale and we either
 // recovered locally or need the user to reload, or when realtime auth failed.
 const lifecycleError = shallowRef<Error | null>(null)
@@ -89,28 +96,25 @@ const documentName = computed(() => {
   return r.remoteItemId ?? r.id
 })
 
-const realtimeBaseUrl = computed(() => {
-  const base = configStore.serverUrl.replace(/\/$/, '')
-  return base.replace(/^http/, 'ws') + '/realtime'
-})
-
 const effectiveReadOnly = computed(() => props.isReadOnly || isLockedForReload.value)
 
 // ---------------------------------------------------------------------------
-// Provider lifecycle — rebuilt whenever the file identity changes.
+// Y.Doc + (optional) provider lifecycle — rebuilt whenever the file identity
+// changes. Two modes, gated solely by `props.realtimeUrl`:
+//   - collab : Hocuspocus provider connects, awareness comes from the
+//              provider, hydration waits for onSynced.
+//   - local  : standalone Awareness instance, no network, hydration runs
+//              immediately. The downstream editor sees an awareness object
+//              just like in collab-mode — the only behavioural diff for
+//              consumers is that no peers will ever appear.
 // ---------------------------------------------------------------------------
 watchEffect((onCleanup) => {
   const name = unref(documentName)
-  const wsUrl = unref(realtimeBaseUrl)
-  if (!name || !wsUrl) return
+  if (!name) return
 
   // Reset per-file state.
   lifecycleError.value = null
   isLockedForReload.value = false
-
-  // HocuspocusProvider has no `parameters` option; we get query params to
-  // the sidecar's requestParameters by appending them to the URL ourselves.
-  const wsUrlWithParams = `${wsUrl}?appVersion=${encodeURIComponent(APP_VERSION)}`
 
   const doc = new Y.Doc()
 
@@ -149,37 +153,61 @@ watchEffect((onCleanup) => {
   }
   doc.on('update', onDocUpdate)
 
-  const prov = new HocuspocusProvider({
-    url: wsUrlWithParams,
-    name,
-    document: doc,
-    token: () => authStore.accessToken,
-    onStatus({ status: s }) {
-      status.value = s as typeof status.value
-    },
-    onAuthenticationFailed({ reason }) {
-      console.error('[collab] realtime auth failed:', reason)
-      // Surface as lifecycle error so the user sees the reason rather than a
-      // silent disconnect. Server uses this for app-version rejection too.
-      lifecycleError.value = new Error(reason || 'authentication failed')
-      isLockedForReload.value = true
-    },
-    onSynced() {
-      void onProviderSynced(doc, prov)
-    }
-  })
+  let prov: HocuspocusProvider | null = null
+  let aw: Awareness
 
-  // Empty-user bootstrap: creates an awareness entry under our Y.Doc.clientID
-  // as soon as the provider connects, so peers see us before the editor
-  // binding emits its first cursor update. The server's beforeHandleAwareness
-  // hook overwrites this with the authenticated identity. Lurkers that never
-  // touch `user` stay invisible (matches the hook's "only stamp when present"
-  // rule).
-  prov.setAwarenessField('user', {})
+  if (props.realtimeUrl) {
+    // ---------- Collab mode ----------
+    // HocuspocusProvider has no `parameters` option; we get query params to
+    // the sidecar's requestParameters by appending them to the URL ourselves.
+    const wsUrlWithParams = `${props.realtimeUrl}?appVersion=${encodeURIComponent(APP_VERSION)}`
+    prov = new HocuspocusProvider({
+      url: wsUrlWithParams,
+      name,
+      document: doc,
+      token: () => authStore.accessToken,
+      onStatus({ status: s }) {
+        status.value = s as typeof status.value
+      },
+      onAuthenticationFailed({ reason }) {
+        console.error('[collab] realtime auth failed:', reason)
+        // Surface as lifecycle error so the user sees the reason rather than a
+        // silent disconnect. Server uses this for app-version rejection too.
+        lifecycleError.value = new Error(reason || 'authentication failed')
+        isLockedForReload.value = true
+      },
+      onSynced() {
+        void onProviderSynced(doc, prov, prov!.awareness!)
+      }
+    })
+
+    // Empty-user bootstrap: creates an awareness entry under our Y.Doc.clientID
+    // as soon as the provider connects, so peers see us before the editor
+    // binding emits its first cursor update. The server's beforeHandleAwareness
+    // hook overwrites this with the authenticated identity. Lurkers that never
+    // touch `user` stay invisible (matches the hook's "only stamp when present"
+    // rule).
+    prov.setAwarenessField('user', {})
+    aw = prov.awareness!
+  } else {
+    // ---------- Local mode ----------
+    // Standalone Awareness so the editor bindings still see a non-null
+    // awareness instance (CodeMirror's yCollab, Tiptap's cursor plugin
+    // when registered). Nobody else will ever join, which is the point.
+    aw = new Awareness(doc)
+    status.value = 'local'
+    // No `onSynced` to wait for — hand off to the same hydration entrypoint
+    // immediately. Without a sidecar the app-version handshake and
+    // stale-state probe are no-ops (the doc is freshly minted and there's
+    // no persisted state to compare against), but we still run through the
+    // function so future shared-handler additions keep both modes aligned.
+    void onProviderSynced(doc, null, aw)
+  }
 
   // _oc_meta is the parallel channel for stale/version coordination. The
   // editor binding never sees it because adapters bind to their own shared
-  // types (e.g. Y.Text 'content' for CodeMirror).
+  // types (e.g. Y.Text 'content' for CodeMirror). In local mode no one ever
+  // sets isStale / bumps appVersion, so the observer is dormant but harmless.
   const meta = doc.getMap(META_KEY)
   const metaObserver = (event: Y.YMapEvent<unknown>) => {
     // App version mismatch surfaced after-the-fact (e.g. a newer peer joined
@@ -207,21 +235,24 @@ watchEffect((onCleanup) => {
     // run a client-side rehydrate (election prevents all peers from doing
     // it at once).
     if (event.keysChanged.has('isStale') && meta.get('isStale') === true) {
-      void recoverFromStaleState(doc, prov)
+      void recoverFromStaleState(doc, prov, aw)
     }
   }
   meta.observe(metaObserver)
 
   ydoc.value = doc
   provider.value = prov
+  awareness.value = aw
 
   onCleanup(() => {
     if (serializeTimer !== undefined) window.clearTimeout(serializeTimer)
     meta.unobserve(metaObserver)
     doc.off('update', onDocUpdate)
-    prov.destroy()
+    prov?.destroy()
+    aw.destroy()
     doc.destroy()
     if (provider.value === prov) provider.value = null
+    if (awareness.value === aw) awareness.value = null
     if (ydoc.value === doc) ydoc.value = null
   })
 })
@@ -230,7 +261,9 @@ watchEffect((onCleanup) => {
 // `resourcesStore.upsertResource(putFileContentsResponse)`, which bubbles
 // the new etag back into this prop. Mirror it into `_oc_meta.etag` so the
 // sidecar's stale-state probe (on the next room load after eviction) and
-// any future peer-aware logic see the current authoritative tag.
+// any future peer-aware logic see the current authoritative tag. In local
+// mode no sidecar reads `_oc_meta`, but the mirror is cheap and keeps the
+// two modes symmetrical.
 watch(
   () => props.resource.etag,
   (newEtag) => {
@@ -245,12 +278,12 @@ watch(
   }
 )
 
-function lockForReload(prov: HocuspocusProvider, message: string) {
+function lockForReload(prov: HocuspocusProvider | null, message: string) {
   if (isLockedForReload.value) return
   isLockedForReload.value = true
   lifecycleError.value = new Error(message)
   try {
-    prov.disconnect()
+    prov?.disconnect()
   } catch {
     // disconnect can throw if already torn down; ignore.
   }
@@ -259,9 +292,14 @@ function lockForReload(prov: HocuspocusProvider, message: string) {
 // ---------------------------------------------------------------------------
 // Hydration — elected client seeds Y.Doc from native content. Lowest
 // awareness clientId wins to avoid double-hydration when two peers see an
-// empty doc simultaneously.
+// empty doc simultaneously. In local mode there are no peers, so the
+// election degenerates to "we win unconditionally" — which is what we want.
 // ---------------------------------------------------------------------------
-async function onProviderSynced(doc: Y.Doc, prov: HocuspocusProvider) {
+async function onProviderSynced(
+  doc: Y.Doc,
+  prov: HocuspocusProvider | null,
+  awarenessInstance: Awareness
+) {
   const meta = doc.getMap(META_KEY)
 
   // If the sidecar already flagged the doc as stale (etag or app-version
@@ -310,12 +348,14 @@ async function onProviderSynced(doc: Y.Doc, prov: HocuspocusProvider) {
   if (effectiveReadOnly.value) return // never seed from a read-only view
 
   // Let other clients announce themselves via awareness before electing.
+  // In local mode nobody else exists, but the 150ms wait costs nothing
+  // and keeps the codepath identical.
   await new Promise<void>((resolve) => setTimeout(resolve, 150))
 
   if (props.adapter.hasContent(doc)) return // someone beat us
 
   const myId = doc.clientID
-  const peers = Array.from(prov.awareness?.getStates().keys() ?? [])
+  const peers = Array.from(awarenessInstance.getStates().keys())
   const lowest = peers.length ? Math.min(myId, ...peers) : myId
   if (myId !== lowest) return
 
@@ -328,9 +368,15 @@ async function onProviderSynced(doc: Y.Doc, prov: HocuspocusProvider) {
 // elected client wipes adapter content, clears the staleness flag, and
 // re-hydrates from `props.currentContent` (which the parent route component
 // re-fetched at app-open time, so it reflects the new native content).
-// Other peers see the wipe + hydrate as ordinary CRDT updates.
+// Other peers see the wipe + hydrate as ordinary CRDT updates. Unreachable
+// in local mode (no sidecar ever sets isStale), but coded provider-tolerant
+// so the two modes share one implementation.
 // ---------------------------------------------------------------------------
-async function recoverFromStaleState(doc: Y.Doc, prov: HocuspocusProvider) {
+async function recoverFromStaleState(
+  doc: Y.Doc,
+  prov: HocuspocusProvider | null,
+  awarenessInstance: Awareness
+) {
   const meta = doc.getMap(META_KEY)
   if (effectiveReadOnly.value) return
   if (typeof props.adapter.reset !== 'function') {
@@ -347,7 +393,7 @@ async function recoverFromStaleState(doc: Y.Doc, prov: HocuspocusProvider) {
   if (meta.get('isStale') !== true) return // someone else handled it
 
   const myId = doc.clientID
-  const peers = Array.from(prov.awareness?.getStates().keys() ?? [])
+  const peers = Array.from(awarenessInstance.getStates().keys())
   const lowest = peers.length ? Math.min(myId, ...peers) : myId
   if (myId !== lowest) return
 
@@ -386,9 +432,9 @@ async function recoverFromStaleState(doc: Y.Doc, prov: HocuspocusProvider) {
     </div>
     <component
       :is="editor"
-      v-if="ydoc && provider?.awareness"
+      v-if="ydoc && awareness"
       :ydoc="ydoc"
-      :awareness="provider.awareness"
+      :awareness="awareness"
       :provider="provider"
       :is-read-only="effectiveReadOnly"
       class="oc-width-1-1 oc-flex-1"
