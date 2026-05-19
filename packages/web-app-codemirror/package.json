@@ -26,6 +26,9 @@
     "@opencloud-eu/web-pkg": "^7.0.0",
     "@types/semver": "^7.7.0",
     "@types/ws": "^8.5.0",
+    "@vitejs/plugin-vue": "^6.0.0",
+    "@vue/test-utils": "^2.4.0",
+    "happy-dom": "^20.0.0",
     "vue": "^3.4.21",
     "vue3-gettext": "^2.4.0",
     "ws": "^8.18.0"

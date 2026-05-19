@@ -5,7 +5,6 @@ import {
   shallowRef,
   unref,
   watch,
-  watchEffect,
   type Component,
   type PropType
 } from 'vue'
@@ -108,15 +107,31 @@ const effectiveReadOnly = computed(() => props.isReadOnly || isLockedForReload.v
 //              just like in collab-mode — the only behavioural diff for
 //              consumers is that no peers will ever appear.
 // ---------------------------------------------------------------------------
-watchEffect((onCleanup) => {
-  const name = unref(documentName)
-  if (!name) return
+// Use an explicit session key (name + realtime URL) instead of letting
+// `watchEffect` track every prop access inside the body. Vue's watchEffect
+// re-runs whenever any of its reactive deps fire — including unrelated
+// `props.resource` mutations from AppWrapper's post-save `upsertResource`,
+// which would tear down the Y.Doc on every save and lose peer edits.
+const sessionKey = computed(() => {
+  const name = documentName.value
+  if (!name) return null
+  return `${name}::${props.realtimeUrl ?? 'local'}`
+})
 
-  // Reset per-file state.
-  lifecycleError.value = null
-  isLockedForReload.value = false
+watch(
+  sessionKey,
+  (key, _oldKey, onCleanup) => {
+    if (!key) return
+    const name = unref(documentName)
+    if (!name) return
 
-  const doc = new Y.Doc()
+    // Reset per-file state.
+    lifecycleError.value = null
+    isLockedForReload.value = false
+
+    const doc = new Y.Doc()
+    // (the body below was the original `watchEffect` callback; indentation
+    // intentionally kept at the prior level to minimise diff churn.)
 
   // Debounced serialize → emit. We hand AppWrapper the same string an
   // out-of-band PUT would write; AppWrapper diffs it against its
@@ -255,7 +270,9 @@ watchEffect((onCleanup) => {
     if (awareness.value === aw) awareness.value = null
     if (ydoc.value === doc) ydoc.value = null
   })
-})
+  },
+  { immediate: true }
+)
 
 // AppWrapper updates `props.resource` after each of its own saves via
 // `resourcesStore.upsertResource(putFileContentsResponse)`, which bubbles
