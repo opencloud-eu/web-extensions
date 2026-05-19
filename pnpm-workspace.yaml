@@ -2,3 +2,16 @@ prefer-workspace-packages: true
 packages:
   - 'packages/*'
   - 'tests/*'
+
+autoInstallPeers: true
+sharedWorkspaceLockfile: true
+
+# public so they are picked up by IDEs
+publicHoistPattern:
+  - '*eslint*'
+
+overrides:
+  '@module-federation/vite': '1.14.2'
+
+allowBuilds:
+  '@parcel/watcher': true
