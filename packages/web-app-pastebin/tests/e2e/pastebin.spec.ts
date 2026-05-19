@@ -316,9 +316,7 @@ test.describe('public links', () => {
     await freshContext.close()
   })
 
-  // Requires fix in web-pkg: replaceInvalidFileRoute must preserve existing query params
-  // See: https://github.com/opencloud-eu/web/pull/2199
-  test.skip('scrollTo works on public link', async ({ browser }) => {
+  test('scrollTo works on public link', async ({ browser }) => {
     await pastebin.navigateToPastebin()
     const { password } = await pastebin.createPastebin({
       files: [
