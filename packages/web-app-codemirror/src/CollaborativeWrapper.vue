@@ -1,9 +1,18 @@
 <script setup lang="ts">
-import { computed, ref, shallowRef, unref, watchEffect, type Component, type PropType } from 'vue'
+import {
+  computed,
+  ref,
+  shallowRef,
+  unref,
+  watch,
+  watchEffect,
+  type Component,
+  type PropType
+} from 'vue'
 import * as Y from 'yjs'
 import { HocuspocusProvider } from '@hocuspocus/provider'
 import { Resource } from '@opencloud-eu/web-client'
-import { useAuthStore, useClientService, useConfigStore } from '@opencloud-eu/web-pkg'
+import { useAuthStore, useConfigStore } from '@opencloud-eu/web-pkg'
 import semverCompare from 'semver/functions/compare'
 import semverValid from 'semver/functions/valid'
 import type { CollaborativeAdapter } from './types'
@@ -21,8 +30,16 @@ const props = defineProps({
   appVersion: { type: String, required: true }
 })
 
+// The hosting AppWrapper drives isEditor / isDirty / autoSave / Ctrl+S /
+// the unsaved-changes modal off `update:currentContent` emissions. We push
+// the latest serialized form of the Y.Doc into it after each user edit; the
+// AppWrapper's save path then PUTs that string with its own etag tracking.
+const emit = defineEmits<{
+  (e: 'update:currentContent', value: string): void
+}>()
+
 const META_KEY = '_oc_meta'
-const SAVE_INTERVAL_MS = 60_000
+const SERIALIZE_DEBOUNCE_MS = 300
 const APP_VERSION = props.appVersion
 
 // Semver comparison via the official `semver` package: handles pre-release
@@ -38,31 +55,23 @@ function compareVersion(a: string, b: string): number {
 
 const configStore = useConfigStore()
 const authStore = useAuthStore()
-const clientService = useClientService()
 
 const ydoc = shallowRef<Y.Doc | null>(null)
 const provider = shallowRef<HocuspocusProvider | null>(null)
 const status = shallowRef<'connecting' | 'connected' | 'disconnected'>('connecting')
-const currentETag = ref<string>('')
-const lastSaveError = shallowRef<Error | null>(null)
 // Set when the sidecar told us the persisted state is stale and we either
-// recovered locally or need the user to reload. Separate from
-// `lastSaveError` to avoid confusing the save-conflict UI with a
-// version/staleness surface.
+// recovered locally or need the user to reload, or when realtime auth failed.
 const lifecycleError = shallowRef<Error | null>(null)
-const isSaving = ref(false)
 // True after we've forcibly disconnected because of an app-version mismatch.
 // The editor stays mounted with the last-known content but flips read-only
 // and the user is asked to reload.
 const isLockedForReload = ref(false)
-// Flips true whenever a Y.Doc update arrives whose `origin` isn't one of
-// our own internal transactions (hydrate/reset/recovery/meta-seed). Reset
-// after a successful save. Drives the save button's enabled state.
-const hasUnsavedChanges = ref(false)
-const isDirty = computed(() => unref(hasUnsavedChanges) && !effectiveReadOnly.value)
 // Y.Doc transaction origins we generate ourselves and that should NOT
-// count as user-driven dirty edits. Each named `doc.transact(..., origin)`
-// must be listed here so it doesn't toggle the save button.
+// produce an `update:currentContent` emission — hydrate/reset/recovery just
+// reshape the local CRDT after the parent's `currentContent` was loaded;
+// re-emitting the same content right back would only burn cycles and, in
+// the recovery case, racily flip AppWrapper's `isDirty` between recover
+// and the next real edit.
 const INTERNAL_ORIGINS = new Set<string>([
   'hydrate',
   'reset',
@@ -96,11 +105,8 @@ watchEffect((onCleanup) => {
   if (!name || !wsUrl) return
 
   // Reset per-file state.
-  currentETag.value = ''
-  lastSaveError.value = null
   lifecycleError.value = null
   isLockedForReload.value = false
-  hasUnsavedChanges.value = false
 
   // HocuspocusProvider has no `parameters` option; we get query params to
   // the sidecar's requestParameters by appending them to the URL ourselves.
@@ -108,13 +114,38 @@ watchEffect((onCleanup) => {
 
   const doc = new Y.Doc()
 
-  // Mark "dirty" on any Y.Doc update whose origin isn't one of our own
-  // named internal transactions. Codemirror/Tiptap bindings issue
-  // user-typing updates without a named origin (or with an editor-internal
-  // origin object); both produce `origin !== INTERNAL_ORIGINS member`.
+  // Debounced serialize → emit. We hand AppWrapper the same string an
+  // out-of-band PUT would write; AppWrapper diffs it against its
+  // serverContent to derive isDirty. Internal-origin transactions
+  // (hydrate / reset / stale-recovery) are skipped to avoid round-tripping
+  // the parent's freshly-loaded content back to it as a fake user edit.
+  let serializeTimer: number | undefined
+  const scheduleEmit = () => {
+    if (serializeTimer !== undefined) window.clearTimeout(serializeTimer)
+    serializeTimer = window.setTimeout(() => {
+      serializeTimer = undefined
+      if (doc.isDestroyed) return
+      if (!props.adapter.hasContent(doc)) return
+      try {
+        const serialized = props.adapter.serialize(doc)
+        if (typeof serialized === 'string') {
+          emit('update:currentContent', serialized)
+          return
+        }
+        // Adapter returned a Promise (e.g. tiptap headless editor).
+        void Promise.resolve(serialized).then((value) => {
+          if (doc.isDestroyed) return
+          emit('update:currentContent', value)
+        })
+      } catch (e) {
+        console.error('[collab] serialize for emit failed:', e)
+      }
+    }, SERIALIZE_DEBOUNCE_MS)
+  }
+
   const onDocUpdate = (_update: Uint8Array, origin: unknown) => {
     if (typeof origin === 'string' && INTERNAL_ORIGINS.has(origin)) return
-    hasUnsavedChanges.value = true
+    scheduleEmit()
   }
   doc.on('update', onDocUpdate)
 
@@ -146,14 +177,11 @@ watchEffect((onCleanup) => {
   // rule).
   prov.setAwarenessField('user', {})
 
-  // _oc_meta is the parallel channel for save/etag/lifecycle coordination.
-  // The editor binding never sees it because adapters bind to their own
-  // shared types (e.g. Y.Text 'content' for CodeMirror).
+  // _oc_meta is the parallel channel for stale/version coordination. The
+  // editor binding never sees it because adapters bind to their own shared
+  // types (e.g. Y.Text 'content' for CodeMirror).
   const meta = doc.getMap(META_KEY)
   const metaObserver = (event: Y.YMapEvent<unknown>) => {
-    const tag = meta.get('etag') as string | undefined
-    if (tag && tag !== currentETag.value) currentETag.value = tag
-
     // App version mismatch surfaced after-the-fact (e.g. a newer peer joined
     // and bumped `appVersion`). Any non-zero diff at this point means the
     // room moved past or ahead of us mid-session — lock and prompt reload.
@@ -184,23 +212,11 @@ watchEffect((onCleanup) => {
   }
   meta.observe(metaObserver)
 
-  // Periodic auto-save.
-  const saveTimer = window.setInterval(() => {
-    void saveToNative(doc)
-  }, SAVE_INTERVAL_MS)
-
-  // Final save on tab close. Best-effort — long ops may be cut off.
-  const beforeUnload = () => {
-    void saveToNative(doc)
-  }
-  window.addEventListener('beforeunload', beforeUnload)
-
   ydoc.value = doc
   provider.value = prov
 
   onCleanup(() => {
-    window.removeEventListener('beforeunload', beforeUnload)
-    window.clearInterval(saveTimer)
+    if (serializeTimer !== undefined) window.clearTimeout(serializeTimer)
     meta.unobserve(metaObserver)
     doc.off('update', onDocUpdate)
     prov.destroy()
@@ -209,6 +225,25 @@ watchEffect((onCleanup) => {
     if (ydoc.value === doc) ydoc.value = null
   })
 })
+
+// AppWrapper updates `props.resource` after each of its own saves via
+// `resourcesStore.upsertResource(putFileContentsResponse)`, which bubbles
+// the new etag back into this prop. Mirror it into `_oc_meta.etag` so the
+// sidecar's stale-state probe (on the next room load after eviction) and
+// any future peer-aware logic see the current authoritative tag.
+watch(
+  () => props.resource.etag,
+  (newEtag) => {
+    const doc = unref(ydoc)
+    if (!doc || doc.isDestroyed || !newEtag) return
+    const meta = doc.getMap(META_KEY)
+    if (meta.get('etag') === newEtag) return
+    doc.transact(() => {
+      meta.set('etag', newEtag)
+      meta.set('lastSavedAt', Date.now())
+    })
+  }
+)
 
 function lockForReload(prov: HocuspocusProvider, message: string) {
   if (isLockedForReload.value) return
@@ -264,7 +299,7 @@ async function onProviderSynced(doc: Y.Doc, prov: HocuspocusProvider) {
     }
   }
 
-  // Seed the etag immediately so save attempts have a baseline.
+  // Seed the etag immediately so future stale-state probes have a baseline.
   if (!meta.get('etag') && props.resource.etag) {
     doc.transact(() => {
       if (!meta.get('etag')) meta.set('etag', props.resource.etag)
@@ -338,88 +373,16 @@ async function recoverFromStaleState(doc: Y.Doc, prov: HocuspocusProvider) {
     meta.set('appVersion', APP_VERSION)
   }, 'stale-recovery-commit')
 }
-
-// ---------------------------------------------------------------------------
-// Save loop — adapter-agnostic. The wrapper only knows: serialize + PUT.
-// 412 → HEAD probe; if remote etag differs from ours, it's a real external
-// conflict (sync client or out-of-band write). Otherwise an internal race
-// (another collab peer saved milliseconds before us) — we just refresh and
-// the next interval picks up.
-// ---------------------------------------------------------------------------
-async function saveToNative(doc: Y.Doc) {
-  if (effectiveReadOnly.value) return
-  if (isSaving.value) return
-  if (!doc || doc.isDestroyed) return
-  if (!props.adapter.hasContent(doc)) return
-
-  isSaving.value = true
-  try {
-    const content = await Promise.resolve(props.adapter.serialize(doc))
-    const meta = doc.getMap(META_KEY)
-    const previousEntityTag = (meta.get('etag') as string) || unref(currentETag)
-
-    try {
-      const updated = await clientService.webdav.putFileContents(props.resource, {
-        content,
-        previousEntityTag
-      })
-      doc.transact(() => {
-        meta.set('etag', updated.etag)
-        meta.set('lastSavedAt', Date.now())
-      })
-      hasUnsavedChanges.value = false
-      lastSaveError.value = null
-    } catch (e: any) {
-      if (e?.statusCode === 412) {
-        const remote = await clientService.webdav.getFileInfo(props.resource)
-        if (remote.etag && remote.etag !== previousEntityTag) {
-          // Real external conflict.
-          doc.transact(() => meta.set('etag', remote.etag))
-          lastSaveError.value = new Error(
-            'This file was changed outside the collaborative session.'
-          )
-        }
-        // else: internal race; next interval will retry naturally.
-      } else {
-        lastSaveError.value = e instanceof Error ? e : new Error(String(e))
-      }
-    }
-  } finally {
-    isSaving.value = false
-  }
-}
-
-function saveNowFromButton() {
-  const doc = unref(ydoc)
-  if (doc) void saveToNative(doc)
-}
-
-defineExpose({ saveNow: saveNowFromButton })
 </script>
 
 <template>
   <div class="oc-width-1-1 oc-height-1-1 oc-flex oc-flex-column">
+    <!-- Compact status strip — connection state + lifecycle errors only.
+         Save / dirty / etag UX is owned by the hosting AppWrapper. -->
     <div class="oc-p-s oc-text-meta oc-flex oc-flex-middle">
-      <span>{{ documentName }}</span>
-      <span class="oc-ml-m">— {{ status }}</span>
-      <span v-if="currentETag" class="oc-ml-m">etag: {{ currentETag.slice(0, 8) }}</span>
-      <span v-if="isDirty" class="oc-ml-m">— unsaved changes</span>
-      <span v-if="isSaving" class="oc-ml-m">— saving…</span>
-      <span v-if="lastSaveError" class="oc-ml-m oc-text-danger">— {{ lastSaveError.message }}</span>
+      <span>— {{ status }}</span>
       <span v-if="lifecycleError" class="oc-ml-m oc-text-danger">— {{ lifecycleError.message }}</span>
       <span v-if="effectiveReadOnly" class="oc-ml-m">(read-only)</span>
-      <!-- Explicit save button. OC's AppWrapper save mechanism would need an
-           etag-from-collab refresh path we don't have, so we render our own
-           button here for PoC. To move into OC's chrome later, the wrapper
-           needs to replace AppWrapperRoute. -->
-      <button
-        data-testid="collab-save"
-        class="oc-ml-auto oc-button"
-        :disabled="!isDirty || isSaving || effectiveReadOnly"
-        @click="saveNowFromButton"
-      >
-        Save
-      </button>
     </div>
     <component
       :is="editor"

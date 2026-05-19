@@ -16,6 +16,14 @@ defineProps({
   isReadOnly: { type: Boolean, required: false, default: false },
   resource: { type: Object as PropType<Resource>, required: true }
 })
+
+// Declaring `update:currentContent` here is how the hosting AppWrapper
+// detects this as an editor (isEditor): the topbar shows the Save action,
+// Ctrl+S binds, the unsaved-changes route-leave modal arms, and the
+// auto-save loop arms (or stays off if `disableAutoSave` is passed).
+defineEmits<{
+  (e: 'update:currentContent', value: string): void
+}>()
 </script>
 
 <template>
@@ -26,5 +34,6 @@ defineProps({
     :adapter="tiptapMarkdownAdapter"
     :editor="TiptapEditor"
     :app-version="pkg.version"
+    @update:current-content="$emit('update:currentContent', $event)"
   />
 </template>

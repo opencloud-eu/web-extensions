@@ -5,13 +5,13 @@ import {
   fetchFileAsAdmin
 } from '../../../../support/helpers/api/spaceHelper'
 
-// Save-back verification: type into the collab editor, click the explicit
-// Save button in the wrapper top bar, then re-fetch the file through
-// WebDAV (admin token, bypasses the collab layer) and assert the typed
-// marker is persisted. Covers the round trip CRDT → wrapper save loop →
-// WebDAV PUT → OC backend.
+// Save-back verification: type into the collab editor, trigger the host
+// AppWrapper's save via Ctrl+S, then re-fetch the file through WebDAV
+// (admin token, bypasses the collab layer) and assert the typed marker is
+// persisted. Covers the round trip CRDT → update:currentContent emission
+// → AppWrapper.save → WebDAV PUT → OC backend.
 test.describe('save-back to native file', () => {
-  test('typing then clicking Save persists to OC', async ({ browser }) => {
+  test('typing then Ctrl+S persists to OC', async ({ browser }) => {
     const stamp = Date.now()
     const filename = `save-back-${stamp}.md`
     const initial = `initial content ${stamp}\n`
@@ -32,16 +32,20 @@ test.describe('save-back to native file', () => {
       await page.keyboard.press('End')
       await page.keyboard.type(marker)
 
-      // The save button enables once the doc is dirty.
-      const saveButton = page.getByTestId('collab-save')
-      await expect(saveButton).toBeEnabled({ timeout: 5_000 })
-      await saveButton.click()
-      // After a successful save the button disables again because
-      // `hasUnsavedChanges` resets.
-      await expect(saveButton).toBeDisabled({ timeout: 5_000 })
+      // Give the wrapper's debounced serialize → emit a chance to fire so
+      // AppWrapper sees the dirty content before we trigger its save.
+      await page.waitForTimeout(500)
 
-      // Read the file straight from OC via WebDAV and assert the marker
-      // landed on disk, not just in the live Y.Doc.
+      // AppWrapper binds Ctrl+S to its own save() via useKeyboardActions.
+      await page.keyboard.press('Control+s')
+
+      // Poll OC over WebDAV until the marker lands. AppWrapper doesn't
+      // expose a "saving done" signal we can latch onto, so we wait on
+      // the side effect.
+      await expect
+        .poll(async () => await fetchFileAsAdmin(file), { timeout: 10_000 })
+        .toContain(marker)
+
       const persisted = await fetchFileAsAdmin(file)
       expect(persisted).toContain(initial.trim())
       expect(persisted).toContain(marker)
