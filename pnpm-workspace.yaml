@@ -5,6 +5,7 @@ packages:
 
 autoInstallPeers: true
 sharedWorkspaceLockfile: true
+minimumReleaseAge: 720
 
 # public so they are picked up by IDEs
 publicHoistPattern:
