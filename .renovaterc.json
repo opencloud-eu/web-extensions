@@ -2,9 +2,12 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended", "docker:pinDigests"],
   "prConcurrentLimit": 15,
-  "minimumReleaseAge": "12 hours",
   "postUpdateOptions": ["pnpmDedupe"],
   "packageRules": [
+    {
+      "matchManagers": ["npm"],
+      "minimumReleaseAge": "12 hours"
+    },
     {
       "matchDepTypes": ["devDependencies"],
       "matchUpdateTypes": ["patch", "minor"],
