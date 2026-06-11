@@ -7,7 +7,7 @@ services:
       - ./download.sh:/download.sh:ro
 
   server:
-    image: joseluisq/static-web-server:2@sha256:2d67e47e22172235e339908777e692006ffdcf42dc4c531aff5d4337a7559a1e
+    image: joseluisq/static-web-server:2@sha256:6acea6260b14e08dda986361e42640082fbfaab8d88c327de532bb13a3b22994
     depends_on:
       download:
         condition: service_completed_successfully
