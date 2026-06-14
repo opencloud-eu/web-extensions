@@ -12,7 +12,7 @@ publicHoistPattern:
   - '*eslint*'
 
 overrides:
-  '@module-federation/vite': '1.14.2'
+  '@module-federation/vite': '1.16.8'
 
 allowBuilds:
   '@parcel/watcher': true
