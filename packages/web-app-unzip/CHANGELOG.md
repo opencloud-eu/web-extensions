@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.0.1](https://github.com/opencloud-eu/web-extensions/releases/tag/unzip-v2.0.1) - 2026-06-25
+
+### 🐛 Bug Fixes
+
+- Preserve subfolder structure when extracting archives [[#443](https://github.com/opencloud-eu/web-extensions/pull/443)]
+
 ## [2.0.0](https://github.com/opencloud-eu/web-extensions/releases/tag/unzip-v2.0.0) - 2026-04-07
 
 ### Breaking changes
