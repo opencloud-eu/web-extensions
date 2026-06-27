@@ -106,7 +106,7 @@
     </section>
 
     <!-- Category: subscriptions -->
-    <section class="cat cat-sub">
+    <section v-if="bridgeEnabled" class="cat cat-sub">
       <div class="cat-head">
         <span class="cat-badge"><oc-icon name="rss" fill-type="line" size="large" /></span>
         <div class="cat-headtext">
@@ -177,7 +177,7 @@
     </section>
 
     <!-- Category: share as a link -->
-    <section class="cat cat-share">
+    <section v-if="bridgeEnabled" class="cat cat-share">
       <div class="cat-head">
         <span class="cat-badge"
           ><oc-icon name="share-forward" fill-type="line" size="large"
@@ -260,6 +260,7 @@ const { showMessage } = useMessages()
 const { client, calendars, ensureReady, fullUrl, createCalendar, updateCalendar, deleteCalendar } =
   useCalDav()
 const {
+  bridgeEnabled,
   subscriptions,
   publications,
   ensureLoaded: ensureSubs,
@@ -433,8 +434,10 @@ onMounted(() =>
   run(async () => {
     await ensureReady(true)
     pubCalendar.value = calendars.value[0] || null
-    await ensureSubs(true)
-    await loadPublications()
+    if (bridgeEnabled.value) {
+      await ensureSubs(true)
+      await loadPublications()
+    }
   })
 )
 </script>

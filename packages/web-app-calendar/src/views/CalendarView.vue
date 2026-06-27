@@ -97,6 +97,7 @@ const { $gettext } = useGettext()
 const { dispatchModal } = useModals()
 const { client, calendars, ensureReady, calendarsFor, isVisible, toggleVisible } = useCalDav()
 const {
+  bridgeEnabled,
   subscriptions,
   ensureLoaded: ensureSubs,
   client: bridge,
@@ -172,7 +173,9 @@ const loadEvents = async (start: Date, end: Date): Promise<EventInput[]> => {
     }
   }
   // External subscriptions: read-only overlays fetched + cached by the bridge.
-  await ensureSubs()
+  if (bridgeEnabled.value) {
+    await ensureSubs()
+  }
   for (const sub of subscriptions.value) {
     if (!isSubVisible(sub.id)) {
       continue
@@ -363,7 +366,8 @@ const options = computed<CalendarOptions>(() => ({
 }))
 
 onMounted(() => {
-  Promise.all([ensureReady(), ensureSubs()]).catch((e) => {
+  const tasks = bridgeEnabled.value ? [ensureReady(), ensureSubs()] : [ensureReady()]
+  Promise.all(tasks).catch((e) => {
     loadError.value = (e as Error).message || $gettext('Could not load calendars')
   })
 })

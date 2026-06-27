@@ -2,6 +2,7 @@ import { ref } from 'vue'
 import { useClientService } from '@opencloud-eu/web-pkg'
 import {
   BridgeClient,
+  bridgeEnabled,
   type HttpClient,
   type Subscription,
   type Publication
@@ -104,6 +105,7 @@ export const useBridge = () => {
 
   return {
     client,
+    bridgeEnabled,
     subscriptions,
     publications,
     ensureLoaded,
