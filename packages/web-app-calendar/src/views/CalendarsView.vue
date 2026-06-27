@@ -104,143 +104,6 @@
         </ul>
       </div>
     </section>
-
-    <!-- Category: subscriptions -->
-    <section v-if="bridgeEnabled" class="cat cat-sub">
-      <div class="cat-head">
-        <span class="cat-badge"><oc-icon name="rss" fill-type="line" size="large" /></span>
-        <div class="cat-headtext">
-          <h3 class="cat-title">{{ $gettext('Subscriptions') }}</h3>
-          <p class="cat-sub">
-            {{
-              $gettext(
-                'Read-only calendars from elsewhere. Paste an ICS or webcal link (Google, Apple, Proton, Nextcloud, ...); it is fetched and refreshed on the server.'
-              )
-            }}
-          </p>
-        </div>
-      </div>
-
-      <div class="cat-body">
-        <form class="mng-form mng-form-wrap" @submit.prevent="addSub">
-          <input
-            v-model="subUrl"
-            class="mng-input mng-full"
-            :placeholder="$gettext('https://... .ics or webcal://...')"
-          />
-          <label class="mng-swatch" :title="$gettext('Colour')">
-            <span class="mng-swatch-dot" :style="{ background: subColor }" />
-            <input v-model="subColor" type="color" class="mng-swatch-input" />
-          </label>
-          <input
-            v-model="subName"
-            class="mng-input mng-grow"
-            :placeholder="$gettext('Name (optional)')"
-          />
-          <oc-button submit="submit" appearance="filled" :disabled="busy || !subUrl.trim()">
-            <oc-icon name="add" fill-type="line" size="small" />
-            {{ $gettext('Subscribe') }}
-          </oc-button>
-        </form>
-
-        <ul v-if="subscriptions.length" class="mng-rows">
-          <li v-for="s in subscriptions" :key="s.id" class="mng-row">
-            <span class="mng-dot-static" :style="{ background: s.color || '#9aa0a6' }" />
-            <div class="mng-row-body">
-              <span class="mng-name-static">{{ s.name }}</span>
-              <span class="mng-url-text">{{ s.url }}</span>
-            </div>
-            <span class="mng-count" :class="{ 'mng-count-err': s.lastError }">
-              <template v-if="s.lastError">⚠ {{ $gettext('error') }}</template>
-              <template v-else>{{ s.eventCount }} {{ $gettext('events') }}</template>
-            </span>
-            <div class="mng-actions">
-              <oc-button
-                appearance="raw"
-                :title="$gettext('Refresh now')"
-                @click="refreshSub(s.id)"
-              >
-                <oc-icon name="refresh" fill-type="line" />
-              </oc-button>
-              <oc-button
-                appearance="raw"
-                :title="$gettext('Remove subscription')"
-                @click="removeSub(s)"
-              >
-                <oc-icon name="delete-bin-5" fill-type="line" variation="danger" />
-              </oc-button>
-            </div>
-          </li>
-        </ul>
-        <p v-else class="mng-empty">{{ $gettext('No subscriptions yet.') }}</p>
-      </div>
-    </section>
-
-    <!-- Category: share as a link -->
-    <section v-if="bridgeEnabled" class="cat cat-share">
-      <div class="cat-head">
-        <span class="cat-badge"
-          ><oc-icon name="share-forward" fill-type="line" size="large"
-        /></span>
-        <div class="cat-headtext">
-          <h3 class="cat-title">{{ $gettext('Share as a link') }}</h3>
-          <p class="cat-sub">
-            {{
-              $gettext(
-                'Create a secret link others can subscribe to from any calendar app. Anyone with the link can see the events; revoke it anytime.'
-              )
-            }}
-          </p>
-        </div>
-      </div>
-
-      <div class="cat-body">
-        <form class="mng-form mng-form-wrap" @submit.prevent="addPublish">
-          <oc-select
-            class="mng-full"
-            :label="$gettext('Calendar')"
-            :options="calendars"
-            :get-option-label="pubLabel"
-            :model-value="pubCalendar"
-            :clearable="false"
-            :searchable="false"
-            @update:model-value="onPubCalendar"
-          />
-          <oc-checkbox v-model="pubBusyOnly" :label="$gettext('Busy only (hide details)')" />
-          <oc-button submit="submit" appearance="filled" :disabled="busy || !pubCalendar">
-            <oc-icon name="share-forward" fill-type="line" size="small" />
-            {{ $gettext('Create link') }}
-          </oc-button>
-        </form>
-
-        <ul v-if="publications.length" class="mng-rows">
-          <li v-for="p in publications" :key="p.id" class="mng-row">
-            <oc-icon name="global" fill-type="line" class="mng-row-icon" />
-            <div class="mng-row-body">
-              <span class="mng-name-static">
-                {{ p.name }}<template v-if="p.busyOnly"> · {{ $gettext('busy only') }}</template>
-              </span>
-              <div class="mng-url-line">
-                <input class="mng-url" :value="feedUrl(p.feedPath)" readonly @focus="selectAll" />
-                <oc-button
-                  appearance="raw"
-                  :title="$gettext('Copy feed URL')"
-                  @click="copyText(feedUrl(p.feedPath))"
-                >
-                  <oc-icon name="file-copy" fill-type="line" size="small" />
-                </oc-button>
-              </div>
-            </div>
-            <div class="mng-actions">
-              <oc-button appearance="raw" :title="$gettext('Revoke link')" @click="revokePub(p.id)">
-                <oc-icon name="delete-bin-5" fill-type="line" variation="danger" />
-              </oc-button>
-            </div>
-          </li>
-        </ul>
-        <p v-else class="mng-empty">{{ $gettext('Nothing shared yet.') }}</p>
-      </div>
-    </section>
   </div>
 </template>
 
@@ -249,49 +112,19 @@ import { onMounted, ref } from 'vue'
 import { useGettext } from 'vue3-gettext'
 import { useModals, useMessages } from '@opencloud-eu/web-pkg'
 import { useCalDav } from '../composables/useCalDav'
-import { useBridge } from '../composables/useBridge'
 import { splitIcs, mergeIcs, newUid } from '../lib/ical'
 import type { CalendarCollection } from '../clients/caldav'
-import type { Subscription } from '../clients/bridge'
 
 const { $gettext } = useGettext()
 const { dispatchModal } = useModals()
 const { showMessage } = useMessages()
 const { client, calendars, ensureReady, fullUrl, createCalendar, updateCalendar, deleteCalendar } =
   useCalDav()
-const {
-  bridgeEnabled,
-  subscriptions,
-  publications,
-  ensureLoaded: ensureSubs,
-  addSubscription,
-  removeSubscription,
-  refreshOne,
-  loadPublications,
-  publish,
-  unpublish,
-  feedUrl
-} = useBridge()
 
 const newName = ref('')
 const newColor = ref('#0082c9')
 const busy = ref(false)
 const error = ref('')
-
-// external subscriptions
-const subUrl = ref('')
-const subName = ref('')
-const subColor = ref('#46ba61')
-
-// publish / share
-const pubCalendar = ref<CalendarCollection | null>(null)
-const pubBusyOnly = ref(false)
-const pubLabel = (o: unknown) => (o as CalendarCollection).displayName
-const onPubCalendar = (c: CalendarCollection | null) => {
-  if (c) {
-    pubCalendar.value = c
-  }
-}
 
 const run = async (fn: () => Promise<void>) => {
   busy.value = true
@@ -387,59 +220,7 @@ const copyText = async (text: string) => {
 }
 const copy = (url: string) => copyText(fullUrl(url))
 
-// --- external subscriptions ---
-const addSub = () =>
-  run(async () => {
-    const raw = subUrl.value.trim()
-    if (!/^(https?|webcals?):\/\//i.test(raw)) {
-      error.value = $gettext('Enter a link starting with https://, http:// or webcal://')
-      return
-    }
-    const sub = await addSubscription(raw, subName.value.trim(), subColor.value)
-    if (sub.lastError) {
-      error.value = $gettext('Subscribed, but the feed could not be fetched: %{e}', {
-        e: sub.lastError
-      })
-    }
-    subUrl.value = ''
-    subName.value = ''
-  })
-
-const refreshSub = (id: string) => run(() => refreshOne(id))
-
-const removeSub = (s: Subscription) => {
-  dispatchModal({
-    title: $gettext('Remove subscription'),
-    message: $gettext('Stop subscribing to "%{name}"?', { name: s.name }),
-    confirmText: $gettext('Remove'),
-    onConfirm: async () => {
-      await removeSubscription(s.id)
-    }
-  })
-}
-
-// --- publish / share ---
-const addPublish = () =>
-  run(async () => {
-    if (!pubCalendar.value) {
-      return
-    }
-    await publish(pubCalendar.value.url, pubCalendar.value.displayName, pubBusyOnly.value)
-    pubBusyOnly.value = false
-  })
-
-const revokePub = (id: string) => run(() => unpublish(id))
-
-onMounted(() =>
-  run(async () => {
-    await ensureReady(true)
-    pubCalendar.value = calendars.value[0] || null
-    if (bridgeEnabled.value) {
-      await ensureSubs(true)
-      await loadPublications()
-    }
-  })
-)
+onMounted(() => run(() => ensureReady(true)))
 </script>
 
 <style scoped>
