@@ -55,7 +55,9 @@ export class BridgeClient {
 
   async listSubscriptions(): Promise<Subscription[]> {
     const res = await this.http.get(`${BRIDGE_BASE}/subscriptions`)
-    return (res.data as Subscription[]) || []
+    // Guard against a non-array response (e.g. an SPA HTML fallback when the
+    // bridge route is absent); iterating a string would render one row per char.
+    return Array.isArray(res.data) ? (res.data as Subscription[]) : []
   }
 
   async addSubscription(url: string, name: string, color: string): Promise<Subscription> {
@@ -86,7 +88,7 @@ export class BridgeClient {
 
   async listPublications(): Promise<Publication[]> {
     const res = await this.http.get(`${BRIDGE_BASE}/publications`)
-    return (res.data as Publication[]) || []
+    return Array.isArray(res.data) ? (res.data as Publication[]) : []
   }
 
   async publish(collection: string, name: string, busyOnly: boolean): Promise<Publication> {
