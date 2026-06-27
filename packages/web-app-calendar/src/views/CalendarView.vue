@@ -40,18 +40,6 @@
             />
           </div>
         </div>
-
-        <div v-if="subscriptions.length" class="cal-list">
-          <span class="cal-label">{{ $gettext('Subscriptions') }}</span>
-          <div v-for="s in subscriptions" :key="s.id" class="cal-list-item">
-            <span class="cal-dot" :style="{ background: s.color || '#9aa0a6' }" />
-            <oc-checkbox
-              :model-value="isSubVisible(s.id)"
-              :label="s.name"
-              @update:model-value="onToggleSub(s.id)"
-            />
-          </div>
-        </div>
       </template>
     </aside>
 
@@ -81,7 +69,6 @@ import type { EventResizeDoneArg } from '@fullcalendar/interaction'
 import { useGettext } from 'vue3-gettext'
 import { useModals } from '@opencloud-eu/web-pkg'
 import { useCalDav } from '../composables/useCalDav'
-import { useBridge } from '../composables/useBridge'
 import type { CalendarCollection } from '../clients/caldav'
 import {
   eventsFromObject,
@@ -96,14 +83,6 @@ import EventModal from '../components/EventModal.vue'
 const { $gettext } = useGettext()
 const { dispatchModal } = useModals()
 const { client, calendars, ensureReady, calendarsFor, isVisible, toggleVisible } = useCalDav()
-const {
-  bridgeEnabled,
-  subscriptions,
-  ensureLoaded: ensureSubs,
-  client: bridge,
-  isVisible: isSubVisible,
-  toggleVisible: toggleSub
-} = useBridge()
 
 const fc = ref<InstanceType<typeof FullCalendar> | null>(null)
 const loadError = ref('')
@@ -131,11 +110,6 @@ const refetch = () => fc.value?.getApi().refetchEvents()
 
 const onToggle = (url: string) => {
   toggleVisible(url)
-  refetch()
-}
-
-const onToggleSub = (id: string) => {
-  toggleSub(id)
   refetch()
 }
 
@@ -170,32 +144,6 @@ const loadEvents = async (start: Date, end: Date): Promise<EventInput[]> => {
           }
         })
       }
-    }
-  }
-  // External subscriptions: read-only overlays fetched + cached by the bridge.
-  if (bridgeEnabled.value) {
-    await ensureSubs()
-  }
-  for (const sub of subscriptions.value) {
-    if (!isSubVisible(sub.id)) {
-      continue
-    }
-    try {
-      const ics = await bridge.getICS(sub.id)
-      for (const ev of eventsFromObject({ url: '', etag: '', data: ics }, start, end)) {
-        out.push({
-          id: `sub:${sub.id}:${ev.id}`,
-          title: ev.title,
-          start: ev.start,
-          end: ev.end ?? undefined,
-          allDay: ev.allDay,
-          editable: false,
-          ...(sub.color ? { color: sub.color } : {}),
-          extendedProps: { readonly: true, location: ev.location, description: ev.description }
-        })
-      }
-    } catch {
-      // A single failing subscription should not break the whole view.
     }
   }
   return out
@@ -260,8 +208,7 @@ const persistMove = async (arg: EventDropArg | EventResizeDoneArg) => {
 
 const openEdit = (arg: EventClickArg) => {
   const e = arg.event
-  // External subscription events are read-only - nothing to edit.
-  if (e.extendedProps.readonly || !e.extendedProps.url) {
+  if (!e.extendedProps.url) {
     return
   }
   const url = e.extendedProps.url as string
@@ -366,8 +313,7 @@ const options = computed<CalendarOptions>(() => ({
 }))
 
 onMounted(() => {
-  const tasks = bridgeEnabled.value ? [ensureReady(), ensureSubs()] : [ensureReady()]
-  Promise.all(tasks).catch((e) => {
+  ensureReady().catch((e) => {
     loadError.value = (e as Error).message || $gettext('Could not load calendars')
   })
 })
