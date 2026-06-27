@@ -3,6 +3,7 @@
 // public ICS feeds for calendars the user publishes. Reached same-origin through
 // the OpenCloud proxy at /calendar-bridge/ (protected; the proxy injects the
 // caller identity), so the logged-in session carries the auth automatically.
+import { ref } from 'vue'
 
 // Same-origin prefix the OpenCloud proxy forwards to oc-calendar-bridge (the
 // protected route that injects X-Remote-User). Defaults to /calendar-bridge but
@@ -12,6 +13,15 @@ export const setBridgeBase = (v?: string): void => {
   if (v && v.trim()) {
     BRIDGE_BASE = v.replace(/\/$/, '')
   }
+}
+
+// Whether the companion bridge is available. The subscription and public
+// sharing features depend on it; when no bridge is deployed, set "bridge": false
+// in the app's config.json and the related UI is hidden so the app stays clean
+// running against CalDAV (Radicale) alone.
+export const bridgeEnabled = ref(true)
+export const setBridgeEnabled = (v: boolean): void => {
+  bridgeEnabled.value = v
 }
 
 export interface Subscription {

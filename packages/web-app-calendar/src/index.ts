@@ -1,8 +1,4 @@
-import {
-  defineWebApplication,
-  Extension,
-  AppMenuItemExtension
-} from '@opencloud-eu/web-pkg'
+import { defineWebApplication, Extension, AppMenuItemExtension } from '@opencloud-eu/web-pkg'
 import { urlJoin } from '@opencloud-eu/web-client'
 import { RouteRecordRaw } from 'vue-router'
 import { computed } from 'vue'
@@ -10,7 +6,7 @@ import { useGettext } from 'vue3-gettext'
 import translations from '../l10n/translations.json'
 import AppShell from './components/AppShell.vue'
 import { setCaldavRoot } from './clients/caldav'
-import { setBridgeBase } from './clients/bridge'
+import { setBridgeBase, setBridgeEnabled } from './clients/bridge'
 
 export default defineWebApplication({
   setup(options) {
@@ -18,9 +14,16 @@ export default defineWebApplication({
 
     // Optional per-deployment overrides from the app's config.json, so the
     // CalDAV and bridge prefixes can match whatever the proxy is configured with.
-    const cfg = (options?.applicationConfig || {}) as { caldavRoot?: string; bridgeBase?: string }
+    // "bridge": false hides the subscription/sharing UI when no companion bridge
+    // is deployed, leaving a clean CalDAV-only calendar.
+    const cfg = (options?.applicationConfig || {}) as {
+      caldavRoot?: string
+      bridgeBase?: string
+      bridge?: boolean
+    }
     setCaldavRoot(cfg.caldavRoot)
     setBridgeBase(cfg.bridgeBase)
+    setBridgeEnabled(cfg.bridge !== false)
 
     const appInfo = {
       id: 'calendar',
