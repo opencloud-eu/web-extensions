@@ -3,9 +3,7 @@
     <header class="mng-head">
       <h2 class="mng-title">{{ $gettext('Calendars') }}</h2>
       <p class="mng-sub">
-        {{
-          $gettext('Manage your calendars, subscribe to external ones, and share yours as a link.')
-        }}
+        {{ $gettext('Manage your calendars and connect them to other apps with the CalDAV link.') }}
       </p>
     </header>
 
