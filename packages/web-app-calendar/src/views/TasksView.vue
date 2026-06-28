@@ -44,7 +44,8 @@ import { useGettext } from 'vue3-gettext'
 import { useCalDav } from '../composables/useCalDav'
 import { taskFromObject, buildTaskIcs, newUid, type TaskItem } from '../lib/ical'
 
-const { $gettext } = useGettext()
+const language = useGettext()
+const { $gettext } = language
 const { client, ensureReady, calendarsFor } = useCalDav()
 
 const tasks = ref<TaskItem[]>([])
@@ -58,7 +59,7 @@ const sorted = computed(() =>
   [...tasks.value].sort((a, b) => Number(a.completed) - Number(b.completed))
 )
 
-const formatDue = (d: Date) => d.toLocaleDateString()
+const formatDue = (d: Date) => d.toLocaleDateString(language.current)
 
 const collection = () => calendarsFor('VTODO')[0]
 
