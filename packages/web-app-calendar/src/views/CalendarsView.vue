@@ -313,13 +313,6 @@ onMounted(() => run(() => ensureReady(true)))
 .cat-cal {
   border-top: 3px solid #0082c9;
 }
-.cat-sub .cat-badge {
-  background: color-mix(in srgb, #46ba61 18%, transparent);
-  color: #2e9e4f;
-}
-.cat-sub {
-  border-top: 3px solid #46ba61;
-}
 
 /* forms: a row that wraps; the long field takes its own line */
 .mng-form {
