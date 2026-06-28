@@ -18,7 +18,7 @@
       </oc-button>
     </form>
 
-    <p v-if="error" class="tasks-error">{{ error }}</p>
+    <p v-if="error" class="tasks-error" role="alert">{{ error }}</p>
     <p v-if="!loading && tasks.length === 0" class="tasks-empty">{{ $gettext('No tasks yet.') }}</p>
 
     <ul class="tasks-list">
@@ -26,11 +26,17 @@
         <oc-checkbox
           class="tasks-item-check"
           :model-value="t.completed"
-          :label="t.title"
+          :label="t.title || $gettext('(no title)')"
+          :disabled="toggling.has(t.url)"
           @update:model-value="toggle(t)"
         />
         <span v-if="t.due" class="tasks-item-due">{{ formatDue(t.due) }}</span>
-        <oc-button appearance="raw" :title="$gettext('Delete task')" @click="remove(t)">
+        <oc-button
+          appearance="raw"
+          :title="$gettext('Delete task')"
+          :aria-label="$gettext('Delete task')"
+          @click="remove(t)"
+        >
           <oc-icon name="delete-bin-5" fill-type="line" />
         </oc-button>
       </li>
@@ -54,6 +60,19 @@ const error = ref('')
 const busy = ref(false)
 const newTitle = ref('')
 const newDue = ref('')
+// URLs of tasks whose completed-toggle is in flight, so a double-click can't fire
+// a second PUT with the now-stale etag (which the server would reject with 412).
+const toggling = ref<Set<string>>(new Set())
+
+// Parse a <input type=date> value as local midnight (new Date("YYYY-MM-DD") would
+// be UTC midnight and could land on the previous day in non-UTC timezones).
+const parseDueLocal = (s: string): Date | null => {
+  if (!s) {
+    return null
+  }
+  const [y, m, d] = s.split('-').map(Number)
+  return new Date(y, (m || 1) - 1, d || 1)
+}
 
 const sorted = computed(() =>
   [...tasks.value].sort((a, b) => Number(a.completed) - Number(b.completed))
@@ -94,7 +113,7 @@ const addTask = async () => {
     const ics = buildTaskIcs({
       uid,
       title: newTitle.value.trim(),
-      due: newDue.value ? new Date(newDue.value) : null,
+      due: parseDueLocal(newDue.value),
       completed: false
     })
     await client.putObject(col.url + encodeURIComponent(uid) + '.ics', ics)
@@ -109,6 +128,10 @@ const addTask = async () => {
 }
 
 const toggle = async (t: TaskItem) => {
+  if (toggling.value.has(t.url)) {
+    return
+  }
+  toggling.value = new Set(toggling.value).add(t.url)
   try {
     const ics = buildTaskIcs({
       uid: t.uid,
@@ -121,6 +144,10 @@ const toggle = async (t: TaskItem) => {
     await load()
   } catch (e) {
     error.value = (e as Error).message || $gettext('Could not update task')
+  } finally {
+    const next = new Set(toggling.value)
+    next.delete(t.url)
+    toggling.value = next
   }
 }
 

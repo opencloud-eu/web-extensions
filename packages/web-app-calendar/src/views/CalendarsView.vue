@@ -7,7 +7,7 @@
       </p>
     </header>
 
-    <p v-if="error" class="mng-error">{{ error }}</p>
+    <p v-if="error" class="mng-error" role="alert">{{ error }}</p>
 
     <!-- Category: your calendars -->
     <section class="cat cat-cal">
@@ -29,12 +29,18 @@
         <form class="mng-form" @submit.prevent="create">
           <label class="mng-swatch" :title="$gettext('Colour')">
             <span class="mng-swatch-dot" :style="{ background: newColor }" />
-            <input v-model="newColor" type="color" class="mng-swatch-input" />
+            <input
+              v-model="newColor"
+              type="color"
+              class="mng-swatch-input"
+              :aria-label="$gettext('Calendar colour')"
+            />
           </label>
           <input
             v-model="newName"
             class="mng-input mng-grow"
             :placeholder="$gettext('New calendar name...')"
+            :aria-label="$gettext('New calendar name')"
           />
           <oc-button submit="submit" appearance="filled" :disabled="busy || !newName.trim()">
             <oc-icon name="add" fill-type="line" size="small" />
@@ -45,11 +51,15 @@
         <ul class="mng-rows">
           <li v-for="c in calendars" :key="c.url" class="mng-row">
             <label class="mng-swatch" :title="$gettext('Colour')">
-              <span class="mng-swatch-dot" :style="{ background: c.color || '#0082c9' }" />
+              <span
+                class="mng-swatch-dot"
+                :style="{ background: c.color || DEFAULT_CALENDAR_COLOR }"
+              />
               <input
                 type="color"
-                :value="c.color || '#0082c9'"
+                :value="c.color || DEFAULT_CALENDAR_COLOR"
                 class="mng-swatch-input"
+                :aria-label="$gettext('Calendar colour')"
                 @change="recolor(c.url, $event)"
               />
             </label>
@@ -71,6 +81,7 @@
                 <oc-button
                   appearance="raw"
                   :title="$gettext('Copy CalDAV URL')"
+                  :aria-label="$gettext('Copy CalDAV URL')"
                   @click="copy(c.url)"
                 >
                   <oc-icon name="file-copy" fill-type="line" size="small" />
@@ -78,7 +89,12 @@
               </div>
             </div>
             <div class="mng-actions">
-              <oc-button appearance="raw" :title="$gettext('Export as .ics')" @click="exportCal(c)">
+              <oc-button
+                appearance="raw"
+                :title="$gettext('Export as .ics')"
+                :aria-label="$gettext('Export as .ics')"
+                @click="exportCal(c)"
+              >
                 <oc-icon name="download-2" fill-type="line" />
               </oc-button>
               <label class="mng-icon-btn" :title="$gettext('Import .ics')">
@@ -87,12 +103,14 @@
                   type="file"
                   accept=".ics,text/calendar"
                   class="mng-file"
+                  :aria-label="$gettext('Import .ics')"
                   @change="importCal(c, $event)"
                 />
               </label>
               <oc-button
                 appearance="raw"
                 :title="$gettext('Delete calendar')"
+                :aria-label="$gettext('Delete calendar')"
                 @click="confirmDelete(c)"
               >
                 <oc-icon name="delete-bin-5" fill-type="line" variation="danger" />
@@ -111,16 +129,17 @@ import { useGettext } from 'vue3-gettext'
 import { useModals, useMessages } from '@opencloud-eu/web-pkg'
 import { useCalDav } from '../composables/useCalDav'
 import { splitIcs, mergeIcs, newUid } from '../lib/ical'
+import { DEFAULT_CALENDAR_COLOR } from '../lib/constants'
 import type { CalendarCollection } from '../clients/caldav'
 
-const { $gettext } = useGettext()
+const { $gettext, $ngettext } = useGettext()
 const { dispatchModal } = useModals()
 const { showMessage } = useMessages()
 const { client, calendars, ensureReady, fullUrl, createCalendar, updateCalendar, deleteCalendar } =
   useCalDav()
 
 const newName = ref('')
-const newColor = ref('#0082c9')
+const newColor = ref(DEFAULT_CALENDAR_COLOR)
 const busy = ref(false)
 const error = ref('')
 
@@ -198,12 +217,20 @@ const importCal = (c: CalendarCollection, ev: Event) => {
     }
     input.value = ''
     showMessage({
-      title: $gettext('Imported %{n} into %{name}', { n: String(added), name: c.displayName })
+      title: $ngettext(
+        'Imported %{n} item into %{name}',
+        'Imported %{n} items into %{name}',
+        added,
+        { n: String(added), name: c.displayName }
+      )
     })
     if (skipped) {
-      error.value = $gettext('%{n} item(s) were skipped (already present or invalid).', {
-        n: String(skipped)
-      })
+      error.value = $ngettext(
+        '%{n} item was skipped (already present or invalid).',
+        '%{n} items were skipped (already present or invalid).',
+        skipped,
+        { n: String(skipped) }
+      )
     }
   })
 }
@@ -415,6 +442,7 @@ onMounted(() => run(() => ensureReady(true)))
   flex-shrink: 0;
 }
 .mng-icon-btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -423,11 +451,20 @@ onMounted(() => run(() => ensureReady(true)))
   cursor: pointer;
   color: var(--oc-role-on-surface);
 }
-.mng-icon-btn:hover {
+.mng-icon-btn:hover,
+.mng-icon-btn:focus-within {
   background: var(--oc-role-surface-container-high);
 }
+.mng-icon-btn:focus-within {
+  outline: 2px solid var(--oc-role-primary);
+}
+/* Visually hidden but still focusable and operable by keyboard (display:none
+   would drop it from the tab order, making import mouse-only). */
 .mng-file {
-  display: none;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
 }
 
 /* inline url field (CalDAV link / feed link) */
