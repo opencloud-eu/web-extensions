@@ -5,6 +5,7 @@
         <oc-button
           appearance="raw"
           :title="sideCollapsed ? $gettext('Show calendars') : $gettext('Hide calendars')"
+          :aria-label="sideCollapsed ? $gettext('Show calendars') : $gettext('Hide calendars')"
           @click="toggleSide"
         >
           <oc-icon :name="sideCollapsed ? 'menu-unfold' : 'menu-fold'" fill-type="line" />
@@ -32,7 +33,7 @@
         <div class="cal-list">
           <span class="cal-label">{{ $gettext('Calendars') }}</span>
           <div v-for="c in calendars" :key="c.url" class="cal-list-item">
-            <span class="cal-dot" :style="{ background: c.color || '#0082c9' }" />
+            <span class="cal-dot" :style="{ background: c.color || DEFAULT_CALENDAR_COLOR }" />
             <oc-checkbox
               :model-value="isVisible(c.url)"
               :label="c.displayName"
@@ -44,7 +45,7 @@
     </aside>
 
     <div class="cal-main">
-      <div v-if="loadError" class="cal-banner">{{ loadError }}</div>
+      <div v-if="loadError" class="cal-banner" role="alert">{{ loadError }}</div>
       <FullCalendar ref="fc" :options="options" class="cal-fc" />
     </div>
   </div>
@@ -79,6 +80,7 @@ import {
   type CalendarEvent,
   type EventInput as IcsInput
 } from '../lib/ical'
+import { HOUR_MS, DEFAULT_CALENDAR_COLOR } from '../lib/constants'
 import EventModal from '../components/EventModal.vue'
 
 const language = useGettext()
@@ -130,7 +132,7 @@ const loadEvents = async (start: Date, end: Date): Promise<EventInput[]> => {
       for (const ev of eventsFromObject(obj, start, end)) {
         out.push({
           id: ev.id,
-          title: ev.title,
+          title: ev.title || $gettext('(no title)'),
           start: ev.start,
           end: ev.end ?? undefined,
           allDay: ev.allDay,
@@ -161,7 +163,7 @@ const writeNew = async (input: IcsInput) => {
 const newEvent = () => {
   const start = new Date()
   start.setMinutes(0, 0, 0)
-  openCreate(start, new Date(start.getTime() + 3600000), false)
+  openCreate(start, new Date(start.getTime() + HOUR_MS), false)
 }
 
 const openCreate = (start: Date, end: Date, allDay: boolean) => {
@@ -382,10 +384,6 @@ onMounted(() => {
   gap: 0.5rem;
   padding: 0.25rem 0.5rem;
   border-radius: 0.5rem;
-  cursor: pointer;
-}
-.cal-list-item:hover {
-  background: var(--oc-role-surface-container);
 }
 .cal-dot {
   width: 12px;

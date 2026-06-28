@@ -3,8 +3,35 @@
 // them into the plain shapes the views use, and back.
 import ICAL from 'ical.js'
 import type { CalendarObject } from '../clients/caldav'
+import { DAY_MS, HOUR_MS } from './constants'
 
 const PRODID = '-//Midvault//OpenCloud Calendar//EN'
+
+// Current time as a UTC ICAL.Time. ICAL.Time.now() returns a *floating* local
+// time (serialized without 'Z'); DTSTAMP/COMPLETED must be UTC per RFC 5545.
+const nowUtc = (): ICAL.Time => ICAL.Time.fromJSDate(new Date(), true)
+
+// Convert a JS Date to an ICAL.Time for storage. All-day values are floating
+// DATEs built from the date's *local* calendar components: FullCalendar and the
+// editor both carry the chosen calendar day in the Date's local fields, so
+// reading UTC components here would shift the day in non-UTC timezones. Timed
+// values are stored as absolute UTC instants.
+const toIcalTime = (d: Date, allDay: boolean): ICAL.Time => {
+  if (allDay) {
+    // Read the date's local calendar components into a floating time, then drop
+    // the time part to make it a DATE value.
+    const t = ICAL.Time.fromJSDate(d, false)
+    t.isDate = true
+    return t
+  }
+  return ICAL.Time.fromJSDate(d, true)
+}
+
+// Convert a stored ICAL.Time back to a JS Date. All-day DATEs map to local
+// midnight of the same calendar day (the inverse of toIcalTime), so the day the
+// user picked survives the round trip regardless of the browser's timezone.
+const fromIcalTime = (t: ICAL.Time): Date =>
+  t.isDate ? new Date(t.year, t.month - 1, t.day) : t.toJSDate()
 
 export interface CalendarEvent {
   id: string // unique per occurrence (uid or uid#timestamp for recurrences)
@@ -51,15 +78,26 @@ export const eventsFromObject = (obj: CalendarObject, from: Date, to: Date): Cal
     return []
   }
   const out: CalendarEvent[] = []
-  for (const ve of comp.getAllSubcomponents('vevent')) {
+  const vevents = comp.getAllSubcomponents('vevent')
+  // Recurrence overrides (components with RECURRENCE-ID) are stored alongside
+  // their master in the same object. Collect them so they can be related to the
+  // master below; otherwise a modified single occurrence would render with the
+  // master's original time/title instead of the edit.
+  const overrides = vevents.filter((ve) => new ICAL.Event(ve).isRecurrenceException())
+  for (const ve of vevents) {
     const event = new ICAL.Event(ve)
-    // Skip recurrence-override components; the master handles expansion.
+    // Skip override components themselves; the master expands them.
     if (event.isRecurrenceException()) {
       continue
     }
+    for (const ov of overrides) {
+      if ((ov.getFirstPropertyValue('uid') as string) === event.uid) {
+        event.relateException(ov)
+      }
+    }
     const base = {
       uid: event.uid,
-      title: event.summary || '(no title)',
+      title: event.summary || '',
       description: event.description || undefined,
       location: event.location || undefined,
       allDay: event.startDate?.isDate ?? false,
@@ -84,31 +122,41 @@ export const eventsFromObject = (obj: CalendarObject, from: Date, to: Date): Cal
           break
         }
         const occMs = next.toJSDate().getTime()
-        if (occMs > toMs) {
+        if (occMs >= toMs) {
           break
         }
-        if (occMs + durMs < fromMs) {
+        if (occMs + durMs <= fromMs) {
           continue
         }
         const details = event.getOccurrenceDetails(next)
+        // details.item is the per-occurrence event: the master normally, or the
+        // override for a modified instance. Read the display fields from it so an
+        // overridden occurrence shows its edited title/time, not the master's.
+        const item = details.item
         out.push({
           ...base,
+          title: item.summary || '',
+          description: item.description || undefined,
+          location: item.location || undefined,
+          allDay: item.startDate?.isDate ?? base.allDay,
           id: `${event.uid}#${details.startDate.toJSDate().getTime()}`,
-          start: details.startDate.toJSDate(),
-          end: details.endDate.toJSDate(),
+          start: fromIcalTime(details.startDate),
+          end: fromIcalTime(details.endDate),
           recurring: true
         })
       }
     } else {
-      const start = event.startDate?.toJSDate()
+      const start = event.startDate ? fromIcalTime(event.startDate) : undefined
       if (!start) {
         continue
       }
-      const end = event.endDate?.toJSDate() ?? null
-      if (end && end < from) {
+      const end = event.endDate ? fromIcalTime(event.endDate) : null
+      // The window end is exclusive; an event ending exactly at `from` or
+      // starting exactly at `to` falls outside it (avoids edge double-counting).
+      if (end && end <= from) {
         continue
       }
-      if (start > to) {
+      if (start >= to) {
         continue
       }
       out.push({ ...base, id: event.uid, start, end, recurring: false })
@@ -133,8 +181,8 @@ export const taskFromObject = (obj: CalendarObject): TaskItem | null => {
   const status = (vtodo.getFirstPropertyValue('status') as string) || ''
   return {
     uid: (vtodo.getFirstPropertyValue('uid') as string) || '',
-    title: (vtodo.getFirstPropertyValue('summary') as string) || '(no title)',
-    due: due ? due.toJSDate() : null,
+    title: (vtodo.getFirstPropertyValue('summary') as string) || '',
+    due: due ? fromIcalTime(due) : null,
     completed: status.toUpperCase() === 'COMPLETED',
     description: (vtodo.getFirstPropertyValue('description') as string) || undefined,
     url: obj.url,
@@ -154,7 +202,7 @@ export interface EventInput {
 
 // Apply the editable fields onto a vevent component (shared by create + edit).
 const applyEventFields = (ve: ICAL.Component, e: EventInput): void => {
-  ve.updatePropertyWithValue('dtstamp', ICAL.Time.now())
+  ve.updatePropertyWithValue('dtstamp', nowUtc())
   ve.updatePropertyWithValue('summary', e.title)
   const setOrRemove = (name: string, value?: string) => {
     ve.removeProperty(name)
@@ -164,16 +212,18 @@ const applyEventFields = (ve: ICAL.Component, e: EventInput): void => {
   }
   setOrRemove('description', e.description)
   setOrRemove('location', e.location)
-  const start = ICAL.Time.fromJSDate(e.start, true)
-  const end = ICAL.Time.fromJSDate(e.end ?? e.start, true)
-  if (e.allDay) {
-    start.isDate = true
-    end.isDate = true
-  }
+  // DTEND must be strictly after DTSTART (RFC 5545 §3.6.1; it is exclusive). Fall
+  // back to a default span when no end is given so we never emit a zero-length or
+  // DTSTART==DTEND object.
+  const endDate =
+    e.end && e.end.getTime() > e.start.getTime()
+      ? e.end
+      : new Date(e.start.getTime() + (e.allDay ? DAY_MS : HOUR_MS))
   ve.removeProperty('dtstart')
   ve.removeProperty('dtend')
-  ve.updatePropertyWithValue('dtstart', start)
-  ve.updatePropertyWithValue('dtend', end)
+  ve.removeProperty('duration') // avoid an object carrying both DTEND and DURATION
+  ve.updatePropertyWithValue('dtstart', toIcalTime(e.start, e.allDay))
+  ve.updatePropertyWithValue('dtend', toIcalTime(endDate, e.allDay))
 }
 
 export const buildEventIcs = (e: EventInput): string => {
@@ -247,18 +297,20 @@ export interface TaskInput {
 export const buildTaskIcs = (t: TaskInput): string => {
   const vtodo = new ICAL.Component('vtodo')
   vtodo.updatePropertyWithValue('uid', t.uid)
-  vtodo.updatePropertyWithValue('dtstamp', ICAL.Time.now())
+  vtodo.updatePropertyWithValue('dtstamp', nowUtc())
   vtodo.updatePropertyWithValue('summary', t.title)
   if (t.description) {
     vtodo.updatePropertyWithValue('description', t.description)
   }
   if (t.due) {
-    vtodo.updatePropertyWithValue('due', ICAL.Time.fromJSDate(t.due, true))
+    // A due date is a calendar day, so store it as a floating DATE rather than a
+    // UTC instant (which would shift the day in non-UTC timezones).
+    vtodo.updatePropertyWithValue('due', toIcalTime(t.due, true))
   }
   vtodo.updatePropertyWithValue('status', t.completed ? 'COMPLETED' : 'NEEDS-ACTION')
   if (t.completed) {
     vtodo.updatePropertyWithValue('percent-complete', 100)
-    vtodo.updatePropertyWithValue('completed', ICAL.Time.now())
+    vtodo.updatePropertyWithValue('completed', nowUtc())
   }
   return vcalendar(vtodo)
 }

@@ -16,6 +16,7 @@
             :appearance="active === s.key ? 'filled' : 'raw-inverse'"
             color-role="surface"
             :justify-content="collapsed ? 'center' : 'left'"
+            :aria-label="s.label"
             gap-size="medium"
             class="oc-sidebar-nav-item-link relative w-full whitespace-nowrap px-2 py-3 opacity-100 select-none rounded-xl"
             :class="

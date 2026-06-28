@@ -63,6 +63,29 @@ const firstText = (el: Element, ns: string, local: string): string => {
   return found.length ? (found[0].textContent ?? '').trim() : ''
 }
 
+// DAV multistatus hrefs may be absolute URIs (RFC 4918). We only ever talk to
+// the same-origin CalDAV endpoint via the authenticated session, so resolve each
+// href against our origin and reject anything that points elsewhere - otherwise
+// a malicious/buggy server response could make the authenticated client reissue
+// the request (carrying the session) to a foreign origin. Returns the path (the
+// form the client uses) or null if the href is cross-origin or unparseable.
+const sameOriginPath = (href: string): string | null => {
+  if (!href || typeof window === 'undefined') {
+    return href || null
+  }
+  try {
+    const u = new URL(href, window.location.origin)
+    return u.origin === window.location.origin ? u.pathname + u.search : null
+  } catch {
+    return null
+  }
+}
+
+// A calendar-color may arrive as #RRGGBBAA (Apple's 8-hex form); an HTML
+// <input type="color"> only understands #RRGGBB, so trim the alpha for display.
+const normalizeColor = (color: string): string =>
+  /^#[0-9a-fA-F]{8}$/.test(color) ? color.slice(0, 7) : color
+
 export class CalDavClient {
   constructor(private http: DavHttp) {}
 
@@ -83,19 +106,37 @@ export class CalDavClient {
     return { data: res.data, status: res.status }
   }
 
-  // Resolve the calendar home (== current-user-principal in Radicale).
+  // Resolve the calendar home: find the current-user-principal, then its
+  // calendar-home-set (RFC 4791 §6.2.1). Radicale collocates the two, but asking
+  // for calendar-home-set keeps this correct against servers where they differ;
+  // fall back to the principal when the server omits it.
   async discoverHome(): Promise<string> {
-    const body = `<?xml version="1.0"?><d:propfind xmlns:d="DAV:"><d:prop><d:current-user-principal/></d:prop></d:propfind>`
-    const { data } = await this.dav('PROPFIND', CALDAV_ROOT, body, '0')
+    const principalBody = `<?xml version="1.0"?><d:propfind xmlns:d="DAV:"><d:prop><d:current-user-principal/></d:prop></d:propfind>`
+    const { data } = await this.dav('PROPFIND', CALDAV_ROOT, principalBody, '0')
     const doc = parseXml(data)
     const principals = doc.getElementsByTagNameNS(DAV_NS, 'current-user-principal')
-    if (principals.length) {
-      const href = firstText(principals[0] as Element, DAV_NS, 'href')
-      if (href) {
-        return href.endsWith('/') ? href : href + '/'
-      }
+    const principalPath = principals.length
+      ? sameOriginPath(firstText(principals[0] as Element, DAV_NS, 'href'))
+      : null
+    if (!principalPath) {
+      throw new Error('could not resolve CalDAV principal')
     }
-    throw new Error('could not resolve CalDAV principal')
+    const principal = principalPath.endsWith('/') ? principalPath : principalPath + '/'
+
+    try {
+      const homeBody = `<?xml version="1.0"?><d:propfind xmlns:d="DAV:" xmlns:c="urn:ietf:params:xml:ns:caldav"><d:prop><c:calendar-home-set/></d:prop></d:propfind>`
+      const res = await this.dav('PROPFIND', principal, homeBody, '0')
+      const homes = parseXml(res.data).getElementsByTagNameNS(CAL_NS, 'calendar-home-set')
+      if (homes.length) {
+        const homePath = sameOriginPath(firstText(homes[0] as Element, DAV_NS, 'href'))
+        if (homePath) {
+          return homePath.endsWith('/') ? homePath : homePath + '/'
+        }
+      }
+    } catch {
+      // Server doesn't expose calendar-home-set; fall back to the principal.
+    }
+    return principal
   }
 
   // List the calendar collections under the home.
@@ -111,14 +152,18 @@ export class CalDavClient {
       if (!isCalendar) {
         continue
       }
-      const url = firstText(res, DAV_NS, 'href')
+      const url = sameOriginPath(firstText(res, DAV_NS, 'href'))
+      if (!url) {
+        continue
+      }
       const comps = Array.from(res.getElementsByTagNameNS(CAL_NS, 'comp')).map(
         (c) => (c as Element).getAttribute('name') || ''
       )
+      const color = firstText(res, APPLE_NS, 'calendar-color')
       out.push({
         url,
         displayName: firstText(res, DAV_NS, 'displayname') || url,
-        color: firstText(res, APPLE_NS, 'calendar-color') || undefined,
+        color: color ? normalizeColor(color) : undefined,
         components: comps
       })
     }
@@ -127,7 +172,7 @@ export class CalDavClient {
 
   // Fetch all objects of a component type (VEVENT or VTODO) from a collection.
   async listObjects(collectionUrl: string, component: string): Promise<CalendarObject[]> {
-    const body = `<?xml version="1.0"?><c:calendar-query xmlns:d="DAV:" xmlns:c="urn:ietf:params:xml:ns:caldav"><d:prop><d:getetag/><c:calendar-data/></d:prop><c:filter><c:comp-filter name="VCALENDAR"><c:comp-filter name="${component}"/></c:comp-filter></c:filter></c:calendar-query>`
+    const body = `<?xml version="1.0"?><c:calendar-query xmlns:d="DAV:" xmlns:c="urn:ietf:params:xml:ns:caldav"><d:prop><d:getetag/><c:calendar-data/></d:prop><c:filter><c:comp-filter name="VCALENDAR"><c:comp-filter name="${escapeXml(component)}"/></c:comp-filter></c:filter></c:calendar-query>`
     const { data } = await this.dav('REPORT', collectionUrl, body, '1')
     const doc = parseXml(data)
     const responses = Array.from(doc.getElementsByTagNameNS(DAV_NS, 'response'))
@@ -137,8 +182,12 @@ export class CalDavClient {
       if (!calData) {
         continue
       }
+      const url = sameOriginPath(firstText(res, DAV_NS, 'href'))
+      if (!url) {
+        continue
+      }
       out.push({
-        url: firstText(res, DAV_NS, 'href'),
+        url,
         etag: firstText(res, DAV_NS, 'getetag'),
         data: calData
       })
@@ -146,15 +195,25 @@ export class CalDavClient {
     return out
   }
 
-  // Create or update a single object. For updates pass the known etag.
-  async putObject(url: string, ics: string, etag?: string): Promise<void> {
+  // Create or update a single object. For updates pass the known etag. Returns
+  // the new ETag from the server when it sends one (so a caller can keep an
+  // up-to-date validator for the next If-Match without re-fetching); undefined
+  // when the server omits it.
+  async putObject(url: string, ics: string, etag?: string): Promise<string | undefined> {
     const headers: Record<string, string> = { 'Content-Type': 'text/calendar; charset=utf-8' }
     if (etag) {
       headers['If-Match'] = etag
     } else {
       headers['If-None-Match'] = '*'
     }
-    await this.http.request({ method: 'PUT', url, data: ics, headers, responseType: 'text' })
+    const res = await this.http.request({
+      method: 'PUT',
+      url,
+      data: ics,
+      headers,
+      responseType: 'text'
+    })
+    return res.headers?.etag || undefined
   }
 
   async deleteObject(url: string, etag?: string): Promise<void> {
@@ -180,7 +239,7 @@ export class CalDavClient {
     components: string[] = ['VEVENT', 'VTODO']
   ): Promise<string> {
     const url = home + encodeURIComponent(slug) + '/'
-    const comps = components.map((c) => `<c:comp name="${c}"/>`).join('')
+    const comps = components.map((c) => `<c:comp name="${escapeXml(c)}"/>`).join('')
     const body = `<?xml version="1.0"?><c:mkcalendar xmlns:d="DAV:" xmlns:c="urn:ietf:params:xml:ns:caldav" xmlns:a="http://apple.com/ns/ical/"><d:set><d:prop><d:displayname>${escapeXml(displayName)}</d:displayname><c:supported-calendar-component-set>${comps}</c:supported-calendar-component-set><a:calendar-color>${escapeXml(color)}</a:calendar-color></d:prop></d:set></c:mkcalendar>`
     await this.dav('MKCALENDAR', url, body)
     return url
@@ -202,7 +261,17 @@ export class CalDavClient {
       return
     }
     const body = `<?xml version="1.0"?><d:propertyupdate xmlns:d="DAV:" xmlns:a="http://apple.com/ns/ical/"><d:set><d:prop>${set.join('')}</d:prop></d:set></d:propertyupdate>`
-    await this.dav('PROPPATCH', url, body)
+    const { data, status } = await this.dav('PROPPATCH', url, body)
+    // PROPPATCH reports per-property success inside a 207 multistatus, not via the
+    // HTTP status, so a rejected property would otherwise look like success.
+    if (status === 207) {
+      const stat = Array.from(parseXml(data).getElementsByTagNameNS(DAV_NS, 'status')).map((s) =>
+        (s.textContent || '').trim()
+      )
+      if (stat.length && !stat.every((s) => / 2\d\d /.test(s))) {
+        throw new Error('the calendar server rejected a property update')
+      }
+    }
   }
 
   // Delete a whole calendar collection.

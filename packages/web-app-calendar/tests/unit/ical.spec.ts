@@ -54,6 +54,62 @@ describe('eventsFromObject', () => {
       []
     )
   })
+
+  it('applies a recurrence override (RECURRENCE-ID) to the modified occurrence', () => {
+    // A daily series where one instance was moved to a different time and renamed.
+    // The override must replace that occurrence, not be dropped (which would show
+    // the master's original time/title).
+    const ics = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//t//EN',
+      'BEGIN:VEVENT',
+      'UID:rec@x',
+      'DTSTART:20260610T090000Z',
+      'DTEND:20260610T093000Z',
+      'RRULE:FREQ=DAILY;COUNT=5',
+      'SUMMARY:Standup',
+      'END:VEVENT',
+      'BEGIN:VEVENT',
+      'UID:rec@x',
+      'RECURRENCE-ID:20260612T090000Z',
+      'DTSTART:20260612T140000Z',
+      'DTEND:20260612T143000Z',
+      'SUMMARY:Standup (moved)',
+      'END:VEVENT',
+      'END:VCALENDAR'
+    ].join('\r\n')
+    const evs = eventsFromObject(
+      obj(ics),
+      new Date('2026-06-01T00:00:00Z'),
+      new Date('2026-06-30T00:00:00Z')
+    )
+    expect(evs).toHaveLength(5)
+    const moved = evs.find((e) => e.title === 'Standup (moved)')
+    expect(moved).toBeDefined()
+    expect(moved!.start.getUTCHours()).toBe(14)
+  })
+
+  it('round-trips an all-day event on the same calendar day with an exclusive end', () => {
+    // Built from local calendar components; the day must survive read-back in any
+    // timezone, and the stored DTEND must be the exclusive next day.
+    const ics = buildEventIcs({
+      uid: 'ad@x',
+      title: 'Day off',
+      start: new Date(2026, 5, 15),
+      end: null,
+      allDay: true
+    })
+    expect(ics).toContain('20260615')
+    expect(ics).toContain('20260616') // exclusive DTEND, not a zero-length DTEND==DTSTART
+    expect(ics).toMatch(/DTSTAMP:\d{8}T\d{6}Z/) // DTSTAMP in UTC, not floating local
+    const evs = eventsFromObject(obj(ics), new Date(2026, 5, 1), new Date(2026, 5, 30))
+    expect(evs).toHaveLength(1)
+    expect(evs[0].allDay).toBe(true)
+    expect(evs[0].start.getFullYear()).toBe(2026)
+    expect(evs[0].start.getMonth()).toBe(5)
+    expect(evs[0].start.getDate()).toBe(15)
+  })
 })
 
 describe('tasks', () => {
