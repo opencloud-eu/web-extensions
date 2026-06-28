@@ -58,6 +58,7 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import listPlugin from '@fullcalendar/list'
 import multiMonthPlugin from '@fullcalendar/multimonth'
 import interactionPlugin from '@fullcalendar/interaction'
+import allLocales from '@fullcalendar/core/locales-all'
 import type {
   CalendarOptions,
   EventClickArg,
@@ -80,7 +81,8 @@ import {
 } from '../lib/ical'
 import EventModal from '../components/EventModal.vue'
 
-const { $gettext } = useGettext()
+const language = useGettext()
+const { $gettext } = language
 const { dispatchModal } = useModals()
 const { client, calendars, ensureReady, calendarsFor, isVisible, toggleVisible } = useCalDav()
 
@@ -275,6 +277,12 @@ const toCalendarEvent = (e: EventClickArg['event'], url: string, etag: string): 
 
 const options = computed<CalendarOptions>(() => ({
   plugins: [dayGridPlugin, timeGridPlugin, listPlugin, multiMonthPlugin, interactionPlugin],
+  // Localized month/day names, date formats and week start follow the user's
+  // language. FullCalendar keeps its own locale data separate from gettext, so
+  // we load all locales and select the active one; the locale also decides the
+  // first day of the week (e.g. Monday for sv/de, Sunday for en-US).
+  locales: allLocales,
+  locale: language.current,
   initialView: 'dayGridMonth',
   headerToolbar: {
     left: 'prev,next today',
@@ -290,7 +298,6 @@ const options = computed<CalendarOptions>(() => ({
     list: $gettext('list')
   },
   height: '100%',
-  firstDay: 1,
   weekNumbers: true,
   nowIndicator: true,
   selectable: true,
