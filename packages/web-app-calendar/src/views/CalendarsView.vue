@@ -320,13 +320,6 @@ onMounted(() => run(() => ensureReady(true)))
 .cat-sub {
   border-top: 3px solid #46ba61;
 }
-.cat-share .cat-badge {
-  background: color-mix(in srgb, #9a59b5 18%, transparent);
-  color: #9a59b5;
-}
-.cat-share {
-  border-top: 3px solid #9a59b5;
-}
 
 /* forms: a row that wraps; the long field takes its own line */
 .mng-form {
@@ -334,13 +327,6 @@ onMounted(() => run(() => ensureReady(true)))
   align-items: center;
   gap: 1rem;
   flex-wrap: wrap;
-}
-.mng-form-wrap {
-  flex-wrap: wrap;
-}
-.mng-full {
-  flex: 1 1 100%;
-  min-width: 0;
 }
 .mng-grow {
   flex: 1;
@@ -383,18 +369,6 @@ onMounted(() => run(() => ensureReady(true)))
   border: none;
   padding: 0;
   cursor: pointer;
-}
-.mng-dot-static {
-  width: 26px;
-  height: 26px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  border: 2px solid var(--oc-role-surface);
-  box-shadow: 0 0 0 1px var(--oc-role-outline-variant);
-}
-.mng-row-icon {
-  flex-shrink: 0;
-  color: var(--oc-role-on-surface-variant);
 }
 
 /* lists rendered as aligned rows with hairline dividers between them */
@@ -441,28 +415,6 @@ onMounted(() => run(() => ensureReady(true)))
   background: var(--oc-role-surface-container);
   outline: none;
 }
-.mng-name-static {
-  font-size: 1.02em;
-  font-weight: 600;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.mng-count {
-  flex-shrink: 0;
-  font-size: 0.8em;
-  font-weight: 600;
-  color: var(--oc-role-on-surface-variant);
-  background: var(--oc-role-surface-container-high);
-  padding: 2px 0.5rem;
-  border-radius: 999px;
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-}
-.mng-count-err {
-  color: var(--oc-role-on-error-container);
-  background: var(--oc-role-error-container);
-}
 .mng-actions {
   display: flex;
   align-items: center;
@@ -503,20 +455,6 @@ onMounted(() => run(() => ensureReady(true)))
 }
 .mng-url:focus {
   outline: none;
-}
-.mng-url-text {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  padding-left: 0.5rem;
-  font-size: 0.8em;
-  color: var(--oc-role-on-surface-variant);
-}
-.mng-empty {
-  margin: 0;
-  padding: 0.5rem 0;
-  font-size: 0.9em;
-  color: var(--oc-role-on-surface-variant);
 }
 .mng-error {
   margin: 0;
