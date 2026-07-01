@@ -43,6 +43,7 @@ services:
       - ./packages/web-app-calculator/dist:/web/apps/calculator
       - ./packages/web-app-arcade/dist:/web/apps/arcade
       - ./packages/web-app-cast/dist:/web/apps/cast
+      - ./packages/web-app-bpmn/dist:/web/apps/bpmn
       - ./packages/web-app-draw-io/dist:/web/apps/draw-io
       - ./packages/web-app-external-sites/dist:/web/apps/external-sites
       - ./packages/web-app-importer/dist:/web/apps/importer

@@ -1,0 +1,26 @@
+{
+  "name": "bpmn",
+  "version": "1.0.0",
+  "private": true,
+  "description": "OpenCloud web BPMN editor integration",
+  "license": "AGPL-3.0",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm vite build",
+    "build:w": "pnpm vite build --watch --mode development",
+    "check:types": "vue-tsc --noEmit",
+    "test:unit": "NODE_OPTIONS=--unhandled-rejections=throw vitest"
+  },
+  "dependencies": {
+    "bpmn-js": "^18.6.3",
+    "bpmn-js-properties-panel": "^5.34.0",
+    "@bpmn-io/properties-panel": "^3.28.0",
+    "camunda-bpmn-moddle": "^7.0.1"
+  },
+  "devDependencies": {
+    "@opencloud-eu/web-client": "^7.0.0",
+    "@opencloud-eu/web-pkg": "^7.0.0",
+    "vue": "^3.4.21",
+    "vue3-gettext": "^4.0.0-beta.1"
+  }
+}
