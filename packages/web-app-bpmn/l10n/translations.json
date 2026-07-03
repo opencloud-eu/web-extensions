@@ -1,6 +1,12 @@
 {
   "de": {
     "BPMN Editor": "BPMN-Editor",
-    "BPMN diagram": "BPMN-Diagramm"
+    "BPMN diagram": "BPMN-Diagramm",
+    "Fit diagram to viewport": "Diagramm an Ansicht anpassen",
+    "Fit": "Einpassen",
+    "Download diagram as SVG": "Diagramm als SVG herunterladen",
+    "Export SVG": "SVG exportieren",
+    "Toggle properties panel": "Eigenschaftenpanel ein-/ausblenden",
+    "Properties": "Eigenschaften"
   }
 }

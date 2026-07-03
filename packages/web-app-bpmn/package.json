@@ -12,10 +12,11 @@
     "test:unit": "NODE_OPTIONS=--unhandled-rejections=throw vitest"
   },
   "dependencies": {
+    "@bpmn-io/properties-panel": "^3.28.0",
     "bpmn-js": "^18.6.3",
     "bpmn-js-properties-panel": "^5.34.0",
-    "@bpmn-io/properties-panel": "^3.28.0",
-    "camunda-bpmn-moddle": "^7.0.1"
+    "camunda-bpmn-moddle": "^7.0.1",
+    "diagram-js-minimap": "^5.3.0"
   },
   "devDependencies": {
     "@opencloud-eu/web-client": "^7.0.0",

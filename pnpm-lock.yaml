@@ -108,6 +108,9 @@ importers:
       camunda-bpmn-moddle:
         specifier: ^7.0.1
         version: 7.0.1
+      diagram-js-minimap:
+        specifier: ^5.3.0
+        version: 5.3.0
     devDependencies:
       '@opencloud-eu/web-client':
         specifier: ^7.0.0
@@ -2056,6 +2059,9 @@ packages:
     resolution: {integrity: sha512-eXfd+nxJr5xt3YlCrs+E53mPi+gqBWRBkAXkR99ZPL7Pl0B3H5nkv/uiwx4Q4vJU/Sp8Jy3zVdhP/Y2c6loTjw==}
     peerDependencies:
       diagram-js: '*'
+
+  diagram-js-minimap@5.3.0:
+    resolution: {integrity: sha512-FO2yDA8td4Vnu4Yg72ZIA7n6vIOtZWAH0wwwfcg9qrZIfVaaQFgmOpa+RdIBGZtzURZb43HJr5hyiOe3yo2xDA==}
 
   diagram-js@15.18.0:
     resolution: {integrity: sha512-aOVeXrjQc1ki0jlrSuwXDoye5nKO6uAtXCtmgQopUvF/aC9aJwoaBOsNvQ2Na9GmMc6X2b3xAefhRChvGgcbgQ==}
@@ -4047,8 +4053,8 @@ snapshots:
 
   '@codemirror/language@6.12.3':
     dependencies:
-      '@codemirror/state': 6.6.0
-      '@codemirror/view': 6.41.1
+      '@codemirror/state': 6.7.0
+      '@codemirror/view': 6.43.4
       '@lezer/common': 1.5.2
       '@lezer/highlight': 1.2.3
       '@lezer/lr': 1.4.10
@@ -5857,6 +5863,12 @@ snapshots:
       diagram-js: 15.18.0
       min-dash: 5.0.0
       min-dom: 5.3.0
+
+  diagram-js-minimap@5.3.0:
+    dependencies:
+      min-dash: 5.0.0
+      min-dom: 5.3.0
+      tiny-svg: 4.1.4
 
   diagram-js@15.18.0:
     dependencies:

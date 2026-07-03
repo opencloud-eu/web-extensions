@@ -7,7 +7,8 @@ import { defaultPlugins, mount } from '@opencloud-eu/web-test-helpers'
 function createMockBpmnClass() {
   return class {
     importXML = vi.fn().mockResolvedValue({})
-    get = vi.fn().mockReturnValue({ zoom: vi.fn() })
+    saveSVG = vi.fn().mockResolvedValue({ svg: '<svg></svg>' })
+    get = vi.fn().mockReturnValue({ zoom: vi.fn(), attachTo: vi.fn(), detach: vi.fn() })
     on = vi.fn()
     destroy = vi.fn()
   }
@@ -26,6 +27,10 @@ vi.mock('bpmn-js-properties-panel', () => ({
   BpmnPropertiesProviderModule: {}
 }))
 
+vi.mock('diagram-js-minimap', () => ({
+  default: {}
+}))
+
 describe('BPMN app', () => {
   it('renders the canvas container', () => {
     const { wrapper } = createWrapper()
@@ -40,6 +45,29 @@ describe('BPMN app', () => {
   it('hides the properties panel in read-only mode', () => {
     const { wrapper } = createWrapper({ isReadOnly: true })
     expect(wrapper.find('.bpmn-properties').exists()).toBeFalsy()
+  })
+
+  it('renders the toolbar', () => {
+    const { wrapper } = createWrapper()
+    expect(wrapper.find('.bpmn-toolbar').exists()).toBeTruthy()
+  })
+
+  it('shows fit and export buttons', () => {
+    const { wrapper } = createWrapper()
+    const buttons = wrapper.findAll('.bpmn-toolbar button')
+    expect(buttons.length).toBeGreaterThanOrEqual(2)
+  })
+
+  it('shows the properties toggle button in edit mode', () => {
+    const { wrapper } = createWrapper({ isReadOnly: false })
+    const buttons = wrapper.findAll('.bpmn-toolbar button')
+    expect(buttons.length).toBe(3)
+  })
+
+  it('hides the properties toggle button in read-only mode', () => {
+    const { wrapper } = createWrapper({ isReadOnly: true })
+    const buttons = wrapper.findAll('.bpmn-toolbar button')
+    expect(buttons.length).toBe(2)
   })
 })
 
