@@ -2,11 +2,11 @@
   <div id="bpmn-app" class="bpmn-app">
     <div class="bpmn-toolbar">
       <button :title="$gettext('Fit diagram to viewport')" @click="fitViewport">
-        <span aria-hidden="true">⊞</span>
+        <oc-icon name="focus-3" size="small" />
         {{ $gettext('Fit') }}
       </button>
       <button :title="$gettext('Download diagram as SVG')" @click="exportSvg">
-        <span aria-hidden="true">↓</span>
+        <oc-icon name="download" size="small" />
         {{ $gettext('Export SVG') }}
       </button>
       <button
@@ -15,7 +15,7 @@
         :class="{ active: showProperties }"
         @click="showProperties = !showProperties"
       >
-        <span aria-hidden="true">☰</span>
+        <oc-icon name="list-settings" size="small" />
         {{ $gettext('Properties') }}
       </button>
     </div>
@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount, ref, watch, shallowRef, nextTick } from 'vue'
+import { onMounted, onBeforeUnmount, ref, useTemplateRef, watch, shallowRef, nextTick } from 'vue'
 import { Resource } from '@opencloud-eu/web-client'
 import { AppConfigObject } from '@opencloud-eu/web-pkg'
 import { useGettext } from 'vue3-gettext'
@@ -62,8 +62,8 @@ const emit = defineEmits<{
   close: []
 }>()
 
-const canvasEl = ref<HTMLElement>()
-const propertiesEl = ref<HTMLElement>()
+const canvasEl = useTemplateRef<HTMLElement>('canvasEl')
+const propertiesEl = useTemplateRef<HTMLElement>('propertiesEl')
 const showProperties = ref(true)
 const bpmnInstance = shallowRef<InstanceType<typeof BpmnModeler> | InstanceType<typeof BpmnViewer>>()
 
@@ -195,7 +195,7 @@ watch(showProperties, async () => {
 })
 </script>
 
-<style>
+<style scoped>
 .bpmn-app {
   display: flex;
   flex-direction: column;
