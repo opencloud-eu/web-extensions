@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.1.0](https://github.com/opencloud-eu/web-extensions/releases/tag/external-sites-v2.1.0) - 2026-07-15
+
+### ✨ Features
+
+- Add metadata from package.json to manifest.json [[#2894](https://github.com/opencloud-eu/web/pull/2894)]
+
 ## [2.0.0](https://github.com/opencloud-eu/web-extensions/releases/tag/external-sites-v2.0.0) - 2026-04-07
 
 ### Breaking changes

@@ -15,8 +15,8 @@ importers:
         specifier: ^7.0.0
         version: 7.1.2(@typescript-eslint/eslint-plugin@8.62.0(@typescript-eslint/parser@8.62.0(eslint@10.5.0(jiti@2.7.0))(typescript@6.0.3))(eslint@10.5.0(jiti@2.7.0))(typescript@6.0.3))(eslint@10.5.0(jiti@2.7.0))(vue-eslint-parser@10.4.0(eslint@10.5.0(jiti@2.7.0)))
       '@opencloud-eu/extension-sdk':
-        specifier: ^7.0.0
-        version: 7.1.2(node-fetch@3.3.2)(typescript@6.0.3)(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(yaml@2.9.0))(vitest@4.1.9(@types/node@24.13.2)(happy-dom@20.10.6)(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(yaml@2.9.0)))(vue-tsc@3.3.5(typescript@6.0.3))(vue@3.5.38(typescript@6.0.3))
+        specifier: 7.3.0-alpha.1
+        version: 7.3.0-alpha.1(node-fetch@3.3.2)(typescript@6.0.3)(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(yaml@2.9.0))(vitest@4.1.9(@types/node@24.13.2)(happy-dom@20.10.6)(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(yaml@2.9.0)))(vue-tsc@3.3.5(typescript@6.0.3))(vue@3.5.38(typescript@6.0.3))
       '@opencloud-eu/prettier-config':
         specifier: ^7.0.0
         version: 7.1.2(prettier@3.8.4)
@@ -25,7 +25,7 @@ importers:
         version: 7.1.2
       '@opencloud-eu/web-test-helpers':
         specifier: ^7.0.0
-        version: 7.1.2(@opencloud-eu/web-pkg@7.1.2(@floating-ui/dom@1.7.6)(@tiptap/extension-list@3.27.1(@tiptap/core@3.27.1(@tiptap/pm@3.27.1))(@tiptap/pm@3.27.1))(@tiptap/extensions@3.27.1(@tiptap/core@3.27.1(@tiptap/pm@3.27.1))(@tiptap/pm@3.27.1))(@vue/compiler-sfc@3.5.38)(rolldown@1.1.3)(typescript@6.0.3)(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(yaml@2.9.0))(vue@3.5.38(typescript@6.0.3)))(@vue/compiler-sfc@3.5.38)(@vue/test-utils@2.4.11(@vue/compiler-dom@3.5.38)(@vue/server-renderer@3.5.38(vue@3.5.38(typescript@6.0.3)))(vue@3.5.38(typescript@6.0.3)))(rolldown@1.1.3)(typescript@6.0.3)(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(yaml@2.9.0))(vitest@4.1.9(@types/node@24.13.2)(happy-dom@20.10.6)(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(yaml@2.9.0)))(vue@3.5.38(typescript@6.0.3))
+        version: 7.1.2(@opencloud-eu/web-pkg@7.1.2(@floating-ui/dom@1.7.6)(@tiptap/extension-list@3.27.1(@tiptap/core@3.27.1(@tiptap/pm@3.27.1))(@tiptap/pm@3.27.1))(@tiptap/extensions@3.27.1(@tiptap/core@3.27.1(@tiptap/pm@3.27.1))(@tiptap/pm@3.27.1))(@vue/compiler-sfc@3.5.38)(typescript@6.0.3)(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(yaml@2.9.0))(vue@3.5.38(typescript@6.0.3)))(@vue/compiler-sfc@3.5.38)(@vue/test-utils@2.4.11(@vue/compiler-dom@3.5.38)(@vue/server-renderer@3.5.38(vue@3.5.38(typescript@6.0.3)))(vue@3.5.38(typescript@6.0.3)))(typescript@6.0.3)(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(yaml@2.9.0))(vitest@4.1.9(@types/node@24.13.2)(happy-dom@20.10.6)(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(yaml@2.9.0)))(vue@3.5.38(typescript@6.0.3))
       '@playwright/test':
         specifier: ^1.50.1
         version: 1.61.1
@@ -709,8 +709,8 @@ packages:
     peerDependencies:
       eslint: ^9.0.0 || ^10.0.0
 
-  '@opencloud-eu/extension-sdk@7.1.2':
-    resolution: {integrity: sha512-N12Y+T4qNXBdeTc/FI6WhKFaCPuXjcqDfnbXuRp10Atb3eYd0uCBAioftBwSBBU6QoN7uRPEndzYL3IYf2e93w==}
+  '@opencloud-eu/extension-sdk@7.3.0-alpha.1':
+    resolution: {integrity: sha512-k7M1uInrJPyF1jSGnRcmP64b0mYpkfO993WNHUjeXuYsv2oasRUF04o8US0T1NYBDI/SnBOpD3rWaGJAq0vQJw==}
     peerDependencies:
       vite: ^7.2.0 || ^8.0.0
       vitest: ^4.0.0
@@ -4171,7 +4171,7 @@ snapshots:
       - supports-color
       - vue-eslint-parser
 
-  '@opencloud-eu/extension-sdk@7.1.2(node-fetch@3.3.2)(typescript@6.0.3)(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(yaml@2.9.0))(vitest@4.1.9(@types/node@24.13.2)(happy-dom@20.10.6)(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(yaml@2.9.0)))(vue-tsc@3.3.5(typescript@6.0.3))(vue@3.5.38(typescript@6.0.3))':
+  '@opencloud-eu/extension-sdk@7.3.0-alpha.1(node-fetch@3.3.2)(typescript@6.0.3)(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(yaml@2.9.0))(vitest@4.1.9(@types/node@24.13.2)(happy-dom@20.10.6)(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(yaml@2.9.0)))(vue-tsc@3.3.5(typescript@6.0.3))(vue@3.5.38(typescript@6.0.3))':
     dependencies:
       '@module-federation/vite': 1.14.2(node-fetch@3.3.2)(typescript@6.0.3)(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(yaml@2.9.0))(vue-tsc@3.3.5(typescript@6.0.3))
       '@tailwindcss/vite': 4.3.1(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(yaml@2.9.0))
@@ -4283,7 +4283,7 @@ snapshots:
       - vue
       - webpack
 
-  '@opencloud-eu/web-test-helpers@7.1.2(@opencloud-eu/web-pkg@7.1.2(@floating-ui/dom@1.7.6)(@tiptap/extension-list@3.27.1(@tiptap/core@3.27.1(@tiptap/pm@3.27.1))(@tiptap/pm@3.27.1))(@tiptap/extensions@3.27.1(@tiptap/core@3.27.1(@tiptap/pm@3.27.1))(@tiptap/pm@3.27.1))(@vue/compiler-sfc@3.5.38)(rolldown@1.1.3)(typescript@6.0.3)(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(yaml@2.9.0))(vue@3.5.38(typescript@6.0.3)))(@vue/compiler-sfc@3.5.38)(@vue/test-utils@2.4.11(@vue/compiler-dom@3.5.38)(@vue/server-renderer@3.5.38(vue@3.5.38(typescript@6.0.3)))(vue@3.5.38(typescript@6.0.3)))(rolldown@1.1.3)(typescript@6.0.3)(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(yaml@2.9.0))(vitest@4.1.9(@types/node@24.13.2)(happy-dom@20.10.6)(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(yaml@2.9.0)))(vue@3.5.38(typescript@6.0.3))':
+  '@opencloud-eu/web-test-helpers@7.1.2(@opencloud-eu/web-pkg@7.1.2(@floating-ui/dom@1.7.6)(@tiptap/extension-list@3.27.1(@tiptap/core@3.27.1(@tiptap/pm@3.27.1))(@tiptap/pm@3.27.1))(@tiptap/extensions@3.27.1(@tiptap/core@3.27.1(@tiptap/pm@3.27.1))(@tiptap/pm@3.27.1))(@vue/compiler-sfc@3.5.38)(typescript@6.0.3)(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(yaml@2.9.0))(vue@3.5.38(typescript@6.0.3)))(@vue/compiler-sfc@3.5.38)(@vue/test-utils@2.4.11(@vue/compiler-dom@3.5.38)(@vue/server-renderer@3.5.38(vue@3.5.38(typescript@6.0.3)))(vue@3.5.38(typescript@6.0.3)))(typescript@6.0.3)(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(yaml@2.9.0))(vitest@4.1.9(@types/node@24.13.2)(happy-dom@20.10.6)(vite@8.1.0(@types/node@24.13.2)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(yaml@2.9.0)))(vue@3.5.38(typescript@6.0.3))':
     dependencies:
       '@casl/ability': 7.0.0
       '@casl/vue': 3.0.0(@casl/ability@7.0.0)(vue@3.5.38(typescript@6.0.3))
