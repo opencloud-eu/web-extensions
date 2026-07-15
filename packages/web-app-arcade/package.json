@@ -1,8 +1,8 @@
 {
   "name": "web-app-arcade",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "private": true,
-  "description": "open and play .nes ROMs in OpenCloud Web Arcade",
+  "description": "open and play NES, SNES, Game Boy, Game Boy Color, Game Boy Advance and N64 ROMs in OpenCloud Web Arcade",
   "license": "AGPL-3.0",
   "type": "module",
   "scripts": {
@@ -16,7 +16,12 @@
     "vue3-gettext": "^4.0.0"
   },
   "dependencies": {
-    "nes-vue": "^1.6.10"
+    "@emulatorjs/core-fceumm": "4.2.3",
+    "@emulatorjs/core-gambatte": "4.2.3",
+    "@emulatorjs/core-mgba": "4.2.3",
+    "@emulatorjs/core-mupen64plus_next": "4.2.3",
+    "@emulatorjs/core-snes9x": "4.2.3",
+    "@emulatorjs/emulatorjs": "^4.2.3"
   },
   "peerDependencies": {
     "@opencloud-eu/web-pkg": "^7.0.0"

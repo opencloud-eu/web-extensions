@@ -4,6 +4,7 @@ import { useGettext } from 'vue3-gettext'
 
 import '@opencloud-eu/extension-sdk/tailwind.css'
 import App from './App.vue'
+import { SUPPORTED_ROM_EXTENSIONS } from './roms'
 
 const applicationId = 'arcade'
 export default defineWebApplication({
@@ -32,12 +33,10 @@ export default defineWebApplication({
         icon: 'game',
         iconFillType: 'fill',
         iconColor: '#ffce55',
-        extensions: [
-          {
-            extension: 'nes',
-            routeName: 'arcade'
-          }
-        ]
+        extensions: SUPPORTED_ROM_EXTENSIONS.map((extension) => ({
+          extension,
+          routeName: 'arcade'
+        }))
       },
       translations,
       routes

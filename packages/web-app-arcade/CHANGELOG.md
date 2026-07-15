@@ -1,5 +1,21 @@
 # Changelog
 
+## [2.2.0](https://github.com/opencloud-eu/web-extensions/releases/tag/arcade-v2.2.0) - 2026-07-16
+
+### ✨ Features
+
+- Add multi-system ROM support in Arcade for NES, SNES (`.snes`, `.smc`, `.sfc`), Game Boy (`.gb`), Game Boy Color (`.gbc`), Game Boy Advance (`.gba`), and Nintendo 64 (`.n64`, `.v64`, `.z64`).
+- Migrate Arcade runtime from `nes-vue` to EmulatorJS and use one emulator flow across supported systems.
+
+### 🐛 Bug Fixes
+
+- Fix EmulatorJS runtime initialization by shipping and mapping all required core/decompression assets in the extension bundle.
+- Fix EmulatorJS core asset lookup to use filename-based path mapping expected by loader internals.
+
+### 📦️ Dependencies
+
+- Replace `nes-vue` with EmulatorJS runtime/core dependencies for NES, SNES, GB/GBC, GBA, and N64.
+
 ## [2.1.0](https://github.com/opencloud-eu/web-extensions/releases/tag/arcade-v2.1.0) - 2026-07-15
 
 ### ✨ Features
