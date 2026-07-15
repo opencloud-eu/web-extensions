@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@opencloud-eu/eslint-config": "^7.0.0",
-    "@opencloud-eu/extension-sdk": "^7.0.0",
+    "@opencloud-eu/extension-sdk": "7.3.0-alpha.1",
     "@opencloud-eu/prettier-config": "^7.0.0",
     "@opencloud-eu/tsconfig": "^7.0.0",
     "@opencloud-eu/web-test-helpers": "^7.0.0",
