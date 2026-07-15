@@ -49,6 +49,21 @@ export default defineConfig({
       use: { ...devices['Desktop Safari'], browserName: 'webkit', ignoreHTTPSErrors: true }
     },
     {
+      name: 'bpmn-chromium',
+      testDir: './packages/web-app-bpmn/tests/e2e',
+      use: { ...devices['Desktop Chrome'], browserName: 'chromium', ignoreHTTPSErrors: true }
+    },
+    {
+      name: 'bpmn-firefox',
+      testDir: './packages/web-app-bpmn/tests/e2e',
+      use: { ...devices['Desktop Firefox'], browserName: 'firefox', ignoreHTTPSErrors: true }
+    },
+    {
+      name: 'bpmn-webkit',
+      testDir: './packages/web-app-bpmn/tests/e2e',
+      use: { ...devices['Desktop Safari'], browserName: 'webkit', ignoreHTTPSErrors: true }
+    },
+    {
       name: 'draw-io-chromium',
       testDir: './packages/web-app-draw-io/tests/e2e',
       use: { ...devices['Desktop Chrome'], browserName: 'chromium', ignoreHTTPSErrors: true }
