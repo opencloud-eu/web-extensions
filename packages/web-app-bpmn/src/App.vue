@@ -33,10 +33,7 @@ import { AppConfigObject } from '@opencloud-eu/web-pkg'
 import { useGettext } from 'vue3-gettext'
 import BpmnModeler from 'bpmn-js/lib/Modeler'
 import BpmnViewer from 'bpmn-js/lib/Viewer'
-import {
-  BpmnPropertiesPanelModule,
-  BpmnPropertiesProviderModule
-} from 'bpmn-js-properties-panel'
+import { BpmnPropertiesPanelModule, BpmnPropertiesProviderModule } from 'bpmn-js-properties-panel'
 import MinimapModule from 'diagram-js-minimap'
 import { emptyBpmn } from './emptyBpmn'
 
@@ -65,7 +62,9 @@ const emit = defineEmits<{
 const canvasEl = useTemplateRef<HTMLElement>('canvasEl')
 const propertiesEl = useTemplateRef<HTMLElement>('propertiesEl')
 const showProperties = ref(true)
-const bpmnInstance = shallowRef<InstanceType<typeof BpmnModeler> | InstanceType<typeof BpmnViewer>>()
+const bpmnInstance = shallowRef<
+  InstanceType<typeof BpmnModeler> | InstanceType<typeof BpmnViewer>
+>()
 
 async function importXml(xml: string) {
   const instance = bpmnInstance.value

@@ -13,8 +13,6 @@ import App from './App.vue'
 import { useGettext } from 'vue3-gettext'
 import { computed } from 'vue'
 
-import { emptyBpmn } from './emptyBpmn'
-
 const applicationId = 'bpmn'
 
 export default defineWebApplication({
