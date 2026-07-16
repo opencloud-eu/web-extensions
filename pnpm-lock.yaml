@@ -104,7 +104,7 @@ importers:
         version: 18.21.0
       bpmn-js-properties-panel:
         specifier: ^5.34.0
-        version: 5.60.0(@bpmn-io/properties-panel@3.47.0(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.6)))(bpmn-js@18.21.0)(camunda-bpmn-js-behaviors@1.18.0(bpmn-js@18.21.0)(camunda-bpmn-moddle@7.0.1)(zeebe-bpmn-moddle@1.16.0))(diagram-js@15.22.0)
+        version: 5.61.0(@bpmn-io/properties-panel@3.47.0(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.6)))(bpmn-js@18.21.0)(camunda-bpmn-js-behaviors@1.18.0(bpmn-js@18.21.0)(camunda-bpmn-moddle@7.0.1)(zeebe-bpmn-moddle@1.16.0))(diagram-js@15.22.0)
       camunda-bpmn-moddle:
         specifier: ^7.0.1
         version: 7.0.1
@@ -1850,10 +1850,10 @@ packages:
   boolbase@1.0.0:
     resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
 
-  bpmn-js-properties-panel@5.60.0:
-    resolution: {integrity: sha512-/+bi7pYR/aLUFS4VpCP96oDtWcMk+2dAjmHUYLbuk91/Cpn+6RYSzvXrl5USQRUH43Ng1xKfXyLYDTcr0P6e/Q==}
+  bpmn-js-properties-panel@5.61.0:
+    resolution: {integrity: sha512-8WKP2AApl/MYENEx3pCELhaV28JCuGFIFit1xdCO543F3OjROMClioDGVvdlGe4rb9QYbgXq3h9BVsgr7tHvNw==}
     peerDependencies:
-      '@bpmn-io/properties-panel': '>= 3.40.6'
+      '@bpmn-io/properties-panel': '>= 3.42.0'
       bpmn-js: '>= 11.5'
       camunda-bpmn-js-behaviors: '>= 0.4'
       diagram-js: '>= 11.9'
@@ -5685,7 +5685,7 @@ snapshots:
 
   boolbase@1.0.0: {}
 
-  bpmn-js-properties-panel@5.60.0(@bpmn-io/properties-panel@3.47.0(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.6)))(bpmn-js@18.21.0)(camunda-bpmn-js-behaviors@1.18.0(bpmn-js@18.21.0)(camunda-bpmn-moddle@7.0.1)(zeebe-bpmn-moddle@1.16.0))(diagram-js@15.22.0):
+  bpmn-js-properties-panel@5.61.0(@bpmn-io/properties-panel@3.47.0(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.6)))(bpmn-js@18.21.0)(camunda-bpmn-js-behaviors@1.18.0(bpmn-js@18.21.0)(camunda-bpmn-moddle@7.0.1)(zeebe-bpmn-moddle@1.16.0))(diagram-js@15.22.0):
     dependencies:
       '@bpmn-io/extract-process-variables': 2.2.1
       '@bpmn-io/properties-panel': 3.47.0(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.6))
