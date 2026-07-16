@@ -18,6 +18,10 @@
       "description": "Must stay on :latest — digest pinning breaks Woodpecker's privileged plugin allowlist matching",
       "matchPackageNames": ["woodpeckerci/plugin-docker-buildx"],
       "enabled": false
+    },
+    {
+      "matchPackageNames": ["@module-federation/vite", "@module-federation/runtime"],
+      "enabled": false
     }
   ]
 }
