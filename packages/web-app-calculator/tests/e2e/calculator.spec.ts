@@ -27,6 +27,5 @@ test('evaluate expression and copy result', async () => {
   const copyButton = calculatorResult.locator('button')
   await copyButton.click()
 
-  const clipboardContent = await userPage.evaluate(() => navigator.clipboard.readText())
-  expect(clipboardContent).toBe('3')
+  await expect.poll(() => userPage.evaluate(() => navigator.clipboard.readText())).toBe('3')
 })
