@@ -18,22 +18,27 @@ import fceummLegacyWasmDataUrl from '@emulatorjs/core-fceumm/fceumm-legacy-wasm.
 import fceummThreadLegacyWasmDataUrl from '@emulatorjs/core-fceumm/fceumm-thread-legacy-wasm.data?url'
 import fceummThreadWasmDataUrl from '@emulatorjs/core-fceumm/fceumm-thread-wasm.data?url'
 import fceummWasmDataUrl from '@emulatorjs/core-fceumm/fceumm-wasm.data?url'
+import fceummReportUrl from '@emulatorjs/core-fceumm/reports/fceumm.json?url'
 import gambatteLegacyWasmDataUrl from '@emulatorjs/core-gambatte/gambatte-legacy-wasm.data?url'
 import gambatteThreadLegacyWasmDataUrl from '@emulatorjs/core-gambatte/gambatte-thread-legacy-wasm.data?url'
 import gambatteThreadWasmDataUrl from '@emulatorjs/core-gambatte/gambatte-thread-wasm.data?url'
 import gambatteWasmDataUrl from '@emulatorjs/core-gambatte/gambatte-wasm.data?url'
+import gambatteReportUrl from '@emulatorjs/core-gambatte/reports/gambatte.json?url'
 import mgbaLegacyWasmDataUrl from '@emulatorjs/core-mgba/mgba-legacy-wasm.data?url'
 import mgbaThreadLegacyWasmDataUrl from '@emulatorjs/core-mgba/mgba-thread-legacy-wasm.data?url'
 import mgbaThreadWasmDataUrl from '@emulatorjs/core-mgba/mgba-thread-wasm.data?url'
 import mgbaWasmDataUrl from '@emulatorjs/core-mgba/mgba-wasm.data?url'
+import mgbaReportUrl from '@emulatorjs/core-mgba/reports/mgba.json?url'
 import mupen64plusNextLegacyWasmDataUrl from '@emulatorjs/core-mupen64plus_next/mupen64plus_next-legacy-wasm.data?url'
 import mupen64plusNextThreadLegacyWasmDataUrl from '@emulatorjs/core-mupen64plus_next/mupen64plus_next-thread-legacy-wasm.data?url'
 import mupen64plusNextThreadWasmDataUrl from '@emulatorjs/core-mupen64plus_next/mupen64plus_next-thread-wasm.data?url'
 import mupen64plusNextWasmDataUrl from '@emulatorjs/core-mupen64plus_next/mupen64plus_next-wasm.data?url'
+import mupen64plusNextReportUrl from '@emulatorjs/core-mupen64plus_next/reports/mupen64plus_next.json?url'
 import snes9xLegacyWasmDataUrl from '@emulatorjs/core-snes9x/snes9x-legacy-wasm.data?url'
 import snes9xThreadLegacyWasmDataUrl from '@emulatorjs/core-snes9x/snes9x-thread-legacy-wasm.data?url'
 import snes9xThreadWasmDataUrl from '@emulatorjs/core-snes9x/snes9x-thread-wasm.data?url'
 import snes9xWasmDataUrl from '@emulatorjs/core-snes9x/snes9x-wasm.data?url'
+import snes9xReportUrl from '@emulatorjs/core-snes9x/reports/snes9x.json?url'
 
 const EMULATOR_PATHS: Record<string, string> = {
   'emulator.js': emulatorUrl,
@@ -53,22 +58,32 @@ const EMULATOR_PATHS: Record<string, string> = {
   'fceumm-thread-legacy-wasm.data': fceummThreadLegacyWasmDataUrl,
   'fceumm-thread-wasm.data': fceummThreadWasmDataUrl,
   'fceumm-wasm.data': fceummWasmDataUrl,
+  'fceumm.json': fceummReportUrl,
+  'cores/reports/fceumm.json': fceummReportUrl,
   'gambatte-legacy-wasm.data': gambatteLegacyWasmDataUrl,
   'gambatte-thread-legacy-wasm.data': gambatteThreadLegacyWasmDataUrl,
   'gambatte-thread-wasm.data': gambatteThreadWasmDataUrl,
   'gambatte-wasm.data': gambatteWasmDataUrl,
+  'gambatte.json': gambatteReportUrl,
+  'cores/reports/gambatte.json': gambatteReportUrl,
   'mgba-legacy-wasm.data': mgbaLegacyWasmDataUrl,
   'mgba-thread-legacy-wasm.data': mgbaThreadLegacyWasmDataUrl,
   'mgba-thread-wasm.data': mgbaThreadWasmDataUrl,
   'mgba-wasm.data': mgbaWasmDataUrl,
+  'mgba.json': mgbaReportUrl,
+  'cores/reports/mgba.json': mgbaReportUrl,
   'mupen64plus_next-legacy-wasm.data': mupen64plusNextLegacyWasmDataUrl,
   'mupen64plus_next-thread-legacy-wasm.data': mupen64plusNextThreadLegacyWasmDataUrl,
   'mupen64plus_next-thread-wasm.data': mupen64plusNextThreadWasmDataUrl,
   'mupen64plus_next-wasm.data': mupen64plusNextWasmDataUrl,
+  'mupen64plus_next.json': mupen64plusNextReportUrl,
+  'cores/reports/mupen64plus_next.json': mupen64plusNextReportUrl,
   'snes9x-legacy-wasm.data': snes9xLegacyWasmDataUrl,
   'snes9x-thread-legacy-wasm.data': snes9xThreadLegacyWasmDataUrl,
   'snes9x-thread-wasm.data': snes9xThreadWasmDataUrl,
-  'snes9x-wasm.data': snes9xWasmDataUrl
+  'snes9x-wasm.data': snes9xWasmDataUrl,
+  'snes9x.json': snes9xReportUrl,
+  'cores/reports/snes9x.json': snes9xReportUrl
 }
 
 const EMULATOR_CORE_BY_SYSTEM: Record<ArcadeSystem, string> = {
