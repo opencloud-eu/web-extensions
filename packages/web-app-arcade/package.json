@@ -1,6 +1,6 @@
 {
   "name": "web-app-arcade",
-  "version": "2.2.0",
+  "version": "3.0.0",
   "private": true,
   "description": "open and play NES, SNES, Game Boy, Game Boy Color, Game Boy Advance and N64 ROMs in OpenCloud Web Arcade",
   "license": "AGPL-3.0",

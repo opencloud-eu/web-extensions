@@ -1,6 +1,10 @@
 # Changelog
 
-## [2.2.0](https://github.com/opencloud-eu/web-extensions/releases/tag/arcade-v2.2.0) - 2026-07-16
+## [3.0.0](https://github.com/opencloud-eu/web-extensions/releases/tag/arcade-v3.0.0) - 2026-07-16
+
+### Breaking changes
+
+- Require CSP updates for Arcade runtime: `worker-src` must allow `blob:`, `script-src` must allow both `blob:` and `'unsafe-eval'`, and `connect-src` must allow `data:`.
 
 ### ✨ Features
 
