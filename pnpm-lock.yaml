@@ -91,7 +91,7 @@ importers:
         specifier: ^3.4.21
         version: 3.5.39(typescript@6.0.3)
       vue3-gettext:
-        specifier: ^4.0.0-beta.1
+        specifier: ^4.0.0
         version: 4.0.1(vue@3.5.39(typescript@6.0.3))
 
   packages/web-app-bpmn:
@@ -122,7 +122,7 @@ importers:
         specifier: ^3.4.21
         version: 3.5.39(typescript@6.0.3)
       vue3-gettext:
-        specifier: ^4.0.0-beta.1
+        specifier: ^4.0.0
         version: 4.0.1(vue@3.5.39(typescript@6.0.3))
 
   packages/web-app-calculator:
@@ -144,7 +144,7 @@ importers:
         specifier: ^3.4.21
         version: 3.5.39(typescript@6.0.3)
       vue3-gettext:
-        specifier: ^4.0.0-beta.1
+        specifier: ^4.0.0
         version: 4.0.1(vue@3.5.39(typescript@6.0.3))
 
   packages/web-app-cast:
@@ -162,7 +162,7 @@ importers:
         specifier: ^3.4.21
         version: 3.5.39(typescript@6.0.3)
       vue3-gettext:
-        specifier: ^4.0.0-beta.1
+        specifier: ^4.0.0
         version: 4.0.1(vue@3.5.39(typescript@6.0.3))
 
   packages/web-app-draw-io:
@@ -180,7 +180,7 @@ importers:
         specifier: ^3.4.21
         version: 3.5.39(typescript@6.0.3)
       vue3-gettext:
-        specifier: ^4.0.0-beta.1
+        specifier: ^4.0.0
         version: 4.0.1(vue@3.5.39(typescript@6.0.3))
 
   packages/web-app-external-sites:
@@ -198,7 +198,7 @@ importers:
         specifier: ^5.0.0
         version: 5.2.0(@vue/compiler-sfc@3.5.39)(pinia@3.0.4(typescript@6.0.3)(vue@3.5.39(typescript@6.0.3)))(rolldown@1.1.5)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
       vue3-gettext:
-        specifier: ^4.0.0-beta.1
+        specifier: ^4.0.0
         version: 4.0.1(vue@3.5.39(typescript@6.0.3))
       zod:
         specifier: ^4.0.0
@@ -235,7 +235,7 @@ importers:
         specifier: ^3.4.21
         version: 3.5.39(typescript@6.0.3)
       vue3-gettext:
-        specifier: ^4.0.0-beta.1
+        specifier: ^4.0.0
         version: 4.0.1(vue@3.5.39(typescript@6.0.3))
 
   packages/web-app-json-viewer:
@@ -257,7 +257,7 @@ importers:
         specifier: ^3.4.21
         version: 3.5.39(typescript@6.0.3)
       vue3-gettext:
-        specifier: ^4.0.0-beta.1
+        specifier: ^4.0.0
         version: 4.0.1(vue@3.5.39(typescript@6.0.3))
 
   packages/web-app-maps:
@@ -288,7 +288,7 @@ importers:
         specifier: ^3.4.21
         version: 3.5.39(typescript@6.0.3)
       vue3-gettext:
-        specifier: ^4.0.0-beta.1
+        specifier: ^4.0.0
         version: 4.0.1(vue@3.5.39(typescript@6.0.3))
 
   packages/web-app-notes:
@@ -313,7 +313,7 @@ importers:
         specifier: ^5.0.3
         version: 5.0.3(vue@3.5.39(typescript@6.0.3))
       vue3-gettext:
-        specifier: ^4.0.0-beta.1
+        specifier: ^4.0.0
         version: 4.0.1(vue@3.5.39(typescript@6.0.3))
       zod:
         specifier: ^4.3.0
@@ -338,7 +338,7 @@ importers:
         specifier: ^3.4.21
         version: 3.5.39(typescript@6.0.3)
       vue3-gettext:
-        specifier: ^4.0.0-beta.1
+        specifier: ^4.0.0
         version: 4.0.1(vue@3.5.39(typescript@6.0.3))
 
   packages/web-app-progress-bars:
@@ -353,7 +353,7 @@ importers:
         specifier: ^3.4.21
         version: 3.5.39(typescript@6.0.3)
       vue3-gettext:
-        specifier: ^4.0.0-beta.1
+        specifier: ^4.0.0
         version: 4.0.1(vue@3.5.39(typescript@6.0.3))
 
   packages/web-app-unzip:
@@ -375,7 +375,7 @@ importers:
         specifier: ^3.4.21
         version: 3.5.39(typescript@6.0.3)
       vue3-gettext:
-        specifier: ^4.0.0-beta.1
+        specifier: ^4.0.0
         version: 4.0.1(vue@3.5.39(typescript@6.0.3))
 
 packages:
