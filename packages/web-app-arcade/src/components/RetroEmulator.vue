@@ -12,7 +12,7 @@ import { computed, onBeforeUnmount, ref, unref } from 'vue'
 
 import { getCoreName, getEmulatorPaths, getLoaderUrl } from '../emulatorAssets'
 import type { ArcadeSystem } from '../roms'
-import frameTemplate from './retro-emulator-frame.html?raw'
+import frameTemplate from '../assets/retro-emulator-frame.html?raw'
 
 const props = defineProps<{
   system: ArcadeSystem
