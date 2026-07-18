@@ -1,25 +1,13 @@
 <template>
-  <div class="grid">
-    <nes-vue
-      v-if="url"
-      class="ext:shadow-xl ext:shadow-cyan-500"
-      :url="url"
-      :label="label"
-      :width="width"
-      :height="height"
-    />
-  </div>
+  <div class="grid"><retro-emulator v-if="url && system" :url="url" :system="system" /></div>
 </template>
 
 <script setup lang="ts">
-import { NesVue } from 'nes-vue'
-import { useGettext } from 'vue3-gettext'
+import { computed, unref } from 'vue'
 
-const { $gettext } = useGettext()
+import RetroEmulator from './components/RetroEmulator.vue'
+import { getRomSystem } from './roms'
 
 const { url } = defineProps<{ url: string }>()
-
-const label = $gettext('... START ...')
-const width = 768
-const height = 720
+const system = computed(() => getRomSystem(unref(url)))
 </script>

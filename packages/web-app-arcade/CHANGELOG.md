@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.0.0](https://github.com/opencloud-eu/web-extensions/releases/tag/arcade-v3.0.0) - 2026-07-16
+
+### Breaking changes
+
+- Require CSP updates for Arcade runtime: `worker-src` must allow `blob:`, `script-src` must allow both `blob:` and `'unsafe-eval'`, and `connect-src` must allow `data:`.
+
+### ✨ Features
+
+- Add multi-system ROM support in Arcade for NES, SNES (`.snes`, `.smc`, `.sfc`), Game Boy (`.gb`), Game Boy Color (`.gbc`), Game Boy Advance (`.gba`), and Nintendo 64 (`.n64`, `.v64`, `.z64`).
+- Migrate Arcade runtime from `nes-vue` to EmulatorJS and use one emulator flow across supported system by replacing `nes-vue` with EmulatorJS.
+
 ## [2.1.0](https://github.com/opencloud-eu/web-extensions/releases/tag/arcade-v2.1.0) - 2026-07-15
 
 ### ✨ Features
