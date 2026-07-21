@@ -19,6 +19,7 @@ This repository contains a collection of [OpenCloud Web](https://github.com/open
 - [web-app-pastebin](./packages/web-app-pastebin/)
 - [web-app-progress-bars](./packages/web-app-progress-bars/)
 - [web-app-unzip](./packages/web-app-unzip/)
+- [web-app-local-llm](./packages/web-app-local-llm/)
 
 ## Installing apps in OpenCloud
 
