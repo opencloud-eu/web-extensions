@@ -94,7 +94,7 @@ services:
     restart: unless-stopped
 
   traefik:
-    image: traefik:v3.7.8@sha256:5cb000ad823bfcfff911e22a4c4fa09cee74c7a2d960c012a1a46a8d0a159fcf
+    image: traefik:v3.7.8@sha256:4299bbed850421258fc5448c2e0e6ad350981d4d335a68de11b92448aedbefe5
     restart: unless-stopped
     entrypoint:
       [
