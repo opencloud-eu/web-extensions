@@ -13,10 +13,10 @@ importers:
     devDependencies:
       '@opencloud-eu/eslint-config':
         specifier: ^7.0.0
-        version: 7.2.0(@typescript-eslint/eslint-plugin@8.64.0(@typescript-eslint/parser@8.64.0(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3))(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3))(eslint@10.7.0(jiti@2.7.0))(vue-eslint-parser@10.4.0(eslint@10.7.0(jiti@2.7.0)))
+        version: 7.2.0(@typescript-eslint/eslint-plugin@8.64.0(@typescript-eslint/parser@8.64.0(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(vue-eslint-parser@10.4.0(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1))
       '@opencloud-eu/extension-sdk':
         specifier: 7.3.0-alpha.1
-        version: 7.3.0-alpha.1(node-fetch@3.3.2)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vitest@4.1.10(@types/node@24.13.3)(happy-dom@20.10.6)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0)))(vue-tsc@3.3.7(typescript@6.0.3))(vue@3.5.39(typescript@6.0.3))
+        version: 7.3.0-alpha.1(debug@4.4.3(supports-color@8.1.1))(node-fetch@3.3.2)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vitest@4.1.10(@types/node@24.13.3)(happy-dom@20.10.6)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0)))(vue-tsc@3.3.7(typescript@6.0.3))(vue@3.5.39(typescript@6.0.3))
       '@opencloud-eu/prettier-config':
         specifier: ^7.0.0
         version: 7.2.0(prettier@3.9.5)
@@ -25,7 +25,7 @@ importers:
         version: 7.2.0
       '@opencloud-eu/web-test-helpers':
         specifier: ^7.0.0
-        version: 7.2.0(@opencloud-eu/web-pkg@7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3)))(@vue/compiler-sfc@3.5.39)(@vue/test-utils@2.4.11(@vue/compiler-dom@3.5.39)(@vue/server-renderer@3.5.39(vue@3.5.39(typescript@6.0.3)))(vue@3.5.39(typescript@6.0.3)))(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vitest@4.1.10(@types/node@24.13.3)(happy-dom@20.10.6)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0)))(vue@3.5.39(typescript@6.0.3))
+        version: 7.2.0(48c00a1b387eb7367b4608ca8f457cc3)
       '@playwright/test':
         specifier: ^1.50.1
         version: 1.61.1
@@ -40,7 +40,7 @@ importers:
         version: 2.4.11(@vue/compiler-dom@3.5.39)(@vue/server-renderer@3.5.39(vue@3.5.39(typescript@6.0.3)))(vue@3.5.39(typescript@6.0.3))
       eslint:
         specifier: ^10.1.0
-        version: 10.7.0(jiti@2.7.0)
+        version: 10.7.0(jiti@2.7.0)(supports-color@8.1.1)
       happy-dom:
         specifier: ^20.0.0
         version: 20.10.6
@@ -82,25 +82,25 @@ importers:
     dependencies:
       '@emulatorjs/core-fceumm':
         specifier: 4.2.3
-        version: 4.2.3
+        version: 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@emulatorjs/core-gambatte':
         specifier: 4.2.3
-        version: 4.2.3
+        version: 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@emulatorjs/core-mgba':
         specifier: 4.2.3
-        version: 4.2.3
+        version: 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@emulatorjs/core-mupen64plus_next':
         specifier: 4.2.3
-        version: 4.2.3
+        version: 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@emulatorjs/core-snes9x':
         specifier: 4.2.3
-        version: 4.2.3
+        version: 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@emulatorjs/emulatorjs':
         specifier: ^4.2.3
-        version: 4.2.3
+        version: 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^7.0.0
-        version: 7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(rolldown@1.1.5)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
+        version: 7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(debug@4.4.3(supports-color@8.1.1))(rolldown@1.1.5)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
     devDependencies:
       vue:
         specifier: ^3.4.21
@@ -129,10 +129,10 @@ importers:
     devDependencies:
       '@opencloud-eu/web-client':
         specifier: ^7.0.0
-        version: 7.2.0
+        version: 7.2.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^7.0.0
-        version: 7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(rolldown@1.1.5)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
+        version: 7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(debug@4.4.3(supports-color@8.1.1))(rolldown@1.1.5)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
       vue:
         specifier: ^3.4.21
         version: 3.5.39(typescript@6.0.3)
@@ -148,10 +148,10 @@ importers:
     devDependencies:
       '@opencloud-eu/web-client':
         specifier: ^7.0.0
-        version: 7.2.0
+        version: 7.2.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^7.0.0
-        version: 7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(rolldown@1.1.5)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
+        version: 7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(debug@4.4.3(supports-color@8.1.1))(rolldown@1.1.5)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
       '@vueuse/core':
         specifier: ^14.0.0
         version: 14.3.0(vue@3.5.39(typescript@6.0.3))
@@ -166,10 +166,10 @@ importers:
     devDependencies:
       '@opencloud-eu/web-client':
         specifier: ^7.0.0
-        version: 7.2.0
+        version: 7.2.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^7.0.0
-        version: 7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(rolldown@1.1.5)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
+        version: 7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(debug@4.4.3(supports-color@8.1.1))(rolldown@1.1.5)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
       '@types/chromecast-caf-sender':
         specifier: ^1.0.8
         version: 1.0.11
@@ -184,10 +184,10 @@ importers:
     devDependencies:
       '@opencloud-eu/web-client':
         specifier: ^7.0.0
-        version: 7.2.0
+        version: 7.2.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^7.0.0
-        version: 7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(rolldown@1.1.5)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
+        version: 7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(debug@4.4.3(supports-color@8.1.1))(rolldown@1.1.5)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
       qs:
         specifier: ^6.11.2
         version: 6.15.3
@@ -202,10 +202,10 @@ importers:
     devDependencies:
       '@opencloud-eu/web-client':
         specifier: ^7.0.0
-        version: 7.2.0
+        version: 7.2.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^7.0.0
-        version: 7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(rolldown@1.1.5)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
+        version: 7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(debug@4.4.3(supports-color@8.1.1))(rolldown@1.1.5)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
       vue:
         specifier: ^3.4.21
         version: 3.5.39(typescript@6.0.3)
@@ -236,10 +236,10 @@ importers:
     devDependencies:
       '@opencloud-eu/web-client':
         specifier: ^7.0.0
-        version: 7.2.0
+        version: 7.2.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^7.0.0
-        version: 7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(rolldown@1.1.5)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
+        version: 7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(debug@4.4.3(supports-color@8.1.1))(rolldown@1.1.5)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
       '@uppy/core':
         specifier: ^5.1.1
         version: 5.2.0
@@ -261,10 +261,10 @@ importers:
     devDependencies:
       '@opencloud-eu/web-client':
         specifier: ^7.0.0
-        version: 7.2.0
+        version: 7.2.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^7.0.0
-        version: 7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(rolldown@1.1.5)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
+        version: 7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(debug@4.4.3(supports-color@8.1.1))(rolldown@1.1.5)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
       sass-embedded:
         specifier: ^1.98.0
         version: 1.100.0
@@ -279,10 +279,10 @@ importers:
     dependencies:
       '@opencloud-eu/web-client':
         specifier: ^7.0.0
-        version: 7.2.0
+        version: 7.2.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^7.0.0
-        version: 7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(rolldown@1.1.5)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
+        version: 7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(debug@4.4.3(supports-color@8.1.1))(rolldown@1.1.5)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
       '@protomaps/basemaps':
         specifier: ^5.7.0
         version: 5.7.2
@@ -313,10 +313,10 @@ importers:
         version: 7.2.0(@vue/compiler-sfc@3.5.39)(pinia@3.0.4(typescript@6.0.3)(vue@3.5.39(typescript@6.0.3)))(rolldown@1.1.5)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
       '@opencloud-eu/web-client':
         specifier: ^7.0.0
-        version: 7.2.0
+        version: 7.2.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^7.0.0
-        version: 7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(rolldown@1.1.5)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
+        version: 7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(debug@4.4.3(supports-color@8.1.1))(rolldown@1.1.5)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
     devDependencies:
       pinia:
         specifier: 3.0.4
@@ -342,10 +342,10 @@ importers:
     devDependencies:
       '@opencloud-eu/web-client':
         specifier: ^7.0.0
-        version: 7.2.0
+        version: 7.2.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^7.0.0
-        version: 7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(rolldown@1.1.5)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
+        version: 7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(debug@4.4.3(supports-color@8.1.1))(rolldown@1.1.5)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
       '@vueuse/core':
         specifier: ^14.0.0
         version: 14.3.0(vue@3.5.39(typescript@6.0.3))
@@ -360,7 +360,7 @@ importers:
     devDependencies:
       '@opencloud-eu/web-pkg':
         specifier: ^7.0.0
-        version: 7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(rolldown@1.1.5)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
+        version: 7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(debug@4.4.3(supports-color@8.1.1))(rolldown@1.1.5)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
       '@vueuse/core':
         specifier: ^14.0.0
         version: 14.3.0(vue@3.5.39(typescript@6.0.3))
@@ -379,10 +379,10 @@ importers:
     devDependencies:
       '@opencloud-eu/web-client':
         specifier: ^7.0.0
-        version: 7.2.0
+        version: 7.2.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^7.0.0
-        version: 7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(rolldown@1.1.5)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
+        version: 7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(debug@4.4.3(supports-color@8.1.1))(rolldown@1.1.5)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
       uuid:
         specifier: ^14.0.0
         version: 14.0.1
@@ -4535,9 +4535,9 @@ snapshots:
 
   '@emoji-mart/data@1.2.1': {}
 
-  '@emulatorjs/core-81@4.2.3':
+  '@emulatorjs/core-81@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4545,9 +4545,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-a5200@4.2.3':
+  '@emulatorjs/core-a5200@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4555,9 +4555,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-beetle_vb@4.2.3':
+  '@emulatorjs/core-beetle_vb@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4565,9 +4565,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-cap32@4.2.3':
+  '@emulatorjs/core-cap32@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4575,9 +4575,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-crocods@4.2.3':
+  '@emulatorjs/core-crocods@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4585,9 +4585,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-desmume2015@4.2.3':
+  '@emulatorjs/core-desmume2015@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4595,9 +4595,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-desmume@4.2.3':
+  '@emulatorjs/core-desmume@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4605,9 +4605,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-dosbox_pure@4.2.3':
+  '@emulatorjs/core-dosbox_pure@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4615,9 +4615,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-fbalpha2012_cps1@4.2.3':
+  '@emulatorjs/core-fbalpha2012_cps1@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4625,9 +4625,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-fbalpha2012_cps2@4.2.3':
+  '@emulatorjs/core-fbalpha2012_cps2@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4635,9 +4635,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-fbneo@4.2.3':
+  '@emulatorjs/core-fbneo@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4645,37 +4645,18 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-fceumm@4.2.3':
+  '@emulatorjs/core-fceumm@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
       - supports-color
       - utf-8-validate
 
-  '@emulatorjs/core-fuse@4.2.3':
+  '@emulatorjs/core-fuse@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
-    transitivePeerDependencies:
-      - bufferutil
-      - debug
-      - supports-color
-      - utf-8-validate
-    optional: true
-
-  '@emulatorjs/core-gambatte@4.2.3':
-    dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
-    transitivePeerDependencies:
-      - bufferutil
-      - debug
-      - supports-color
-      - utf-8-validate
-
-  '@emulatorjs/core-gearcoleco@4.2.3':
-    dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4683,9 +4664,18 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-genesis_plus_gx@4.2.3':
+  '@emulatorjs/core-gambatte@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+    transitivePeerDependencies:
+      - bufferutil
+      - debug
+      - supports-color
+      - utf-8-validate
+
+  '@emulatorjs/core-gearcoleco@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
+    dependencies:
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4693,9 +4683,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-handy@4.2.3':
+  '@emulatorjs/core-genesis_plus_gx@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4703,9 +4693,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-mame2003@4.2.3':
+  '@emulatorjs/core-handy@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4713,9 +4703,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-mame2003_plus@4.2.3':
+  '@emulatorjs/core-mame2003@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4723,9 +4713,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-mednafen_ngp@4.2.3':
+  '@emulatorjs/core-mame2003_plus@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4733,9 +4723,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-mednafen_pce@4.2.3':
+  '@emulatorjs/core-mednafen_ngp@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4743,9 +4733,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-mednafen_pcfx@4.2.3':
+  '@emulatorjs/core-mednafen_pce@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4753,9 +4743,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-mednafen_psx_hw@4.2.3':
+  '@emulatorjs/core-mednafen_pcfx@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4763,9 +4753,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-mednafen_wswan@4.2.3':
+  '@emulatorjs/core-mednafen_psx_hw@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4773,9 +4763,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-melonds@4.2.3':
+  '@emulatorjs/core-mednafen_wswan@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4783,27 +4773,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-mgba@4.2.3':
+  '@emulatorjs/core-melonds@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
-    transitivePeerDependencies:
-      - bufferutil
-      - debug
-      - supports-color
-      - utf-8-validate
-
-  '@emulatorjs/core-mupen64plus_next@4.2.3':
-    dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
-    transitivePeerDependencies:
-      - bufferutil
-      - debug
-      - supports-color
-      - utf-8-validate
-
-  '@emulatorjs/core-nestopia@4.2.3':
-    dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4811,9 +4783,27 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-opera@4.2.3':
+  '@emulatorjs/core-mgba@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+    transitivePeerDependencies:
+      - bufferutil
+      - debug
+      - supports-color
+      - utf-8-validate
+
+  '@emulatorjs/core-mupen64plus_next@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
+    dependencies:
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+    transitivePeerDependencies:
+      - bufferutil
+      - debug
+      - supports-color
+      - utf-8-validate
+
+  '@emulatorjs/core-nestopia@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
+    dependencies:
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4821,9 +4811,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-parallel_n64@4.2.3':
+  '@emulatorjs/core-opera@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4831,9 +4821,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-pcsx_rearmed@4.2.3':
+  '@emulatorjs/core-parallel_n64@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4841,9 +4831,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-picodrive@4.2.3':
+  '@emulatorjs/core-pcsx_rearmed@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4851,9 +4841,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-ppsspp@4.2.3':
+  '@emulatorjs/core-picodrive@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4861,9 +4851,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-prboom@4.2.3':
+  '@emulatorjs/core-ppsspp@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4871,9 +4861,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-prosystem@4.2.3':
+  '@emulatorjs/core-prboom@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4881,9 +4871,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-puae@4.2.3':
+  '@emulatorjs/core-prosystem@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4891,9 +4881,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-same_cdi@4.2.3':
+  '@emulatorjs/core-puae@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4901,9 +4891,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-smsplus@4.2.3':
+  '@emulatorjs/core-same_cdi@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4911,18 +4901,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-snes9x@4.2.3':
+  '@emulatorjs/core-smsplus@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
-    transitivePeerDependencies:
-      - bufferutil
-      - debug
-      - supports-color
-      - utf-8-validate
-
-  '@emulatorjs/core-stella2014@4.2.3':
-    dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4930,9 +4911,18 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-vice_x128@4.2.3':
+  '@emulatorjs/core-snes9x@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+    transitivePeerDependencies:
+      - bufferutil
+      - debug
+      - supports-color
+      - utf-8-validate
+
+  '@emulatorjs/core-stella2014@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
+    dependencies:
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4940,9 +4930,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-vice_x64@4.2.3':
+  '@emulatorjs/core-vice_x128@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4950,9 +4940,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-vice_x64sc@4.2.3':
+  '@emulatorjs/core-vice_x64@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4960,9 +4950,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-vice_xpet@4.2.3':
+  '@emulatorjs/core-vice_x64sc@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4970,9 +4960,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-vice_xplus4@4.2.3':
+  '@emulatorjs/core-vice_xpet@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4980,9 +4970,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-vice_xvic@4.2.3':
+  '@emulatorjs/core-vice_xplus4@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -4990,9 +4980,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-virtualjaguar@4.2.3':
+  '@emulatorjs/core-vice_xvic@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -5000,9 +4990,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/core-yabause@4.2.3':
+  '@emulatorjs/core-virtualjaguar@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -5010,57 +5000,9 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/cores@4.2.3':
+  '@emulatorjs/core-yabause@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@emulatorjs/core-81': 4.2.3
-      '@emulatorjs/core-a5200': 4.2.3
-      '@emulatorjs/core-beetle_vb': 4.2.3
-      '@emulatorjs/core-cap32': 4.2.3
-      '@emulatorjs/core-crocods': 4.2.3
-      '@emulatorjs/core-desmume': 4.2.3
-      '@emulatorjs/core-desmume2015': 4.2.3
-      '@emulatorjs/core-dosbox_pure': 4.2.3
-      '@emulatorjs/core-fbalpha2012_cps1': 4.2.3
-      '@emulatorjs/core-fbalpha2012_cps2': 4.2.3
-      '@emulatorjs/core-fbneo': 4.2.3
-      '@emulatorjs/core-fceumm': 4.2.3
-      '@emulatorjs/core-fuse': 4.2.3
-      '@emulatorjs/core-gambatte': 4.2.3
-      '@emulatorjs/core-gearcoleco': 4.2.3
-      '@emulatorjs/core-genesis_plus_gx': 4.2.3
-      '@emulatorjs/core-handy': 4.2.3
-      '@emulatorjs/core-mame2003': 4.2.3
-      '@emulatorjs/core-mame2003_plus': 4.2.3
-      '@emulatorjs/core-mednafen_ngp': 4.2.3
-      '@emulatorjs/core-mednafen_pce': 4.2.3
-      '@emulatorjs/core-mednafen_pcfx': 4.2.3
-      '@emulatorjs/core-mednafen_psx_hw': 4.2.3
-      '@emulatorjs/core-mednafen_wswan': 4.2.3
-      '@emulatorjs/core-melonds': 4.2.3
-      '@emulatorjs/core-mgba': 4.2.3
-      '@emulatorjs/core-mupen64plus_next': 4.2.3
-      '@emulatorjs/core-nestopia': 4.2.3
-      '@emulatorjs/core-opera': 4.2.3
-      '@emulatorjs/core-parallel_n64': 4.2.3
-      '@emulatorjs/core-pcsx_rearmed': 4.2.3
-      '@emulatorjs/core-picodrive': 4.2.3
-      '@emulatorjs/core-ppsspp': 4.2.3
-      '@emulatorjs/core-prboom': 4.2.3
-      '@emulatorjs/core-prosystem': 4.2.3
-      '@emulatorjs/core-puae': 4.2.3
-      '@emulatorjs/core-same_cdi': 4.2.3
-      '@emulatorjs/core-smsplus': 4.2.3
-      '@emulatorjs/core-snes9x': 4.2.3
-      '@emulatorjs/core-stella2014': 4.2.3
-      '@emulatorjs/core-vice_x128': 4.2.3
-      '@emulatorjs/core-vice_x64': 4.2.3
-      '@emulatorjs/core-vice_x64sc': 4.2.3
-      '@emulatorjs/core-vice_xpet': 4.2.3
-      '@emulatorjs/core-vice_xplus4': 4.2.3
-      '@emulatorjs/core-vice_xvic': 4.2.3
-      '@emulatorjs/core-virtualjaguar': 4.2.3
-      '@emulatorjs/core-yabause': 4.2.3
-      '@emulatorjs/emulatorjs': 4.2.3
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -5068,35 +5010,93 @@ snapshots:
       - utf-8-validate
     optional: true
 
-  '@emulatorjs/emulatorjs@4.2.3':
+  '@emulatorjs/cores@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
+    dependencies:
+      '@emulatorjs/core-81': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-a5200': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-beetle_vb': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-cap32': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-crocods': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-desmume': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-desmume2015': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-dosbox_pure': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-fbalpha2012_cps1': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-fbalpha2012_cps2': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-fbneo': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-fceumm': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-fuse': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-gambatte': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-gearcoleco': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-genesis_plus_gx': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-handy': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-mame2003': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-mame2003_plus': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-mednafen_ngp': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-mednafen_pce': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-mednafen_pcfx': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-mednafen_psx_hw': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-mednafen_wswan': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-melonds': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-mgba': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-mupen64plus_next': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-nestopia': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-opera': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-parallel_n64': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-pcsx_rearmed': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-picodrive': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-ppsspp': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-prboom': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-prosystem': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-puae': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-same_cdi': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-smsplus': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-snes9x': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-stella2014': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-vice_x128': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-vice_x64': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-vice_x64sc': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-vice_xpet': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-vice_xplus4': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-vice_xvic': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-virtualjaguar': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/core-yabause': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@emulatorjs/emulatorjs': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+    transitivePeerDependencies:
+      - bufferutil
+      - debug
+      - supports-color
+      - utf-8-validate
+    optional: true
+
+  '@emulatorjs/emulatorjs@4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
       '@node-minify/clean-css': 9.0.1
       '@node-minify/core': 9.0.2
       '@node-minify/terser': 9.0.1
-      http-server: 14.1.1
+      http-server: 14.1.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       nipplejs: 0.10.2
-      node-7z: 3.0.0
+      node-7z: 3.0.0(supports-color@8.1.1)
       node-fetch: 3.3.2
-      socket.io: 4.8.3
+      socket.io: 4.8.3(supports-color@8.1.1)
     optionalDependencies:
-      '@emulatorjs/cores': 4.2.3
+      '@emulatorjs/cores': 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - debug
       - supports-color
       - utf-8-validate
 
-  '@eslint-community/eslint-utils@4.9.1(eslint@10.7.0(jiti@2.7.0))':
+  '@eslint-community/eslint-utils@4.9.1(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))':
     dependencies:
-      eslint: 10.7.0(jiti@2.7.0)
+      eslint: 10.7.0(jiti@2.7.0)(supports-color@8.1.1)
       eslint-visitor-keys: 3.4.3
 
   '@eslint-community/regexpp@4.12.2': {}
 
-  '@eslint/config-array@0.23.5':
+  '@eslint/config-array@0.23.5(supports-color@8.1.1)':
     dependencies:
       '@eslint/object-schema': 3.0.5
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@8.1.1)
       minimatch: 10.2.5
     transitivePeerDependencies:
       - supports-color
@@ -5277,7 +5277,7 @@ snapshots:
 
   '@microsoft/fetch-event-source@2.0.1': {}
 
-  '@module-federation/dts-plugin@2.3.1(node-fetch@3.3.2)(typescript@6.0.3)(vue-tsc@3.3.7(typescript@6.0.3))':
+  '@module-federation/dts-plugin@2.3.1(debug@4.4.3(supports-color@8.1.1))(node-fetch@3.3.2)(typescript@6.0.3)(vue-tsc@3.3.7(typescript@6.0.3))':
     dependencies:
       '@module-federation/error-codes': 2.3.1
       '@module-federation/managers': 2.3.1(node-fetch@3.3.2)
@@ -5285,7 +5285,7 @@ snapshots:
       '@module-federation/third-party-dts-extractor': 2.3.1
       adm-zip: 0.5.17
       ansi-colors: 4.1.3
-      axios: 1.13.5
+      axios: 1.13.5(debug@4.4.3(supports-color@8.1.1))
       fs-extra: 9.1.0
       isomorphic-ws: 5.0.0(ws@8.18.0)
       node-schedule: 2.1.1
@@ -5334,9 +5334,9 @@ snapshots:
       fs-extra: 9.1.0
       resolve: 1.22.8
 
-  '@module-federation/vite@1.14.2(node-fetch@3.3.2)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue-tsc@3.3.7(typescript@6.0.3))':
+  '@module-federation/vite@1.14.2(debug@4.4.3(supports-color@8.1.1))(node-fetch@3.3.2)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue-tsc@3.3.7(typescript@6.0.3))':
     dependencies:
-      '@module-federation/dts-plugin': 2.3.1(node-fetch@3.3.2)(typescript@6.0.3)(vue-tsc@3.3.7(typescript@6.0.3))
+      '@module-federation/dts-plugin': 2.3.1(debug@4.4.3(supports-color@8.1.1))(node-fetch@3.3.2)(typescript@6.0.3)(vue-tsc@3.3.7(typescript@6.0.3))
       '@module-federation/runtime': 2.3.1(node-fetch@3.3.2)
       '@module-federation/sdk': 2.3.1(node-fetch@3.3.2)
       '@rollup/pluginutils': 5.4.0
@@ -5417,24 +5417,24 @@ snapshots:
       - vue
       - webpack
 
-  '@opencloud-eu/eslint-config@7.2.0(@typescript-eslint/eslint-plugin@8.64.0(@typescript-eslint/parser@8.64.0(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3))(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3))(eslint@10.7.0(jiti@2.7.0))(vue-eslint-parser@10.4.0(eslint@10.7.0(jiti@2.7.0)))':
+  '@opencloud-eu/eslint-config@7.2.0(@typescript-eslint/eslint-plugin@8.64.0(@typescript-eslint/parser@8.64.0(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(vue-eslint-parser@10.4.0(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1))':
     dependencies:
-      '@typescript-eslint/parser': 8.64.0(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3)
-      eslint: 10.7.0(jiti@2.7.0)
-      eslint-config-prettier: 10.1.8(eslint@10.7.0(jiti@2.7.0))
-      eslint-plugin-unused-imports: 4.4.1(@typescript-eslint/eslint-plugin@8.64.0(@typescript-eslint/parser@8.64.0(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3))(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3))(eslint@10.7.0(jiti@2.7.0))
-      eslint-plugin-vue: 10.9.2(@typescript-eslint/parser@8.64.0(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3))(eslint@10.7.0(jiti@2.7.0))(vue-eslint-parser@10.4.0(eslint@10.7.0(jiti@2.7.0)))
+      '@typescript-eslint/parser': 8.64.0(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)
+      eslint: 10.7.0(jiti@2.7.0)(supports-color@8.1.1)
+      eslint-config-prettier: 10.1.8(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))
+      eslint-plugin-unused-imports: 4.4.1(@typescript-eslint/eslint-plugin@8.64.0(@typescript-eslint/parser@8.64.0(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))
+      eslint-plugin-vue: 10.9.2(@typescript-eslint/parser@8.64.0(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(vue-eslint-parser@10.4.0(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1))
       typescript: 6.0.3
-      typescript-eslint: 8.64.0(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3)
+      typescript-eslint: 8.64.0(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)
     transitivePeerDependencies:
       - '@stylistic/eslint-plugin'
       - '@typescript-eslint/eslint-plugin'
       - supports-color
       - vue-eslint-parser
 
-  '@opencloud-eu/extension-sdk@7.3.0-alpha.1(node-fetch@3.3.2)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vitest@4.1.10(@types/node@24.13.3)(happy-dom@20.10.6)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0)))(vue-tsc@3.3.7(typescript@6.0.3))(vue@3.5.39(typescript@6.0.3))':
+  '@opencloud-eu/extension-sdk@7.3.0-alpha.1(debug@4.4.3(supports-color@8.1.1))(node-fetch@3.3.2)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vitest@4.1.10(@types/node@24.13.3)(happy-dom@20.10.6)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0)))(vue-tsc@3.3.7(typescript@6.0.3))(vue@3.5.39(typescript@6.0.3))':
     dependencies:
-      '@module-federation/vite': 1.14.2(node-fetch@3.3.2)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue-tsc@3.3.7(typescript@6.0.3))
+      '@module-federation/vite': 1.14.2(debug@4.4.3(supports-color@8.1.1))(node-fetch@3.3.2)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue-tsc@3.3.7(typescript@6.0.3))
       '@tailwindcss/vite': 4.3.1(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))
       '@vitejs/plugin-basic-ssl': 2.3.0(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))
       '@vitejs/plugin-vue': 6.0.7(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
@@ -5456,11 +5456,11 @@ snapshots:
 
   '@opencloud-eu/tsconfig@7.2.0': {}
 
-  '@opencloud-eu/web-client@7.2.0':
+  '@opencloud-eu/web-client@7.2.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
       '@casl/ability': 7.0.1
       '@microsoft/fetch-event-source': 2.0.1
-      axios: 1.18.1
+      axios: 1.18.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       fast-xml-parser: 5.10.0
       lodash-es: 4.18.1
       luxon: 3.7.2
@@ -5471,13 +5471,13 @@ snapshots:
       - debug
       - supports-color
 
-  '@opencloud-eu/web-pkg@7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(rolldown@1.1.5)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))':
+  '@opencloud-eu/web-pkg@7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(debug@4.4.3(supports-color@8.1.1))(rolldown@1.1.5)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))':
     dependencies:
       '@casl/ability': 7.0.1
       '@casl/vue': 3.0.1(@casl/ability@7.0.1)(vue@3.5.39(typescript@6.0.3))
       '@microsoft/fetch-event-source': 2.0.1
       '@opencloud-eu/design-system': 7.2.0(@vue/compiler-sfc@3.5.39)(pinia@3.0.4(typescript@6.0.3)(vue@3.5.39(typescript@6.0.3)))(rolldown@1.1.5)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
-      '@opencloud-eu/web-client': 7.2.0
+      '@opencloud-eu/web-client': 7.2.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@sentry/vue': 10.65.0(pinia@3.0.4(typescript@6.0.3)(vue@3.5.39(typescript@6.0.3)))(vue@3.5.39(typescript@6.0.3))
       '@tiptap/core': 3.27.4(@tiptap/pm@3.27.4)
       '@tiptap/extension-document': 3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))
@@ -5504,7 +5504,7 @@ snapshots:
       '@uppy/xhr-upload': 5.2.0(@uppy/core@5.2.0)
       '@vue/shared': 3.5.39
       '@vueuse/core': 14.3.0(vue@3.5.39(typescript@6.0.3))
-      axios: 1.18.1
+      axios: 1.18.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       cropperjs: 2.1.1
       deepmerge: 4.3.1
       dompurify: 3.4.12
@@ -5547,16 +5547,16 @@ snapshots:
       - vue
       - webpack
 
-  '@opencloud-eu/web-test-helpers@7.2.0(@opencloud-eu/web-pkg@7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3)))(@vue/compiler-sfc@3.5.39)(@vue/test-utils@2.4.11(@vue/compiler-dom@3.5.39)(@vue/server-renderer@3.5.39(vue@3.5.39(typescript@6.0.3)))(vue@3.5.39(typescript@6.0.3)))(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vitest@4.1.10(@types/node@24.13.3)(happy-dom@20.10.6)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0)))(vue@3.5.39(typescript@6.0.3))':
+  '@opencloud-eu/web-test-helpers@7.2.0(48c00a1b387eb7367b4608ca8f457cc3)':
     dependencies:
       '@casl/ability': 7.0.1
       '@casl/vue': 3.0.1(@casl/ability@7.0.1)(vue@3.5.39(typescript@6.0.3))
       '@opencloud-eu/design-system': 7.2.0(@vue/compiler-sfc@3.5.39)(pinia@3.0.4(typescript@6.0.3)(vue@3.5.39(typescript@6.0.3)))(rolldown@1.1.5)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
-      '@opencloud-eu/web-client': 7.2.0
-      '@opencloud-eu/web-pkg': 7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(rolldown@1.1.5)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
+      '@opencloud-eu/web-client': 7.2.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@opencloud-eu/web-pkg': 7.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-list@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@tiptap/extensions@3.27.4(@tiptap/core@3.27.4(@tiptap/pm@3.27.4))(@tiptap/pm@3.27.4))(@vue/compiler-sfc@3.5.39)(debug@4.4.3(supports-color@8.1.1))(rolldown@1.1.5)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.39(typescript@6.0.3))
       '@pinia/testing': 1.0.3(pinia@3.0.4(typescript@6.0.3)(vue@3.5.39(typescript@6.0.3)))
       '@vue/test-utils': 2.4.11(@vue/compiler-dom@3.5.39)(@vue/server-renderer@3.5.39(vue@3.5.39(typescript@6.0.3)))(vue@3.5.39(typescript@6.0.3))
-      axios: 1.18.1
+      axios: 1.18.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       pinia: 3.0.4(typescript@6.0.3)(vue@3.5.39(typescript@6.0.3))
       vitest-mock-extended: 4.0.0(typescript@6.0.3)(vitest@4.1.10(@types/node@24.13.3)(happy-dom@20.10.6)(vite@8.1.4(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0)))
       vue: 3.5.39(typescript@6.0.3)
@@ -6124,15 +6124,15 @@ snapshots:
     dependencies:
       '@types/node': 24.13.3
 
-  '@typescript-eslint/eslint-plugin@8.64.0(@typescript-eslint/parser@8.64.0(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3))(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3)':
+  '@typescript-eslint/eslint-plugin@8.64.0(@typescript-eslint/parser@8.64.0(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)':
     dependencies:
       '@eslint-community/regexpp': 4.12.2
-      '@typescript-eslint/parser': 8.64.0(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3)
+      '@typescript-eslint/parser': 8.64.0(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)
       '@typescript-eslint/scope-manager': 8.64.0
-      '@typescript-eslint/type-utils': 8.64.0(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3)
-      '@typescript-eslint/utils': 8.64.0(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3)
+      '@typescript-eslint/type-utils': 8.64.0(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)
+      '@typescript-eslint/utils': 8.64.0(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)
       '@typescript-eslint/visitor-keys': 8.64.0
-      eslint: 10.7.0(jiti@2.7.0)
+      eslint: 10.7.0(jiti@2.7.0)(supports-color@8.1.1)
       ignore: 7.0.6
       natural-compare: 1.4.0
       ts-api-utils: 2.5.0(typescript@6.0.3)
@@ -6140,23 +6140,23 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/parser@8.64.0(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3)':
+  '@typescript-eslint/parser@8.64.0(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)':
     dependencies:
       '@typescript-eslint/scope-manager': 8.64.0
       '@typescript-eslint/types': 8.64.0
-      '@typescript-eslint/typescript-estree': 8.64.0(typescript@6.0.3)
+      '@typescript-eslint/typescript-estree': 8.64.0(supports-color@8.1.1)(typescript@6.0.3)
       '@typescript-eslint/visitor-keys': 8.64.0
-      debug: 4.4.3
-      eslint: 10.7.0(jiti@2.7.0)
+      debug: 4.4.3(supports-color@8.1.1)
+      eslint: 10.7.0(jiti@2.7.0)(supports-color@8.1.1)
       typescript: 6.0.3
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/project-service@8.64.0(typescript@6.0.3)':
+  '@typescript-eslint/project-service@8.64.0(supports-color@8.1.1)(typescript@6.0.3)':
     dependencies:
       '@typescript-eslint/tsconfig-utils': 8.64.0(typescript@6.0.3)
       '@typescript-eslint/types': 8.64.0
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@8.1.1)
       typescript: 6.0.3
     transitivePeerDependencies:
       - supports-color
@@ -6170,13 +6170,13 @@ snapshots:
     dependencies:
       typescript: 6.0.3
 
-  '@typescript-eslint/type-utils@8.64.0(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3)':
+  '@typescript-eslint/type-utils@8.64.0(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)':
     dependencies:
       '@typescript-eslint/types': 8.64.0
-      '@typescript-eslint/typescript-estree': 8.64.0(typescript@6.0.3)
-      '@typescript-eslint/utils': 8.64.0(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3)
-      debug: 4.4.3
-      eslint: 10.7.0(jiti@2.7.0)
+      '@typescript-eslint/typescript-estree': 8.64.0(supports-color@8.1.1)(typescript@6.0.3)
+      '@typescript-eslint/utils': 8.64.0(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)
+      debug: 4.4.3(supports-color@8.1.1)
+      eslint: 10.7.0(jiti@2.7.0)(supports-color@8.1.1)
       ts-api-utils: 2.5.0(typescript@6.0.3)
       typescript: 6.0.3
     transitivePeerDependencies:
@@ -6184,13 +6184,13 @@ snapshots:
 
   '@typescript-eslint/types@8.64.0': {}
 
-  '@typescript-eslint/typescript-estree@8.64.0(typescript@6.0.3)':
+  '@typescript-eslint/typescript-estree@8.64.0(supports-color@8.1.1)(typescript@6.0.3)':
     dependencies:
-      '@typescript-eslint/project-service': 8.64.0(typescript@6.0.3)
+      '@typescript-eslint/project-service': 8.64.0(supports-color@8.1.1)(typescript@6.0.3)
       '@typescript-eslint/tsconfig-utils': 8.64.0(typescript@6.0.3)
       '@typescript-eslint/types': 8.64.0
       '@typescript-eslint/visitor-keys': 8.64.0
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@8.1.1)
       minimatch: 10.2.5
       semver: 7.8.5
       tinyglobby: 0.2.17
@@ -6199,13 +6199,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/utils@8.64.0(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3)':
+  '@typescript-eslint/utils@8.64.0(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)':
     dependencies:
-      '@eslint-community/eslint-utils': 4.9.1(eslint@10.7.0(jiti@2.7.0))
+      '@eslint-community/eslint-utils': 4.9.1(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))
       '@typescript-eslint/scope-manager': 8.64.0
       '@typescript-eslint/types': 8.64.0
-      '@typescript-eslint/typescript-estree': 8.64.0(typescript@6.0.3)
-      eslint: 10.7.0(jiti@2.7.0)
+      '@typescript-eslint/typescript-estree': 8.64.0(supports-color@8.1.1)(typescript@6.0.3)
+      eslint: 10.7.0(jiti@2.7.0)(supports-color@8.1.1)
       typescript: 6.0.3
     transitivePeerDependencies:
       - supports-color
@@ -6555,9 +6555,9 @@ snapshots:
 
   adm-zip@0.5.17: {}
 
-  agent-base@6.0.2:
+  agent-base@6.0.2(supports-color@8.1.1):
     dependencies:
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -6618,19 +6618,19 @@ snapshots:
 
   at-least-node@1.0.0: {}
 
-  axios@1.13.5:
+  axios@1.13.5(debug@4.4.3(supports-color@8.1.1)):
     dependencies:
-      follow-redirects: 1.16.0
+      follow-redirects: 1.16.0(debug@4.4.3(supports-color@8.1.1))
       form-data: 4.0.6
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
 
-  axios@1.18.1:
+  axios@1.18.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1):
     dependencies:
-      follow-redirects: 1.16.0
+      follow-redirects: 1.16.0(debug@4.4.3(supports-color@8.1.1))
       form-data: 4.0.6
-      https-proxy-agent: 5.0.1
+      https-proxy-agent: 5.0.1(supports-color@8.1.1)
       proxy-from-env: 2.1.0
     transitivePeerDependencies:
       - debug
@@ -6833,9 +6833,11 @@ snapshots:
 
   data-uri-to-buffer@4.0.1: {}
 
-  debug@4.4.3:
+  debug@4.4.3(supports-color@8.1.1):
     dependencies:
       ms: 2.1.3
+    optionalDependencies:
+      supports-color: 8.1.1
 
   decimal.js@10.6.0: {}
 
@@ -6916,7 +6918,7 @@ snapshots:
 
   engine.io-parser@5.2.3: {}
 
-  engine.io@6.6.9:
+  engine.io@6.6.9(supports-color@8.1.1):
     dependencies:
       '@types/cors': 2.8.19
       '@types/node': 24.13.3
@@ -6925,7 +6927,7 @@ snapshots:
       base64id: 2.0.0
       cookie: 0.7.2
       cors: 2.8.6
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@8.1.1)
       engine.io-parser: 5.2.3
       ws: 8.21.0
     transitivePeerDependencies:
@@ -6963,28 +6965,28 @@ snapshots:
 
   escape-string-regexp@4.0.0: {}
 
-  eslint-config-prettier@10.1.8(eslint@10.7.0(jiti@2.7.0)):
+  eslint-config-prettier@10.1.8(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1)):
     dependencies:
-      eslint: 10.7.0(jiti@2.7.0)
+      eslint: 10.7.0(jiti@2.7.0)(supports-color@8.1.1)
 
-  eslint-plugin-unused-imports@4.4.1(@typescript-eslint/eslint-plugin@8.64.0(@typescript-eslint/parser@8.64.0(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3))(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3))(eslint@10.7.0(jiti@2.7.0)):
+  eslint-plugin-unused-imports@4.4.1(@typescript-eslint/eslint-plugin@8.64.0(@typescript-eslint/parser@8.64.0(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1)):
     dependencies:
-      eslint: 10.7.0(jiti@2.7.0)
+      eslint: 10.7.0(jiti@2.7.0)(supports-color@8.1.1)
     optionalDependencies:
-      '@typescript-eslint/eslint-plugin': 8.64.0(@typescript-eslint/parser@8.64.0(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3))(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3)
+      '@typescript-eslint/eslint-plugin': 8.64.0(@typescript-eslint/parser@8.64.0(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)
 
-  eslint-plugin-vue@10.9.2(@typescript-eslint/parser@8.64.0(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3))(eslint@10.7.0(jiti@2.7.0))(vue-eslint-parser@10.4.0(eslint@10.7.0(jiti@2.7.0))):
+  eslint-plugin-vue@10.9.2(@typescript-eslint/parser@8.64.0(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(vue-eslint-parser@10.4.0(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)):
     dependencies:
-      '@eslint-community/eslint-utils': 4.9.1(eslint@10.7.0(jiti@2.7.0))
-      eslint: 10.7.0(jiti@2.7.0)
+      '@eslint-community/eslint-utils': 4.9.1(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))
+      eslint: 10.7.0(jiti@2.7.0)(supports-color@8.1.1)
       natural-compare: 1.4.0
       nth-check: 2.1.1
       postcss-selector-parser: 7.1.4
       semver: 7.8.5
-      vue-eslint-parser: 10.4.0(eslint@10.7.0(jiti@2.7.0))
+      vue-eslint-parser: 10.4.0(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)
       xml-name-validator: 4.0.0
     optionalDependencies:
-      '@typescript-eslint/parser': 8.64.0(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3)
+      '@typescript-eslint/parser': 8.64.0(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)
 
   eslint-scope@9.1.2:
     dependencies:
@@ -6997,11 +6999,11 @@ snapshots:
 
   eslint-visitor-keys@5.0.1: {}
 
-  eslint@10.7.0(jiti@2.7.0):
+  eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1):
     dependencies:
-      '@eslint-community/eslint-utils': 4.9.1(eslint@10.7.0(jiti@2.7.0))
+      '@eslint-community/eslint-utils': 4.9.1(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))
       '@eslint-community/regexpp': 4.12.2
-      '@eslint/config-array': 0.23.5
+      '@eslint/config-array': 0.23.5(supports-color@8.1.1)
       '@eslint/config-helpers': 0.6.0
       '@eslint/core': 1.2.1
       '@eslint/plugin-kit': 0.7.2
@@ -7011,7 +7013,7 @@ snapshots:
       '@types/estree': 1.0.9
       ajv: 6.15.0
       cross-spawn: 7.0.6
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@8.1.1)
       escape-string-regexp: 4.0.0
       eslint-scope: 9.1.2
       eslint-visitor-keys: 5.0.1
@@ -7149,7 +7151,9 @@ snapshots:
     dependencies:
       tabbable: 6.5.0
 
-  follow-redirects@1.16.0: {}
+  follow-redirects@1.16.0(debug@4.4.3(supports-color@8.1.1)):
+    optionalDependencies:
+      debug: 4.4.3(supports-color@8.1.1)
 
   foreground-child@3.3.1:
     dependencies:
@@ -7299,26 +7303,26 @@ snapshots:
     dependencies:
       whatwg-encoding: 2.0.0
 
-  http-proxy@1.18.1:
+  http-proxy@1.18.1(debug@4.4.3(supports-color@8.1.1)):
     dependencies:
       eventemitter3: 4.0.7
-      follow-redirects: 1.16.0
+      follow-redirects: 1.16.0(debug@4.4.3(supports-color@8.1.1))
       requires-port: 1.0.0
     transitivePeerDependencies:
       - debug
 
-  http-server@14.1.1:
+  http-server@14.1.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1):
     dependencies:
       basic-auth: 2.0.1
       chalk: 4.1.2
       corser: 2.0.1
       he: 1.2.0
       html-encoding-sniffer: 3.0.0
-      http-proxy: 1.18.1
+      http-proxy: 1.18.1(debug@4.4.3(supports-color@8.1.1))
       mime: 1.6.0
       minimist: 1.2.8
       opener: 1.5.2
-      portfinder: 1.0.38
+      portfinder: 1.0.38(supports-color@8.1.1)
       secure-compare: 3.0.1
       union: 0.5.0
       url-join: 4.0.1
@@ -7326,10 +7330,10 @@ snapshots:
       - debug
       - supports-color
 
-  https-proxy-agent@5.0.1:
+  https-proxy-agent@5.0.1(supports-color@8.1.1):
     dependencies:
-      agent-base: 6.0.2
-      debug: 4.4.3
+      agent-base: 6.0.2(supports-color@8.1.1)
+      debug: 4.4.3(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -7711,9 +7715,9 @@ snapshots:
 
   nipplejs@0.10.2: {}
 
-  node-7z@3.0.0:
+  node-7z@3.0.0(supports-color@8.1.1):
     dependencies:
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@8.1.1)
       lodash.defaultsdeep: 4.6.1
       lodash.defaultto: 4.14.0
       lodash.flattendeep: 4.4.0
@@ -7882,10 +7886,10 @@ snapshots:
 
   pofile@1.1.4: {}
 
-  portfinder@1.0.38:
+  portfinder@1.0.38(supports-color@8.1.1):
     dependencies:
       async: 3.2.6
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -8215,31 +8219,31 @@ snapshots:
 
   signal-exit@4.1.0: {}
 
-  socket.io-adapter@2.5.8:
+  socket.io-adapter@2.5.8(supports-color@8.1.1):
     dependencies:
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@8.1.1)
       ws: 8.21.0
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  socket.io-parser@4.2.7:
+  socket.io-parser@4.2.7(supports-color@8.1.1):
     dependencies:
       '@socket.io/component-emitter': 3.1.2
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
-  socket.io@4.8.3:
+  socket.io@4.8.3(supports-color@8.1.1):
     dependencies:
       accepts: 1.3.8
       base64id: 2.0.0
       cors: 2.8.6
-      debug: 4.4.3
-      engine.io: 6.6.9
-      socket.io-adapter: 2.5.8
-      socket.io-parser: 4.2.7
+      debug: 4.4.3(supports-color@8.1.1)
+      engine.io: 6.6.9(supports-color@8.1.1)
+      socket.io-adapter: 2.5.8(supports-color@8.1.1)
+      socket.io-parser: 4.2.7(supports-color@8.1.1)
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -8407,13 +8411,13 @@ snapshots:
 
   typed-function@4.2.2: {}
 
-  typescript-eslint@8.64.0(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3):
+  typescript-eslint@8.64.0(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3):
     dependencies:
-      '@typescript-eslint/eslint-plugin': 8.64.0(@typescript-eslint/parser@8.64.0(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3))(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3)
-      '@typescript-eslint/parser': 8.64.0(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3)
-      '@typescript-eslint/typescript-estree': 8.64.0(typescript@6.0.3)
-      '@typescript-eslint/utils': 8.64.0(eslint@10.7.0(jiti@2.7.0))(typescript@6.0.3)
-      eslint: 10.7.0(jiti@2.7.0)
+      '@typescript-eslint/eslint-plugin': 8.64.0(@typescript-eslint/parser@8.64.0(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)
+      '@typescript-eslint/parser': 8.64.0(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)
+      '@typescript-eslint/typescript-estree': 8.64.0(supports-color@8.1.1)(typescript@6.0.3)
+      '@typescript-eslint/utils': 8.64.0(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)
+      eslint: 10.7.0(jiti@2.7.0)(supports-color@8.1.1)
       typescript: 6.0.3
     transitivePeerDependencies:
       - supports-color
@@ -8567,10 +8571,10 @@ snapshots:
       caf: 15.0.1
       vue: 3.5.39(typescript@6.0.3)
 
-  vue-eslint-parser@10.4.0(eslint@10.7.0(jiti@2.7.0)):
+  vue-eslint-parser@10.4.0(eslint@10.7.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1):
     dependencies:
-      debug: 4.4.3
-      eslint: 10.7.0(jiti@2.7.0)
+      debug: 4.4.3(supports-color@8.1.1)
+      eslint: 10.7.0(jiti@2.7.0)(supports-color@8.1.1)
       eslint-scope: 9.1.2
       eslint-visitor-keys: 5.0.1
       espree: 11.2.0
