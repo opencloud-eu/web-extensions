@@ -1,0 +1,62 @@
+{
+  "clients": {
+    "web": {
+      "defaults": {},
+      "themes": [
+        {
+          "label": "Windows 95",
+          "isDark": false,
+          "designTokens": {
+            "fontFamily": "'w95fa', 'MS Sans Serif', Tahoma, sans-serif",
+            "roles": {
+              "background": "#008080",
+              "onBackground": "#000000",
+              "surface": "#ffffff",
+              "onSurface": "#000000",
+              "surfaceBright": "#ffffff",
+              "surfaceDim": "#c0c0c0",
+              "surfaceVariant": "#c0c0c0",
+              "onSurfaceVariant": "#000000",
+              "surfaceContainerLowest": "#ffffff",
+              "surfaceContainerLow": "#dfdfdf",
+              "surfaceContainer": "#c0c0c0",
+              "surfaceContainerHigh": "#c0c0c0",
+              "surfaceContainerHighest": "#c0c0c0",
+              "chrome": "#000080",
+              "onChrome": "#ffffff",
+              "primary": "#000080",
+              "onPrimary": "#ffffff",
+              "primaryContainer": "#c0c0c0",
+              "onPrimaryContainer": "#000000",
+              "primaryFixed": "#c0c0c0",
+              "onPrimaryFixed": "#000000",
+              "secondary": "#000080",
+              "onSecondary": "#ffffff",
+              "secondaryContainer": "#c0c0c0",
+              "onSecondaryContainer": "#000000",
+              "secondaryFixed": "#c0c0c0",
+              "onSecondaryFixed": "#000000",
+              "tertiary": "#000080",
+              "onTertiary": "#ffffff",
+              "tertiaryContainer": "#c0c0c0",
+              "onTertiaryContainer": "#000000",
+              "tertiaryFixed": "#c0c0c0",
+              "onTertiaryFixed": "#000000",
+              "outline": "#808080",
+              "outlineVariant": "#808080",
+              "error": "#aa0000",
+              "onError": "#ffffff",
+              "errorContainer": "#c0c0c0",
+              "onErrorContainer": "#000000",
+              "inverseSurface": "#ffffe1",
+              "inverseOnSurface": "#000000",
+              "inversePrimary": "#000080",
+              "scrim": "#000000",
+              "shadow": "#000000"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -53,6 +53,7 @@ services:
       - ./packages/web-app-pastebin/dist:/web/apps/pastebin
       - ./packages/web-app-progress-bars/dist:/web/apps/progress-bars
       - ./packages/web-app-unzip/dist:/web/apps/unzip
+      - ./packages/web-app-win95/dist:/web/apps/win95
     depends_on:
       - traefik
 

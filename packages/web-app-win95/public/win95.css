@@ -1,0 +1,158 @@
+/*
+ * Windows 95 theme for OpenCloud Web - structural layer.
+ * Scoped under html[data-theme="Windows 95"]; inert unless that theme is active.
+ * Colors and font come from theme.json; this only adds what tokens cannot
+ * express (square corners, bevels, scrollbars, modal titlebar).
+ *
+ * Attribution (see NOTICE.md):
+ * - Windows 95 style inspired by 95CSS
+ *   (https://github.com/yoshimannaert/95CSS), MIT, (c) 2019 Yoshi Mannaert.
+ * - Pixel font "W95FA" by Alina Sava, SIL Open Font License 1.1.
+ */
+
+/* The pixel font must be registered globally so the fontFamily token can use
+   it; the @font-face itself paints nothing until referenced. */
+@font-face {
+  font-family: 'w95fa';
+  font-display: swap;
+  src:
+    url('./w95fa.woff2') format('woff2'),
+    url('./w95fa.woff') format('woff');
+}
+
+html[data-theme='Windows 95'] {
+  --w95-face: #c0c0c0;
+  --w95-white: #ffffff;
+  --w95-light: #dfdfdf;
+  --w95-gray: #808080;
+  --w95-dark: #000000;
+  --w95-navy: #000080;
+
+  /* classic raised bevel (buttons, panels, cards) */
+  --w95-raised:
+    inset -1px -1px 0 var(--w95-dark), inset 1px 1px 0 var(--w95-white),
+    inset -2px -2px 0 var(--w95-gray), inset 2px 2px 0 var(--w95-light);
+
+  /* pressed / active button */
+  --w95-pressed:
+    inset 1px 1px 0 var(--w95-dark), inset -1px -1px 0 var(--w95-white),
+    inset 2px 2px 0 var(--w95-gray), inset -2px -2px 0 var(--w95-light);
+
+  /* sunken bevel (text inputs, wells, list panes) */
+  --w95-sunken:
+    inset 1px 1px 0 var(--w95-gray), inset -1px -1px 0 var(--w95-white),
+    inset 2px 2px 0 var(--w95-dark), inset -2px -2px 0 var(--w95-light);
+}
+
+/* ---- square everything --------------------------------------------------- */
+html[data-theme='Windows 95'] *,
+html[data-theme='Windows 95'] *::before,
+html[data-theme='Windows 95'] *::after {
+  border-radius: 0 !important;
+}
+
+html[data-theme='Windows 95'] ::selection {
+  background: var(--w95-navy);
+  color: var(--w95-white);
+}
+
+/* ---- buttons: raised bevel, no soft shadow ------------------------------- */
+html[data-theme='Windows 95'] .oc-button:not(.oc-button-raw):not(.oc-button-secondary-raw) {
+  border: 1px solid var(--w95-dark);
+  box-shadow: var(--w95-raised);
+  padding: 4px 12px;
+  outline-offset: -4px;
+}
+
+html[data-theme='Windows 95'] .oc-button:not(.oc-button-raw):not(.oc-button-secondary-raw):active {
+  box-shadow: var(--w95-pressed);
+  padding: 5px 11px 3px 13px;
+}
+
+html[data-theme='Windows 95'] .oc-button-primary-filled {
+  font-weight: bold;
+}
+
+/* ---- form fields: sunken well -------------------------------------------- */
+html[data-theme='Windows 95'] .oc-text-input,
+html[data-theme='Windows 95'] .oc-textarea,
+html[data-theme='Windows 95'] .oc-select .vs__dropdown-toggle,
+html[data-theme='Windows 95'] .oc-search-input input,
+html[data-theme='Windows 95'] input[type='text'],
+html[data-theme='Windows 95'] input[type='search'],
+html[data-theme='Windows 95'] input[type='password'],
+html[data-theme='Windows 95'] input[type='email'],
+html[data-theme='Windows 95'] input[type='number'],
+html[data-theme='Windows 95'] input[type='date'],
+html[data-theme='Windows 95'] textarea,
+html[data-theme='Windows 95'] select {
+  border: 1px solid var(--w95-gray);
+  box-shadow: var(--w95-sunken);
+  padding: 3px 4px;
+}
+
+/* ---- panels / cards / dropdowns / modals: raised box --------------------- */
+html[data-theme='Windows 95'] .oc-card,
+html[data-theme='Windows 95'] .oc-drop,
+html[data-theme='Windows 95'] .oc-modal {
+  border: 1px solid var(--w95-dark);
+  box-shadow: var(--w95-raised);
+}
+
+/* modal gets a classic navy titlebar */
+html[data-theme='Windows 95'] .oc-modal-title {
+  background: var(--w95-navy);
+  font-weight: bold;
+  padding: 3px 6px;
+  margin: 2px;
+}
+
+/* Force the title text white: it lives in a child heading that carries its own
+   on-surface (dark) color, which would win over the inherited white. */
+html[data-theme='Windows 95'] .oc-modal-title,
+html[data-theme='Windows 95'] .oc-modal-title * {
+  color: var(--w95-white);
+}
+
+/* ---- checkboxes / radios ------------------------------------------------- */
+html[data-theme='Windows 95'] .oc-checkbox,
+html[data-theme='Windows 95'] .oc-radio {
+  box-shadow: var(--w95-sunken);
+  border: 1px solid var(--w95-gray);
+}
+
+/* ---- tables: gray beveled headers ---------------------------------------- */
+html[data-theme='Windows 95'] .oc-table-header-cell,
+html[data-theme='Windows 95'] .oc-table-thead-content {
+  box-shadow: var(--w95-raised);
+  font-weight: normal;
+}
+
+/* ---- chunky Win95 scrollbars (WebKit) ------------------------------------ */
+html[data-theme='Windows 95'] * {
+  scrollbar-color: var(--w95-face) var(--w95-light);
+}
+
+html[data-theme='Windows 95'] ::-webkit-scrollbar {
+  width: 17px;
+  height: 17px;
+}
+
+html[data-theme='Windows 95'] ::-webkit-scrollbar-track {
+  background: var(--w95-light);
+}
+
+html[data-theme='Windows 95'] ::-webkit-scrollbar-thumb {
+  background: var(--w95-face);
+  box-shadow: var(--w95-raised);
+  border: 1px solid var(--w95-dark);
+}
+
+html[data-theme='Windows 95'] ::-webkit-scrollbar-button {
+  display: block;
+  width: 17px;
+  height: 17px;
+  background: var(--w95-face);
+  box-shadow: var(--w95-raised);
+  border: 1px solid var(--w95-dark);
+}

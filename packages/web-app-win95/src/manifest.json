@@ -1,0 +1,10 @@
+{
+  "config": {
+    "themes": [
+      {
+        "theme": "theme.json",
+        "styles": ["win95.css"]
+      }
+    ]
+  }
+}
