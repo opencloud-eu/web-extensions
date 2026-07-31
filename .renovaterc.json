@@ -22,6 +22,11 @@
     {
       "matchPackageNames": ["@module-federation/vite", "@module-federation/runtime"],
       "enabled": false
+    },
+    {
+      "matchPackageNames": ["/bpmn/", "diagram-js-minimap"],
+      "groupName": "bpmn",
+      "groupSlug": "bpmn"
     }
   ]
 }
