@@ -309,4 +309,17 @@ visibility:
 
 </details>
 
+## CSP requirements
+
+Sites with `target: embedded` are rendered in an iFrame, so their URLs need to be allowed as frame sources. In the file `csp.yaml`, add them to the `frame-src` section:
+
+```yaml
+directives:
+  frame-src:
+    - "'self'"
+    - 'https://docs.opencloud.eu'
+```
+
+Sites with `target: external` open in a new tab or window and therefore don't need any CSP changes. Note that the target server also needs to allow being embedded on its side (see `X-Frame-Options` / `frame-ancestors`).
+
 Please refer to [the Web app docs](https://docs.opencloud.eu/docs/admin/configuration/web-applications) if you want to learn how to configure a Web app.

@@ -2,9 +2,19 @@
 
 OpenCloud Maps app can display `.gpx` files and show geo location data for single pictures in the sidebar or for a whole folder as a folder view.
 
-## Config
+## Configuration
 
 In `apps.yaml` you can override configuration like this:
+
+### Folder view
+
+```yaml
+maps:
+  config:
+    folderViewEnabled: true
+```
+
+`folderViewEnabled` adds a map folder view, showing the geo location data of all pictures in the current folder. Defaults to `false`.
 
 ### Raster tiles (default)
 
@@ -53,7 +63,7 @@ maps:
     mapStyle: 'https://your-server.example.com/style.json'
 ```
 
-### Content Security Policy
+## CSP requirements
 
 To enable seamless integration of traffic to tile servers, the Content Security Policy of OpenCloud has to be adopted.
 
