@@ -1,6 +1,6 @@
 services:
   opencloud:
-    image: ${OC_IMAGE:-opencloudeu/opencloud-rolling:7.3.0@sha256:f988f14779cbfe26dec78ea3fc2492ae063fe14a069857dd2d5a397a927fc361}
+    image: ${OC_IMAGE:-opencloudeu/opencloud-rolling:7.4.0@sha256:e9df43040866c3587daae47af68bc3c412026bc99614686bf6869bdc72c52526}
     extra_hosts:
       - host.docker.internal:${DOCKER_HOST:-host-gateway}
     entrypoint: /bin/sh
