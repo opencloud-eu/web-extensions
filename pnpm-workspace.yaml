@@ -20,3 +20,4 @@ minimumReleaseAgeExclude:
   # Renovate security update: vite@8.0.16
   - vite@8.0.16
   - '@opencloud-eu/extension-sdk@7.3.0-alpha.1'
+  - '@opencloud-eu/web-test-helpers@7.3.0'
