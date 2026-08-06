@@ -13,6 +13,7 @@ publicHoistPattern:
 
 overrides:
   '@module-federation/vite': '1.14.2'
+  '@module-federation/dts-plugin>axios': ^1.6.0
 
 allowBuilds:
   '@parcel/watcher': true
