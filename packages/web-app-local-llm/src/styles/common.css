@@ -1,0 +1,25 @@
+/* Shared loading spinner styles */
+.loading-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--oc-color-border);
+  border-top-color: var(--oc-color-swatch-primary-default);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.loading-spinner-small {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid white;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
