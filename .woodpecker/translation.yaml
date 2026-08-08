@@ -5,7 +5,7 @@ when:
 
 variables:
   - &node_image 'quay.io/opencloudeu/nodejs-ci:24@sha256:efb3ac3e7e7180aa24fec6f6811d7a59385798676a6a7081dc092faa0800951b'
-  - &git_action_plugin 'quay.io/thegeeklab/wp-git-action:2@sha256:c92d5559d4ee047d603914e9aa969e8c66c67ec2ecf9c1d6d874d217dd62f605'
+  - &git_action_plugin 'quay.io/thegeeklab/wp-git-action:2@sha256:9dfd204287f9fb8efa5a427514a8e446062b6c1f8ba896781ea383d6cd1af49a'
 
 steps:
   - name: translation-update
