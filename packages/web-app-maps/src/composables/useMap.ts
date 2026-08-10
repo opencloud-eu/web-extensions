@@ -18,7 +18,11 @@ export const useMap = () => {
     // Full style override takes precedence
     const mapStyle = applicationConfig?.mapStyle
     if (mapStyle) {
-      const map = new maplibregl.Map({ container, style: mapStyle })
+      const map = new maplibregl.Map({
+        container,
+        style: mapStyle,
+        attributionControl: { compact: true }
+      })
       addControls(map)
       return map
     }
@@ -72,6 +76,7 @@ export const useMap = () => {
           }
         ]
       },
+      attributionControl: { compact: true },
       maxZoom,
       ...restOptions
     })
@@ -106,7 +111,8 @@ export const useMap = () => {
           }
         },
         layers: layers(sourceName, LIGHT, { lang: document.documentElement.lang || 'en' })
-      }
+      },
+      attributionControl: { compact: true }
     })
 
     addControls(map)
@@ -116,6 +122,16 @@ export const useMap = () => {
   const addControls = (map: maplibregl.Map) => {
     map.addControl(new maplibregl.NavigationControl(), 'top-left')
     map.addControl(new maplibregl.ScaleControl({ unit: 'metric' }), 'bottom-left')
+    // maplibre renders the compact attribution expanded until the map is
+    // dragged; collapse it to the info button up front. Clicking the button
+    // still reopens it (maplibre's own toggle stays intact).
+    map.on('load', () => {
+      const attribution = map
+        .getContainer()
+        .querySelector('.maplibregl-ctrl-attrib.maplibregl-compact')
+      attribution?.classList.remove('maplibregl-compact-show')
+      attribution?.removeAttribute('open')
+    })
   }
 
   return { createMap }
