@@ -3,11 +3,17 @@ import { urlJoin } from '@opencloud-eu/web-client'
 import { AggregationOption, MemoryPhoto, SearchHit, SearchHitsContainer } from '../types'
 import { normalizeParentPath } from '../helpers'
 
+export interface SortProperty {
+  name: string
+  isDescending?: boolean
+}
+
 export interface PhotoSearchRequest {
   queryString: string
   size?: number
   from?: number
   aggregations?: AggregationOption[]
+  sortProperties?: SortProperty[]
 }
 
 const THUMBNAIL_SIZE = 384
@@ -74,7 +80,8 @@ export function useGraphSearch() {
             query: { queryString: request.queryString },
             size: request.size ?? 0,
             ...(request.from !== undefined && { from: request.from }),
-            ...(request.aggregations?.length && { aggregations: request.aggregations })
+            ...(request.aggregations?.length && { aggregations: request.aggregations }),
+            ...(request.sortProperties?.length && { sortProperties: request.sortProperties })
           }
         ]
       },

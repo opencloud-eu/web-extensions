@@ -93,15 +93,17 @@ export function usePhotoTimeline(baseQuery: () => string) {
       const queryString = `(${baseQuery()}) AND photo.takenDateTime>=${from} AND photo.takenDateTime<${to}`
 
       // months can exceed the server's max page size: page through with
-      // `from` offsets, render progressively and dedupe across pages (the
-      // index may move between requests)
+      // `from` offsets on a server-sorted result (photo.takenDateTime desc),
+      // render progressively and dedupe across pages (the index may move
+      // between requests)
       const collected: MemoryPhoto[] = []
       const seen = new Set<string>()
       for (let offset = 0; offset < section.count; offset += SECTION_FILL_LIMIT) {
         const container = await search({
           queryString,
           from: offset,
-          size: Math.min(section.count - offset, SECTION_FILL_LIMIT)
+          size: Math.min(section.count - offset, SECTION_FILL_LIMIT),
+          sortProperties: [{ name: 'photo.takenDateTime', isDescending: true }]
         })
         const photos = (container.hits ?? [])
           .map(hitToPhoto)
