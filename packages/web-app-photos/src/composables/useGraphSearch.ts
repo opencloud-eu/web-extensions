@@ -72,6 +72,25 @@ function delay(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
+// live diagnostics for debugging stuck tiles: inspect via
+// `window.__photosDebug` in the browser console
+declare global {
+  interface Window {
+    __photosDebug?: { activeLoads: number; background: number; queued: number; cached: number }
+  }
+}
+if (typeof window !== 'undefined') {
+  Object.defineProperty(window, '__photosDebug', {
+    configurable: true,
+    get: () => ({
+      activeLoads,
+      background: activeBackgroundLoads,
+      queued: priorityQueue.length + backgroundQueue.length,
+      cached: thumbnailUrls.size
+    })
+  })
+}
+
 export function useGraphSearch() {
   const clientService = useClientService()
   const configStore = useConfigStore()
