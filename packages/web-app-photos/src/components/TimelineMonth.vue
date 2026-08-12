@@ -63,7 +63,9 @@ const groups = computed(() => groupPhotosByDay(section.photos ?? []))
 function groupStyle(group: { photos: MemoryPhoto[] }): CSSProperties {
   return {
     contentVisibility: 'auto',
-    containIntrinsicHeight: `auto ${40 + Math.ceil(group.photos.length / 8) * 184}px`
+    containIntrinsicHeight: `auto ${40 + Math.ceil(group.photos.length / 8) * 184}px`,
+    // deep-link scrolls land right below the app bar, pastebin-style
+    scrollMarginTop: '80px'
   }
 }
 

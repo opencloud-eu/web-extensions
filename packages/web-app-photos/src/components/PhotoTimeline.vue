@@ -55,9 +55,9 @@
 </template>
 
 <script setup lang="ts">
-import { nextTick, onBeforeUnmount, onMounted, ref, watch, type CSSProperties } from 'vue'
+import { nextTick, onBeforeUnmount, onMounted, ref, unref, watch, type CSSProperties } from 'vue'
 import { useGettext } from 'vue3-gettext'
-import { NoContentMessage } from '@opencloud-eu/web-pkg'
+import { NoContentMessage, queryItemAsString, useRouteQuery } from '@opencloud-eu/web-pkg'
 import { TimelineSection, usePhotoTimeline } from '../composables/usePhotoTimeline'
 import { monthYearLabel } from '../helpers'
 import TimelineMonth from './TimelineMonth.vue'
@@ -175,7 +175,12 @@ function onScroll() {
   scheduleActiveSectionUpdate()
 }
 
-/** keeps the topmost visible day in the url hash, so a reload lands there */
+// ?date=YYYY-MM-DD keeps the url in sync with the topmost visible day
+// (pastebin url mechanics: read via useRouteQuery, write via replaceState
+// with a fully built url; the shell's router swallows hash fragments, so a
+// query param it is)
+const dayQuery = useRouteQuery('date')
+
 function updateDayAnchor() {
   const container = scroller.value
   const key = activeKey.value
@@ -195,14 +200,43 @@ function updateDayAnchor() {
       break
     }
   }
-  if (day && location.hash !== `#${day}`) {
-    history.replaceState(history.state, '', `#${day}`)
+  if (!day) {
+    return
+  }
+  const url = new URL(window.location.href)
+  if (url.searchParams.get('date') !== day) {
+    url.searchParams.set('date', day)
+    window.history.replaceState({}, '', url.toString())
   }
 }
 
-/** initial deep link: #YYYY-MM-DD fills that month and scrolls to the day */
+// the anchor stays active for a settling window after the initial jump:
+// months ABOVE the target keep filling and swap their estimated heights for
+// real ones, which would silently push the viewport off the day otherwise.
+// Real user input releases the anchor immediately.
+let anchorDay: string | null = null
+let anchorTimer: ReturnType<typeof setTimeout> | undefined
+
+function scrollToAnchorDay() {
+  if (!anchorDay) {
+    return
+  }
+  const el = document.getElementById(`day-${anchorDay}`)
+  const container = scroller.value
+  if (!el || !container) {
+    return
+  }
+  container.scrollTop += el.getBoundingClientRect().top - container.getBoundingClientRect().top
+}
+
+function releaseAnchor() {
+  anchorDay = null
+  clearTimeout(anchorTimer)
+}
+
+/** initial deep link: ?date=YYYY-MM-DD fills that month, scrolls to the day */
 async function restoreDayAnchor() {
-  const day = location.hash.slice(1)
+  const day = queryItemAsString(unref(dayQuery)) ?? ''
   if (!/^\d{4}-\d{2}-\d{2}$/.test(day)) {
     return
   }
@@ -212,13 +246,9 @@ async function restoreDayAnchor() {
   }
   await fillSection(section)
   await nextTick()
-  const el = document.getElementById(`day-${day}`)
-  const container = scroller.value
-  if (!el || !container) {
-    return
-  }
-  container.scrollTop +=
-    el.getBoundingClientRect().top - container.getBoundingClientRect().top
+  anchorDay = day
+  scrollToAnchorDay()
+  anchorTimer = setTimeout(releaseAnchor, 5000)
 }
 
 function scheduleActiveSectionUpdate() {
@@ -301,8 +331,13 @@ onMounted(async () => {
   )
   sectionResizeObserver = new ResizeObserver(() => {
     measureSections()
+    // layout above the anchored day changed: pull the viewport back onto it
+    scrollToAnchorDay()
     scheduleActiveSectionUpdate()
   })
+  // real user input takes over: stop correcting the scroll position
+  scroller.value?.addEventListener('wheel', releaseAnchor, { passive: true })
+  scroller.value?.addEventListener('touchstart', releaseAnchor, { passive: true })
   await load()
   emit('loaded', total.value)
   await nextTick()
@@ -321,6 +356,7 @@ watch(
 onBeforeUnmount(() => {
   fillObserver?.disconnect()
   sectionResizeObserver?.disconnect()
+  clearTimeout(anchorTimer)
   clearTimeout(scrollIdleTimer)
   if (scrollRaf) {
     cancelAnimationFrame(scrollRaf)
