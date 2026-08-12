@@ -14,6 +14,8 @@
   "devDependencies": {
     "@opencloud-eu/web-client": "^7.0.0",
     "@opencloud-eu/web-pkg": "^7.0.0",
+    "@types/luxon": "^3.7.4",
+    "luxon": "^3.7.2",
     "vue": "^3.4.21",
     "vue3-gettext": "^4.0.0"
   }

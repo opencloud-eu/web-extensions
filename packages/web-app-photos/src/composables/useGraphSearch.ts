@@ -1,6 +1,7 @@
 import { useClientService, useConfigStore } from '@opencloud-eu/web-pkg'
 import { urlJoin } from '@opencloud-eu/web-client'
 import { AggregationOption, MemoryPhoto, SearchHit, SearchHitsContainer } from '../types'
+import { normalizeParentPath } from '../helpers'
 
 export interface PhotoSearchRequest {
   queryString: string
@@ -44,7 +45,7 @@ export function useGraphSearch() {
       fNumber: resource.photo?.fNumber,
       iso: resource.photo?.iso,
       driveId: resource.parentReference?.driveId,
-      parentPath: resource.parentReference?.path?.replace(/^\.?\/?/, '')
+      parentPath: normalizeParentPath(resource.parentReference?.path)
     }
   }
 

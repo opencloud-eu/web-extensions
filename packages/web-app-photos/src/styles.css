@@ -1,0 +1,9 @@
+/* the folder picker hosts the embedded files app in an iframe and needs room */
+.photos-location-picker {
+  width: 90vw;
+  max-width: 72rem;
+}
+
+.photos-location-picker iframe {
+  height: 65vh;
+}

@@ -1,7 +1,7 @@
 <template>
   <section :aria-label="$gettext('Latest photos')">
     <header class="ext:mb-4">
-      <h2 class="ext:m-0 ext:text-2xl ext:font-light ext:text-role-on-surface">
+      <h2 class="ext:m-0 ext:text-lg ext:font-semibold ext:text-role-on-surface">
         {{ $gettext('Latest photos') }}
       </h2>
       <p class="ext:m-0 ext:mt-1 ext:text-sm ext:text-role-on-surface-variant">

@@ -53,6 +53,14 @@ export function placeholderArtFor(id: string): string {
   return placeholderArt[hashString(id) % placeholderArt.length]
 }
 
+/** Normalizes a search hit's parentReference.path ("." or "./foo") to a bare relative path */
+export function normalizeParentPath(path?: string): string {
+  if (!path || path === '.' || path === './') {
+    return ''
+  }
+  return path.replace(/^\.\//, '')
+}
+
 const GEOHASH_BASE32 = '0123456789bcdefghjkmnpqrstuvwxyz'
 
 /** Decodes a geohash cell to its center coordinates */

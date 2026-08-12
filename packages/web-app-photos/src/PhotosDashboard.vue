@@ -1,13 +1,9 @@
 <template>
   <div class="ext:h-full ext:overflow-y-auto ext:bg-role-surface">
-    <div class="ext:mx-auto ext:flex ext:max-w-6xl ext:flex-col ext:gap-10 ext:px-6 ext:py-8">
+    <div class="ext:flex ext:flex-col ext:gap-8 ext:px-4 ext:py-4">
       <header>
-        <p
-          class="ext:m-0 ext:font-mono ext:text-[11px] ext:tracking-[0.2em] ext:text-role-on-surface-variant ext:uppercase"
-        >
-          {{ $gettext('Photos') }}
-        </p>
-        <h1 class="ext:m-0 ext:mt-2 ext:text-3xl ext:font-light ext:text-role-on-surface">
+        <photos-breadcrumb :items="[{ text: $gettext('Overview') }]" />
+        <h1 class="ext:m-0 ext:mt-4 ext:text-2xl ext:font-semibold ext:text-role-on-surface">
           {{ greeting }}
         </h1>
         <p
@@ -42,6 +38,28 @@
         <memory-strip v-if="memoryGroups.length" :groups="memoryGroups" :mode="memoryMode" />
 
         <latest-strip v-if="latestPhotos.length" :photos="latestPhotos" />
+
+        <section v-if="albums.length" :aria-label="$gettext('Albums')">
+          <header class="ext:mb-4 ext:flex ext:items-baseline ext:justify-between ext:gap-3">
+            <div>
+              <h2 class="ext:m-0 ext:text-lg ext:font-semibold ext:text-role-on-surface">
+                {{ $gettext('Your albums') }}
+              </h2>
+              <p class="ext:m-0 ext:mt-1 ext:text-sm ext:text-role-on-surface-variant">
+                {{ $gettext('Recently changed first') }}
+              </p>
+            </div>
+            <router-link
+              :to="{ name: 'photos-albums' }"
+              class="ext:text-sm ext:text-role-on-surface-variant ext:no-underline hover:ext:text-role-on-surface"
+            >
+              {{ $gettext('All albums') }} →
+            </router-link>
+          </header>
+          <div class="ext:grid ext:grid-cols-[repeat(auto-fill,minmax(11rem,1fr))] ext:gap-4">
+            <album-card v-for="album in albums" :key="album.id ?? album.fileName" :album="album" />
+          </div>
+        </section>
 
         <div class="ext:grid ext:grid-cols-1 ext:gap-5 ext:lg:grid-cols-3">
           <section-card :title="$gettext('Photos over time')" class="ext:lg:col-span-2">
@@ -82,9 +100,7 @@
         </div>
       </template>
 
-      <footer
-        class="ext:pb-4 ext:text-center ext:font-mono ext:text-[11px] ext:text-role-on-surface-variant"
-      >
+      <footer class="ext:pb-2 ext:text-center ext:text-xs ext:text-role-on-surface-variant">
         {{ $gettext('Every card is a single Graph Search request with aggregations') }}
       </footer>
     </div>
@@ -92,17 +108,21 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useGettext } from 'vue3-gettext'
 import { useUserStore } from '@opencloud-eu/web-pkg'
 import { usePhotoLibrary } from './composables/usePhotoLibrary'
+import { useAlbums } from './composables/useAlbums'
+import { AlbumRef } from './albums'
 import { formatBytes, formatCount, formatCoordinates, geohashDecode } from './helpers'
 import { placeName } from './places'
 import ActivityChart from './components/ActivityChart.vue'
+import AlbumCard from './components/AlbumCard.vue'
 import BarList from './components/BarList.vue'
 import ExifFacts from './components/ExifFacts.vue'
 import LatestStrip from './components/LatestStrip.vue'
 import MemoryStrip from './components/MemoryStrip.vue'
+import PhotosBreadcrumb from './components/PhotosBreadcrumb.vue'
 import SectionCard from './components/SectionCard.vue'
 import TagChips from './components/TagChips.vue'
 
@@ -124,7 +144,19 @@ const {
   exifFacts
 } = usePhotoLibrary()
 
-onMounted(load)
+const { listAlbums } = useAlbums()
+const albums = ref<AlbumRef[]>([])
+
+onMounted(() => {
+  load()
+  listAlbums()
+    .then((all) => {
+      albums.value = all.slice(0, 5)
+    })
+    .catch(() => {
+      albums.value = []
+    })
+})
 
 const greeting = computed(() => {
   const firstName = userStore.user?.displayName?.split(' ')[0]
