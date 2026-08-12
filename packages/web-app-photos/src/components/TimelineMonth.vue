@@ -1,6 +1,6 @@
 <template>
   <template v-if="section.photos !== null">
-    <div v-for="group in groups" :key="group.day">
+    <div v-for="group in groups" :key="group.day" :style="groupStyle(group)">
       <h3
         class="ext:sticky ext:top-0 ext:z-10 ext:m-0 ext:bg-role-surface ext:py-2 ext:text-sm ext:font-semibold ext:text-role-on-surface"
       >
@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, type CSSProperties } from 'vue'
 import { useGettext } from 'vue3-gettext'
 import { TimelineSection } from '../composables/usePhotoTimeline'
 import { MemoryPhoto } from '../types'
@@ -46,6 +46,20 @@ const { section, attach, estimatedHeight } = defineProps<{
 const { $gettext, interpolate, current: currentLanguage } = useGettext()
 
 const groups = computed(() => groupPhotosByDay(section.photos ?? []))
+
+/**
+ * Day-level content-visibility on top of the month-level one: without it a
+ * 2000-photo month is a single giant layout unit and scrolling inside it
+ * stays sluggish. The intrinsic-size fallback is rough; 'auto' locks in the
+ * real height once a group rendered. Height only: an intrinsic width would
+ * widen the whole layout.
+ */
+function groupStyle(group: { photos: MemoryPhoto[] }): CSSProperties {
+  return {
+    contentVisibility: 'auto',
+    containIntrinsicHeight: `auto ${40 + Math.ceil(group.photos.length / 8) * 184}px`
+  }
+}
 
 const truncationLabel = computed(() =>
   interpolate($gettext('Showing %{ shown } of %{ total } photos in this month'), {

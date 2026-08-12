@@ -16,7 +16,15 @@ export interface PhotoSearchRequest {
   sortProperties?: SortProperty[]
 }
 
-const THUMBNAIL_SIZE = 384
+/**
+ * 128 is the largest thumbnailer PRESET below 1080: the service only knows
+ * 16/32/64/128 and then jumps to 1080x1920+, and any in-between request gets
+ * rounded UP (384 silently returned 1080x1080, which made every tile decode
+ * and raster ~8x more pixels than displayed). 128 upscales slightly on
+ * ~180-250px tiles; the sharp fix is adding 384x384 to the server's
+ * THUMBNAILS_RESOLUTIONS and recreating the container.
+ */
+const THUMBNAIL_SIZE = 128
 /** visible tiles fetch directly (the browser schedules network far better
  * than we can); only background prefetches are throttled so they never
  * compete with what the user is looking at */

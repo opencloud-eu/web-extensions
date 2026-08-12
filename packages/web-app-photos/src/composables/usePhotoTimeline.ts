@@ -130,5 +130,5 @@ export function usePhotoTimeline(baseQuery: () => string) {
     }
   }
 
-  return { sections, loading, total, load, fillSection, attachThumbnail }
+  return { sections, loading, total, load, fillSection, attachThumbnail, prefetchThumbnails }
 }

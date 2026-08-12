@@ -21,6 +21,7 @@
           :key="section.key"
           :ref="(el) => setSectionEl(section.key, el as HTMLElement | null)"
           class="ext:mb-6"
+          :style="sectionStyle(section)"
         >
           <timeline-month
             :section="section"
@@ -54,14 +55,10 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { onBeforeUnmount, onMounted, ref, watch, type CSSProperties } from 'vue'
 import { useGettext } from 'vue3-gettext'
 import { NoContentMessage } from '@opencloud-eu/web-pkg'
-import {
-  SECTION_FILL_LIMIT,
-  TimelineSection,
-  usePhotoTimeline
-} from '../composables/usePhotoTimeline'
+import { TimelineSection, usePhotoTimeline } from '../composables/usePhotoTimeline'
 import { monthYearLabel } from '../helpers'
 import TimelineMonth from './TimelineMonth.vue'
 import TimelineScrubber from './TimelineScrubber.vue'
@@ -113,14 +110,24 @@ function setSectionEl(key: string, el: HTMLElement | null) {
   }
 }
 
+function sectionStyle(section: TimelineSection): CSSProperties {
+  // native virtualization: the browser skips layout and paint for off-screen
+  // months but keeps all elements alive. 'auto' locks in the real size once
+  // a month was rendered. HEIGHT only: the shorthand would also set an
+  // intrinsic WIDTH, which widens the whole layout and pushes the scrubber
+  // rail off the screen.
+  return {
+    contentVisibility: 'auto',
+    containIntrinsicHeight: `auto ${estimateHeight(section)}px`
+  }
+}
+
 function estimateHeight(section: TimelineSection): number {
-  // estimate with what will actually render: the fill is capped, and the
-  // row count depends on the real container width. A big mismatch makes the
-  // layout jump when the section fills.
-  const rendered = Math.min(section.count, SECTION_FILL_LIMIT)
+  // estimate the FULL month: the fill pages through all photos, and a capped
+  // estimate would make big months jump in height when they fill
   const width = scroller.value?.clientWidth ?? 1200
   const perRow = Math.max(2, Math.floor(width / TILE_ESTIMATE_WIDTH))
-  return Math.max(1, Math.ceil(rendered / perRow)) * ROW_ESTIMATE_HEIGHT
+  return Math.max(1, Math.ceil(section.count / perRow)) * ROW_ESTIMATE_HEIGHT
 }
 
 function onScrub(key: string, within: number) {
