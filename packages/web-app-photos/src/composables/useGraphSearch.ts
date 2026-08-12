@@ -121,6 +121,7 @@ export function useGraphSearch() {
         const status = (e as { response?: { status?: number } })?.response?.status
         if (status === 404 || status === 403) {
           // no preview exists, retrying will not help; the placeholder stays
+          console.warn('[photos] preview does not exist', photo.name, status)
           return
         }
         if (attempt < RETRY_DELAYS_MS.length) {

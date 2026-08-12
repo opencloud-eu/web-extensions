@@ -43,6 +43,8 @@ let mounted = true
 let nearViewport = false
 let retrying = false
 
+let stuckReported = false
+
 /** keeps retrying with pauses while the tile is near the viewport: a visible
  * tile without its rendered image must never end up in a final state */
 async function loadUntilDone() {
@@ -50,11 +52,25 @@ async function loadUntilDone() {
     return
   }
   retrying = true
+  let cycles = 0
   try {
     while (mounted && nearViewport && !loaded.value) {
       await attach(photo)
       if (loaded.value) {
         return
+      }
+      cycles++
+      if (cycles === 2 && !stuckReported) {
+        // watchdog: a tile that is still gray after two cycles reports its
+        // full state once, so stuck tiles can be diagnosed in the console
+        stuckReported = true
+        console.warn('[photos] tile stuck', {
+          name: photo.name,
+          hasThumbnailUrl: !!photo.thumbnailUrl,
+          hasDriveId: !!photo.driveId,
+          parentPath: photo.parentPath,
+          nearViewport
+        })
       }
       await new Promise((resolve) => setTimeout(resolve, RETRY_PAUSE_MS))
     }
