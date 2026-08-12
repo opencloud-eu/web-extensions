@@ -1,21 +1,12 @@
 <template>
   <div
     ref="el"
-    class="ext:relative ext:overflow-hidden ext:rounded-sm"
+    class="ext:relative ext:overflow-hidden ext:rounded-sm ext:bg-cover ext:bg-center"
     :style="tileStyle"
+    role="img"
+    :aria-label="photo.name"
     :title="tileTitle"
-  >
-    <img
-      v-if="photo.thumbnailUrl"
-      :src="photo.thumbnailUrl"
-      :alt="photo.name"
-      decoding="async"
-      class="ext:absolute ext:inset-0 ext:size-full ext:object-cover ext:transition-opacity ext:duration-200"
-      :class="loaded ? 'ext:opacity-100' : 'ext:opacity-0'"
-      @load="loaded = true"
-      @error="onImageError"
-    />
-  </div>
+  />
 </template>
 
 <script setup lang="ts">
@@ -23,10 +14,8 @@ import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useGettext } from 'vue3-gettext'
 import { MemoryPhoto } from '../types'
 import { placeholderArtFor } from '../helpers'
-import { useGraphSearch } from '../composables/useGraphSearch'
 
 const ROW_HEIGHT = 176
-const RETRY_PAUSE_MS = 5000
 
 const { photo, attach } = defineProps<{
   photo: MemoryPhoto
@@ -34,59 +23,9 @@ const { photo, attach } = defineProps<{
 }>()
 
 const { current: currentLanguage } = useGettext()
-const { discardThumbnail } = useGraphSearch()
 
 const el = ref<HTMLElement | null>(null)
-const loaded = ref(false)
 let observer: IntersectionObserver | undefined
-let mounted = true
-let nearViewport = false
-let retrying = false
-
-let stuckReported = false
-
-/** keeps retrying with pauses while the tile is near the viewport: a visible
- * tile without its rendered image must never end up in a final state */
-async function loadUntilDone() {
-  if (retrying) {
-    return
-  }
-  retrying = true
-  let cycles = 0
-  try {
-    while (mounted && nearViewport && !loaded.value) {
-      await attach(photo)
-      if (loaded.value) {
-        return
-      }
-      cycles++
-      if (cycles === 2 && !stuckReported) {
-        // watchdog: a tile that is still gray after two cycles reports its
-        // full state once, so stuck tiles can be diagnosed in the console
-        stuckReported = true
-        console.warn('[photos] tile stuck', {
-          name: photo.name,
-          hasThumbnailUrl: !!photo.thumbnailUrl,
-          hasDriveId: !!photo.driveId,
-          parentPath: photo.parentPath,
-          nearViewport
-        })
-      }
-      await new Promise((resolve) => setTimeout(resolve, RETRY_PAUSE_MS))
-    }
-  } finally {
-    retrying = false
-  }
-}
-
-function onImageError() {
-  if (!photo.thumbnailUrl) {
-    return
-  }
-  console.warn('[photos] preview blob failed to render, refetching', photo.name)
-  discardThumbnail(photo)
-  loadUntilDone()
-}
 
 const aspect = computed(() => {
   if (photo.width && photo.height) {
@@ -102,7 +41,9 @@ const tileStyle = computed(() => ({
   flexBasis: `${Math.round(aspect.value * ROW_HEIGHT)}px`,
   aspectRatio: String(aspect.value),
   maxHeight: `${ROW_HEIGHT * 2}px`,
-  background: placeholderArtFor(photo.id)
+  ...(photo.thumbnailUrl
+    ? { backgroundImage: `url(${photo.thumbnailUrl})` }
+    : { background: placeholderArtFor(photo.id) })
 }))
 
 const tileTitle = computed(() => {
@@ -120,11 +61,9 @@ onMounted(() => {
   const root = el.value?.closest('.photos-timeline-scroller') ?? null
   observer = new IntersectionObserver(
     (entries) => {
-      nearViewport = entries.some((e) => e.isIntersecting)
-      if (nearViewport && !loaded.value) {
-        loadUntilDone()
-      } else if (loaded.value) {
+      if (entries.some((e) => e.isIntersecting)) {
         observer?.disconnect()
+        attach(photo)
       }
     },
     // generous margin: previews should be ready before they scroll in
@@ -133,8 +72,5 @@ onMounted(() => {
   observer.observe(el.value!)
 })
 
-onBeforeUnmount(() => {
-  mounted = false
-  observer?.disconnect()
-})
+onBeforeUnmount(() => observer?.disconnect())
 </script>

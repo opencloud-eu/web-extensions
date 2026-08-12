@@ -175,16 +175,6 @@ export function useGraphSearch() {
     photo.thumbnailUrl = thumbnailUrls.get(photo.id)
   }
 
-  /** drops a broken preview (e.g. undecodable blob) so it gets refetched */
-  function discardThumbnail(photo: MemoryPhoto) {
-    const url = thumbnailUrls.get(photo.id)
-    if (url) {
-      URL.revokeObjectURL(url)
-      thumbnailUrls.delete(photo.id)
-    }
-    photo.thumbnailUrl = undefined
-  }
-
   /** queues previews for background loading, without competing with visible tiles */
   function prefetchThumbnails(photos: MemoryPhoto[]) {
     for (const photo of photos) {
@@ -200,5 +190,5 @@ export function useGraphSearch() {
     }
   }
 
-  return { search, hitToPhoto, attachThumbnail, prefetchThumbnails, discardThumbnail }
+  return { search, hitToPhoto, attachThumbnail, prefetchThumbnails }
 }
