@@ -124,7 +124,8 @@ export function usePhotoTimeline(baseQuery: () => string) {
       section.photos ??= []
     } catch (e) {
       console.error('[photos] failed to fill timeline section', section.key, e)
-      section.photos ??= []
+      // keep photos null: a failed fill (expired session, server restart)
+      // must stay retryable instead of showing an empty month forever
     } finally {
       section.filling = false
     }

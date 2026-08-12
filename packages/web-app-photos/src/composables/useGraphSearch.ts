@@ -17,14 +17,15 @@ export interface PhotoSearchRequest {
 }
 
 /**
- * 128 is the largest thumbnailer PRESET below 1080: the service only knows
- * 16/32/64/128 and then jumps to 1080x1920+, and any in-between request gets
- * rounded UP (384 silently returned 1080x1080, which made every tile decode
- * and raster ~8x more pixels than displayed). 128 upscales slightly on
- * ~180-250px tiles; the sharp fix is adding 384x384 to the server's
- * THUMBNAILS_RESOLUTIONS and recreating the container.
+ * MUST be a preset from the server's THUMBNAILS_RESOLUTIONS: any other value
+ * gets silently rounded UP to the next preset (384 once returned 1080x1080
+ * and every tile decoded ~8x more pixels than displayed). 2048x512 is our
+ * addition to the preset list (see oc-dev.override.yml): with processor=fit
+ * it means "height 512, width follows the aspect ratio (up to 4:1)", which
+ * matches a justified timeline whose only constant is the row height.
  */
-const THUMBNAIL_SIZE = 128
+const THUMBNAIL_WIDTH = 2048
+const THUMBNAIL_HEIGHT = 512
 /** visible tiles fetch directly (the browser schedules network far better
  * than we can); only background prefetches are throttled so they never
  * compete with what the user is looking at */
@@ -124,7 +125,16 @@ export function useGraphSearch() {
     for (let attempt = 0; attempt < FETCH_RETRIES; attempt++) {
       try {
         const { data } = await clientService.httpAuthenticated.get(url, {
-          params: { preview: 1, x: THUMBNAIL_SIZE, y: THUMBNAIL_SIZE, scalingup: 0 },
+          // processor=fit: scale into the box preserving aspect ratio; the
+          // default crops to the box, which looked oddly cut off in tiles
+          // that already have the photo's true aspect
+          params: {
+            preview: 1,
+            x: THUMBNAIL_WIDTH,
+            y: THUMBNAIL_HEIGHT,
+            scalingup: 0,
+            processor: 'fit'
+          },
           responseType: 'blob',
           // a hung request would occupy its scheduler slot forever and can
           // starve the whole loading lane; time out and retry instead

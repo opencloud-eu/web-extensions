@@ -55,7 +55,7 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref, watch, type CSSProperties } from 'vue'
+import { nextTick, onBeforeUnmount, onMounted, ref, watch, type CSSProperties } from 'vue'
 import { useGettext } from 'vue3-gettext'
 import { NoContentMessage } from '@opencloud-eu/web-pkg'
 import { TimelineSection, usePhotoTimeline } from '../composables/usePhotoTimeline'
@@ -169,9 +169,56 @@ function onScroll() {
   clearTimeout(scrollIdleTimer)
   scrollIdleTimer = setTimeout(() => {
     scrolling.value = false
+    updateDayAnchor()
   }, 800)
 
   scheduleActiveSectionUpdate()
+}
+
+/** keeps the topmost visible day in the url hash, so a reload lands there */
+function updateDayAnchor() {
+  const container = scroller.value
+  const key = activeKey.value
+  if (!container || !key) {
+    return
+  }
+  const sectionEl = sectionEls.get(key)
+  if (!sectionEl) {
+    return
+  }
+  const containerTop = container.getBoundingClientRect().top
+  let day: string | null = null
+  for (const el of sectionEl.querySelectorAll<HTMLElement>('[id^="day-"]')) {
+    if (el.getBoundingClientRect().top - containerTop <= 100) {
+      day = el.id.slice('day-'.length)
+    } else {
+      break
+    }
+  }
+  if (day && location.hash !== `#${day}`) {
+    history.replaceState(history.state, '', `#${day}`)
+  }
+}
+
+/** initial deep link: #YYYY-MM-DD fills that month and scrolls to the day */
+async function restoreDayAnchor() {
+  const day = location.hash.slice(1)
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(day)) {
+    return
+  }
+  const section = sections.value.find((s) => s.key === day.slice(0, 7))
+  if (!section) {
+    return
+  }
+  await fillSection(section)
+  await nextTick()
+  const el = document.getElementById(`day-${day}`)
+  const container = scroller.value
+  if (!el || !container) {
+    return
+  }
+  container.scrollTop +=
+    el.getBoundingClientRect().top - container.getBoundingClientRect().top
 }
 
 function scheduleActiveSectionUpdate() {
@@ -258,6 +305,8 @@ onMounted(async () => {
   })
   await load()
   emit('loaded', total.value)
+  await nextTick()
+  await restoreDayAnchor()
   updateActiveSection()
 })
 

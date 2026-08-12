@@ -21,7 +21,7 @@ import AlbumEditor from './AlbumEditor.vue'
 const applicationId = 'photos'
 // bumped on every change while we debug loading behavior; check the browser
 // console to verify which build a tab is actually running
-const REVISION = '2026-08-12-content-visibility-10-fade'
+const REVISION = '2026-08-12-content-visibility-14-skeleton'
 console.debug(`[photos] app loaded, rev ${REVISION}`)
 
 export default defineWebApplication({
