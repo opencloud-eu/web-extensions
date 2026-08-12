@@ -85,22 +85,55 @@ export function groupPhotosByDay(photos: MemoryPhoto[]): DayGroup[] {
   return groups
 }
 
+// label formatting runs on hot paths (every month render, every scroll frame
+// for the chip, every tile title); Intl is expensive, so cache the results
+const labelCache = new Map<string, string>()
+
 export function dayLabel(day: string, language: string): string {
-  const [year, month, date] = day.split('-').map(Number)
-  return new Date(year, month - 1, date).toLocaleDateString(language, {
-    weekday: 'short',
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
-  })
+  const cacheKey = `d|${language}|${day}`
+  let label = labelCache.get(cacheKey)
+  if (label === undefined) {
+    const [year, month, date] = day.split('-').map(Number)
+    label = new Date(year, month - 1, date).toLocaleDateString(language, {
+      weekday: 'short',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    })
+    labelCache.set(cacheKey, label)
+  }
+  return label
 }
 
 export function monthYearLabel(key: string, language: string): string {
-  const [year, month] = key.split('-').map(Number)
-  return new Date(year, month - 1, 1).toLocaleDateString(language, {
-    month: 'long',
-    year: 'numeric'
-  })
+  const cacheKey = `m|${language}|${key}`
+  let label = labelCache.get(cacheKey)
+  if (label === undefined) {
+    const [year, month] = key.split('-').map(Number)
+    label = new Date(year, month - 1, 1).toLocaleDateString(language, {
+      month: 'long',
+      year: 'numeric'
+    })
+    labelCache.set(cacheKey, label)
+  }
+  return label
+}
+
+const timeFormatters = new Map<string, Intl.DateTimeFormat>()
+
+export function formatTileTime(iso: string, language: string): string {
+  const cacheKey = `t|${language}|${iso}`
+  let label = labelCache.get(cacheKey)
+  if (label === undefined) {
+    let formatter = timeFormatters.get(language)
+    if (!formatter) {
+      formatter = new Intl.DateTimeFormat(language, { hour: '2-digit', minute: '2-digit' })
+      timeFormatters.set(language, formatter)
+    }
+    label = formatter.format(new Date(iso))
+    labelCache.set(cacheKey, label)
+  }
+  return label
 }
 
 const GEOHASH_BASE32 = '0123456789bcdefghjkmnpqrstuvwxyz'

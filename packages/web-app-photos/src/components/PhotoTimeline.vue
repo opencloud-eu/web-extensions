@@ -22,35 +22,11 @@
           :ref="(el) => setSectionEl(section.key, el as HTMLElement | null)"
           class="ext:mb-6"
         >
-          <template v-if="section.photos !== null">
-            <div v-for="group in dayGroups(section.photos)" :key="group.day">
-              <h3
-                class="ext:sticky ext:top-0 ext:z-10 ext:m-0 ext:bg-role-surface ext:py-2 ext:text-sm ext:font-semibold ext:text-role-on-surface"
-              >
-                {{ dayLabel(group.day, currentLanguage) }}
-              </h3>
-              <div class="ext:flex ext:flex-wrap ext:gap-0.5 ext:pb-2">
-                <photo-tile
-                  v-for="photo in group.photos"
-                  :key="photo.id"
-                  :photo="photo"
-                  :attach="attachThumbnail"
-                />
-                <div class="ext:h-0 ext:grow-[999999]" />
-              </div>
-            </div>
-            <p
-              v-if="section.count > section.photos.length"
-              class="ext:m-0 ext:pb-2 ext:text-xs ext:text-role-on-surface-variant"
-            >
-              {{ truncationLabel(section) }}
-            </p>
-          </template>
-          <div v-else :style="{ minHeight: `${estimateHeight(section)}px` }">
-            <div class="ext:flex ext:justify-center ext:py-10">
-              <oc-spinner v-if="section.filling" size="small" :aria-label="$gettext('Loading')" />
-            </div>
-          </div>
+          <timeline-month
+            :section="section"
+            :attach="attachThumbnail"
+            :estimated-height="estimateHeight(section)"
+          />
         </section>
       </template>
     </div>
@@ -86,9 +62,8 @@ import {
   TimelineSection,
   usePhotoTimeline
 } from '../composables/usePhotoTimeline'
-import { MemoryPhoto } from '../types'
-import { dayLabel, formatCount, groupPhotosByDay, monthYearLabel } from '../helpers'
-import PhotoTile from './PhotoTile.vue'
+import { monthYearLabel } from '../helpers'
+import TimelineMonth from './TimelineMonth.vue'
 import TimelineScrubber from './TimelineScrubber.vue'
 
 const ROW_ESTIMATE_HEIGHT = 180
@@ -98,7 +73,7 @@ const TILE_ESTIMATE_WIDTH = 240
 const { query } = defineProps<{ query: string }>()
 const emit = defineEmits<{ loaded: [total: number] }>()
 
-const { $gettext, interpolate, current: currentLanguage } = useGettext()
+const { $gettext, current: currentLanguage } = useGettext()
 
 const { sections, loading, total, load, fillSection, attachThumbnail } = usePhotoTimeline(
   () => query
@@ -138,10 +113,6 @@ function setSectionEl(key: string, el: HTMLElement | null) {
   }
 }
 
-function dayGroups(photos: MemoryPhoto[]) {
-  return groupPhotosByDay(photos)
-}
-
 function estimateHeight(section: TimelineSection): number {
   // estimate with what will actually render: the fill is capped, and the
   // row count depends on the real container width. A big mismatch makes the
@@ -150,13 +121,6 @@ function estimateHeight(section: TimelineSection): number {
   const width = scroller.value?.clientWidth ?? 1200
   const perRow = Math.max(2, Math.floor(width / TILE_ESTIMATE_WIDTH))
   return Math.max(1, Math.ceil(rendered / perRow)) * ROW_ESTIMATE_HEIGHT
-}
-
-function truncationLabel(section: TimelineSection): string {
-  return interpolate($gettext('Showing %{ shown } of %{ total } photos in this month'), {
-    shown: formatCount(section.photos?.length ?? 0, currentLanguage),
-    total: formatCount(section.count, currentLanguage)
-  })
 }
 
 function onScrub(key: string, within: number) {
@@ -213,6 +177,16 @@ function scheduleActiveSectionUpdate() {
   })
 }
 
+// cached section geometry: reading offsetTop per scroll frame forces layout;
+// positions only change when sizes change, so measure on resize events only
+const sectionGeometry = new Map<string, { top: number; height: number }>()
+
+function measureSections() {
+  for (const [key, el] of sectionEls) {
+    sectionGeometry.set(key, { top: el.offsetTop, height: el.offsetHeight })
+  }
+}
+
 function updateActiveSection() {
   const container = scroller.value
   if (!container) {
@@ -220,26 +194,26 @@ function updateActiveSection() {
   }
   const threshold = container.scrollTop + 80
   let current: string | null = null
-  let currentEl: HTMLElement | null = null
+  let currentGeometry: { top: number; height: number } | null = null
   for (const section of sections.value) {
-    const el = sectionEls.get(section.key)
-    if (!el) {
+    const geometry = sectionGeometry.get(section.key)
+    if (!geometry) {
       continue
     }
-    if (el.offsetTop <= threshold) {
+    if (geometry.top <= threshold) {
       current = section.key
-      currentEl = el
+      currentGeometry = geometry
     } else {
       break
     }
   }
   activeKey.value = current ?? sections.value[0]?.key ?? null
   scrollPosition.value =
-    current && currentEl
+    current && currentGeometry
       ? {
           key: current,
           within: Math.min(
-            Math.max((threshold - currentEl.offsetTop) / Math.max(currentEl.offsetHeight, 1), 0),
+            Math.max((threshold - currentGeometry.top) / Math.max(currentGeometry.height, 1), 0),
             1
           )
         }
@@ -271,7 +245,10 @@ onMounted(async () => {
     },
     { root: scroller.value, rootMargin: '2000px 0px' }
   )
-  sectionResizeObserver = new ResizeObserver(scheduleActiveSectionUpdate)
+  sectionResizeObserver = new ResizeObserver(() => {
+    measureSections()
+    scheduleActiveSectionUpdate()
+  })
   await load()
   emit('loaded', total.value)
   updateActiveSection()

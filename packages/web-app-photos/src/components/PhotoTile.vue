@@ -13,7 +13,7 @@
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useGettext } from 'vue3-gettext'
 import { MemoryPhoto } from '../types'
-import { placeholderArtFor } from '../helpers'
+import { formatTileTime, placeholderArtFor } from '../helpers'
 
 const ROW_HEIGHT = 176
 
@@ -46,13 +46,9 @@ const tileStyle = computed(() => ({
     : { background: placeholderArtFor(photo.id) })
 }))
 
-const tileTitle = computed(() => {
-  const taken = new Date(photo.takenDateTime).toLocaleTimeString(currentLanguage, {
-    hour: '2-digit',
-    minute: '2-digit'
-  })
-  return `${photo.name} · ${taken}`
-})
+const tileTitle = computed(
+  () => `${photo.name} · ${formatTileTime(photo.takenDateTime, currentLanguage)}`
+)
 
 onMounted(() => {
   // the timeline scrolls inside an inner container which clips its children:
