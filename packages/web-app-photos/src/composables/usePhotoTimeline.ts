@@ -3,7 +3,7 @@ import { AggregationOption, MemoryPhoto } from '../types'
 import { useGraphSearch } from './useGraphSearch'
 
 /** the graph endpoint clamps page sizes to 500 */
-const SECTION_FILL_LIMIT = 500
+export const SECTION_FILL_LIMIT = 500
 const TIMELINE_FIRST_YEAR = 1990
 
 export interface TimelineSection {

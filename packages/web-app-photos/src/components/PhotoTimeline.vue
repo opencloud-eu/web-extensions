@@ -73,14 +73,19 @@
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useGettext } from 'vue3-gettext'
 import { NoContentMessage } from '@opencloud-eu/web-pkg'
-import { TimelineSection, usePhotoTimeline } from '../composables/usePhotoTimeline'
+import {
+  SECTION_FILL_LIMIT,
+  TimelineSection,
+  usePhotoTimeline
+} from '../composables/usePhotoTimeline'
 import { MemoryPhoto } from '../types'
 import { dayLabel, formatCount, groupPhotosByDay, monthYearLabel } from '../helpers'
 import PhotoTile from './PhotoTile.vue'
 import TimelineScrubber from './TimelineScrubber.vue'
 
 const ROW_ESTIMATE_HEIGHT = 180
-const PHOTOS_PER_ROW_ESTIMATE = 5
+/** average justified tile incl. gap at ~4:3 and 176px row height */
+const TILE_ESTIMATE_WIDTH = 240
 
 const { query } = defineProps<{ query: string }>()
 const emit = defineEmits<{ loaded: [total: number] }>()
@@ -117,7 +122,13 @@ function dayGroups(photos: MemoryPhoto[]) {
 }
 
 function estimateHeight(section: TimelineSection): number {
-  return Math.max(1, Math.ceil(section.count / PHOTOS_PER_ROW_ESTIMATE)) * ROW_ESTIMATE_HEIGHT
+  // estimate with what will actually render: the fill is capped, and the
+  // row count depends on the real container width. A big mismatch makes the
+  // layout jump when the section fills.
+  const rendered = Math.min(section.count, SECTION_FILL_LIMIT)
+  const width = scroller.value?.clientWidth ?? 1200
+  const perRow = Math.max(2, Math.floor(width / TILE_ESTIMATE_WIDTH))
+  return Math.max(1, Math.ceil(rendered / perRow)) * ROW_ESTIMATE_HEIGHT
 }
 
 function truncationLabel(section: TimelineSection): string {

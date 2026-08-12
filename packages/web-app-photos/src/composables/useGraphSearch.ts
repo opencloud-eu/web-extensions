@@ -11,12 +11,10 @@ export interface PhotoSearchRequest {
 }
 
 const THUMBNAIL_SIZE = 384
-/** every preview load runs through one bounded scheduler so bursts can never
- * exhaust browser connections; visible tiles take the priority lane */
-const MAX_PARALLEL_LOADS = 8
-/** background prefetches may never occupy all slots: previews can take seconds
- * to generate server side, and some slots must stay free for visible tiles */
-const MAX_BACKGROUND_LOADS = 5
+/** visible tiles fetch directly (the browser schedules network far better
+ * than we can); only background prefetches are throttled so they never
+ * compete with what the user is looking at */
+const MAX_BACKGROUND_LOADS = 4
 const FETCH_RETRIES = 3
 const RETRY_DELAYS_MS = [500, 2000]
 
@@ -24,48 +22,18 @@ const RETRY_DELAYS_MS = [500, 2000]
 // view or scrolling back never refetches
 const thumbnailUrls = new Map<string, string>()
 const inflightThumbnails = new Map<string, Promise<void>>()
-const priorityQueue: (() => Promise<void>)[] = []
 const backgroundQueue: (() => Promise<void>)[] = []
-let activeLoads = 0
 let activeBackgroundLoads = 0
 
-function pumpQueue() {
-  while (activeLoads < MAX_PARALLEL_LOADS) {
-    // priority lane is a stack: what the user looks at right now loads first,
-    // tiles scrolled past fall behind
-    let load = priorityQueue.pop()
-    let background = false
-    if (!load && activeBackgroundLoads < MAX_BACKGROUND_LOADS) {
-      load = backgroundQueue.shift()
-      background = true
-    }
-    if (!load) {
-      return
-    }
-    activeLoads++
-    if (background) {
-      activeBackgroundLoads++
-    }
+function pumpBackgroundQueue() {
+  while (activeBackgroundLoads < MAX_BACKGROUND_LOADS && backgroundQueue.length) {
+    const load = backgroundQueue.shift()!
+    activeBackgroundLoads++
     load().finally(() => {
-      activeLoads--
-      if (background) {
-        activeBackgroundLoads--
-      }
-      pumpQueue()
+      activeBackgroundLoads--
+      pumpBackgroundQueue()
     })
   }
-}
-
-function scheduleLoad(load: () => Promise<void>, priority: boolean): Promise<void> {
-  return new Promise((resolve) => {
-    const wrapped = () => load().finally(resolve)
-    if (priority) {
-      priorityQueue.push(wrapped)
-    } else {
-      backgroundQueue.push(wrapped)
-    }
-    pumpQueue()
-  })
 }
 
 function delay(ms: number): Promise<void> {
@@ -76,16 +44,16 @@ function delay(ms: number): Promise<void> {
 // `window.__photosDebug` in the browser console
 declare global {
   interface Window {
-    __photosDebug?: { activeLoads: number; background: number; queued: number; cached: number }
+    __photosDebug?: { inflight: number; background: number; queued: number; cached: number }
   }
 }
 if (typeof window !== 'undefined') {
   Object.defineProperty(window, '__photosDebug', {
     configurable: true,
     get: () => ({
-      activeLoads,
+      inflight: inflightThumbnails.size,
       background: activeBackgroundLoads,
-      queued: priorityQueue.length + backgroundQueue.length,
+      queued: backgroundQueue.length,
       cached: thumbnailUrls.size
     })
   })
@@ -164,9 +132,21 @@ export function useGraphSearch() {
     }
   }
 
+  /** starts (or joins) the actual fetch for a photo, deduplicated */
+  function runFetch(photo: MemoryPhoto): Promise<void> {
+    let load = inflightThumbnails.get(photo.id)
+    if (!load) {
+      load = fetchThumbnail(photo).finally(() => inflightThumbnails.delete(photo.id))
+      inflightThumbnails.set(photo.id, load)
+    }
+    return load
+  }
+
   /**
-   * Loads a preview through the bounded scheduler and attaches it as object
-   * url. Cached and deduplicated; priority loads jump the background queue.
+   * Loads a preview and attaches it as object url; cached and deduplicated.
+   * Priority loads (visible tiles) fetch immediately, background loads queue
+   * with limited parallelism. A photo that is still waiting in the background
+   * queue gets fetched right away when requested with priority.
    */
   async function attachThumbnail(photo: MemoryPhoto, priority = true): Promise<void> {
     if (!photo.driveId || photo.thumbnailUrl) {
@@ -177,14 +157,20 @@ export function useGraphSearch() {
       photo.thumbnailUrl = cached
       return
     }
-    let load = inflightThumbnails.get(photo.id)
-    if (!load) {
-      load = scheduleLoad(() => fetchThumbnail(photo), priority).finally(() =>
-        inflightThumbnails.delete(photo.id)
-      )
-      inflightThumbnails.set(photo.id, load)
+    if (priority) {
+      await runFetch(photo)
+    } else {
+      await new Promise<void>((resolve) => {
+        backgroundQueue.push(async () => {
+          // may have been loaded with priority in the meantime
+          if (!thumbnailUrls.has(photo.id)) {
+            await runFetch(photo)
+          }
+          resolve()
+        })
+        pumpBackgroundQueue()
+      })
     }
-    await load
     photo.thumbnailUrl = thumbnailUrls.get(photo.id)
   }
 
