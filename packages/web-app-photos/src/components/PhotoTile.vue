@@ -1,12 +1,20 @@
 <template>
   <div
     ref="el"
-    class="ext:relative ext:overflow-hidden ext:rounded-sm ext:bg-cover ext:bg-center"
+    class="ext:relative ext:overflow-hidden ext:rounded-sm"
     :style="tileStyle"
-    role="img"
-    :aria-label="photo.name"
     :title="tileTitle"
-  />
+  >
+    <img
+      v-if="photo.thumbnailUrl"
+      :src="photo.thumbnailUrl"
+      :alt="photo.name"
+      decoding="async"
+      class="ext:absolute ext:inset-0 ext:size-full ext:object-cover ext:transition-opacity ext:duration-200"
+      :class="loaded ? 'ext:opacity-100' : 'ext:opacity-0'"
+      @load="loaded = true"
+    />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -25,6 +33,7 @@ const { photo, attach } = defineProps<{
 const { current: currentLanguage } = useGettext()
 
 const el = ref<HTMLElement | null>(null)
+const loaded = ref(false)
 let observer: IntersectionObserver | undefined
 
 const aspect = computed(() => {
@@ -41,9 +50,7 @@ const tileStyle = computed(() => ({
   flexBasis: `${Math.round(aspect.value * ROW_HEIGHT)}px`,
   aspectRatio: String(aspect.value),
   maxHeight: `${ROW_HEIGHT * 2}px`,
-  ...(photo.thumbnailUrl
-    ? { backgroundImage: `url(${photo.thumbnailUrl})` }
-    : { background: placeholderArtFor(photo.id) })
+  background: placeholderArtFor(photo.id)
 }))
 
 const tileTitle = computed(() => {
@@ -62,7 +69,8 @@ onMounted(() => {
         attach(photo)
       }
     },
-    { rootMargin: '400px 0px' }
+    // generous margin: previews should be ready before they scroll in
+    { rootMargin: '1500px 0px' }
   )
   observer.observe(el.value!)
 })

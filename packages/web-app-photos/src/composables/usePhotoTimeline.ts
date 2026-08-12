@@ -29,7 +29,7 @@ function monthRange(year: number, month: number) {
  * mechanic for the timeline and the album view, only the query scope differs.
  */
 export function usePhotoTimeline(baseQuery: () => string) {
-  const { search, hitToPhoto, attachThumbnail } = useGraphSearch()
+  const { search, hitToPhoto, attachThumbnail, prefetchThumbnails } = useGraphSearch()
 
   const sections = ref<TimelineSection[]>([])
   const loading = ref(true)
@@ -98,6 +98,8 @@ export function usePhotoTimeline(baseQuery: () => string) {
         .map(hitToPhoto)
         .filter((p): p is MemoryPhoto => p !== null)
         .sort((a, b) => b.takenDateTime.localeCompare(a.takenDateTime))
+      // warm the whole month in the background so scrolling stays smooth
+      prefetchThumbnails(section.photos)
     } catch (e) {
       console.error('[photos] failed to fill timeline section', section.key, e)
       section.photos = []

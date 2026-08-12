@@ -181,7 +181,7 @@ onMounted(async () => {
         }
       }
     },
-    { root: scroller.value, rootMargin: '800px 0px' }
+    { root: scroller.value, rootMargin: '2000px 0px' }
   )
   await load()
   emit('loaded', total.value)
