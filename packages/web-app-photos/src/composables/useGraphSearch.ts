@@ -131,6 +131,8 @@ export function useGraphSearch() {
         }
         if (attempt < RETRY_DELAYS_MS.length) {
           await delay(RETRY_DELAYS_MS[attempt])
+        } else {
+          console.warn('[photos] preview failed after retries', photo.name, status ?? e)
         }
       }
     }
@@ -160,6 +162,16 @@ export function useGraphSearch() {
     photo.thumbnailUrl = thumbnailUrls.get(photo.id)
   }
 
+  /** drops a broken preview (e.g. undecodable blob) so it gets refetched */
+  function discardThumbnail(photo: MemoryPhoto) {
+    const url = thumbnailUrls.get(photo.id)
+    if (url) {
+      URL.revokeObjectURL(url)
+      thumbnailUrls.delete(photo.id)
+    }
+    photo.thumbnailUrl = undefined
+  }
+
   /** queues previews for background loading, without competing with visible tiles */
   function prefetchThumbnails(photos: MemoryPhoto[]) {
     for (const photo of photos) {
@@ -175,5 +187,5 @@ export function useGraphSearch() {
     }
   }
 
-  return { search, hitToPhoto, attachThumbnail, prefetchThumbnails }
+  return { search, hitToPhoto, attachThumbnail, prefetchThumbnails, discardThumbnail }
 }
