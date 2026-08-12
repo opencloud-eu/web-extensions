@@ -14,6 +14,9 @@ const THUMBNAIL_SIZE = 384
 /** every preview load runs through one bounded scheduler so bursts can never
  * exhaust browser connections; visible tiles take the priority lane */
 const MAX_PARALLEL_LOADS = 8
+/** background prefetches may never occupy all slots: previews can take seconds
+ * to generate server side, and some slots must stay free for visible tiles */
+const MAX_BACKGROUND_LOADS = 5
 const FETCH_RETRIES = 3
 const RETRY_DELAYS_MS = [500, 2000]
 
@@ -24,13 +27,30 @@ const inflightThumbnails = new Map<string, Promise<void>>()
 const priorityQueue: (() => Promise<void>)[] = []
 const backgroundQueue: (() => Promise<void>)[] = []
 let activeLoads = 0
+let activeBackgroundLoads = 0
 
 function pumpQueue() {
-  while (activeLoads < MAX_PARALLEL_LOADS && (priorityQueue.length || backgroundQueue.length)) {
-    const load = (priorityQueue.shift() ?? backgroundQueue.shift())!
+  while (activeLoads < MAX_PARALLEL_LOADS) {
+    // priority lane is a stack: what the user looks at right now loads first,
+    // tiles scrolled past fall behind
+    let load = priorityQueue.pop()
+    let background = false
+    if (!load && activeBackgroundLoads < MAX_BACKGROUND_LOADS) {
+      load = backgroundQueue.shift()
+      background = true
+    }
+    if (!load) {
+      return
+    }
     activeLoads++
+    if (background) {
+      activeBackgroundLoads++
+    }
     load().finally(() => {
       activeLoads--
+      if (background) {
+        activeBackgroundLoads--
+      }
       pumpQueue()
     })
   }
