@@ -55,14 +55,22 @@
       </template>
     </div>
 
-    <div v-if="sections.length > 1" class="ext:absolute ext:top-0 ext:right-0 ext:bottom-0">
-      <timeline-scrubber :sections="sections" :active-key="activeKey" @jump="jumpTo" />
+    <!-- z above the sticky day headers (z-10), the bubble reaches into the content area -->
+    <div v-if="sections.length > 1" class="ext:absolute ext:top-0 ext:right-0 ext:bottom-0 ext:z-20">
+      <timeline-scrubber
+        :sections="sections"
+        :active-key="activeKey"
+        :position="scrollFraction"
+        @scrub="onScrub"
+        @scrub-start="scrubbing = true"
+        @scrub-end="onScrubEnd"
+      />
     </div>
 
     <div
       v-if="activeKey"
-      class="ext:pointer-events-none ext:absolute ext:top-2 ext:right-14 ext:rounded-full ext:bg-role-inverse-surface ext:px-3 ext:py-1 ext:text-xs ext:font-medium ext:text-role-inverse-on-surface ext:transition-opacity ext:duration-300"
-      :class="scrolling ? 'ext:opacity-100' : 'ext:opacity-0'"
+      class="ext:pointer-events-none ext:absolute ext:top-2 ext:right-14 ext:z-20 ext:rounded-full ext:bg-role-inverse-surface ext:px-3 ext:py-1 ext:text-xs ext:font-medium ext:text-role-inverse-on-surface ext:transition-opacity ext:duration-300"
+      :class="scrolling && !scrubbing ? 'ext:opacity-100' : 'ext:opacity-0'"
     >
       {{ monthYearLabel(activeKey, currentLanguage) }}
     </div>
@@ -99,19 +107,32 @@ const { sections, loading, total, load, fillSection, attachThumbnail } = usePhot
 const scroller = ref<HTMLElement | null>(null)
 const activeKey = ref<string | null>(null)
 const scrolling = ref(false)
+const scrollFraction = ref(0)
 
 const sectionEls = new Map<string, HTMLElement>()
 let fillObserver: IntersectionObserver | undefined
+// filling a section changes the content height without a scroll event; keep
+// the scrubber thumb and the active month in sync anyway
+let sectionResizeObserver: ResizeObserver | undefined
+
+// while the scrubber is dragged, months fly past faster than anyone can look
+// at them: hold the fills back and only load what is near the viewport once
+// the drag settles
+const scrubbing = ref(false)
+const pendingFills = new Set<string>()
+const FILL_MARGIN_PX = 2000
 
 function setSectionEl(key: string, el: HTMLElement | null) {
   if (el) {
     sectionEls.set(key, el)
     el.dataset.sectionKey = key
     fillObserver?.observe(el)
+    sectionResizeObserver?.observe(el)
   } else {
     const existing = sectionEls.get(key)
     if (existing) {
       fillObserver?.unobserve(existing)
+      sectionResizeObserver?.unobserve(existing)
     }
     sectionEls.delete(key)
   }
@@ -138,8 +159,34 @@ function truncationLabel(section: TimelineSection): string {
   })
 }
 
-function jumpTo(key: string, smooth: boolean) {
-  sectionEls.get(key)?.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' })
+function onScrub(fraction: number) {
+  const container = scroller.value
+  if (!container) {
+    return
+  }
+  container.scrollTop = fraction * (container.scrollHeight - container.clientHeight)
+}
+
+function onScrubEnd() {
+  scrubbing.value = false
+  const container = scroller.value
+  for (const key of pendingFills) {
+    const el = sectionEls.get(key)
+    if (!el || !container) {
+      continue
+    }
+    const nearViewport =
+      el.offsetTop < container.scrollTop + container.clientHeight + FILL_MARGIN_PX &&
+      el.offsetTop + el.offsetHeight > container.scrollTop - FILL_MARGIN_PX
+    if (!nearViewport) {
+      continue
+    }
+    const section = sections.value.find((s) => s.key === key)
+    if (section) {
+      fillSection(section)
+    }
+  }
+  pendingFills.clear()
 }
 
 let scrollIdleTimer: ReturnType<typeof setTimeout> | undefined
@@ -152,6 +199,10 @@ function onScroll() {
     scrolling.value = false
   }, 800)
 
+  scheduleActiveSectionUpdate()
+}
+
+function scheduleActiveSectionUpdate() {
   if (scrollRaf) {
     return
   }
@@ -166,6 +217,8 @@ function updateActiveSection() {
   if (!container) {
     return
   }
+  const scrollable = container.scrollHeight - container.clientHeight
+  scrollFraction.value = scrollable > 0 ? container.scrollTop / scrollable : 0
   const threshold = container.scrollTop + 80
   let current: string | null = null
   for (const section of sections.value) {
@@ -190,6 +243,13 @@ onMounted(async () => {
           continue
         }
         const key = (entry.target as HTMLElement).dataset.sectionKey
+        if (!key) {
+          continue
+        }
+        if (scrubbing.value) {
+          pendingFills.add(key)
+          continue
+        }
         const section = sections.value.find((s) => s.key === key)
         if (section) {
           fillSection(section)
@@ -198,6 +258,7 @@ onMounted(async () => {
     },
     { root: scroller.value, rootMargin: '2000px 0px' }
   )
+  sectionResizeObserver = new ResizeObserver(scheduleActiveSectionUpdate)
   await load()
   emit('loaded', total.value)
   updateActiveSection()
@@ -213,6 +274,7 @@ watch(
 
 onBeforeUnmount(() => {
   fillObserver?.disconnect()
+  sectionResizeObserver?.disconnect()
   clearTimeout(scrollIdleTimer)
   if (scrollRaf) {
     cancelAnimationFrame(scrollRaf)

@@ -7,3 +7,13 @@
 .photos-location-picker iframe {
   height: 65vh;
 }
+
+/* the month scrubber replaces the scrollbar and overlays its spot at the
+ * right edge; hide the native one so there are not two competing indicators */
+.photos-timeline-scroller {
+  scrollbar-width: none;
+}
+
+.photos-timeline-scroller::-webkit-scrollbar {
+  display: none;
+}
