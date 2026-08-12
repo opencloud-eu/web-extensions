@@ -11,25 +11,45 @@ export interface PhotoSearchRequest {
 }
 
 const THUMBNAIL_SIZE = 384
-/** background prefetches run with limited parallelism to keep visible tiles snappy */
-const MAX_PARALLEL_PREFETCHES = 6
+/** every preview load runs through one bounded scheduler so bursts can never
+ * exhaust browser connections; visible tiles take the priority lane */
+const MAX_PARALLEL_LOADS = 8
+const FETCH_RETRIES = 3
+const RETRY_DELAYS_MS = [500, 2000]
 
 // module level: previews stay cached for the whole session, so revisiting a
 // view or scrolling back never refetches
 const thumbnailUrls = new Map<string, string>()
 const inflightThumbnails = new Map<string, Promise<void>>()
-const prefetchQueue: (() => Promise<void>)[] = []
-let activePrefetches = 0
+const priorityQueue: (() => Promise<void>)[] = []
+const backgroundQueue: (() => Promise<void>)[] = []
+let activeLoads = 0
 
-function pumpPrefetchQueue() {
-  while (activePrefetches < MAX_PARALLEL_PREFETCHES && prefetchQueue.length) {
-    const load = prefetchQueue.shift()!
-    activePrefetches++
+function pumpQueue() {
+  while (activeLoads < MAX_PARALLEL_LOADS && (priorityQueue.length || backgroundQueue.length)) {
+    const load = (priorityQueue.shift() ?? backgroundQueue.shift())!
+    activeLoads++
     load().finally(() => {
-      activePrefetches--
-      pumpPrefetchQueue()
+      activeLoads--
+      pumpQueue()
     })
   }
+}
+
+function scheduleLoad(load: () => Promise<void>, priority: boolean): Promise<void> {
+  return new Promise((resolve) => {
+    const wrapped = () => load().finally(resolve)
+    if (priority) {
+      priorityQueue.push(wrapped)
+    } else {
+      backgroundQueue.push(wrapped)
+    }
+    pumpQueue()
+  })
+}
+
+function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
 export function useGraphSearch() {
@@ -71,23 +91,36 @@ export function useGraphSearch() {
     }
   }
 
-  /** Loads a WebDAV preview and attaches it to the photo as an object url */
+  /** fetches a WebDAV preview into the cache, retrying transient failures */
   async function fetchThumbnail(photo: MemoryPhoto): Promise<void> {
     const path = photo.parentPath ? `${photo.parentPath}/${photo.name}` : photo.name
     const url = urlJoin(configStore.serverUrl, 'remote.php/dav/spaces', photo.driveId!, path)
-    try {
-      const { data } = await clientService.httpAuthenticated.get(url, {
-        params: { preview: 1, x: THUMBNAIL_SIZE, y: THUMBNAIL_SIZE, scalingup: 0 },
-        responseType: 'blob'
-      })
-      thumbnailUrls.set(photo.id, URL.createObjectURL(data as Blob))
-    } catch {
-      // no preview available, the placeholder art stays
+    for (let attempt = 0; attempt < FETCH_RETRIES; attempt++) {
+      try {
+        const { data } = await clientService.httpAuthenticated.get(url, {
+          params: { preview: 1, x: THUMBNAIL_SIZE, y: THUMBNAIL_SIZE, scalingup: 0 },
+          responseType: 'blob'
+        })
+        thumbnailUrls.set(photo.id, URL.createObjectURL(data as Blob))
+        return
+      } catch (e) {
+        const status = (e as { response?: { status?: number } })?.response?.status
+        if (status === 404 || status === 403) {
+          // no preview exists, retrying will not help; the placeholder stays
+          return
+        }
+        if (attempt < RETRY_DELAYS_MS.length) {
+          await delay(RETRY_DELAYS_MS[attempt])
+        }
+      }
     }
   }
 
-  /** loads a preview and attaches it as object url; cached and deduplicated */
-  async function attachThumbnail(photo: MemoryPhoto): Promise<void> {
+  /**
+   * Loads a preview through the bounded scheduler and attaches it as object
+   * url. Cached and deduplicated; priority loads jump the background queue.
+   */
+  async function attachThumbnail(photo: MemoryPhoto, priority = true): Promise<void> {
     if (!photo.driveId || photo.thumbnailUrl) {
       return
     }
@@ -98,7 +131,9 @@ export function useGraphSearch() {
     }
     let load = inflightThumbnails.get(photo.id)
     if (!load) {
-      load = fetchThumbnail(photo).finally(() => inflightThumbnails.delete(photo.id))
+      load = scheduleLoad(() => fetchThumbnail(photo), priority).finally(() =>
+        inflightThumbnails.delete(photo.id)
+      )
       inflightThumbnails.set(photo.id, load)
     }
     await load
@@ -116,9 +151,8 @@ export function useGraphSearch() {
       ) {
         continue
       }
-      prefetchQueue.push(() => attachThumbnail(photo))
+      attachThumbnail(photo, false)
     }
-    pumpPrefetchQueue()
   }
 
   return { search, hitToPhoto, attachThumbnail, prefetchThumbnails }

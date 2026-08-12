@@ -63,10 +63,15 @@ const tileTitle = computed(() => {
 
 onMounted(() => {
   observer = new IntersectionObserver(
-    (entries) => {
-      if (entries.some((e) => e.isIntersecting)) {
+    async (entries) => {
+      if (!entries.some((e) => e.isIntersecting)) {
+        return
+      }
+      // only stop observing once the thumbnail actually arrived, so a failed
+      // load gets retried the next time the tile scrolls into reach
+      await attach(photo)
+      if (photo.thumbnailUrl) {
         observer?.disconnect()
-        attach(photo)
       }
     },
     // generous margin: previews should be ready before they scroll in
