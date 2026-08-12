@@ -13,6 +13,7 @@ import { computed, unref } from 'vue'
 import { useGettext } from 'vue3-gettext'
 import translations from '../l10n/translations.json'
 import PhotosDashboard from './PhotosDashboard.vue'
+import TimelineView from './TimelineView.vue'
 import AlbumsOverview from './AlbumsOverview.vue'
 import AlbumView from './AlbumView.vue'
 import AlbumEditor from './AlbumEditor.vue'
@@ -33,6 +34,16 @@ export default defineWebApplication({
         meta: {
           authContext: 'user' as const,
           title: $gettext('Photos'),
+          patchCleanPath: true
+        }
+      },
+      {
+        name: `${applicationId}-timeline`,
+        path: '/timeline',
+        component: TimelineView,
+        meta: {
+          authContext: 'user' as const,
+          title: $gettext('Timeline'),
           patchCleanPath: true
         }
       },
@@ -93,6 +104,12 @@ export default defineWebApplication({
         // default startsWith matching would keep it always active
         isActive: () => unref(router.currentRoute).name === applicationId,
         priority: 10
+      },
+      {
+        name: () => $gettext('Timeline'),
+        icon: 'calendar',
+        route: { name: `${applicationId}-timeline` },
+        priority: 15
       },
       {
         name: () => $gettext('Albums'),

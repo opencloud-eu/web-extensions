@@ -44,6 +44,8 @@ export function useGraphSearch() {
       cameraModel: resource.photo?.cameraModel,
       fNumber: resource.photo?.fNumber,
       iso: resource.photo?.iso,
+      width: resource.image?.width,
+      height: resource.image?.height,
       driveId: resource.parentReference?.driveId,
       parentPath: normalizeParentPath(resource.parentReference?.path)
     }

@@ -61,6 +61,48 @@ export function normalizeParentPath(path?: string): string {
   return path.replace(/^\.\//, '')
 }
 
+import { MemoryPhoto } from './types'
+
+export interface DayGroup {
+  /** "YYYY-MM-DD" in local time */
+  day: string
+  photos: MemoryPhoto[]
+}
+
+/** groups photos by local calendar day, keeping the given order */
+export function groupPhotosByDay(photos: MemoryPhoto[]): DayGroup[] {
+  const groups: DayGroup[] = []
+  for (const photo of photos) {
+    const taken = new Date(photo.takenDateTime)
+    const day = `${taken.getFullYear()}-${String(taken.getMonth() + 1).padStart(2, '0')}-${String(taken.getDate()).padStart(2, '0')}`
+    const last = groups[groups.length - 1]
+    if (last?.day === day) {
+      last.photos.push(photo)
+    } else {
+      groups.push({ day, photos: [photo] })
+    }
+  }
+  return groups
+}
+
+export function dayLabel(day: string, language: string): string {
+  const [year, month, date] = day.split('-').map(Number)
+  return new Date(year, month - 1, date).toLocaleDateString(language, {
+    weekday: 'short',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  })
+}
+
+export function monthYearLabel(key: string, language: string): string {
+  const [year, month] = key.split('-').map(Number)
+  return new Date(year, month - 1, 1).toLocaleDateString(language, {
+    month: 'long',
+    year: 'numeric'
+  })
+}
+
 const GEOHASH_BASE32 = '0123456789bcdefghjkmnpqrstuvwxyz'
 
 /** Decodes a geohash cell to its center coordinates */

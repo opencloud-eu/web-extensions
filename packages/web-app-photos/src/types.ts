@@ -72,7 +72,7 @@ export interface SearchHitsContainer {
   aggregations?: SearchAggregation[]
 }
 
-/** A single photo shown in one of the strips */
+/** A single photo shown in one of the strips or grids */
 export interface MemoryPhoto {
   id: string
   name: string
@@ -80,6 +80,8 @@ export interface MemoryPhoto {
   cameraModel?: string
   fNumber?: number
   iso?: number
+  width?: number
+  height?: number
   driveId?: string
   /** parent path relative to the space root */
   parentPath?: string
