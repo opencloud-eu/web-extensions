@@ -19,6 +19,10 @@ import AlbumView from './AlbumView.vue'
 import AlbumEditor from './AlbumEditor.vue'
 
 const applicationId = 'photos'
+// bumped on every change while we debug loading behavior; check the browser
+// console to verify which build a tab is actually running
+const REVISION = '2026-08-12-request-timeouts'
+console.debug(`[photos] app loaded, rev ${REVISION}`)
 
 export default defineWebApplication({
   setup() {

@@ -78,17 +78,21 @@ export function useGraphSearch() {
 
   async function search(request: PhotoSearchRequest): Promise<SearchHitsContainer> {
     const url = urlJoin(configStore.serverUrl, 'graph/v1beta1/search/query')
-    const { data } = await clientService.httpAuthenticated.post(url, {
-      requests: [
-        {
-          entityTypes: ['driveItem'],
-          query: { queryString: request.queryString },
-          size: request.size ?? 0,
-          ...(request.from !== undefined && { from: request.from }),
-          ...(request.aggregations?.length && { aggregations: request.aggregations })
-        }
-      ]
-    })
+    const { data } = await clientService.httpAuthenticated.post(
+      url,
+      {
+        requests: [
+          {
+            entityTypes: ['driveItem'],
+            query: { queryString: request.queryString },
+            size: request.size ?? 0,
+            ...(request.from !== undefined && { from: request.from }),
+            ...(request.aggregations?.length && { aggregations: request.aggregations })
+          }
+        ]
+      },
+      { timeout: 30000 }
+    )
     return data?.value?.[0]?.hitsContainers?.[0] ?? {}
   }
 
@@ -119,7 +123,10 @@ export function useGraphSearch() {
       try {
         const { data } = await clientService.httpAuthenticated.get(url, {
           params: { preview: 1, x: THUMBNAIL_SIZE, y: THUMBNAIL_SIZE, scalingup: 0 },
-          responseType: 'blob'
+          responseType: 'blob',
+          // a hung request would occupy its scheduler slot forever and can
+          // starve the whole loading lane; time out and retry instead
+          timeout: 15000
         })
         thumbnailUrls.set(photo.id, URL.createObjectURL(data as Blob))
         return
