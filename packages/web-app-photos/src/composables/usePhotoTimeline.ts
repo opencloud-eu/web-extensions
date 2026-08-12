@@ -90,19 +90,39 @@ export function usePhotoTimeline(baseQuery: () => string) {
     try {
       const [year, month] = section.key.split('-').map(Number)
       const { from, to } = monthRange(year, month)
-      const container = await search({
-        queryString: `(${baseQuery()}) AND photo.takenDateTime>=${from} AND photo.takenDateTime<${to}`,
-        size: Math.min(section.count, SECTION_FILL_LIMIT)
-      })
-      section.photos = (container.hits ?? [])
-        .map(hitToPhoto)
-        .filter((p): p is MemoryPhoto => p !== null)
-        .sort((a, b) => b.takenDateTime.localeCompare(a.takenDateTime))
-      // warm the whole month in the background so scrolling stays smooth
-      prefetchThumbnails(section.photos)
+      const queryString = `(${baseQuery()}) AND photo.takenDateTime>=${from} AND photo.takenDateTime<${to}`
+
+      // months can exceed the server's max page size: page through with
+      // `from` offsets, render progressively and dedupe across pages (the
+      // index may move between requests)
+      const collected: MemoryPhoto[] = []
+      const seen = new Set<string>()
+      for (let offset = 0; offset < section.count; offset += SECTION_FILL_LIMIT) {
+        const container = await search({
+          queryString,
+          from: offset,
+          size: Math.min(section.count - offset, SECTION_FILL_LIMIT)
+        })
+        const photos = (container.hits ?? [])
+          .map(hitToPhoto)
+          .filter((p): p is MemoryPhoto => p !== null && !seen.has(p.id))
+        for (const photo of photos) {
+          seen.add(photo.id)
+        }
+        collected.push(...photos)
+        section.photos = [...collected].sort((a, b) =>
+          b.takenDateTime.localeCompare(a.takenDateTime)
+        )
+        // warm the page in the background so scrolling stays smooth
+        prefetchThumbnails(section.photos)
+        if ((container.hits?.length ?? 0) < SECTION_FILL_LIMIT) {
+          break
+        }
+      }
+      section.photos ??= []
     } catch (e) {
       console.error('[photos] failed to fill timeline section', section.key, e)
-      section.photos = []
+      section.photos ??= []
     } finally {
       section.filling = false
     }
