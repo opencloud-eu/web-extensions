@@ -98,6 +98,10 @@ const tileTitle = computed(() => {
 })
 
 onMounted(() => {
+  // the timeline scrolls inside an inner container which clips its children:
+  // with the implicit viewport root the margin would never take effect, so
+  // the scroll container itself must be the observer root
+  const root = el.value?.closest('.photos-timeline-scroller') ?? null
   observer = new IntersectionObserver(
     (entries) => {
       nearViewport = entries.some((e) => e.isIntersecting)
@@ -108,7 +112,7 @@ onMounted(() => {
       }
     },
     // generous margin: previews should be ready before they scroll in
-    { rootMargin: '1500px 0px' }
+    { root, rootMargin: '1500px 0px' }
   )
   observer.observe(el.value!)
 })

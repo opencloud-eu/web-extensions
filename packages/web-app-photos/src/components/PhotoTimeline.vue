@@ -1,6 +1,10 @@
 <template>
   <div class="ext:relative ext:min-h-0 ext:flex-1">
-    <div ref="scroller" class="ext:h-full ext:overflow-y-auto ext:pr-12" @scroll.passive="onScroll">
+    <div
+      ref="scroller"
+      class="photos-timeline-scroller ext:h-full ext:overflow-y-auto ext:pr-12"
+      @scroll.passive="onScroll"
+    >
       <div v-if="loading" class="ext:flex ext:justify-center ext:py-24">
         <oc-spinner size="medium" :aria-label="$gettext('Loading timeline')" />
       </div>
