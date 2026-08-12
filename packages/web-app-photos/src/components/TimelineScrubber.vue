@@ -59,12 +59,12 @@ import { monthYearLabel } from '../helpers'
 const { sections, activeKey, position } = defineProps<{
   sections: TimelineSection[]
   activeKey: string | null
-  /** current scroll position as a 0..1 fraction */
-  position: number
+  /** current scroll position: month key plus 0..1 progress within that month */
+  position: { key: string; within: number } | null
 }>()
 
 const emit = defineEmits<{
-  scrub: [fraction: number]
+  scrub: [key: string, within: number]
   scrubStart: []
   scrubEnd: []
 }>()
@@ -93,14 +93,32 @@ const segments = computed(() => {
   })
 })
 
-const thumbTop = computed(() => `${(Math.min(Math.max(position, 0), 1) * 100).toFixed(3)}%`)
+// the rail lives in month space (segments weighted by photo count), never in
+// content pixels: both the thumb and the drag mapping go through month + the
+// progress within it, so the rail's year labels, the thumb and the actual
+// content always agree even while filling sections change their pixel height
+const thumbTop = computed(() => {
+  if (!position || !segments.value.length) {
+    return '0%'
+  }
+  const totalWeight = segments.value.reduce((sum, s) => sum + s.weight, 0)
+  let cumulated = 0
+  for (const segment of segments.value) {
+    if (segment.key === position.key) {
+      const within = Math.min(Math.max(position.within, 0), 1)
+      return `${(((cumulated + segment.weight * within) / totalWeight) * 100).toFixed(3)}%`
+    }
+    cumulated += segment.weight
+  }
+  return '0%'
+})
 
 const pointerLabel = computed(() => {
   if (!dragging.value && !hovering.value) {
     return undefined
   }
-  const key = segmentAtFraction(fractionAtY(pointerY.value))
-  return key ? monthYearLabel(key, currentLanguage) : undefined
+  const target = segmentAtFraction(fractionAtY(pointerY.value))
+  return target ? monthYearLabel(target.key, currentLanguage) : undefined
 })
 
 /** rail-relative y in px to a 0..1 fraction */
@@ -112,20 +130,23 @@ function fractionAtY(y: number): number {
   return Math.min(Math.max(y / el.getBoundingClientRect().height, 0), 1)
 }
 
-/** maps a fraction onto the flex-grow weighted segment list */
-function segmentAtFraction(fraction: number): string | undefined {
+/** maps a rail fraction onto a month and the progress within it */
+function segmentAtFraction(fraction: number): { key: string; within: number } | undefined {
   if (!segments.value.length) {
     return undefined
   }
   const totalWeight = segments.value.reduce((sum, s) => sum + s.weight, 0)
   let cumulated = 0
   for (const segment of segments.value) {
-    cumulated += segment.weight
-    if (fraction <= cumulated / totalWeight) {
-      return segment.key
+    if (fraction * totalWeight <= cumulated + segment.weight) {
+      return {
+        key: segment.key,
+        within: Math.min(Math.max((fraction * totalWeight - cumulated) / segment.weight, 0), 1)
+      }
     }
+    cumulated += segment.weight
   }
-  return segments.value[segments.value.length - 1].key
+  return { key: segments.value[segments.value.length - 1].key, within: 1 }
 }
 
 function railY(event: PointerEvent): number {
@@ -136,12 +157,19 @@ function railY(event: PointerEvent): number {
   return Math.min(Math.max(event.clientY - rect.top, 0), rect.height)
 }
 
+function emitScrub() {
+  const target = segmentAtFraction(fractionAtY(pointerY.value))
+  if (target) {
+    emit('scrub', target.key, target.within)
+  }
+}
+
 function onPointerDown(event: PointerEvent) {
   dragging.value = true
   rail.value?.setPointerCapture(event.pointerId)
   pointerY.value = railY(event)
   emit('scrubStart')
-  emit('scrub', fractionAtY(pointerY.value))
+  emitScrub()
 }
 
 function onPointerMove(event: PointerEvent) {
@@ -150,7 +178,7 @@ function onPointerMove(event: PointerEvent) {
     hovering.value = true
   }
   if (dragging.value) {
-    emit('scrub', fractionAtY(pointerY.value))
+    emitScrub()
   }
 }
 

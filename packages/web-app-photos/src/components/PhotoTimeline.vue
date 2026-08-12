@@ -60,7 +60,7 @@
       <timeline-scrubber
         :sections="sections"
         :active-key="activeKey"
-        :position="scrollFraction"
+        :position="scrollPosition"
         @scrub="onScrub"
         @scrub-start="scrubbing = true"
         @scrub-end="onScrubEnd"
@@ -107,7 +107,7 @@ const { sections, loading, total, load, fillSection, attachThumbnail } = usePhot
 const scroller = ref<HTMLElement | null>(null)
 const activeKey = ref<string | null>(null)
 const scrolling = ref(false)
-const scrollFraction = ref(0)
+const scrollPosition = ref<{ key: string; within: number } | null>(null)
 
 const sectionEls = new Map<string, HTMLElement>()
 let fillObserver: IntersectionObserver | undefined
@@ -159,12 +159,13 @@ function truncationLabel(section: TimelineSection): string {
   })
 }
 
-function onScrub(fraction: number) {
+function onScrub(key: string, within: number) {
   const container = scroller.value
-  if (!container) {
+  const el = sectionEls.get(key)
+  if (!container || !el) {
     return
   }
-  container.scrollTop = fraction * (container.scrollHeight - container.clientHeight)
+  container.scrollTop = el.offsetTop + within * el.offsetHeight
 }
 
 function onScrubEnd() {
@@ -217,10 +218,9 @@ function updateActiveSection() {
   if (!container) {
     return
   }
-  const scrollable = container.scrollHeight - container.clientHeight
-  scrollFraction.value = scrollable > 0 ? container.scrollTop / scrollable : 0
   const threshold = container.scrollTop + 80
   let current: string | null = null
+  let currentEl: HTMLElement | null = null
   for (const section of sections.value) {
     const el = sectionEls.get(section.key)
     if (!el) {
@@ -228,11 +228,24 @@ function updateActiveSection() {
     }
     if (el.offsetTop <= threshold) {
       current = section.key
+      currentEl = el
     } else {
       break
     }
   }
   activeKey.value = current ?? sections.value[0]?.key ?? null
+  scrollPosition.value =
+    current && currentEl
+      ? {
+          key: current,
+          within: Math.min(
+            Math.max((threshold - currentEl.offsetTop) / Math.max(currentEl.offsetHeight, 1), 0),
+            1
+          )
+        }
+      : activeKey.value
+        ? { key: activeKey.value, within: 0 }
+        : null
 }
 
 onMounted(async () => {
