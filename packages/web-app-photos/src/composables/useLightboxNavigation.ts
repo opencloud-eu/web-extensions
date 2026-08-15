@@ -140,6 +140,25 @@ export function useLightboxNavigation(
     writePhotoParams(null)
   }
 
+  /** jumps back to the newest photo; the slideshow loops through this */
+  async function rewind() {
+    for (const section of unref(sections)) {
+      if (!section.count) {
+        continue
+      }
+      if (section.photos === null) {
+        await fillSection(section)
+      }
+      const first = section.photos?.[0]
+      if (first) {
+        if (first.id !== unref(lightboxPhoto)?.id) {
+          open(first)
+        }
+        return
+      }
+    }
+  }
+
   /** initial deep link: reopen the photo once its month is filled */
   function restore() {
     const photoId = queryItemAsString(unref(photoQuery)) ?? ''
@@ -152,5 +171,5 @@ export function useLightboxNavigation(
     }
   }
 
-  return { lightboxPhoto, hasPrev, hasNext, preload, open, step, close, restore }
+  return { lightboxPhoto, hasPrev, hasNext, preload, open, step, close, restore, rewind }
 }

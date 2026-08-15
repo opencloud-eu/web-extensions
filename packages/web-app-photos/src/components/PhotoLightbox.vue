@@ -119,7 +119,7 @@ const {
   preload?: MemoryPhoto | null
 }>()
 
-const emit = defineEmits<{ close: []; prev: []; next: [] }>()
+const emit = defineEmits<{ close: []; prev: []; next: []; rewind: [] }>()
 
 const { $gettext, current: currentLanguage } = useGettext()
 const { loadLightboxImage } = useGraphSearch()
@@ -197,7 +197,13 @@ function tick() {
     return
   }
   if (!hasNext) {
-    stopSlideshow()
+    // the slideshow loops; with nothing to rewind to it just replays the slide
+    if (!hasPrev) {
+      slideStart = Date.now()
+      return
+    }
+    advancing = true
+    emit('rewind')
     return
   }
   advancing = true
@@ -240,17 +246,6 @@ watch(
   () => {
     slideStart = Date.now()
     advancing = false
-  }
-)
-
-// an advance that came up empty (last photo, or a month that turned out
-// empty) must not leave the slideshow stalled
-watch(
-  () => hasNext,
-  (value) => {
-    if (!value && unref(playing) && advancing) {
-      stopSlideshow()
-    }
   }
 )
 

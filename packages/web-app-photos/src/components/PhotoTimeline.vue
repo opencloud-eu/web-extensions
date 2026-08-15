@@ -62,6 +62,7 @@
       @close="closeLightbox"
       @prev="stepLightbox(-1)"
       @next="stepLightbox(1)"
+      @rewind="rewindLightbox"
     />
   </div>
 </template>
@@ -183,7 +184,8 @@ const {
   open: openPhoto,
   step: stepLightbox,
   close: closeLightbox,
-  restore: restoreLightbox
+  restore: restoreLightbox,
+  rewind: rewindLightbox
 } = useLightboxNavigation(sections, fillSection)
 
 let scrollIdleTimer: ReturnType<typeof setTimeout> | undefined
