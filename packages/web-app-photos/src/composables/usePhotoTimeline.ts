@@ -92,10 +92,9 @@ export function usePhotoTimeline(baseQuery: () => string) {
       const { from, to } = monthRange(year, month)
       const queryString = `(${baseQuery()}) AND photo.takenDateTime>=${from} AND photo.takenDateTime<${to}`
 
-      // months can exceed the server's max page size: page through with
-      // `from` offsets on a server-sorted result (photo.takenDateTime desc),
-      // render progressively and dedupe across pages (the index may move
-      // between requests)
+      // page through with `from` offsets on a server-sorted result, render
+      // progressively, dedupe across pages (the index may move between
+      // requests)
       const collected: MemoryPhoto[] = []
       const seen = new Set<string>()
       for (let offset = 0; offset < section.count; offset += SECTION_FILL_LIMIT) {
@@ -115,7 +114,6 @@ export function usePhotoTimeline(baseQuery: () => string) {
         section.photos = [...collected].sort((a, b) =>
           b.takenDateTime.localeCompare(a.takenDateTime)
         )
-        // warm the page in the background so scrolling stays smooth
         prefetchThumbnails(section.photos)
         if ((container.hits?.length ?? 0) < SECTION_FILL_LIMIT) {
           break

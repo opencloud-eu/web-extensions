@@ -1,7 +1,6 @@
 <template>
-  <!-- pulsing placeholder art doubles as the loading indicator; the image is
-       its own layer that fades in once fully decoded, so the swap never
-       flickers -->
+  <!-- placeholder art doubles as the loading indicator; the image fades in
+       once decoded -->
   <div
     ref="el"
     class="ext:relative ext:cursor-pointer ext:overflow-hidden ext:rounded-sm"
@@ -50,11 +49,9 @@ const aspect = computed(() => {
   return 4 / 3
 })
 
-// classic flex justified gallery: grow by aspect ratio, height follows via
-// aspect-ratio, so rows fill the container width with true proportions.
-// NOTE background-image on purpose: the real-<img> variant was tried and
-// produced unreliable painting inside content-visibility sections, while
-// this variant is the one that renders reliably.
+// flex justified gallery: grow by aspect ratio, height follows.
+// background-image on purpose: a real <img> paints unreliably inside
+// content-visibility sections.
 const tileStyle = computed(() => ({
   flexGrow: String(aspect.value),
   flexBasis: `${Math.round(aspect.value * ROW_HEIGHT)}px`,
@@ -63,8 +60,7 @@ const tileStyle = computed(() => ({
   background: placeholderArtFor(photo.id)
 }))
 
-// bg layers have no load event: a detached Image on the same (blob) url
-// signals when the bitmap is decoded, THEN the layer fades in
+// bg layers have no load event: a detached Image signals decoding
 const revealed = ref(false)
 watch(
   () => photo.thumbnailUrl,
@@ -86,9 +82,8 @@ const tileTitle = computed(
 )
 
 onMounted(() => {
-  // the timeline scrolls inside an inner container which clips its children:
-  // with the implicit viewport root the margin would never take effect, so
-  // the scroll container itself must be the observer root
+  // the observer root must be the inner scroll container, with the implicit
+  // viewport root the margin never takes effect
   const root = el.value?.closest('.photos-timeline-scroller') ?? null
   observer = new IntersectionObserver(
     (entries) => {
@@ -97,7 +92,6 @@ onMounted(() => {
         attach(photo)
       }
     },
-    // generous margin: previews should be ready before they scroll in
     { root, rootMargin: '1500px 0px' }
   )
   observer.observe(el.value!)

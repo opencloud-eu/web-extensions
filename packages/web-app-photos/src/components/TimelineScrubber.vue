@@ -84,19 +84,16 @@ const segments = computed(() => {
     previousYear = year
     return {
       key: section.key,
-      // proportional to what actually renders (the fill is capped), so the
-      // rail maps linearly onto the content and dragging moves it at a
-      // constant pace; the floor keeps tiny months hittable
+      // proportional to what renders (fills are capped); the floor keeps
+      // tiny months hittable
       weight: Math.max(Math.min(section.count, SECTION_FILL_LIMIT), 8),
       yearLabel
     }
   })
 })
 
-// the rail lives in month space (segments weighted by photo count), never in
-// content pixels: both the thumb and the drag mapping go through month + the
-// progress within it, so the rail's year labels, the thumb and the actual
-// content always agree even while filling sections change their pixel height
+// the rail lives in month space, never in content pixels, so rail, thumb and
+// content agree even while fills change section heights
 const thumbTop = computed(() => {
   if (!position || !segments.value.length) {
     return '0%'

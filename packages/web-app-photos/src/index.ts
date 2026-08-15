@@ -19,8 +19,7 @@ import AlbumView from './AlbumView.vue'
 import AlbumEditor from './AlbumEditor.vue'
 
 const applicationId = 'photos'
-// bumped on every change while we debug loading behavior; check the browser
-// console to verify which build a tab is actually running
+// bumped on every change; the console shows which build a tab runs
 const REVISION = '2026-08-15-lightbox-7-loop'
 console.debug(`[photos] app loaded, rev ${REVISION}`)
 

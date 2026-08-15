@@ -17,18 +17,14 @@ export interface PhotoSearchRequest {
 }
 
 /**
- * MUST be a preset from the server's THUMBNAILS_RESOLUTIONS: any other value
- * gets silently rounded UP to the next preset (384 once returned 1080x1080
- * and every tile decoded ~8x more pixels than displayed). 2048x512 is our
- * addition to the preset list (see oc-dev.override.yml): with processor=fit
- * it means "height 512, width follows the aspect ratio (up to 4:1)", which
- * matches a justified timeline whose only constant is the row height.
+ * MUST be a preset from the server's THUMBNAILS_RESOLUTIONS, anything else is
+ * silently rounded UP to the next preset. 2048x512 is our addition to the
+ * preset list (oc-dev.override.yml): with processor=fit that means "height
+ * 512, width follows the aspect ratio".
  */
 const THUMBNAIL_WIDTH = 2048
 const THUMBNAIL_HEIGHT = 512
-/** visible tiles fetch directly (the browser schedules network far better
- * than we can); only background prefetches are throttled so they never
- * compete with what the user is looking at */
+/** only background prefetches are throttled; visible tiles fetch directly */
 const MAX_BACKGROUND_LOADS = 4
 const FETCH_RETRIES = 3
 const RETRY_DELAYS_MS = [500, 2000]
@@ -38,8 +34,7 @@ const RETRY_DELAYS_MS = [500, 2000]
 const LIGHTBOX_WIDTH = 1920
 const LIGHTBOX_HEIGHT = 1080
 
-// module level: previews stay cached for the whole session, so revisiting a
-// view or scrolling back never refetches
+// module level: previews stay cached for the whole session
 const thumbnailUrls = new Map<string, string>()
 const inflightThumbnails = new Map<string, Promise<void>>()
 const lightboxUrls = new Map<string, string>()
@@ -62,8 +57,7 @@ function delay(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
-// live diagnostics for debugging stuck tiles: inspect via
-// `window.__photosDebug` in the browser console
+// live diagnostics: window.__photosDebug in the browser console
 declare global {
   interface Window {
     __photosDebug?: { inflight: number; background: number; queued: number; cached: number }
@@ -132,9 +126,7 @@ export function useGraphSearch() {
     for (let attempt = 0; attempt < FETCH_RETRIES; attempt++) {
       try {
         const { data } = await clientService.httpAuthenticated.get(url, {
-          // processor=fit: scale into the box preserving aspect ratio; the
-          // default crops to the box, which looked oddly cut off in tiles
-          // that already have the photo's true aspect
+          // processor=fit preserves the aspect ratio, the default crops
           params: {
             preview: 1,
             x: THUMBNAIL_WIDTH,
@@ -143,8 +135,7 @@ export function useGraphSearch() {
             processor: 'fit'
           },
           responseType: 'blob',
-          // a hung request would occupy its scheduler slot forever and can
-          // starve the whole loading lane; time out and retry instead
+          // a hung request would occupy its scheduler slot forever
           timeout: 15000
         })
         thumbnailUrls.set(photo.id, URL.createObjectURL(data as Blob))
@@ -177,9 +168,8 @@ export function useGraphSearch() {
 
   /**
    * Loads a preview and attaches it as object url; cached and deduplicated.
-   * Priority loads (visible tiles) fetch immediately, background loads queue
-   * with limited parallelism. A photo that is still waiting in the background
-   * queue gets fetched right away when requested with priority.
+   * Priority loads fetch immediately, background loads queue with limited
+   * parallelism.
    */
   async function attachThumbnail(photo: MemoryPhoto, priority = true): Promise<void> {
     if (!photo.driveId || photo.thumbnailUrl) {
@@ -207,11 +197,7 @@ export function useGraphSearch() {
     photo.thumbnailUrl = thumbnailUrls.get(photo.id)
   }
 
-  /**
-   * Loads the large lightbox rendition, cached and deduplicated. Resolves to
-   * the object url, or undefined when no preview exists; the caller keeps
-   * showing the tile thumbnail then.
-   */
+  /** loads the large lightbox rendition; undefined when no preview exists */
   function loadLightboxImage(photo: MemoryPhoto): Promise<string | undefined> {
     if (!photo.driveId) {
       return Promise.resolve(undefined)

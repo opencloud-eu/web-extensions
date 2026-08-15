@@ -24,8 +24,7 @@
       {{ truncationLabel }}
     </p>
   </template>
-  <!-- unfilled month: the whole estimated area reads as a loading skeleton,
-       otherwise deep scroll positions look like blank void -->
+  <!-- unfilled month: the estimated area reads as a loading skeleton -->
   <div
     v-else
     class="ext:animate-pulse ext:rounded-sm ext:bg-role-surface-container"
@@ -45,10 +44,8 @@ import { MemoryPhoto } from '../types'
 import { dayLabel, formatCount, groupPhotosByDay } from '../helpers'
 import PhotoTile from './PhotoTile.vue'
 
-// One component per month, same markup as before: the timeline re-renders on
-// every scroll frame (the scrubber position lives there), and with the tiles
-// inlined that meant re-rendering thousands of vnodes per frame. As a child
-// with stable props this month only re-renders when its own photos change.
+// the timeline re-renders per scroll frame; as a child with stable props a
+// month only re-renders when its own photos change
 const { section, attach, estimatedHeight } = defineProps<{
   section: TimelineSection
   attach: (photo: MemoryPhoto) => Promise<void>
@@ -61,18 +58,12 @@ const { $gettext, interpolate, current: currentLanguage } = useGettext()
 
 const groups = computed(() => groupPhotosByDay(section.photos ?? []))
 
-/**
- * Day-level content-visibility on top of the month-level one: without it a
- * 2000-photo month is a single giant layout unit and scrolling inside it
- * stays sluggish. The intrinsic-size fallback is rough; 'auto' locks in the
- * real height once a group rendered. Height only: an intrinsic width would
- * widen the whole layout.
- */
+// day-level content-visibility, or a huge month is one giant layout unit;
+// height only, an intrinsic width would widen the whole layout
 function groupStyle(group: { photos: MemoryPhoto[] }): CSSProperties {
   return {
     contentVisibility: 'auto',
     containIntrinsicHeight: `auto ${40 + Math.ceil(group.photos.length / 8) * 184}px`,
-    // deep-link scrolls land right below the app bar, pastebin-style
     scrollMarginTop: '80px'
   }
 }

@@ -33,7 +33,7 @@
       </template>
     </div>
 
-    <!-- z above the sticky day headers (z-10), the bubble reaches into the content area -->
+    <!-- z above the sticky day headers, the bubble reaches into the content area -->
     <div v-if="sections.length > 1" class="ext:absolute ext:top-0 ext:right-0 ext:bottom-0 ext:z-20">
       <timeline-scrubber
         :sections="sections"
@@ -98,13 +98,10 @@ const scrollPosition = ref<{ key: string; within: number } | null>(null)
 
 const sectionEls = new Map<string, HTMLElement>()
 let fillObserver: IntersectionObserver | undefined
-// filling a section changes the content height without a scroll event; keep
-// the scrubber thumb and the active month in sync anyway
+// fills change the content height without a scroll event
 let sectionResizeObserver: ResizeObserver | undefined
 
-// while the scrubber is dragged, months fly past faster than anyone can look
-// at them: hold the fills back and only load what is near the viewport once
-// the drag settles
+// while scrubbing, fills are held back until the drag settles
 const scrubbing = ref(false)
 const pendingFills = new Set<string>()
 const FILL_MARGIN_PX = 2000
@@ -126,11 +123,8 @@ function setSectionEl(key: string, el: HTMLElement | null) {
 }
 
 function sectionStyle(section: TimelineSection): CSSProperties {
-  // native virtualization: the browser skips layout and paint for off-screen
-  // months but keeps all elements alive. 'auto' locks in the real size once
-  // a month was rendered. HEIGHT only: the shorthand would also set an
-  // intrinsic WIDTH, which widens the whole layout and pushes the scrubber
-  // rail off the screen.
+  // native virtualization; HEIGHT only, the shorthand would also set an
+  // intrinsic WIDTH and push the scrubber rail off the screen
   return {
     contentVisibility: 'auto',
     containIntrinsicHeight: `auto ${estimateHeight(section)}px`
@@ -138,8 +132,7 @@ function sectionStyle(section: TimelineSection): CSSProperties {
 }
 
 function estimateHeight(section: TimelineSection): number {
-  // estimate the FULL month: the fill pages through all photos, and a capped
-  // estimate would make big months jump in height when they fill
+  // full month: a capped estimate would make big months jump when they fill
   const width = scroller.value?.clientWidth ?? 1200
   const perRow = Math.max(2, Math.floor(width / TILE_ESTIMATE_WIDTH))
   return Math.max(1, Math.ceil(section.count / perRow)) * ROW_ESTIMATE_HEIGHT
@@ -202,10 +195,8 @@ function onScroll() {
   scheduleActiveSectionUpdate()
 }
 
-// ?date=YYYY-MM-DD keeps the url in sync with the topmost visible day
-// (pastebin url mechanics: read via useRouteQuery, write via replaceState
-// with a fully built url; the shell's router swallows hash fragments, so a
-// query param it is)
+// ?date=YYYY-MM-DD follows the topmost visible day; written via
+// replaceState because the shell's router swallows hash fragments
 const dayQuery = useRouteQuery('date')
 
 function updateDayAnchor() {
@@ -237,10 +228,8 @@ function updateDayAnchor() {
   }
 }
 
-// the anchor stays active for a settling window after the initial jump:
-// months ABOVE the target keep filling and swap their estimated heights for
-// real ones, which would silently push the viewport off the day otherwise.
-// Real user input releases the anchor immediately.
+// after the initial jump the anchor keeps correcting while months above
+// fill and change height; real user input releases it
 let anchorDay: string | null = null
 let anchorTimer: ReturnType<typeof setTimeout> | undefined
 
@@ -288,8 +277,7 @@ function scheduleActiveSectionUpdate() {
   })
 }
 
-// cached section geometry: reading offsetTop per scroll frame forces layout;
-// positions only change when sizes change, so measure on resize events only
+// reading offsetTop per scroll frame forces layout, so measure on resize only
 const sectionGeometry = new Map<string, { top: number; height: number }>()
 
 function measureSections() {
@@ -358,11 +346,9 @@ onMounted(async () => {
   )
   sectionResizeObserver = new ResizeObserver(() => {
     measureSections()
-    // layout above the anchored day changed: pull the viewport back onto it
     scrollToAnchorDay()
     scheduleActiveSectionUpdate()
   })
-  // real user input takes over: stop correcting the scroll position
   scroller.value?.addEventListener('wheel', releaseAnchor, { passive: true })
   scroller.value?.addEventListener('touchstart', releaseAnchor, { passive: true })
   await load()

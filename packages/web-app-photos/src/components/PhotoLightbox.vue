@@ -4,7 +4,6 @@
       class="ext:fixed ext:inset-0 ext:z-50 ext:flex ext:flex-col ext:bg-black/95"
       @click.self="emit('close')"
     >
-      <!-- top bar: caption + close -->
       <div class="ext:flex ext:items-center ext:justify-between ext:px-4 ext:py-3 ext:text-white">
         <div class="ext:min-w-0">
           <div class="ext:truncate ext:text-sm ext:font-medium">{{ photo.name }}</div>
@@ -32,10 +31,8 @@
         </div>
       </div>
 
-      <!-- stage -->
       <div class="ext:relative ext:min-h-0 ext:flex-1" @click.self="emit('close')">
-        <!-- two stacked layers crossfade: the old image stays up until the
-             new one is fully decoded, so there is never a blurry pop-in -->
+        <!-- the layers crossfade once the next image finished decoding -->
         <div class="ext:pointer-events-none ext:absolute ext:inset-0">
           <img
             v-if="frontUrl"
@@ -85,9 +82,6 @@
         </button>
       </div>
 
-      <!-- slideshow progress renders through the runtime's global progress
-           bar (the standard extension point, fed via the loading service),
-           so progress bar extensions like the nyan cat just work -->
     </div>
   </teleport>
 </template>
@@ -125,8 +119,8 @@ const { $gettext, current: currentLanguage } = useGettext()
 const { loadLightboxImage } = useGraphSearch()
 const loadingService = useLoadingService()
 
-// crossfade layers: front/back alternate, the hidden one receives the next
-// image and the visibility flips only after decoding finished
+// front/back alternate; the hidden layer receives the next image and the
+// visibility flips only after decoding finished
 const frontUrl = ref<string | undefined>()
 const backUrl = ref<string | undefined>()
 const frontVisible = ref(true)
@@ -149,7 +143,7 @@ watch(
       try {
         await probe.decode()
       } catch {
-        // decoding failures still crossfade, just without the guarantee
+        // decoding failures crossfade anyway
       }
       if (photo.id !== current.id) {
         return
@@ -176,12 +170,9 @@ watch(
   { immediate: true }
 )
 
-// slideshow: one non-indeterminate loading task per run feeds the loading
-// service, which is what every progress bar implementation renders.
-// warnBeforeUnload=false keeps the browser's "changes may not be saved"
-// dialog away: a slideshow is not an unsaved operation. The option ships
-// with the loading service patch in the web repo; older runtimes ignore it
-// (spread through a variable, the published types do not know it yet).
+// the slideshow feeds a loading task, so the runtime's standard progress bar
+// (and extensions like the nyan cat) render it. warnBeforeUnload is not in
+// the published web-pkg types yet; older runtimes ignore it.
 const slideshowTaskOptions = { debounceTime: 0, indeterminate: false, warnBeforeUnload: false }
 const playing = ref(false)
 let slideStart = 0
