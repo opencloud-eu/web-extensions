@@ -33,10 +33,17 @@ const MAX_BACKGROUND_LOADS = 4
 const FETCH_RETRIES = 3
 const RETRY_DELAYS_MS = [500, 2000]
 
+/** lightbox images use the 1920x1080 preset, the largest one the thumbnailer
+ * ships out of the box; processor=fit keeps the aspect ratio */
+const LIGHTBOX_WIDTH = 1920
+const LIGHTBOX_HEIGHT = 1080
+
 // module level: previews stay cached for the whole session, so revisiting a
 // view or scrolling back never refetches
 const thumbnailUrls = new Map<string, string>()
 const inflightThumbnails = new Map<string, Promise<void>>()
+const lightboxUrls = new Map<string, string>()
+const inflightLightbox = new Map<string, Promise<string | undefined>>()
 const backgroundQueue: (() => Promise<void>)[] = []
 let activeBackgroundLoads = 0
 
@@ -200,6 +207,50 @@ export function useGraphSearch() {
     photo.thumbnailUrl = thumbnailUrls.get(photo.id)
   }
 
+  /**
+   * Loads the large lightbox rendition, cached and deduplicated. Resolves to
+   * the object url, or undefined when no preview exists; the caller keeps
+   * showing the tile thumbnail then.
+   */
+  function loadLightboxImage(photo: MemoryPhoto): Promise<string | undefined> {
+    if (!photo.driveId) {
+      return Promise.resolve(undefined)
+    }
+    const cached = lightboxUrls.get(photo.id)
+    if (cached) {
+      return Promise.resolve(cached)
+    }
+    let load = inflightLightbox.get(photo.id)
+    if (!load) {
+      load = (async () => {
+        const path = photo.parentPath ? `${photo.parentPath}/${photo.name}` : photo.name
+        const url = urlJoin(configStore.serverUrl, 'remote.php/dav/spaces', photo.driveId!, path)
+        try {
+          const { data } = await clientService.httpAuthenticated.get(url, {
+            params: {
+              preview: 1,
+              x: LIGHTBOX_WIDTH,
+              y: LIGHTBOX_HEIGHT,
+              scalingup: 0,
+              processor: 'fit'
+            },
+            responseType: 'blob',
+            timeout: 30000
+          })
+          const objectUrl = URL.createObjectURL(data as Blob)
+          lightboxUrls.set(photo.id, objectUrl)
+          return objectUrl
+        } catch (e) {
+          const status = (e as { response?: { status?: number } })?.response?.status
+          console.warn('[photos] lightbox preview failed', photo.name, status ?? e)
+          return undefined
+        }
+      })().finally(() => inflightLightbox.delete(photo.id))
+      inflightLightbox.set(photo.id, load)
+    }
+    return load
+  }
+
   /** queues previews for background loading, without competing with visible tiles */
   function prefetchThumbnails(photos: MemoryPhoto[]) {
     for (const photo of photos) {
@@ -215,5 +266,5 @@ export function useGraphSearch() {
     }
   }
 
-  return { search, hitToPhoto, attachThumbnail, prefetchThumbnails }
+  return { search, hitToPhoto, attachThumbnail, prefetchThumbnails, loadLightboxImage }
 }

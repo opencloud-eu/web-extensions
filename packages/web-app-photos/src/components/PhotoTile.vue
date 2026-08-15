@@ -4,12 +4,15 @@
        flickers -->
   <div
     ref="el"
-    class="ext:relative ext:overflow-hidden ext:rounded-sm"
+    class="ext:relative ext:cursor-pointer ext:overflow-hidden ext:rounded-sm"
     :class="revealed ? '' : 'ext:animate-pulse'"
     :style="tileStyle"
-    role="img"
+    role="button"
+    tabindex="0"
     :aria-label="photo.name"
     :title="tileTitle"
+    @click="emit('open')"
+    @keydown.enter="emit('open')"
   >
     <div
       v-if="photo.thumbnailUrl"
@@ -32,6 +35,8 @@ const { photo, attach } = defineProps<{
   photo: MemoryPhoto
   attach: (photo: MemoryPhoto) => Promise<void>
 }>()
+
+const emit = defineEmits<{ open: [] }>()
 
 const { current: currentLanguage } = useGettext()
 

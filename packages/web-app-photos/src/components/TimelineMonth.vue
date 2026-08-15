@@ -7,7 +7,13 @@
         {{ dayLabel(group.day, currentLanguage) }}
       </h3>
       <div class="ext:flex ext:flex-wrap ext:gap-0.5 ext:pb-2">
-        <photo-tile v-for="photo in group.photos" :key="photo.id" :photo="photo" :attach="attach" />
+        <photo-tile
+          v-for="photo in group.photos"
+          :key="photo.id"
+          :photo="photo"
+          :attach="attach"
+          @open="emit('open', photo)"
+        />
         <div class="ext:h-0 ext:grow-[999999]" />
       </div>
     </div>
@@ -48,6 +54,8 @@ const { section, attach, estimatedHeight } = defineProps<{
   attach: (photo: MemoryPhoto) => Promise<void>
   estimatedHeight: number
 }>()
+
+const emit = defineEmits<{ open: [photo: MemoryPhoto] }>()
 
 const { $gettext, interpolate, current: currentLanguage } = useGettext()
 
