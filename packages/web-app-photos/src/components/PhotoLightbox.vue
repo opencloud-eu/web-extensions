@@ -229,6 +229,10 @@ function tick() {
 }
 
 function startSlideshow() {
+  // a looping clip would hold the first slide forever
+  if (unref(motionLoop)) {
+    stopMotion()
+  }
   playing.value = true
   slideStart = Date.now()
   advancing = false
