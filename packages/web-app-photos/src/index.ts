@@ -20,7 +20,7 @@ import AlbumEditor from './AlbumEditor.vue'
 
 const applicationId = 'photos'
 // bumped on every change; the console shows which build a tab runs
-const REVISION = '2026-08-15-lightbox-8-motion'
+const REVISION = '2026-08-15-lightbox-9-motion-hover'
 console.debug(`[photos] app loaded, rev ${REVISION}`)
 
 export default defineWebApplication({

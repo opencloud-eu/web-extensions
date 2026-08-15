@@ -12,6 +12,8 @@
     :title="tileTitle"
     @click="emit('open')"
     @keydown.enter="emit('open')"
+    @mouseenter="hovering = true"
+    @mouseleave="hovering = false"
   >
     <div
       v-if="photo.thumbnailUrl"
@@ -19,21 +21,16 @@
       :class="revealed ? 'ext:opacity-100' : 'ext:opacity-0'"
       :style="{ backgroundImage: `url(${photo.thumbnailUrl})` }"
     />
-    <motion-photo-badge
-      v-if="photo.motionPhoto"
-      class="ext:absolute ext:top-1 ext:right-1 ext:z-10 ext:size-4"
-      :interactive="false"
-      :show-tooltip="false"
-    />
+    <photo-tile-motion v-if="photo.motionPhoto" :photo="photo" :hovering="hovering" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useGettext } from 'vue3-gettext'
-import { MotionPhotoBadge } from '@opencloud-eu/web-pkg'
 import { MemoryPhoto } from '../types'
 import { formatTileTime, placeholderArtFor } from '../helpers'
+import PhotoTileMotion from './PhotoTileMotion.vue'
 
 const ROW_HEIGHT = 176
 
@@ -47,6 +44,7 @@ const emit = defineEmits<{ open: [] }>()
 const { current: currentLanguage } = useGettext()
 
 const el = ref<HTMLElement | null>(null)
+const hovering = ref(false)
 let observer: IntersectionObserver | undefined
 
 const aspect = computed(() => {

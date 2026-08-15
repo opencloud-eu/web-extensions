@@ -209,6 +209,10 @@ function tick() {
   if (elapsed < SLIDE_MS || advancing) {
     return
   }
+  // a running motion clip finishes before the slideshow moves on
+  if (unref(motionPlaying)) {
+    return
+  }
   if (!hasNext) {
     // the slideshow loops; with nothing to rewind to it just replays the slide
     if (!hasPrev) {
