@@ -13,8 +13,9 @@
     class="ext:absolute ext:top-1 ext:right-1 ext:z-10 ext:size-4"
     :playing="isPlaying"
     :loading="isLoading"
-    :interactive="false"
+    :interactive="true"
     :show-tooltip="false"
+    @click.stop.prevent="toggle"
   />
 </template>
 
@@ -45,7 +46,7 @@ const motionSpace = computed(
   () => spacesStore.spaces.find((s) => s.id === photo.driveId) as SpaceResource
 )
 
-const { isPlaying, isLoading, videoUrl, hoverPlay, stop, seekToStill } = useMotionPhotoPlayback(
+const { isPlaying, isLoading, videoUrl, hoverPlay, stop, toggle, seekToStill } = useMotionPhotoPlayback(
   motionResource,
   motionSpace
 )
