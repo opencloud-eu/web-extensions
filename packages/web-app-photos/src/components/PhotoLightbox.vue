@@ -57,6 +57,7 @@
             v-if="motionVideoUrl && motionPlaying"
             :src="motionVideoUrl"
             class="ext:absolute ext:inset-0 ext:h-full ext:w-full ext:object-contain"
+            :loop="motionLoop"
             autoplay
             muted
             playsinline
@@ -266,11 +267,13 @@ watch(
   }
 )
 
-// the embedded clip plays once over the still, the badge replays it
+// the embedded clip plays once over the still; the badge switches to
+// looping playback (and pauses a running slideshow while it loops)
 const { canPlay: canPlayMotion, loadVideoUrl } = useMotionPhoto()
 const spacesStore = useSpacesStore()
 const motionPlaying = ref(false)
 const motionLoading = ref(false)
+const motionLoop = ref(false)
 const motionVideoUrl = ref<string | undefined>()
 let motionAbort: AbortController | undefined
 
@@ -284,7 +287,8 @@ function motionResourceFor(p: MemoryPhoto) {
   }
 }
 
-async function playMotion() {
+async function playMotion(loop = false) {
+  motionLoop.value = loop
   const current = photo
   const space = spacesStore.spaces.find((s) => s.id === current.driveId)
   const resource = motionResourceFor(current)
@@ -312,14 +316,18 @@ function stopMotion() {
   motionAbort?.abort()
   motionPlaying.value = false
   motionLoading.value = false
+  motionLoop.value = false
 }
 
 function toggleMotion() {
   if (unref(motionPlaying)) {
     stopMotion()
-  } else {
-    playMotion()
+    return
   }
+  if (unref(playing)) {
+    stopSlideshow()
+  }
+  playMotion(true)
 }
 
 watch(
