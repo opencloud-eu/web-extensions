@@ -72,11 +72,13 @@
         </div>
         <motion-photo-badge
           v-if="photo.motionPhoto"
-          class="ext:absolute ext:bottom-4 ext:left-4 ext:size-8"
-          :interactive="true"
-          :playing="motionPlaying"
+          class="ext:absolute ext:bottom-4 ext:left-4"
+          size="large"
+          interactive
           :loading="motionLoading"
-          @click="toggleMotion"
+          :icon="motionPlaying ? 'pause-circle' : 'play-circle'"
+          :label="motionPlaying ? $gettext('Pause motion photo') : $gettext('Loop motion photo')"
+          @click.stop.prevent="toggleMotion"
         />
         <button
           v-if="hasPrev"

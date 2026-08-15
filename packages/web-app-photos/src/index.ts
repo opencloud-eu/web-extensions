@@ -20,7 +20,7 @@ import AlbumEditor from './AlbumEditor.vue'
 
 const applicationId = 'photos'
 // bumped on every change; the console shows which build a tab runs
-const REVISION = '2026-08-15-lightbox-12-play-toggle'
+const REVISION = '2026-08-15-lightbox-13-badge-icon'
 console.debug(`[photos] app loaded, rev ${REVISION}`)
 
 export default defineWebApplication({

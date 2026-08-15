@@ -10,17 +10,19 @@
     @loadedmetadata="seekToStill"
   />
   <motion-photo-badge
-    class="ext:absolute ext:top-1 ext:right-1 ext:z-10 ext:size-4"
-    :playing="isPlaying"
+    class="ext:absolute ext:top-1 ext:right-1 ext:z-10"
+    size="small"
+    interactive
     :loading="isLoading"
-    :interactive="true"
-    :show-tooltip="false"
+    :icon="isPlaying ? 'pause-circle' : 'play-circle'"
+    :label="isPlaying ? $gettext('Pause motion photo') : $gettext('Play motion photo')"
     @click.stop.prevent="toggle"
   />
 </template>
 
 <script setup lang="ts">
 import { computed, watch } from 'vue'
+import { useGettext } from 'vue3-gettext'
 import { MotionPhotoBadge, useMotionPhotoPlayback, useSpacesStore } from '@opencloud-eu/web-pkg'
 import type { Resource, SpaceResource } from '@opencloud-eu/web-client'
 import { MemoryPhoto } from '../types'
@@ -30,6 +32,7 @@ const { photo, hovering } = defineProps<{
   hovering: boolean
 }>()
 
+const { $gettext } = useGettext()
 const spacesStore = useSpacesStore()
 
 const motionResource = computed(
