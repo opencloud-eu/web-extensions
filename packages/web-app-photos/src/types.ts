@@ -1,6 +1,10 @@
+import type { DriveItem } from '@opencloud-eu/web-client/graph/generated'
+
 /**
  * Types mirroring the Graph Search API request/response shapes
- * (POST /graph/v1beta1/search/query).
+ * (POST /graph/v1beta1/search/query). The search request/response wrappers
+ * are not part of the released graph spec yet, so they live here; the hit
+ * resource itself is the generated graph DriveItem.
  */
 
 export interface BucketAggregationRange {
@@ -35,27 +39,6 @@ export interface SearchAggregation {
   buckets?: SearchBucket[]
   value?: number
   metricKind?: string
-}
-
-export interface DriveItemPhoto {
-  cameraMake?: string
-  cameraModel?: string
-  fNumber?: number
-  focalLength?: number
-  iso?: number
-  takenDateTime?: string
-}
-
-export interface DriveItem {
-  id?: string
-  name?: string
-  size?: number
-  lastModifiedDateTime?: string
-  file?: { mimeType?: string }
-  parentReference?: { driveId?: string; id?: string; name?: string; path?: string }
-  image?: { width?: number; height?: number }
-  photo?: DriveItemPhoto
-  location?: { latitude?: number; longitude?: number; altitude?: number }
 }
 
 export interface SearchHit {

@@ -15,7 +15,7 @@
         <div class="ext:flex ext:items-center ext:gap-2">
           <button
             type="button"
-            class="lightbox-button"
+            :class="buttonClasses"
             :aria-label="playing ? $gettext('Pause slideshow') : $gettext('Start slideshow')"
             @click="toggleSlideshow"
           >
@@ -23,7 +23,7 @@
           </button>
           <button
             type="button"
-            class="lightbox-button"
+            :class="buttonClasses"
             :aria-label="$gettext('Close')"
             @click="emit('close')"
           >
@@ -66,7 +66,8 @@
         <button
           v-if="hasPrev"
           type="button"
-          class="lightbox-button ext:absolute ext:top-1/2 ext:left-4 ext:-translate-y-1/2"
+          :class="buttonClasses"
+          class="ext:absolute ext:top-1/2 ext:left-4 ext:-translate-y-1/2"
           :aria-label="$gettext('Previous photo')"
           @click="emit('prev')"
         >
@@ -75,7 +76,8 @@
         <button
           v-if="hasNext"
           type="button"
-          class="lightbox-button ext:absolute ext:top-1/2 ext:right-4 ext:-translate-y-1/2"
+          :class="buttonClasses"
+          class="ext:absolute ext:top-1/2 ext:right-4 ext:-translate-y-1/2"
           :aria-label="$gettext('Next photo')"
           @click="emit('next')"
         >
@@ -100,6 +102,9 @@ import { useGraphSearch } from '../composables/useGraphSearch'
 
 const SLIDE_MS = 5000
 const TICK_MS = 100
+
+const buttonClasses =
+  'ext:inline-flex ext:cursor-pointer ext:items-center ext:justify-center ext:rounded-full ext:border-0 ext:bg-white/10 ext:p-2 ext:text-white ext:hover:bg-white/25'
 
 const {
   photo,
@@ -238,6 +243,17 @@ watch(
   }
 )
 
+// an advance that came up empty (last photo, or a month that turned out
+// empty) must not leave the slideshow stalled
+watch(
+  () => hasNext,
+  (value) => {
+    if (!value && unref(playing) && advancing) {
+      stopSlideshow()
+    }
+  }
+)
+
 function onKeydown(event: KeyboardEvent) {
   switch (event.key) {
     case 'Escape':
@@ -267,20 +283,3 @@ onBeforeUnmount(() => {
   stopSlideshow()
 })
 </script>
-
-<style scoped>
-.lightbox-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5rem;
-  border: 0;
-  border-radius: 9999px;
-  background: rgb(255 255 255 / 0.1);
-  color: white;
-  cursor: pointer;
-}
-.lightbox-button:hover {
-  background: rgb(255 255 255 / 0.25);
-}
-</style>

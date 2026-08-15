@@ -67,20 +67,11 @@
 </template>
 
 <script setup lang="ts">
-import {
-  computed,
-  nextTick,
-  onBeforeUnmount,
-  onMounted,
-  ref,
-  unref,
-  watch,
-  type CSSProperties
-} from 'vue'
+import { nextTick, onBeforeUnmount, onMounted, ref, unref, watch, type CSSProperties } from 'vue'
 import { useGettext } from 'vue3-gettext'
 import { NoContentMessage, queryItemAsString, useRouteQuery } from '@opencloud-eu/web-pkg'
 import { TimelineSection, usePhotoTimeline } from '../composables/usePhotoTimeline'
-import { MemoryPhoto } from '../types'
+import { useLightboxNavigation } from '../composables/useLightboxNavigation'
 import { monthYearLabel } from '../helpers'
 import PhotoLightbox from './PhotoLightbox.vue'
 import TimelineMonth from './TimelineMonth.vue'
@@ -184,146 +175,16 @@ function onScrubEnd() {
   pendingFills.clear()
 }
 
-// ---- lightbox ----
-const lightboxPhoto = ref<MemoryPhoto | null>(null)
-const photoQuery = useRouteQuery('photo')
-
-function locate(id: string): { sectionIdx: number; photoIdx: number } | null {
-  for (let i = 0; i < sections.value.length; i++) {
-    const idx = sections.value[i].photos?.findIndex((p) => p.id === id) ?? -1
-    if (idx >= 0) {
-      return { sectionIdx: i, photoIdx: idx }
-    }
-  }
-  return null
-}
-
-function neighborExists(dir: 1 | -1): boolean {
-  const current = unref(lightboxPhoto)
-  if (!current) {
-    return false
-  }
-  const pos = locate(current.id)
-  if (!pos) {
-    return false
-  }
-  const photos = sections.value[pos.sectionIdx].photos ?? []
-  const withinIdx = pos.photoIdx + dir
-  if (withinIdx >= 0 && withinIdx < photos.length) {
-    return true
-  }
-  for (let i = pos.sectionIdx + dir; i >= 0 && i < sections.value.length; i += dir) {
-    if (sections.value[i].count > 0) {
-      return true
-    }
-  }
-  return false
-}
-
-const lightboxHasNext = computed(() => neighborExists(1))
-const lightboxHasPrev = computed(() => neighborExists(-1))
-
-/** the upcoming photo when it is already loaded, for image prefetching */
-const lightboxPreload = computed<MemoryPhoto | null>(() => {
-  const current = unref(lightboxPhoto)
-  if (!current) {
-    return null
-  }
-  const pos = locate(current.id)
-  if (!pos) {
-    return null
-  }
-  const photos = sections.value[pos.sectionIdx].photos ?? []
-  if (pos.photoIdx + 1 < photos.length) {
-    return photos[pos.photoIdx + 1]
-  }
-  for (let i = pos.sectionIdx + 1; i < sections.value.length; i++) {
-    const list = sections.value[i].photos
-    if (list?.length) {
-      return list[0]
-    }
-    if (sections.value[i].count) {
-      break
-    }
-  }
-  return null
-})
-
-/** steps to the neighboring photo, filling months on the way as needed */
-async function flatStep(dir: 1 | -1): Promise<MemoryPhoto | null> {
-  const current = unref(lightboxPhoto)
-  if (!current) {
-    return null
-  }
-  const pos = locate(current.id)
-  if (!pos) {
-    return null
-  }
-  const photos = sections.value[pos.sectionIdx].photos ?? []
-  const withinIdx = pos.photoIdx + dir
-  if (withinIdx >= 0 && withinIdx < photos.length) {
-    return photos[withinIdx]
-  }
-  for (let i = pos.sectionIdx + dir; i >= 0 && i < sections.value.length; i += dir) {
-    const section = sections.value[i]
-    if (!section.count) {
-      continue
-    }
-    if (section.photos === null) {
-      await fillSection(section)
-    }
-    const list = section.photos ?? []
-    if (list.length) {
-      return dir > 0 ? list[0] : list[list.length - 1]
-    }
-  }
-  return null
-}
-
-function writeQueryParam(key: string, value: string | null) {
-  const url = new URL(window.location.href)
-  if (value === null) {
-    url.searchParams.delete(key)
-  } else {
-    url.searchParams.set(key, value)
-  }
-  window.history.replaceState({}, '', url.toString())
-}
-
-function openPhoto(photo: MemoryPhoto) {
-  lightboxPhoto.value = photo
-  // the photo id plus its day in the url: the day locates the month on
-  // restore, the id picks the photo within it
-  writeQueryParam('photo', photo.id)
-  const day = photo.takenDateTime?.slice(0, 10)
-  if (day) {
-    writeQueryParam('date', day)
-  }
-}
-
-async function stepLightbox(dir: 1 | -1) {
-  const next = await flatStep(dir)
-  if (next) {
-    openPhoto(next)
-  }
-}
-
-function closeLightbox() {
-  lightboxPhoto.value = null
-  writeQueryParam('photo', null)
-}
-
-/** initial deep link: reopen the photo once its month is filled */
-function restoreLightbox() {
-  const photoId = queryItemAsString(unref(photoQuery)) ?? ''
-  if (!photoId) {
-    return
-  }
-  const pos = locate(photoId)
-  if (pos) {
-    lightboxPhoto.value = sections.value[pos.sectionIdx].photos![pos.photoIdx]
-  }
-}
+const {
+  lightboxPhoto,
+  hasPrev: lightboxHasPrev,
+  hasNext: lightboxHasNext,
+  preload: lightboxPreload,
+  open: openPhoto,
+  step: stepLightbox,
+  close: closeLightbox,
+  restore: restoreLightbox
+} = useLightboxNavigation(sections, fillSection)
 
 let scrollIdleTimer: ReturnType<typeof setTimeout> | undefined
 let scrollRaf: number | undefined
