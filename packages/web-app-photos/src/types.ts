@@ -1,4 +1,4 @@
-import type { DriveItem } from '@opencloud-eu/web-client/graph/generated'
+import type { DriveItem, MotionPhoto } from '@opencloud-eu/web-client/graph/generated'
 
 /**
  * Types mirroring the Graph Search API request/response shapes
@@ -69,6 +69,8 @@ export interface MemoryPhoto {
   /** parent path relative to the space root */
   parentPath?: string
   thumbnailUrl?: string
+  size?: number
+  motionPhoto?: MotionPhoto
 }
 
 /** Photos taken around this date, n years ago */

@@ -53,6 +53,15 @@
             class="ext:absolute ext:inset-0 ext:m-auto ext:h-2/3 ext:w-2/3 ext:animate-pulse ext:rounded"
             :style="{ background: placeholderArtFor(photo.id) }"
           />
+          <video
+            v-if="motionVideoUrl && motionPlaying"
+            :src="motionVideoUrl"
+            class="ext:absolute ext:inset-0 ext:h-full ext:w-full ext:object-contain"
+            autoplay
+            muted
+            playsinline
+            @ended="motionPlaying = false"
+          />
           <oc-spinner
             v-if="showLoading"
             size="small"
@@ -60,6 +69,14 @@
             :aria-label="$gettext('Loading')"
           />
         </div>
+        <motion-photo-badge
+          v-if="photo.motionPhoto"
+          class="ext:absolute ext:bottom-4 ext:left-4 ext:size-8"
+          :interactive="true"
+          :playing="motionPlaying"
+          :loading="motionLoading"
+          @click="toggleMotion"
+        />
         <button
           v-if="hasPrev"
           type="button"
@@ -89,7 +106,12 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref, unref, watch } from 'vue'
 import { useGettext } from 'vue3-gettext'
-import { useLoadingService } from '@opencloud-eu/web-pkg'
+import {
+  MotionPhotoBadge,
+  useLoadingService,
+  useMotionPhoto,
+  useSpacesStore
+} from '@opencloud-eu/web-pkg'
 import { MemoryPhoto } from '../types'
 import { formatTileTime, placeholderArtFor } from '../helpers'
 import { useGraphSearch } from '../composables/useGraphSearch'
@@ -238,6 +260,74 @@ watch(
     slideStart = Date.now()
     advancing = false
   }
+)
+
+// the embedded clip plays once over the still, the badge replays it
+const { canPlay: canPlayMotion, loadVideoUrl } = useMotionPhoto()
+const spacesStore = useSpacesStore()
+const motionPlaying = ref(false)
+const motionLoading = ref(false)
+const motionVideoUrl = ref<string | undefined>()
+let motionAbort: AbortController | undefined
+
+function motionResourceFor(p: MemoryPhoto) {
+  return {
+    id: p.id,
+    fileId: p.id,
+    path: `/${p.parentPath ? `${p.parentPath}/${p.name}` : p.name}`,
+    size: p.size,
+    motionPhoto: p.motionPhoto
+  }
+}
+
+async function playMotion() {
+  const current = photo
+  const space = spacesStore.spaces.find((s) => s.id === current.driveId)
+  const resource = motionResourceFor(current)
+  if (!space || !canPlayMotion(resource)) {
+    return
+  }
+  motionAbort?.abort()
+  motionAbort = new AbortController()
+  motionLoading.value = true
+  try {
+    const url = await loadVideoUrl(space, resource, motionAbort.signal)
+    if (photo.id !== current.id) {
+      return
+    }
+    motionVideoUrl.value = url
+    motionPlaying.value = true
+  } catch {
+    // aborted or failed, the still stays
+  } finally {
+    motionLoading.value = false
+  }
+}
+
+function stopMotion() {
+  motionAbort?.abort()
+  motionPlaying.value = false
+  motionLoading.value = false
+}
+
+function toggleMotion() {
+  if (unref(motionPlaying)) {
+    stopMotion()
+  } else {
+    playMotion()
+  }
+}
+
+watch(
+  () => photo.id,
+  () => {
+    stopMotion()
+    motionVideoUrl.value = undefined
+    if (photo.motionPhoto) {
+      playMotion()
+    }
+  },
+  { immediate: true }
 )
 
 function onKeydown(event: KeyboardEvent) {

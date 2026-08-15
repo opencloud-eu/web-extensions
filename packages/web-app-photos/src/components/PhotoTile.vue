@@ -19,12 +19,19 @@
       :class="revealed ? 'ext:opacity-100' : 'ext:opacity-0'"
       :style="{ backgroundImage: `url(${photo.thumbnailUrl})` }"
     />
+    <motion-photo-badge
+      v-if="photo.motionPhoto"
+      class="ext:absolute ext:top-1 ext:right-1 ext:z-10 ext:size-4"
+      :interactive="false"
+      :show-tooltip="false"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useGettext } from 'vue3-gettext'
+import { MotionPhotoBadge } from '@opencloud-eu/web-pkg'
 import { MemoryPhoto } from '../types'
 import { formatTileTime, placeholderArtFor } from '../helpers'
 

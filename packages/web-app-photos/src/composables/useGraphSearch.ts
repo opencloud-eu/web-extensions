@@ -115,7 +115,9 @@ export function useGraphSearch() {
       width: resource.image?.width,
       height: resource.image?.height,
       driveId: resource.parentReference?.driveId,
-      parentPath: normalizeParentPath(resource.parentReference?.path)
+      parentPath: normalizeParentPath(resource.parentReference?.path),
+      size: resource.size,
+      motionPhoto: resource['@libre.graph.motionPhoto']
     }
   }
 
