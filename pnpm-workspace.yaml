@@ -14,6 +14,9 @@ publicHoistPattern:
 overrides:
   '@module-federation/vite': '1.14.2'
   '@module-federation/dts-plugin>axios': ^1.6.0
+  # web-pkg from the local web consolidation branch (motion photos +
+  # warnBeforeUnload); drop once a web release ships these
+  '@opencloud-eu/web-pkg': 'file:/home/domme/dev/sources/opencloud-eu/web-pkg-consolidation.tgz'
 
 allowBuilds:
   '@parcel/watcher': true

@@ -193,8 +193,8 @@ watch(
 )
 
 // the slideshow feeds a loading task, so the runtime's standard progress bar
-// (and extensions like the nyan cat) render it. warnBeforeUnload is not in
-// the published web-pkg types yet; older runtimes ignore it.
+// (and extensions like the nyan cat) render it; warnBeforeUnload keeps the
+// browser's unload confirmation away
 const slideshowTaskOptions = { debounceTime: 0, indeterminate: false, warnBeforeUnload: false }
 const playing = ref(false)
 let slideStart = 0
