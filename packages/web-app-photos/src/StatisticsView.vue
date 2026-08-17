@@ -112,8 +112,7 @@ function openTag(tag: string) {
   router.push({ name: 'photos-timeline', query: { filter: `tag:"${kqlValue(tag)}"` } })
 }
 
-const { load, loading, error, stats, cameras, monthly, places, tags, exifFacts } =
-  usePhotoLibrary()
+const { load, loading, error, stats, cameras, monthly, places, tags, exifFacts } = usePhotoLibrary()
 
 onMounted(() => {
   load()

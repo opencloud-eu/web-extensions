@@ -6,13 +6,13 @@
         class="ext:cursor-pointer ext:border-0 ext:bg-transparent ext:p-0 ext:hover:opacity-80"
         @click="emit('select', bucket.key)"
       >
-      <oc-tag size="small" :rounded="true">
-        <oc-icon name="price-tag-3" size="small" fill-type="line" />
-        {{ bucket.key }}
-        <span class="ext:text-xs ext:text-role-on-surface-variant">
-          {{ formatCount(bucket.count, currentLanguage) }}
-        </span>
-      </oc-tag>
+        <oc-tag size="small" :rounded="true">
+          <oc-icon name="price-tag-3" size="small" fill-type="line" />
+          {{ bucket.key }}
+          <span class="ext:text-xs ext:text-role-on-surface-variant">
+            {{ formatCount(bucket.count, currentLanguage) }}
+          </span>
+        </oc-tag>
       </button>
     </li>
   </ul>
