@@ -116,7 +116,12 @@ export function useGraphSearch() {
 
   /** fetches a WebDAV preview into the cache, retrying transient failures */
   async function fetchThumbnail(photo: Photo): Promise<void> {
-    const url = urlJoin(configStore.serverUrl, 'remote.php/dav/spaces', photo.driveId!, davPath(photo))
+    const url = urlJoin(
+      configStore.serverUrl,
+      'remote.php/dav/spaces',
+      photo.driveId!,
+      davPath(photo)
+    )
     for (let attempt = 0; attempt < FETCH_RETRIES; attempt++) {
       try {
         const { data } = await clientService.httpAuthenticated.get(url, {

@@ -49,10 +49,8 @@ const motionSpace = computed(
   () => spacesStore.spaces.find((s) => s.id === photo.driveId) as SpaceResource
 )
 
-const { isPlaying, isLoading, videoUrl, hoverPlay, stop, toggle, seekToStill } = useMotionPhotoPlayback(
-  motionResource,
-  motionSpace
-)
+const { isPlaying, isLoading, videoUrl, hoverPlay, stop, toggle, seekToStill } =
+  useMotionPhotoPlayback(motionResource, motionSpace)
 
 watch(
   () => hovering,

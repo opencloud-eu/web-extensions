@@ -128,7 +128,6 @@
           <oc-icon name="arrow-right-s" size="large" fill-type="line" />
         </button>
       </div>
-
     </div>
   </teleport>
 </template>

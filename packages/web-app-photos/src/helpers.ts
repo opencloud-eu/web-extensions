@@ -16,11 +16,7 @@ export function monthRange(year: number, month: number): { from: string; to: str
   return { from: isoDay(from), to: isoDay(to) }
 }
 
-export function dayRange(
-  year: number,
-  month: number,
-  day: number
-): { from: string; to: string } {
+export function dayRange(year: number, month: number, day: number): { from: string; to: string } {
   const from = new Date(Date.UTC(year, month - 1, day))
   const to = new Date(Date.UTC(year, month - 1, day + 1))
   return { from: isoDay(from), to: isoDay(to) }
@@ -101,7 +97,10 @@ export interface DayGroup {
 export function wallClock(dateTime: string): Date {
   const [datePart, timePart = '00:00:00'] = dateTime.split('T')
   const [year, month, day] = datePart.split('-').map(Number)
-  const [hour, minute, second] = timePart.replace('Z', '').split(':').map((v) => Number(v) || 0)
+  const [hour, minute, second] = timePart
+    .replace('Z', '')
+    .split(':')
+    .map((v) => Number(v) || 0)
   return new Date(year, month - 1, day, hour, minute, second)
 }
 

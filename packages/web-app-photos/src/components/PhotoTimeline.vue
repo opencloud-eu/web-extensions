@@ -48,7 +48,10 @@
     </div>
 
     <!-- z above the sticky day headers, the bubble reaches into the content area -->
-    <div v-if="sections.length > 1" class="ext:absolute ext:top-0 ext:right-0 ext:bottom-0 ext:z-20">
+    <div
+      v-if="sections.length > 1"
+      class="ext:absolute ext:top-0 ext:right-0 ext:bottom-0 ext:z-20"
+    >
       <timeline-scrubber
         :sections="sections"
         :active-key="activeKey"
@@ -525,5 +528,4 @@ onBeforeUnmount(() => {
 .photos-timeline-scroller [data-photo-id] {
   scroll-margin-top: 3rem;
 }
-
 </style>
