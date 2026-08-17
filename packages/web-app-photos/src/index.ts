@@ -12,6 +12,7 @@ import { urlJoin } from '@opencloud-eu/web-client'
 import { computed } from 'vue'
 import { useGettext } from 'vue3-gettext'
 import translations from '../l10n/translations.json'
+import StatisticsView from './StatisticsView.vue'
 import TimelineView from './TimelineView.vue'
 
 const applicationId = 'photos'
@@ -37,6 +38,16 @@ export default defineWebApplication({
           title: $gettext('Timeline'),
           patchCleanPath: true
         }
+      },
+      {
+        name: `${applicationId}-statistics`,
+        path: '/statistics',
+        component: StatisticsView,
+        meta: {
+          authContext: 'user' as const,
+          title: $gettext('Statistics'),
+          patchCleanPath: true
+        }
       }
     ]
 
@@ -52,6 +63,12 @@ export default defineWebApplication({
         icon: 'calendar',
         route: { name: `${applicationId}-timeline` },
         priority: 10
+      },
+      {
+        name: () => $gettext('Statistics'),
+        icon: 'bar-chart',
+        route: { name: `${applicationId}-statistics` },
+        priority: 15
       }
     ]
 
