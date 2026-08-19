@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.2.0](https://github.com/opencloud-eu/web-extensions/releases/tag/draw-io-v2.2.0) - 2026-08-19
+
+### ✨ Features
+
+- Remove draw.io from app drawer menu because file creation is available through the New menu.
+
 ## [2.1.0](https://github.com/opencloud-eu/web-extensions/releases/tag/draw-io-v2.1.0) - 2026-07-15
 
 ### ✨ Features
