@@ -114,19 +114,19 @@ importers:
     dependencies:
       '@bpmn-io/properties-panel':
         specifier: ^3.28.0
-        version: 3.48.0(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.8))
+        version: 3.51.2(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.9))
       bpmn-js:
         specifier: ^18.6.3
-        version: 18.22.1
+        version: 18.25.1
       bpmn-js-properties-panel:
         specifier: ^5.34.0
-        version: 5.63.0(@bpmn-io/properties-panel@3.48.0(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.8)))(bpmn-js@18.22.1)(camunda-bpmn-js-behaviors@1.18.0(bpmn-js@18.22.1)(camunda-bpmn-moddle@7.0.1)(zeebe-bpmn-moddle@1.17.0))(diagram-js@15.23.2)
+        version: 5.65.0(@bpmn-io/properties-panel@3.51.2(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.9)))(bpmn-js@18.25.1)(camunda-bpmn-js-behaviors@1.18.0(bpmn-js@18.25.1)(camunda-bpmn-moddle@7.0.1)(zeebe-bpmn-moddle@1.17.0))(diagram-js@15.24.1)
       camunda-bpmn-moddle:
         specifier: ^7.0.1
         version: 7.0.1
       diagram-js-minimap:
         specifier: ^5.3.0
-        version: 5.4.0
+        version: 5.4.1
     devDependencies:
       '@opencloud-eu/web-client':
         specifier: ^7.0.0
@@ -455,11 +455,9 @@ packages:
     resolution: {integrity: sha512-g1H9MMkVH94fl0Hz2MiZ+AU2hnVTL+qsz8MvXx9xz+lBgBSp3tY342Vrxrzt36H8QqE4fn9noJc1emNA9BE3Dg==}
     engines: {node: '>= 20'}
 
-  '@bpmn-io/feel-editor@2.6.0':
-    resolution: {integrity: sha512-rI7vFBATeKJVi/KpkfxnclTObAvQGYda0l5eKhNwGIJ8D3+aPQlgdNtxJATX1keXVkqsA1Q/+Yn8Ih+dnC0NMw==}
+  '@bpmn-io/feel-editor@2.7.1':
+    resolution: {integrity: sha512-WY3aUUc3MYwfAz4sL8SgR82stdXvM7cKvqaqZAelZ3fXj6Ve2gqrbPmZJ6Kg+bYtOZA9obsDmVNdP7zMcXwIrQ==}
     engines: {node: '>= 20'}
-    peerDependencies:
-      '@bpmn-io/cm-theme': ^0.2.0
 
   '@bpmn-io/feel-lint@3.2.0':
     resolution: {integrity: sha512-f9xe7VNjdZ0kDzWeALmDEWXm7KtAzVSeLVESAhBZGxTbyGzbTGubRfl2cXMN+E/U0oFEcQDuxF0A1tD02DXiLw==}
@@ -486,8 +484,8 @@ packages:
   '@bpmn-io/lezer-feelers@1.0.0':
     resolution: {integrity: sha512-P0znH2SY85O7RmOr/FgveFiTREet9DSCf3nH3J/StkI5i7Q384o+GEeTmv58n91FlUknS20KE3T8Yk5Qmab+hg==}
 
-  '@bpmn-io/properties-panel@3.48.0':
-    resolution: {integrity: sha512-Dzf2TvEZtQBO9lmX0yfW3QwAuUNnoe8ZGHUQanOkKscGyVpIjlToRlrAfuhxoOBV2yYesO/sMHHUSrJl23TL2Q==}
+  '@bpmn-io/properties-panel@3.51.2':
+    resolution: {integrity: sha512-bV3QUy/En4ZC6aDPv/LBFXT1AhAheb5RFQr45XywFpNVIR5iLP7pIGzBNcLWFU5noDG04gN2fhvb6YYNBDHsXA==}
 
   '@bpmn-io/semver-compat@0.1.0':
     resolution: {integrity: sha512-hIcW42Ku92MUioL6aknDbRoW1jK8ZEqIe8qZZ+d3cjitDO+PMEFFXj/sezJYIHMe8elu4CBz9qpjkV8WIVG9qw==}
@@ -513,8 +511,8 @@ packages:
   '@codemirror/autocomplete@6.20.3':
     resolution: {integrity: sha512-tlosUqb+3BbxCxZdu4tKeRghPFC+QM7q4X5YhKV2eCmPG+1r2F3f4AaSz5sCrFqUtX4Jh20VFTKecl16MgiV9g==}
 
-  '@codemirror/commands@6.10.4':
-    resolution: {integrity: sha512-Ryk9y9T0FFVF0cUGhAknveAyUOl/A1qReTFi+qPKtOh2Z9F4AUBz3XOrYD4ZEgZirdugVzHvd/2/Wcwy5OliTg==}
+  '@codemirror/commands@6.11.0':
+    resolution: {integrity: sha512-/K4Rl5BN0OtTiPWmJCdqODu38XnDMsDxKY5rgrPnCkutPTJf2wVbkoixLfealF5Kwse/s8P8M5jAiURiwSwnFA==}
 
   '@codemirror/lang-json@6.0.2':
     resolution: {integrity: sha512-x2OtO+AvwEHrEwR0FyyPtfDUiloG3rnVTSZV1W8UteaLL8/MajQd8DpvUb2YVzC+/T18aSDv0H9mu+xw0EStoQ==}
@@ -531,8 +529,8 @@ packages:
   '@codemirror/state@6.7.1':
     resolution: {integrity: sha512-9QzNDgE4EYDnAHfrTlR2lwiPciiOymLtwKK+8yHQzCc7GXhAP9xdEbEJFy2IWB1j9UGUl9BsgMmTo/ImA02T7A==}
 
-  '@codemirror/view@6.43.8':
-    resolution: {integrity: sha512-qtItTDssZ/5GFfi94hrILu9j/VUeFPDPkhovEfmWFj2ipTxnzPB8DdHgfbb8HYTzLTYhrndKmyQxXUz/PDLenw==}
+  '@codemirror/view@6.43.9':
+    resolution: {integrity: sha512-sTuUzTpPMFebRhg6dawChoKKgndIwfjmJgKVxBefPElcU2NwQ6AFroupk0SFqEerQyZOGRfDNnSN8Dw/lMAsXw==}
 
   '@cropper/element-canvas@2.1.1':
     resolution: {integrity: sha512-QHiHnPHsykkc4salOiCLOIKWPK3sLQ1SzpJYFE/yQPvqTPu6ERZNcxVwB1x7WhNN+SdP0S0CEHPYIkgIfUo7VA==}
@@ -2063,16 +2061,16 @@ packages:
   boolbase@1.0.0:
     resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
 
-  bpmn-js-properties-panel@5.63.0:
-    resolution: {integrity: sha512-QVwqVyRsEEHh24jNoYz6wyHFHAxBz03zMP/RrO2Z3NnNH0wUYqC+rPux7PXzNcK0QM58oHb330OfuPBN4VMDCw==}
+  bpmn-js-properties-panel@5.65.0:
+    resolution: {integrity: sha512-V0Ds/67zYNAUxB8bMCkkU+oKA7WST6OjfRneyC0I1Igj9Ig4G1s+RTZ+qZ4w9+lYoh6niU6O0joUO3qr+yAuHA==}
     peerDependencies:
       '@bpmn-io/properties-panel': '>= 3.42.0'
       bpmn-js: '>= 11.5'
       camunda-bpmn-js-behaviors: '>= 0.4'
       diagram-js: '>= 11.9'
 
-  bpmn-js@18.22.1:
-    resolution: {integrity: sha512-rO2WTTHGtnCejd4QwzIAXhy0cdSWzM1tU+SSd0WQCpmO5Xq/YsEpNKU+oOD+piboEi0P98RZbQ98JrjyKb+NZg==}
+  bpmn-js@18.25.1:
+    resolution: {integrity: sha512-wT/TjzUQw3o5vU6nI2tytOhOm9atf2tOgCdCKF6sQUvokZ0nOEH7yfE9IvwKXclfdUxvdawgU80h909hvQJ9hw==}
 
   bpmn-moddle@10.1.0:
     resolution: {integrity: sha512-k9Vl97hiFwlr4bJTQ5+pZp21bmrQwil5jnMQ30wF8vney2/WnIcJmWwYzRTAKFVoViTGowtDfbO5rGEF4viO0w==}
@@ -2283,11 +2281,11 @@ packages:
     peerDependencies:
       diagram-js: '*'
 
-  diagram-js-minimap@5.4.0:
-    resolution: {integrity: sha512-jIvR26kqc7pKtI8dLvs8z7EZ7w51NUCx4PGFgcX48t3mLc0VJE3PuURq7j5NcRv8X/5xGR1CdAl1f6lxYlSNww==}
+  diagram-js-minimap@5.4.1:
+    resolution: {integrity: sha512-GTu8lIdYdc0kCtOne505H+SYaavi5PygZa1D973by65I7avaB4kPI5Id+sSOltgzjaeLGju05tqra2M8G369xA==}
 
-  diagram-js@15.23.2:
-    resolution: {integrity: sha512-J/CSCKSq62z7aYr643sf+IBiBv3oaJVJc0PivNi09Wdnd/aUOGpIl8PC0HrJn8sLC/lVNtd80MyscbSg2xDZmA==}
+  diagram-js@15.24.1:
+    resolution: {integrity: sha512-0zlPffk8pGdbUmt0RQH32N7dIbgYuLwkFlZTCi28kRSkb37GdEjONjXKs+NluZvWeLsY1hqSyq4le19ZeFE19Q==}
 
   didi@11.0.0:
     resolution: {integrity: sha512-PzCfRzQttvFpVcYMbSF7h8EsWjeJpVjWH4qDhB5LkMi1ILvHq4Ob0vhM2wLFziPkbUBi+PAo7ODbe2sacR7nJQ==}
@@ -4344,11 +4342,11 @@ snapshots:
       '@babel/helper-string-parser': 8.0.0
       '@babel/helper-validator-identifier': 8.0.4
 
-  '@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.8)':
+  '@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.9)':
     dependencies:
       '@codemirror/language': 6.12.4
       '@codemirror/state': 6.7.1
-      '@codemirror/view': 6.43.8
+      '@codemirror/view': 6.43.9
       '@lezer/highlight': 1.2.3
 
   '@bpmn-io/diagram-js-ui@0.2.4':
@@ -4367,18 +4365,19 @@ snapshots:
       '@bpmn-io/lezer-feel': 3.0.1
       '@lezer/common': 1.5.2
 
-  '@bpmn-io/feel-editor@2.6.0(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.8))':
+  '@bpmn-io/feel-editor@2.7.1':
     dependencies:
-      '@bpmn-io/cm-theme': 0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.8)
+      '@bpmn-io/cm-theme': 0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.9)
       '@bpmn-io/feel-lint': 3.2.0
       '@bpmn-io/lang-feel': 4.0.2
+      '@bpmn-io/semver-compat': 0.1.0
       '@camunda/feel-builtins': 1.4.0
       '@codemirror/autocomplete': 6.20.3
-      '@codemirror/commands': 6.10.4
+      '@codemirror/commands': 6.11.0
       '@codemirror/language': 6.12.4
       '@codemirror/lint': 6.9.7
       '@codemirror/state': 6.7.1
-      '@codemirror/view': 6.43.8
+      '@codemirror/view': 6.43.9
       '@lezer/highlight': 1.2.3
       min-dom: 5.3.0
       mitt: 3.0.1
@@ -4390,17 +4389,17 @@ snapshots:
       '@bpmn-io/semver-compat': 0.1.0
       '@codemirror/language': 6.12.4
 
-  '@bpmn-io/feelers-editor@1.1.1(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.8))':
+  '@bpmn-io/feelers-editor@1.1.1(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.9))':
     dependencies:
-      '@bpmn-io/cm-theme': 0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.8)
+      '@bpmn-io/cm-theme': 0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.9)
       '@bpmn-io/feelers-lint': 1.0.0
       '@bpmn-io/lang-feelers': 1.0.0
       '@codemirror/autocomplete': 6.20.3
-      '@codemirror/commands': 6.10.4
+      '@codemirror/commands': 6.11.0
       '@codemirror/language': 6.12.4
       '@codemirror/lint': 6.9.7
       '@codemirror/state': 6.7.1
-      '@codemirror/view': 6.43.8
+      '@codemirror/view': 6.43.9
       '@lezer/common': 1.5.2
       '@lezer/html': 1.3.13
       '@lezer/markdown': 1.7.2
@@ -4439,17 +4438,17 @@ snapshots:
       '@lezer/highlight': 1.2.3
       '@lezer/lr': 1.4.10
 
-  '@bpmn-io/properties-panel@3.48.0(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.8))':
+  '@bpmn-io/properties-panel@3.51.2(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.9))':
     dependencies:
-      '@bpmn-io/feel-editor': 2.6.0(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.8))
-      '@bpmn-io/feelers-editor': 1.1.1(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.8))
+      '@bpmn-io/feel-editor': 2.7.1
+      '@bpmn-io/feelers-editor': 1.1.1(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.9))
       '@codemirror/autocomplete': 6.20.3
-      '@codemirror/commands': 6.10.4
+      '@codemirror/commands': 6.11.0
       '@codemirror/lang-json': 6.0.2
       '@codemirror/language': 6.12.4
       '@codemirror/lint': 6.9.7
       '@codemirror/state': 6.7.1
-      '@codemirror/view': 6.43.8
+      '@codemirror/view': 6.43.9
       classnames: 2.5.1
       focus-trap: 8.2.2
       min-dash: 5.1.0
@@ -4482,14 +4481,14 @@ snapshots:
     dependencies:
       '@codemirror/language': 6.12.4
       '@codemirror/state': 6.7.1
-      '@codemirror/view': 6.43.8
+      '@codemirror/view': 6.43.9
       '@lezer/common': 1.5.2
 
-  '@codemirror/commands@6.10.4':
+  '@codemirror/commands@6.11.0':
     dependencies:
       '@codemirror/language': 6.12.4
       '@codemirror/state': 6.7.1
-      '@codemirror/view': 6.43.8
+      '@codemirror/view': 6.43.9
       '@lezer/common': 1.5.2
 
   '@codemirror/lang-json@6.0.2':
@@ -4500,7 +4499,7 @@ snapshots:
   '@codemirror/language@6.12.4':
     dependencies:
       '@codemirror/state': 6.7.1
-      '@codemirror/view': 6.43.8
+      '@codemirror/view': 6.43.9
       '@lezer/common': 1.5.2
       '@lezer/highlight': 1.2.3
       '@lezer/lr': 1.4.10
@@ -4509,20 +4508,20 @@ snapshots:
   '@codemirror/lint@6.9.7':
     dependencies:
       '@codemirror/state': 6.7.1
-      '@codemirror/view': 6.43.8
+      '@codemirror/view': 6.43.9
       crelt: 1.0.7
 
   '@codemirror/search@6.7.1':
     dependencies:
       '@codemirror/state': 6.7.1
-      '@codemirror/view': 6.43.8
+      '@codemirror/view': 6.43.9
       crelt: 1.0.7
 
   '@codemirror/state@6.7.1':
     dependencies:
       '@marijn/find-cluster-break': 1.0.3
 
-  '@codemirror/view@6.43.8':
+  '@codemirror/view@6.43.9':
     dependencies:
       '@codemirror/state': 6.7.1
       crelt: 1.0.7
@@ -5720,11 +5719,11 @@ snapshots:
 
   '@protomaps/basemaps@5.7.2': {}
 
-  '@replit/codemirror-indentation-markers@6.5.3(@codemirror/language@6.12.4)(@codemirror/state@6.7.1)(@codemirror/view@6.43.8)':
+  '@replit/codemirror-indentation-markers@6.5.3(@codemirror/language@6.12.4)(@codemirror/state@6.7.1)(@codemirror/view@6.43.9)':
     dependencies:
       '@codemirror/language': 6.12.4
       '@codemirror/state': 6.7.1
-      '@codemirror/view': 6.43.8
+      '@codemirror/view': 6.43.9
 
   '@rolldown/binding-android-arm64@1.2.2':
     optional: true
@@ -6721,23 +6720,23 @@ snapshots:
 
   boolbase@1.0.0: {}
 
-  bpmn-js-properties-panel@5.63.0(@bpmn-io/properties-panel@3.48.0(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.8)))(bpmn-js@18.22.1)(camunda-bpmn-js-behaviors@1.18.0(bpmn-js@18.22.1)(camunda-bpmn-moddle@7.0.1)(zeebe-bpmn-moddle@1.17.0))(diagram-js@15.23.2):
+  bpmn-js-properties-panel@5.65.0(@bpmn-io/properties-panel@3.51.2(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.9)))(bpmn-js@18.25.1)(camunda-bpmn-js-behaviors@1.18.0(bpmn-js@18.25.1)(camunda-bpmn-moddle@7.0.1)(zeebe-bpmn-moddle@1.17.0))(diagram-js@15.24.1):
     dependencies:
       '@bpmn-io/extract-process-variables': 2.2.1
-      '@bpmn-io/properties-panel': 3.48.0(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.8))
+      '@bpmn-io/properties-panel': 3.51.2(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.9))
       array-move: 4.0.0
-      bpmn-js: 18.22.1
-      camunda-bpmn-js-behaviors: 1.18.0(bpmn-js@18.22.1)(camunda-bpmn-moddle@7.0.1)(zeebe-bpmn-moddle@1.17.0)
-      diagram-js: 15.23.2
+      bpmn-js: 18.25.1
+      camunda-bpmn-js-behaviors: 1.18.0(bpmn-js@18.25.1)(camunda-bpmn-moddle@7.0.1)(zeebe-bpmn-moddle@1.17.0)
+      diagram-js: 15.24.1
       ids: 3.0.2
       min-dash: 5.1.0
       min-dom: 5.3.0
 
-  bpmn-js@18.22.1:
+  bpmn-js@18.25.1:
     dependencies:
       bpmn-moddle: 10.1.0
-      diagram-js: 15.23.2
-      diagram-js-direct-editing: 3.5.1(diagram-js@15.23.2)
+      diagram-js: 15.24.1
+      diagram-js-direct-editing: 3.5.1(diagram-js@15.24.1)
       ids: 3.0.2
       inherits-browser: 0.1.0
       min-dash: 5.1.0
@@ -6780,9 +6779,9 @@ snapshots:
       call-bind-apply-helpers: 1.0.2
       get-intrinsic: 1.3.0
 
-  camunda-bpmn-js-behaviors@1.18.0(bpmn-js@18.22.1)(camunda-bpmn-moddle@7.0.1)(zeebe-bpmn-moddle@1.17.0):
+  camunda-bpmn-js-behaviors@1.18.0(bpmn-js@18.25.1)(camunda-bpmn-moddle@7.0.1)(zeebe-bpmn-moddle@1.17.0):
     dependencies:
-      bpmn-js: 18.22.1
+      bpmn-js: 18.25.1
       camunda-bpmn-moddle: 7.0.1
       ids: 3.0.2
       min-dash: 5.1.0
@@ -6811,11 +6810,11 @@ snapshots:
 
   clsx@2.1.1: {}
 
-  codemirror-wrapped-line-indent@1.0.9(@codemirror/language@6.12.4)(@codemirror/state@6.7.1)(@codemirror/view@6.43.8):
+  codemirror-wrapped-line-indent@1.0.9(@codemirror/language@6.12.4)(@codemirror/state@6.7.1)(@codemirror/view@6.43.9):
     dependencies:
       '@codemirror/language': 6.12.4
       '@codemirror/state': 6.7.1
-      '@codemirror/view': 6.43.8
+      '@codemirror/view': 6.43.9
 
   color-convert@2.0.1:
     dependencies:
@@ -6916,19 +6915,19 @@ snapshots:
 
   devalue@5.9.0: {}
 
-  diagram-js-direct-editing@3.5.1(diagram-js@15.23.2):
+  diagram-js-direct-editing@3.5.1(diagram-js@15.24.1):
     dependencies:
-      diagram-js: 15.23.2
+      diagram-js: 15.24.1
       min-dash: 5.1.0
       min-dom: 5.3.0
 
-  diagram-js-minimap@5.4.0:
+  diagram-js-minimap@5.4.1:
     dependencies:
       min-dash: 5.1.0
       min-dom: 5.3.0
       tiny-svg: 4.1.4
 
-  diagram-js@15.23.2:
+  diagram-js@15.24.1:
     dependencies:
       '@bpmn-io/diagram-js-ui': 0.2.4
       clsx: 2.1.1
@@ -8577,20 +8576,20 @@ snapshots:
   vanilla-jsoneditor@3.13.0(@typescript-eslint/types@8.66.0):
     dependencies:
       '@codemirror/autocomplete': 6.20.3
-      '@codemirror/commands': 6.10.4
+      '@codemirror/commands': 6.11.0
       '@codemirror/lang-json': 6.0.2
       '@codemirror/language': 6.12.4
       '@codemirror/lint': 6.9.7
       '@codemirror/search': 6.7.1
       '@codemirror/state': 6.7.1
-      '@codemirror/view': 6.43.8
+      '@codemirror/view': 6.43.9
       '@fortawesome/free-regular-svg-icons': 7.3.1
       '@fortawesome/free-solid-svg-icons': 7.3.1
       '@jsonquerylang/jsonquery': 5.1.1
       '@lezer/highlight': 1.2.3
-      '@replit/codemirror-indentation-markers': 6.5.3(@codemirror/language@6.12.4)(@codemirror/state@6.7.1)(@codemirror/view@6.43.8)
+      '@replit/codemirror-indentation-markers': 6.5.3(@codemirror/language@6.12.4)(@codemirror/state@6.7.1)(@codemirror/view@6.43.9)
       ajv: 8.20.0
-      codemirror-wrapped-line-indent: 1.0.9(@codemirror/language@6.12.4)(@codemirror/state@6.7.1)(@codemirror/view@6.43.8)
+      codemirror-wrapped-line-indent: 1.0.9(@codemirror/language@6.12.4)(@codemirror/state@6.7.1)(@codemirror/view@6.43.9)
       diff-sequences: 29.6.3
       immutable-json-patch: 6.0.3
       jmespath: 0.16.0
