@@ -6,7 +6,7 @@ when:
 
 variables:
   - &node_image 'quay.io/opencloudeu/nodejs-ci:24@sha256:efb3ac3e7e7180aa24fec6f6811d7a59385798676a6a7081dc092faa0800951b'
-  - &oc_image 'opencloudeu/opencloud-rolling:7.4.0@sha256:e9df43040866c3587daae47af68bc3c412026bc99614686bf6869bdc72c52526'
+  - &oc_image 'opencloudeu/opencloud-rolling:7.5.0@sha256:6db1cfb06d430a663f16e9f33dcd4596d82a4875be0b4df233c26ce5f667ea74'
   - &alpine_image 'quay.io/opencloudeu/nodejs-alpine-ci:24@sha256:d0d21af0d1f50170a873967855840892cc38b498e2272592f933b458ee36d297'
   - &minio_mc_image 'minio/mc:RELEASE.2021-10-07T04-19-58Z@sha256:a1d9629e969a55e5b957dc7656c3ee893a95cf6c5733223fa0283b1f23f7142e'
   - &tika_image 'apache/tika:3.3.1.0@sha256:90b7fa1dc018434075fce9e1d9b88b1e3d0ea6979d0cf86e116c79a8073ae973'
