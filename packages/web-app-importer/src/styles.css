@@ -1,0 +1,39 @@
+.uppy-Dashboard .uppy-DashboardTab-btn {
+  display: flex;
+}
+
+.uppy-Dashboard .uppy-Dashboard-inner {
+  border: var(--oc-role-outline-variant) 1px solid;
+  background: var(--oc-role-surface-container);
+}
+
+.uppy-Dashboard .uppy-c-textInput {
+  border: 1px var(--oc-role-outline) solid;
+  padding: calc(var(--spacing) * 2);
+  border-radius: var(--spacing);
+}
+
+.uppy-Dashboard .uppy-c-btn {
+  cursor: pointer;
+}
+
+.uppy-Dashboard .uppy-c-btn-primary {
+  border: 1px var(--oc-role-outline) solid;
+  background: var(--oc-role-secondary);
+  color: var(--oc-role-on-secondary);
+  padding: calc(var(--spacing) * 2);
+  border-radius: var(--spacing);
+}
+
+.uppy-Dashboard .uppy-Dashboard-AddFiles-info {
+  width: 100%;
+}
+
+.uppy-Dashboard .uppy-Dashboard-AddFiles-info a {
+  gap: var(--spacing);
+}
+
+.uppy-Dashboard .uppy-Dashboard-AddFiles-info a,
+.uppy-Dashboard .uppy-Dashboard-AddFiles-info a > span {
+  display: inline-flex;
+}
