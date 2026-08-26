@@ -2,6 +2,7 @@ import { useGettext } from 'vue3-gettext'
 import translations from '../l10n/translations.json'
 import { defineWebApplication } from '@opencloud-eu/web-pkg'
 import { useExtensions } from './composables/useExtensions'
+import './styles.css'
 
 export default defineWebApplication({
   setup(args) {
