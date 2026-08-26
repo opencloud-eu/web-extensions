@@ -30,7 +30,7 @@ export const useExtensions = ({ applicationConfig }: ApplicationSetupOptions) =>
   const resourcesStore = useResourcesStore()
   const { currentFolder } = storeToRefs(resourcesStore)
 
-  const { companionUrl, webdavCloudType } = applicationConfig
+  const { companionUrl } = applicationConfig
   let { supportedClouds } = applicationConfig
   supportedClouds = supportedClouds || ['OneDrive', 'GoogleDrive', 'WebdavPublicLink']
 
@@ -118,8 +118,7 @@ export const useExtensions = ({ applicationConfig }: ApplicationSetupOptions) =>
       uppyService.addPlugin(Webdav, {
         target: Dashboard as any,
         id: 'WebdavPublicLink',
-        companionUrl,
-        ...(webdavCloudType && { cloudType: webdavCloudType })
+        companionUrl
       })
     }
   }
