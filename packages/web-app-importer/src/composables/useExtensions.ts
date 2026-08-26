@@ -30,7 +30,7 @@ export const useExtensions = ({ applicationConfig }: ApplicationSetupOptions) =>
   const resourcesStore = useResourcesStore()
   const { currentFolder } = storeToRefs(resourcesStore)
 
-  const { companionUrl } = applicationConfig
+  const companionUrl = (applicationConfig.companionUrl as string)?.replace(/\/+$/, '')
   let { supportedClouds } = applicationConfig
   supportedClouds = supportedClouds || ['OneDrive', 'GoogleDrive', 'WebdavPublicLink']
 
