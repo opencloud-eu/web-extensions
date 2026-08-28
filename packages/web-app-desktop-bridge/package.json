@@ -1,0 +1,18 @@
+{
+  "name": "web-app-desktop-bridge",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Announce the logged-in OpenCloud portal to the ONLYOFFICE desktop app, so it appears in its Clouds list",
+  "license": "AGPL-3.0",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm vite build",
+    "build:w": "pnpm vite build --watch --mode development",
+    "check:types": "vue-tsc --noEmit",
+    "test:unit": "NODE_OPTIONS=--unhandled-rejections=throw vitest"
+  },
+  "devDependencies": {
+    "@opencloud-eu/web-pkg": "^7.0.0",
+    "vue": "^3.4.21"
+  }
+}
