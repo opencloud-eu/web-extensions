@@ -218,7 +218,7 @@ importers:
         version: 4.0.1(vue@3.5.41(typescript@6.0.3))
       zod:
         specifier: ^4.0.0
-        version: 4.4.3
+        version: 4.5.4
 
   packages/web-app-importer:
     dependencies:
@@ -298,7 +298,7 @@ importers:
         version: 4.5.0
       zod:
         specifier: ^4.0.17
-        version: 4.4.3
+        version: 4.5.4
     devDependencies:
       vue:
         specifier: ^3.4.21
@@ -333,7 +333,7 @@ importers:
         version: 4.0.1(vue@3.5.41(typescript@6.0.3))
       zod:
         specifier: ^4.3.0
-        version: 4.4.3
+        version: 4.5.4
 
   packages/web-app-pastebin:
     dependencies:
@@ -4302,8 +4302,8 @@ packages:
   zimmerframe@1.1.4:
     resolution: {integrity: sha512-B58NGBEoc8Y9MWWCQGl/gq9xBCe4IiKM0a2x7GZdQKOW5Exr8S1W24J6OgM1njK8xCRGvAJIL/MxXHf6SkmQKQ==}
 
-  zod@4.4.3:
-    resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
+  zod@4.5.4:
+    resolution: {integrity: sha512-sC95tT5iHHH9gtpj6A81kh+NEaRAUFN+qlUPDUbRfOMvNf5QCBqsb3WgvnpVtK5Y+4UfA6KqufotuTvMGiTlsA==}
 
 snapshots:
 
@@ -5524,7 +5524,7 @@ snapshots:
       luxon: 3.7.2
       uuid: 14.0.1
       webdav: 5.10.0
-      zod: 4.4.3
+      zod: 4.5.4
     transitivePeerDependencies:
       - debug
       - supports-color
@@ -5586,7 +5586,7 @@ snapshots:
       vue-inline-svg: 4.0.1(vue@3.5.41(typescript@6.0.3))
       vue-router: 5.2.0(@vue/compiler-sfc@3.5.41)(pinia@4.0.2(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.41(typescript@6.0.3)))(rolldown@1.2.2)(vite@8.2.0(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.100.0)(sass@1.100.0)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.41(typescript@6.0.3))
       vue3-gettext: 4.0.1(vue@3.5.41(typescript@6.0.3))
-      zod: 4.4.3
+      zod: 4.5.4
     transitivePeerDependencies:
       - '@75lb/nature'
       - '@farmfe/core'
@@ -8838,4 +8838,4 @@ snapshots:
 
   zimmerframe@1.1.4: {}
 
-  zod@4.4.3: {}
+  zod@4.5.4: {}
