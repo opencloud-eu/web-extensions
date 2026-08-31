@@ -10,6 +10,7 @@ This repository contains a collection of [OpenCloud Web](https://github.com/open
 - [web-app-bpmn](./packages/web-app-bpmn/)
 - [web-app-calculator](./packages/web-app-calculator/)
 - [web-app-cast](./packages/web-app-cast/)
+- [web-app-desktop-bridge](./packages/web-app-desktop-bridge/)
 - [web-app-draw-io](./packages/web-app-draw-io/)
 - [web-app-external-sites](./packages/web-app-external-sites/)
 - [web-app-importer](./packages/web-app-importer/)
