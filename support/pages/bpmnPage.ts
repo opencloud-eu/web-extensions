@@ -10,7 +10,7 @@ export class BpmnPage {
     this.page = page
     this.canvas = this.page.locator('.bpmn-canvas')
     this.toolbar = this.page.locator('.bpmn-toolbar')
-    this.closeBtn = this.page.getByLabel('Close')
+    this.closeBtn = this.page.locator('#app-top-bar-close')
   }
 
   async save() {
