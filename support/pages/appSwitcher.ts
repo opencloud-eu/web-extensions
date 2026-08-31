@@ -3,7 +3,6 @@ import util from 'util'
 
 export class AppSwitcher {
   readonly page: Page
-  readonly bpmnBtn: Locator
   readonly drawIoBtn: Locator
   readonly appSwitcher: Locator
   externalSite: string
@@ -11,7 +10,6 @@ export class AppSwitcher {
 
   constructor(page: Page) {
     this.page = page
-    this.bpmnBtn = this.page.locator('[data-test-id="app\\.bpmn\\.menuItem"]')
     this.drawIoBtn = this.page.locator('[data-test-id="app\\.draw-io\\.menuItem"]')
     this.appSwitcher = this.page.getByLabel('Application Switcher')
     this.externalSite = '[data-test-id="external-sites-%s"]'
@@ -32,16 +30,6 @@ export class AppSwitcher {
 
   async clickAppSwitcher() {
     await this.appSwitcher.click()
-  }
-
-  async createBpmnFile() {
-    const respWaitPromise = this.page.waitForResponse(
-      (resp) =>
-        resp.url().endsWith('bpmn') && resp.status() === 201 && resp.request().method() === 'PUT'
-    )
-
-    await this.bpmnBtn.click()
-    await respWaitPromise
   }
 
   async createDrawIoFile() {

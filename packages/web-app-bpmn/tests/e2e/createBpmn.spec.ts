@@ -1,5 +1,5 @@
 import { test, Page, expect } from '@playwright/test'
-import { AppSwitcher } from '../../../../support/pages/appSwitcher'
+import { FilesAppBar } from '../../../../support/pages/filesAppBarActions'
 import { BpmnPage } from '../../../../support/pages/bpmnPage'
 import { loginAsUser, logout } from '../../../../support/helpers/authHelper'
 import { createRandomUser } from '../../../../support/helpers/api/apiHelper'
@@ -16,9 +16,8 @@ test.afterEach(async () => {
 })
 
 test('create bpmn file', async () => {
-  const appSwitcher = new AppSwitcher(userPage)
-  await appSwitcher.clickAppSwitcher()
-  await appSwitcher.createBpmnFile()
+  const filesAppBar = new FilesAppBar(userPage)
+  await filesAppBar.createNewFile('bpmn')
   await expect(userPage).toHaveURL(/.*bpmn/)
 
   const bpmnPage = new BpmnPage(userPage)
