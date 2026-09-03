@@ -223,17 +223,17 @@ importers:
   packages/web-app-importer:
     dependencies:
       '@uppy/dashboard':
-        specifier: ^5.0.3
-        version: 5.1.1(@uppy/core@5.2.0)
+        specifier: ^6.0.0
+        version: 6.0.0(@uppy/core@6.0.0)
       '@uppy/google-drive':
-        specifier: 5.1.0
-        version: 5.1.0(@uppy/core@5.2.0)
+        specifier: 6.0.0
+        version: 6.0.0(@uppy/core@6.0.0)
       '@uppy/onedrive':
-        specifier: 5.1.0
-        version: 5.1.0(@uppy/core@5.2.0)
+        specifier: 6.0.0
+        version: 6.0.0(@uppy/core@6.0.0)
       '@uppy/webdav':
-        specifier: 1.1.1
-        version: 1.1.1(@uppy/core@5.2.0)
+        specifier: 2.0.0
+        version: 2.0.0(@uppy/core@6.0.0)
     devDependencies:
       '@opencloud-eu/web-client':
         specifier: ^7.0.0
@@ -242,8 +242,8 @@ importers:
         specifier: ^7.0.0
         version: 7.4.0(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.30.5(@tiptap/core@3.30.5(@tiptap/pm@3.30.5))(@tiptap/pm@3.30.5))(@tiptap/extension-list@3.30.5(@tiptap/core@3.30.5(@tiptap/pm@3.30.5))(@tiptap/pm@3.30.5))(@tiptap/extensions@3.30.5(@tiptap/core@3.30.5(@tiptap/pm@3.30.5))(@tiptap/pm@3.30.5))(@vue/compiler-sfc@3.5.42)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.11)(prosemirror-state@1.4.4)(prosemirror-view@1.42.2)(rolldown@1.2.6)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.2.2(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.103.1)(sass@1.103.1)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.42(typescript@6.0.3))
       '@uppy/core':
-        specifier: ^5.1.1
-        version: 5.2.0
+        specifier: ^6.0.0
+        version: 6.0.0
       pinia:
         specifier: ^4.0.0
         version: 4.0.3(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.42(typescript@6.0.3))
@@ -1627,6 +1627,10 @@ packages:
   '@transloadit/prettier-bytes@0.3.5':
     resolution: {integrity: sha512-xF4A3d/ZyX2LJWeQZREZQw+qFX4TGQ8bGVP97OLRt6sPO6T0TNHBFTuRHOJh7RNmYOBmQ9MHxpolD9bXihpuVA==}
 
+  '@transloadit/prettier-bytes@2.0.0':
+    resolution: {integrity: sha512-GYzxSL3y9XlhwamBLkHT1y2jFrRsHkZZ1jNctn8NeMNyTtIbMK1Qf0f1koHkDdW+MwOUowCmpm8zP6ZpQ36G5w==}
+    engines: {node: '>=22'}
+
   '@tsconfig/node10@1.0.12':
     resolution: {integrity: sha512-UCYBaeFvM11aU2y3YPZ//O5Rhj+xKyzy7mvcIoAjASbigy8mHMryP5cK7dgjlz2hWxh1g5pLw084E0a/wlUSFQ==}
 
@@ -1781,33 +1785,31 @@ packages:
   '@uppy/core@5.2.0':
     resolution: {integrity: sha512-uvfNyz4cnaplt7LYJmEZHuqOuav0tKp4a9WKJIaH6iIj7XiqYvS2J5SEByexAlUFlzefOAyjzj4Ja2dd/8aMrw==}
 
-  '@uppy/dashboard@5.1.1':
-    resolution: {integrity: sha512-6H/xVvhhdfwp1+FRMp2C+tudyaedqD5+LMDB8Iw20k9+QCL1eGzOh4wXm6MCqJtNfQ1tLaprGMG1jlo7yS/uyw==}
-    peerDependencies:
-      '@uppy/core': ^5.2.0
+  '@uppy/core@6.0.0':
+    resolution: {integrity: sha512-qaNqf4t2nxnbFFLSVmLr7Jw9TaA4fzvl8paR/ggwiOo5XFgAfbCFzjDzP8l2r5UzR6cCt3wS95QWvrm82UGZ+g==}
 
-  '@uppy/google-drive@5.1.0':
-    resolution: {integrity: sha512-avspyvCfQgpSvry8xXRIazUv9RhwyubSeDsg9BQaNR1BRFSw5PWVuoX7tIUyoDYtzA8TsxcYvqJuSm4HZYkQcA==}
+  '@uppy/dashboard@6.0.0':
+    resolution: {integrity: sha512-8ODlTuK4yTCSwTIXrt7kRmsJLpnZdOOJG8MaRMOQdr3VxsOxkvifnYFXNdjTgCnmq09KAtXP3Tssuwt6BpK5oQ==}
     peerDependencies:
-      '@uppy/core': ^5.2.0
+      '@uppy/core': ^6.0.0
 
-  '@uppy/onedrive@5.1.0':
-    resolution: {integrity: sha512-FWAYesLNl6RDu+Lt+8PBvvXAqlTEmzZrbNmcIrDWaZGCA4iyXvH8suOpdn9VYFpV3JJEI3xwpvu8Lr9vrsGg5g==}
+  '@uppy/google-drive@6.0.0':
+    resolution: {integrity: sha512-THdIuxpOQzXKCWlJYCdWRRnhhsPLe/QE9C80Vbja5J9AyTw76CmOCp8qYy5K+cg2HQ8glFtxHYWIkmMui6U0RQ==}
     peerDependencies:
-      '@uppy/core': ^5.2.0
+      '@uppy/core': ^6.0.0
 
-  '@uppy/provider-views@5.2.2':
-    resolution: {integrity: sha512-NAazIJ5sjrAc6++CeJ/u9dB5gDaaAOLHrYeEmWs/HqLlftlIinRZOybnyzJRXwI8jWI/FK5moluzt2HXu6dPQQ==}
+  '@uppy/onedrive@6.0.0':
+    resolution: {integrity: sha512-ymWWxlQh9cQycLoseRjRFYZ7icY/d6He326mJIIUJBWM8Zu8boNC6fP1YbkjaODrNRQ6n/Be8YpEcJCBQ2zi5w==}
     peerDependencies:
-      '@uppy/core': ^5.2.0
+      '@uppy/core': ^6.0.0
 
   '@uppy/store-default@5.0.0':
     resolution: {integrity: sha512-hQtCSQ1yGiaval/wVYUWquYGDJ+bpQ7e4FhUUAsRQz1x1K+o7NBtjfp63O9I4Ks1WRoKunpkarZ+as09l02cPw==}
 
-  '@uppy/thumbnail-generator@5.1.0':
-    resolution: {integrity: sha512-QAKJHHkMrD/30GOyUb5U9HyJ7Ie3jiMLp4pVdw27PoA4pNV7fDQz0tyDeRPj2H+BWPEB1NsTSSfHI2pjHNI+OQ==}
+  '@uppy/thumbnail-generator@6.0.0':
+    resolution: {integrity: sha512-7564MpbWL6MsvpAhSZ4or7uorp2KrJQneYsPbC7Wy+yuPozdieKJPNxWVqeBQcn6ZMF+1FUjLJrna+3h+teKbA==}
     peerDependencies:
-      '@uppy/core': ^5.2.0
+      '@uppy/core': ^6.0.0
 
   '@uppy/tus@5.1.1':
     resolution: {integrity: sha512-316kLQfO5H/uUJIMhBYhBrTpeN0Q+d6ykW3pomCvdTkFGCvg20rF3oH/owE3lf2UZZN7ZqBk+wHO0WlQePoklg==}
@@ -1817,10 +1819,10 @@ packages:
   '@uppy/utils@7.2.0':
     resolution: {integrity: sha512-6lC246qszMv6bTyl/+QyHwrudgeguWkA94ME1wHn+a6uRAvmtAEaUManIfGqTJfoKvWAiCJqdJPl5xRJjhAloQ==}
 
-  '@uppy/webdav@1.1.1':
-    resolution: {integrity: sha512-QEtjLjNo5XH16aww0rX2rRNF1eboqtqfnNkRH28+jJe1gt2PH7ZcPkCw3ROFzyxzbQPC9ABo7kvWAEKL3dH72g==}
+  '@uppy/webdav@2.0.0':
+    resolution: {integrity: sha512-UJ3f1Fq9z3vbTYpWytp8sgyjqtS+nu0y1Ps0jwSj6xXUzmKDcTWuRbY8GhEDWtf/lTp1Zqy54UAAn9Akb37nvg==}
     peerDependencies:
-      '@uppy/core': ^5.2.0
+      '@uppy/core': ^6.0.0
 
   '@uppy/xhr-upload@5.2.0':
     resolution: {integrity: sha512-3LV/X5Of6BINnKplP+CwUJ0a4/7cRFfzxwGyXnW+uCrNQHoo09dttcz3begWHejGvzenQHuUnMO3Fxyc71Pryg==}
@@ -3350,10 +3352,6 @@ packages:
     resolution: {integrity: sha512-LaNjtRWUBY++zB5nE/NwcaoMylSPk+S+ZHNB1TzdbMJMny6dynpAGt7X/tl/QYq3TIeE6nxHppbo2LGymrG5Pw==}
     engines: {node: '>=10'}
 
-  p-queue@8.1.1:
-    resolution: {integrity: sha512-aNZ+VfjobsWryoiPnEApGGmf5WmNsCo9xu8dfaYamG5qaLP7ClhLN6NgsFe6SwJ2UbLEBK5dv9x8Mn5+RVhMWQ==}
-    engines: {node: '>=18'}
-
   p-queue@9.3.3:
     resolution: {integrity: sha512-NXAOdnEe5FsZJfT4oK84lE1Y5cFFdWlRuOo5tww8DyNMxyRXwn39fIkUtNLKppcPC+UYU/bXujNCUGDv01y7CA==}
     engines: {node: '>=20'}
@@ -3361,10 +3359,6 @@ packages:
   p-retry@6.2.1:
     resolution: {integrity: sha512-hEt02O4hUct5wtwg4H4KcWgDdm+l1bOaEy/hWzd8xtXB9BqxTWBBhb+2ImAtH4Cv4rPjV76xN3Zumqk3k3AhhQ==}
     engines: {node: '>=16.17'}
-
-  p-timeout@6.1.4:
-    resolution: {integrity: sha512-MyIV3ZA/PmyBN/ud8vV9XzwTrNtR4jFrObymZYnZqMmW0zA8Z17vnT0rBgFE/TlohB+YCHqXMgZzb3Csp49vqg==}
-    engines: {node: '>=14.16'}
 
   p-timeout@7.0.1:
     resolution: {integrity: sha512-AxTM2wDGORHGEkPCt8yqxOTMgpfbEHqF51f/5fJCmwFC3C/zNcGT63SymH2ttOAaiIws2zVg4+izQCjrakcwHg==}
@@ -6207,6 +6201,8 @@ snapshots:
 
   '@transloadit/prettier-bytes@0.3.5': {}
 
+  '@transloadit/prettier-bytes@2.0.0': {}
+
   '@tsconfig/node10@1.0.12': {}
 
   '@tsconfig/node12@1.0.11': {}
@@ -6404,13 +6400,25 @@ snapshots:
     transitivePeerDependencies:
       - preact-render-to-string
 
-  '@uppy/dashboard@5.1.1(@uppy/core@5.2.0)':
+  '@uppy/core@6.0.0':
     dependencies:
-      '@transloadit/prettier-bytes': 0.3.5
-      '@uppy/core': 5.2.0
-      '@uppy/provider-views': 5.2.2(@uppy/core@5.2.0)
-      '@uppy/thumbnail-generator': 5.1.0(@uppy/core@5.2.0)
-      '@uppy/utils': 7.2.0
+      '@transloadit/prettier-bytes': 2.0.0
+      classnames: 2.5.1
+      lodash: 4.18.1
+      mime-match: 1.0.2
+      namespace-emitter: 2.0.1
+      nanoid: 5.1.16
+      p-queue: 9.3.3
+      p-retry: 6.2.1
+      preact: 10.29.8
+    transitivePeerDependencies:
+      - preact-render-to-string
+
+  '@uppy/dashboard@6.0.0(@uppy/core@6.0.0)':
+    dependencies:
+      '@transloadit/prettier-bytes': 2.0.0
+      '@uppy/core': 6.0.0
+      '@uppy/thumbnail-generator': 6.0.0(@uppy/core@6.0.0)
       classnames: 2.5.1
       lodash: 4.18.1
       nanoid: 5.1.16
@@ -6419,47 +6427,26 @@ snapshots:
     transitivePeerDependencies:
       - preact-render-to-string
 
-  '@uppy/google-drive@5.1.0(@uppy/core@5.2.0)':
+  '@uppy/google-drive@6.0.0(@uppy/core@6.0.0)':
     dependencies:
-      '@uppy/companion-client': 5.1.1(@uppy/core@5.2.0)
-      '@uppy/core': 5.2.0
-      '@uppy/provider-views': 5.2.2(@uppy/core@5.2.0)
-      '@uppy/utils': 7.2.0
+      '@uppy/core': 6.0.0
       preact: 10.29.8
     transitivePeerDependencies:
       - preact-render-to-string
 
-  '@uppy/onedrive@5.1.0(@uppy/core@5.2.0)':
+  '@uppy/onedrive@6.0.0(@uppy/core@6.0.0)':
     dependencies:
-      '@uppy/companion-client': 5.1.1(@uppy/core@5.2.0)
-      '@uppy/core': 5.2.0
-      '@uppy/provider-views': 5.2.2(@uppy/core@5.2.0)
-      '@uppy/utils': 7.2.0
-      preact: 10.29.8
-    transitivePeerDependencies:
-      - preact-render-to-string
-
-  '@uppy/provider-views@5.2.2(@uppy/core@5.2.0)':
-    dependencies:
-      '@uppy/core': 5.2.0
-      '@uppy/utils': 7.2.0
-      classnames: 2.5.1
-      lodash: 4.18.1
-      nanoid: 5.1.16
-      p-queue: 8.1.1
+      '@uppy/core': 6.0.0
       preact: 10.29.8
     transitivePeerDependencies:
       - preact-render-to-string
 
   '@uppy/store-default@5.0.0': {}
 
-  '@uppy/thumbnail-generator@5.1.0(@uppy/core@5.2.0)':
+  '@uppy/thumbnail-generator@6.0.0(@uppy/core@6.0.0)':
     dependencies:
-      '@uppy/core': 5.2.0
-      '@uppy/utils': 7.2.0
+      '@uppy/core': 6.0.0
       exifr: 7.1.3
-    transitivePeerDependencies:
-      - preact-render-to-string
 
   '@uppy/tus@5.1.1(@uppy/core@5.2.0)':
     dependencies:
@@ -6477,12 +6464,9 @@ snapshots:
     transitivePeerDependencies:
       - preact-render-to-string
 
-  '@uppy/webdav@1.1.1(@uppy/core@5.2.0)':
+  '@uppy/webdav@2.0.0(@uppy/core@6.0.0)':
     dependencies:
-      '@uppy/companion-client': 5.1.1(@uppy/core@5.2.0)
-      '@uppy/core': 5.2.0
-      '@uppy/provider-views': 5.2.2(@uppy/core@5.2.0)
-      '@uppy/utils': 7.2.0
+      '@uppy/core': 6.0.0
       preact: 10.29.8
     transitivePeerDependencies:
       - preact-render-to-string
@@ -7961,11 +7945,6 @@ snapshots:
     dependencies:
       p-limit: 3.1.0
 
-  p-queue@8.1.1:
-    dependencies:
-      eventemitter3: 5.0.4
-      p-timeout: 6.1.4
-
   p-queue@9.3.3:
     dependencies:
       eventemitter3: 5.0.4
@@ -7976,8 +7955,6 @@ snapshots:
       '@types/retry': 0.12.2
       is-network-error: 1.3.2
       retry: 0.13.1
-
-  p-timeout@6.1.4: {}
 
   p-timeout@7.0.1: {}
 
