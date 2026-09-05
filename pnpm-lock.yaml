@@ -114,13 +114,13 @@ importers:
     dependencies:
       '@bpmn-io/properties-panel':
         specifier: ^3.28.0
-        version: 3.53.0(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.8))
+        version: 3.54.0(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.8))
       bpmn-js:
         specifier: ^18.6.3
-        version: 18.26.0
+        version: 18.28.0
       bpmn-js-properties-panel:
         specifier: ^5.34.0
-        version: 5.65.0(@bpmn-io/properties-panel@3.53.0(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.8)))(bpmn-js@18.26.0)(camunda-bpmn-js-behaviors@1.18.0(bpmn-js@18.26.0)(camunda-bpmn-moddle@7.0.2)(zeebe-bpmn-moddle@1.17.0))(diagram-js@15.26.0)
+        version: 5.65.0(@bpmn-io/properties-panel@3.54.0(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.8)))(bpmn-js@18.28.0)(camunda-bpmn-js-behaviors@1.18.0(bpmn-js@18.28.0)(camunda-bpmn-moddle@7.0.2)(zeebe-bpmn-moddle@1.17.0))(diagram-js@15.26.0)
       camunda-bpmn-moddle:
         specifier: ^7.0.1
         version: 7.0.2
@@ -463,8 +463,8 @@ packages:
   '@bpmn-io/lezer-feelers@1.0.0':
     resolution: {integrity: sha512-P0znH2SY85O7RmOr/FgveFiTREet9DSCf3nH3J/StkI5i7Q384o+GEeTmv58n91FlUknS20KE3T8Yk5Qmab+hg==}
 
-  '@bpmn-io/properties-panel@3.53.0':
-    resolution: {integrity: sha512-me695Qey27A4noskVBNcpG3jlW//2DZ6c2ajMMZpQET3QTZO5M8tnaXwbrroY4wYXEbVbchTAyyPU3uvb1mFjA==}
+  '@bpmn-io/properties-panel@3.54.0':
+    resolution: {integrity: sha512-GldV+7Cgz9pJFsjyWyjIFD98k/s+A49/+ZRPhkuz8SSY+pZkwAcuWJIEwqYl+Tk5ZFs5UoKZ8lpE0ZHCSZLgxw==}
 
   '@bpmn-io/semver-compat@0.1.0':
     resolution: {integrity: sha512-hIcW42Ku92MUioL6aknDbRoW1jK8ZEqIe8qZZ+d3cjitDO+PMEFFXj/sezJYIHMe8elu4CBz9qpjkV8WIVG9qw==}
@@ -2096,8 +2096,8 @@ packages:
       camunda-bpmn-js-behaviors: '>= 0.4'
       diagram-js: '>= 11.9'
 
-  bpmn-js@18.26.0:
-    resolution: {integrity: sha512-bK/dCoOhukbWuSIUbH43GTrcLakJX0pZ+K9UBzByPTqoyN6b7X5hVpZJa09nPyfft99LsBDa0jN83pW1JnOixA==}
+  bpmn-js@18.28.0:
+    resolution: {integrity: sha512-5xO8dBugA7UQriYAeP5FcDG+kVNlL9JlM0v1AtYCxQx3P0bXkLy19VxTnzgBSo0d826SZApTnIeYFhUG994XSQ==}
 
   bpmn-moddle@10.2.0:
     resolution: {integrity: sha512-rjPr+hvh43DH9BXUHnXHVNcILYJbZ4rJdYY0GRV7ve99MURNjpIp/mCL8UJSz923uXJ4Doa/bEgBEsG01fPoYQ==}
@@ -4440,7 +4440,7 @@ snapshots:
       '@lezer/highlight': 1.2.3
       '@lezer/lr': 1.4.10
 
-  '@bpmn-io/properties-panel@3.53.0(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.8))':
+  '@bpmn-io/properties-panel@3.54.0(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.8))':
     dependencies:
       '@bpmn-io/feel-editor': 2.7.1
       '@bpmn-io/feelers-editor': 1.1.1(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.8))
@@ -6781,19 +6781,19 @@ snapshots:
 
   boolbase@1.0.0: {}
 
-  bpmn-js-properties-panel@5.65.0(@bpmn-io/properties-panel@3.53.0(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.8)))(bpmn-js@18.26.0)(camunda-bpmn-js-behaviors@1.18.0(bpmn-js@18.26.0)(camunda-bpmn-moddle@7.0.2)(zeebe-bpmn-moddle@1.17.0))(diagram-js@15.26.0):
+  bpmn-js-properties-panel@5.65.0(@bpmn-io/properties-panel@3.54.0(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.8)))(bpmn-js@18.28.0)(camunda-bpmn-js-behaviors@1.18.0(bpmn-js@18.28.0)(camunda-bpmn-moddle@7.0.2)(zeebe-bpmn-moddle@1.17.0))(diagram-js@15.26.0):
     dependencies:
       '@bpmn-io/extract-process-variables': 2.2.1
-      '@bpmn-io/properties-panel': 3.53.0(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.8))
+      '@bpmn-io/properties-panel': 3.54.0(@bpmn-io/cm-theme@0.2.2(@codemirror/state@6.7.1)(@codemirror/view@6.43.8))
       array-move: 4.0.0
-      bpmn-js: 18.26.0
-      camunda-bpmn-js-behaviors: 1.18.0(bpmn-js@18.26.0)(camunda-bpmn-moddle@7.0.2)(zeebe-bpmn-moddle@1.17.0)
+      bpmn-js: 18.28.0
+      camunda-bpmn-js-behaviors: 1.18.0(bpmn-js@18.28.0)(camunda-bpmn-moddle@7.0.2)(zeebe-bpmn-moddle@1.17.0)
       diagram-js: 15.26.0
       ids: 3.0.2
       min-dash: 5.1.0
       min-dom: 5.3.0
 
-  bpmn-js@18.26.0:
+  bpmn-js@18.28.0:
     dependencies:
       bpmn-moddle: 10.2.0
       diagram-js: 15.26.0
@@ -6840,9 +6840,9 @@ snapshots:
       call-bind-apply-helpers: 1.0.2
       get-intrinsic: 1.3.0
 
-  camunda-bpmn-js-behaviors@1.18.0(bpmn-js@18.26.0)(camunda-bpmn-moddle@7.0.2)(zeebe-bpmn-moddle@1.17.0):
+  camunda-bpmn-js-behaviors@1.18.0(bpmn-js@18.28.0)(camunda-bpmn-moddle@7.0.2)(zeebe-bpmn-moddle@1.17.0):
     dependencies:
-      bpmn-js: 18.26.0
+      bpmn-js: 18.28.0
       camunda-bpmn-moddle: 7.0.2
       ids: 3.0.2
       min-dash: 5.1.0
