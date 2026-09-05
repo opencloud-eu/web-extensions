@@ -225,8 +225,10 @@ test.describe('view', () => {
       files: [{ name: '', content: 'copy test' }]
     })
 
-    // the copy button should be visible (has title "Copy content")
-    await expect(userPage.locator('button[title="Copy content"]')).toBeVisible({ timeout: 15000 })
+    // the copy button should be visible
+    await expect(userPage.locator('button[aria-label="Copy content"]')).toBeVisible({
+      timeout: 15000
+    })
   })
 
   test('delete from view', async () => {
@@ -250,7 +252,7 @@ test.describe('public links', () => {
     })
 
     // the share link button should be visible in the header
-    const linkIcon = userPage.locator('header button[title="Copy public link"]')
+    const linkIcon = userPage.locator('header button[aria-label="Copy public link"]')
     await expect(linkIcon).toBeVisible({ timeout: 15000 })
     const href = await pastebin.getShareLinkHref()
     expect(href).toContain('/pastebin/')
@@ -269,7 +271,7 @@ test.describe('public links', () => {
     await pastebin.expectFileVisible('beta.js')
 
     // wait for the share URL to resolve (anchor links depend on it)
-    const linkIcon = userPage.locator('header button[title="Copy public link"]')
+    const linkIcon = userPage.locator('header button[aria-label="Copy public link"]')
     await expect(linkIcon).toBeVisible({ timeout: 15000 })
 
     const alphaHref = await pastebin.getAnchorHref('alpha.py')
@@ -329,7 +331,7 @@ test.describe('public links', () => {
     await pastebin.expectFileVisible('bottom.js')
 
     // wait for share URL to resolve, then get anchor href for bottom file
-    await expect(userPage.locator('header button[title="Copy public link"]')).toBeVisible({
+    await expect(userPage.locator('header button[aria-label="Copy public link"]')).toBeVisible({
       timeout: 15000
     })
     const anchorHref = await pastebin.getAnchorHref('bottom.js')

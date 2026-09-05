@@ -13,10 +13,11 @@
       }}</span>
       <oc-button
         v-if="anchorHref"
+        v-oc-tooltip="$gettext('Link to this file')"
+        :aria-label="$gettext('Link to this file')"
         appearance="raw"
         size="small"
         class="ext:ml-1.5 ext:opacity-30 hover:ext:opacity-100"
-        :title="$gettext('Link to this file')"
         @click="copyAnchorLink"
       >
         <oc-icon :name="anchorCopied ? 'checkbox-circle' : 'link'" size="small" />
@@ -24,18 +25,20 @@
       <div class="ext:ml-auto ext:flex ext:items-center ext:gap-2">
         <oc-button
           v-if="content"
+          v-oc-tooltip="$gettext('Copy content')"
+          :aria-label="$gettext('Copy content')"
           appearance="raw"
           size="small"
-          :title="$gettext('Copy content')"
           @click="copyContent"
         >
           <oc-icon :name="copied ? 'checkbox-circle' : 'file-copy'" size="small" />
         </oc-button>
         <oc-button
           v-if="content"
+          v-oc-tooltip="$gettext('Download raw file')"
+          :aria-label="$gettext('Download raw file')"
           appearance="raw"
           size="small"
-          :title="$gettext('Download raw file')"
           @click="downloadRaw"
         >
           <oc-icon name="download" size="small" />
@@ -64,7 +67,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, unref } from 'vue'
 import { Resource, SpaceResource } from '@opencloud-eu/web-client'
-import { ResourceIcon, useClientService, useThemeStore } from '@opencloud-eu/web-pkg'
+import { ResourceIcon, useClientService, useThemeStore, useMessages } from '@opencloud-eu/web-pkg'
 import { useClipboard } from '@vueuse/core'
 import hljs from 'highlight.js/lib/core'
 import { useGettext } from 'vue3-gettext'
@@ -113,6 +116,7 @@ const emit = defineEmits<{ loaded: [] }>()
 
 const { $gettext } = useGettext()
 const clientService = useClientService()
+const { showMessage } = useMessages()
 const { copy, copied } = useClipboard({ legacy: true, copiedDuring: 1500 })
 const themeStore = useThemeStore()
 const { currentTheme } = storeToRefs(themeStore)
@@ -138,7 +142,13 @@ const { copy: copyAnchor, copied: anchorCopied } = useClipboard({
 
 const scrollToSelf = () => scrollToFile(props.resource.name)
 const copyAnchorLink = () => {
-  if (anchorHref.value) copyAnchor(anchorHref.value)
+  if (anchorHref.value) {
+    copyAnchor(anchorHref.value)
+    showMessage({
+      title: $gettext('Link copied'),
+      desc: $gettext('The public pastebin link has been copied to your clipboard.')
+    })
+  }
 }
 
 const loading = ref(true)
@@ -200,7 +210,12 @@ const codeThemeClass = computed(() => {
 })
 
 const copyContent = () => {
-  if (content.value) copy(content.value)
+  if (content.value) {
+    copy(content.value)
+    showMessage({
+      title: $gettext('Content copied')
+    })
+  }
 }
 
 const downloadRaw = () => {
