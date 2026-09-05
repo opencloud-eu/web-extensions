@@ -1,5 +1,4 @@
 import '@opencloud-eu/extension-sdk/tailwind.css'
-import 'highlight.js/styles/github.css'
 import {
   AppMenuItemExtension,
   AppWrapperRoute,

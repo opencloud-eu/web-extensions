@@ -50,8 +50,8 @@
         {{ error }}
       </div>
       <div v-else-if="content" class="ext:overflow-x-auto">
-        <table class="code-table ext:w-full ext:border-collapse">
-          <tr v-for="(line, index) in lines" :key="index" class="line-row">
+        <table class="code-table ext:w-full ext:border-collapse" :class="codeThemeClass">
+          <tr v-for="(line, index) in formattedLines.lines" :key="index" class="line-row">
             <td class="line-number">{{ index + 1 }}</td>
             <td class="line-content" v-html="line" />
           </tr>
@@ -62,13 +62,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, unref } from 'vue'
 import { Resource, SpaceResource } from '@opencloud-eu/web-client'
-import { ResourceIcon, useClientService } from '@opencloud-eu/web-pkg'
+import { ResourceIcon, useClientService, useThemeStore } from '@opencloud-eu/web-pkg'
 import { useClipboard } from '@vueuse/core'
 import hljs from 'highlight.js/lib/core'
 import { useGettext } from 'vue3-gettext'
 import { scrollToFile } from '../utils'
+import { storeToRefs } from 'pinia'
 
 // Register common languages
 import javascript from 'highlight.js/lib/languages/javascript'
@@ -113,6 +114,8 @@ const emit = defineEmits<{ loaded: [] }>()
 const { $gettext } = useGettext()
 const clientService = useClientService()
 const { copy, copied } = useClipboard({ legacy: true, copiedDuring: 1500 })
+const themeStore = useThemeStore()
+const { currentTheme } = storeToRefs(themeStore)
 
 const anchorHref = computed(() => {
   // Use the share URL when available (authenticated view), fall back to the current URL
@@ -167,22 +170,34 @@ const languageFromExtension = (name: string): string | undefined => {
   return ext ? map[ext] : undefined
 }
 
-const lines = computed(() => {
-  if (!content.value) return []
+const formattedLines = computed(() => {
+  if (!content.value) return { lines: [], isHighlighted: false }
+
   const lang = languageFromExtension(props.resource.name)
   try {
-    const highlighted = lang
+    const result = lang
       ? hljs.highlight(content.value, { language: lang })
       : hljs.highlightAuto(content.value)
-    return highlighted.value.split('\n')
+    return {
+      lines: result.value.split('\n'),
+      isHighlighted: true
+    }
   } catch {
-    return content.value.split('\n').map((l) => escapeHtml(l))
+    return {
+      lines: content.value.split('\n').map(escapeHtml),
+      isHighlighted: false
+    }
   }
 })
 
 function escapeHtml(text: string): string {
   return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 }
+
+const codeThemeClass = computed(() => {
+  if (!unref(formattedLines).isHighlighted) return ''
+  return unref(currentTheme).isDark ? 'highlight-dark-theme' : 'highlight-light-theme'
+})
 
 const copyContent = () => {
   if (content.value) copy(content.value)
@@ -218,6 +233,16 @@ onMounted(async () => {
   }
 })
 </script>
+
+<style lang="scss" scoped>
+.highlight-light-theme :deep {
+  @import 'highlight.js/styles/github';
+}
+
+.highlight-dark-theme :deep {
+  @import 'highlight.js/styles/github-dark';
+}
+</style>
 
 <style scoped>
 .code-table {
