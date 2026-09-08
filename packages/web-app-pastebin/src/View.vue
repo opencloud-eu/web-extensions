@@ -171,7 +171,11 @@ const editRoute = computed(() => {
   return {
     name: 'pastebin-edit',
     params: { driveAliasAndItem },
-    query: { fileId: resource.fileId, [contextRouteNameKey]: 'pastebin-list' }
+    query: {
+      fileId: resource.fileId,
+      [contextRouteNameKey]: 'pastebin-list',
+      ...unref(router.currentRoute).query
+    }
   }
 })
 

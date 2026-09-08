@@ -87,7 +87,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, reactive, ref } from 'vue'
+import { computed, onMounted, reactive, ref, unref } from 'vue'
 import { Resource, SpaceResource, urlJoin } from '@opencloud-eu/web-client'
 import {
   useClientService,
@@ -141,7 +141,15 @@ const folderName = computed(() => {
 
 const viewRoute = computed(() => {
   const driveAliasAndItem = space.getDriveAliasAndItem(resource)
-  return { name: 'pastebin-view', params: { driveAliasAndItem } }
+  return {
+    name: 'pastebin-view',
+    params: { driveAliasAndItem },
+    query: {
+      fileId: resource.fileId,
+      [contextRouteNameKey]: 'pastebin-list',
+      ...unref(router.currentRoute).query
+    }
+  }
 })
 
 const updateFileContent = (file: EditableFile, content: string) => {
@@ -204,12 +212,7 @@ const save = async () => {
 
     showMessage({ title: $gettext('Pastebin updated') })
 
-    const driveAliasAndItem = space.getDriveAliasAndItem(resource)
-    await router.push({
-      name: 'pastebin-view',
-      params: { driveAliasAndItem },
-      query: { fileId: resource.fileId, [contextRouteNameKey]: 'pastebin-list' }
-    })
+    await router.push(unref(viewRoute))
   } catch (err) {
     console.error('Failed to save:', err)
     showErrorMessage({
