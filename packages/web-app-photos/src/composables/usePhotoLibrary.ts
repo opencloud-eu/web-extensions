@@ -2,6 +2,7 @@ import { ref } from 'vue'
 import {
   AggregationOption,
   LibraryStats,
+  MetricKind,
   SearchAggregation,
   SearchBucket,
   SearchHitsContainer
@@ -29,10 +30,12 @@ function lastMonthsRanges(now: Date, count: number) {
 function findAggregation(
   container: SearchHitsContainer,
   field: string,
-  metricKind?: string
+  metricKind?: MetricKind
 ): SearchAggregation | undefined {
   return container.aggregations?.find(
-    (a) => a.field === field && (metricKind ? a.metricKind === metricKind : !a.metricKind)
+    (a) =>
+      a.field === field &&
+      (metricKind ? a['@libre.graph.metric']?.kind === metricKind : !a['@libre.graph.metric'])
   )
 }
 
@@ -64,12 +67,12 @@ export function usePhotoLibrary() {
       bucketDefinition: { sortBy: 'count', isDescending: true }
     },
     { field: 'Tags', size: 7, bucketDefinition: { sortBy: 'count', isDescending: true } },
-    { field: 'location', size: 500, geohashPrecision: 4 },
-    { field: 'Size', metricKind: 'sum' },
-    { field: 'photo.focalLength', metricKind: 'avg' },
-    { field: 'photo.fNumber', metricKind: 'avg' },
-    { field: 'photo.iso', metricKind: 'max' },
-    { field: 'image.width', metricKind: 'max' }
+    { field: 'location', size: 500, '@libre.graph.geohashPrecision': 4 },
+    { field: 'Size', '@libre.graph.metricDefinition': { kind: 'sum' } },
+    { field: 'photo.focalLength', '@libre.graph.metricDefinition': { kind: 'avg' } },
+    { field: 'photo.fNumber', '@libre.graph.metricDefinition': { kind: 'avg' } },
+    { field: 'photo.iso', '@libre.graph.metricDefinition': { kind: 'max' } },
+    { field: 'image.width', '@libre.graph.metricDefinition': { kind: 'max' } }
   ]
 
   const monthlyOption = ref<AggregationOption>({
@@ -96,31 +99,25 @@ export function usePhotoLibrary() {
     }
     tags.value = findAggregation(container, 'Tags') ?? null
 
-    const metricFacts: [ExifFact['label'], string, string][] = [
+    const metricFacts: [ExifFact['label'], string, MetricKind][] = [
       ['focalLength', 'photo.focalLength', 'avg'],
       ['fNumber', 'photo.fNumber', 'avg'],
       ['iso', 'photo.iso', 'max'],
       ['imageWidth', 'image.width', 'max']
     ]
     exifFacts.value = metricFacts.flatMap(([label, field, metricKind]) => {
-      const agg = findAggregation(container, field, metricKind)
-      if (agg?.value === undefined) {
+      const value = findAggregation(container, field, metricKind)?.['@libre.graph.metric']?.value
+      if (value === undefined) {
         return []
       }
-      return [
-        {
-          label,
-          value: agg.value,
-          option: { field, metricKind: metricKind as AggregationOption['metricKind'] }
-        }
-      ]
+      return [{ label, value, option: { field, '@libre.graph.metricDefinition': { kind: metricKind } } }]
     })
 
     const videos = await search({ queryString: 'mediatype:video', size: 0 })
 
     stats.value = {
       totalPhotos: container.total ?? 0,
-      totalBytes: findAggregation(container, 'Size', 'sum')?.value,
+      totalBytes: findAggregation(container, 'Size', 'sum')?.['@libre.graph.metric']?.value,
       cameraCount: cameraAgg?.buckets?.length,
       placeCount: placesAgg?.buckets?.length,
       videoCount: videos.total

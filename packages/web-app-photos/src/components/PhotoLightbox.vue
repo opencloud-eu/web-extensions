@@ -98,7 +98,7 @@
         </button>
 
         <motion-photo-badge
-          v-if="photo.motionPhoto"
+          v-if="hasMotionPhotoSupport && photo.motionPhoto"
           class="ext:absolute ext:bottom-4 ext:left-4"
           size="large"
           interactive
@@ -137,14 +137,13 @@ import { computed, onBeforeUnmount, onMounted, ref, unref, watch } from 'vue'
 import { useGettext } from 'vue3-gettext'
 import { useLightboxZoom } from '../composables/useLightboxZoom'
 import {
-  MotionPhotoBadge,
   useLoadingService,
-  useMotionPhoto,
   useSpacesStore
 } from '@opencloud-eu/web-pkg'
 import { Photo } from '../types'
 import { formatBytes, formatTileTime } from '../helpers'
 import { useGraphSearch } from '../composables/useGraphSearch'
+import { hasMotionPhotoSupport, MotionPhotoBadge, useMotionPhoto } from '../composables/motionSupport'
 
 const SLIDE_MS = 5000
 const TICK_MS = 100
@@ -521,7 +520,7 @@ watch(
 
 // the embedded clip plays once over the still; the badge switches to
 // looping playback (and pauses a running slideshow while it loops)
-const { canPlay: canPlayMotion, loadVideoUrl } = useMotionPhoto()
+const motionApi = hasMotionPhotoSupport ? useMotionPhoto() : undefined
 const spacesStore = useSpacesStore()
 const motionPlaying = ref(false)
 const motionLoading = ref(false)
@@ -544,7 +543,7 @@ async function playMotion(loop = false) {
   const current = photo
   const space = spacesStore.spaces.find((s) => s.id === current.driveId)
   const resource = motionResourceFor(current)
-  if (!space || !canPlayMotion(resource)) {
+  if (!motionApi || !space || !motionApi.canPlay(resource)) {
     return
   }
   motionAbort?.abort()
@@ -552,7 +551,7 @@ async function playMotion(loop = false) {
   motionAbort = abort
   motionLoading.value = true
   try {
-    const url = await loadVideoUrl(space, resource, abort.signal)
+    const url = await motionApi.loadVideoUrl(space, resource, abort.signal)
     if (photo.id !== current.id || motionAbort !== abort) {
       return
     }

@@ -161,7 +161,7 @@ export function useLightboxNavigation(
 
   /** initial deep link: reopen the photo once its month is filled */
   function restore() {
-    const photoId = queryItemAsString(unref(photoQuery)) ?? ''
+    const photoId = queryItemAsString(unref(photoQuery) as unknown as string) ?? ''
     if (!photoId) {
       return
     }

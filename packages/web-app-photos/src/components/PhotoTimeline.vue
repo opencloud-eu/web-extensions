@@ -361,7 +361,7 @@ function releaseAnchor() {
  * day; a bare ?date=YYYY-MM (e.g. from the statistics chart) scrolls to the
  * month section */
 async function restoreDayAnchor() {
-  const day = queryItemAsString(unref(dayQuery)) ?? ''
+  const day = queryItemAsString(unref(dayQuery) as unknown as string) ?? ''
   if (!/^\d{4}-\d{2}(-\d{2})?$/.test(day)) {
     return
   }

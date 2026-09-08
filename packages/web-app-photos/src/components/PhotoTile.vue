@@ -27,7 +27,7 @@
     >
       <oc-icon name="image" fill-type="line" />
     </div>
-    <photo-tile-motion v-if="photo.motionPhoto" :photo="photo" :hovering="hovering" />
+    <photo-tile-motion v-if="hasMotionPhotoSupport && photo.motionPhoto" :photo="photo" :hovering="hovering" />
   </div>
 </template>
 
@@ -37,6 +37,7 @@ import { useGettext } from 'vue3-gettext'
 import { Photo } from '../types'
 import { formatTileTime, placeholderArtFor } from '../helpers'
 import PhotoTileMotion from './PhotoTileMotion.vue'
+import { hasMotionPhotoSupport } from '../composables/motionSupport'
 
 const ROW_HEIGHT = 176
 

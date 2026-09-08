@@ -19,26 +19,37 @@ export interface BucketDefinition {
   ranges?: BucketAggregationRange[]
 }
 
+export type MetricKind = 'sum' | 'min' | 'max' | 'avg'
+
+export interface MetricDefinition {
+  kind: MetricKind
+}
+
+export interface SearchMetric {
+  kind?: MetricKind
+  value?: number
+}
+
 export interface AggregationOption {
   field: string
   size?: number
   bucketDefinition?: BucketDefinition
-  subAggregations?: AggregationOption[]
-  metricKind?: 'sum' | 'min' | 'max' | 'avg'
-  geohashPrecision?: number
+  '@libre.graph.subAggregations'?: AggregationOption[]
+  '@libre.graph.metricDefinition'?: MetricDefinition
+  '@libre.graph.geohashPrecision'?: number
 }
 
 export interface SearchBucket {
   key: string
   count: number
-  subAggregations?: SearchAggregation[]
+  aggregationFilterToken?: string
+  '@libre.graph.subAggregations'?: SearchAggregation[]
 }
 
 export interface SearchAggregation {
   field?: string
   buckets?: SearchBucket[]
-  value?: number
-  metricKind?: string
+  '@libre.graph.metric'?: SearchMetric
 }
 
 export interface SearchHit {

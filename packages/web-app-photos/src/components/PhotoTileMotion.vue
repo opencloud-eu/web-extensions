@@ -23,7 +23,8 @@
 <script setup lang="ts">
 import { computed, watch } from 'vue'
 import { useGettext } from 'vue3-gettext'
-import { MotionPhotoBadge, useMotionPhotoPlayback, useSpacesStore } from '@opencloud-eu/web-pkg'
+import { useSpacesStore } from '@opencloud-eu/web-pkg'
+import { MotionPhotoBadge, useMotionPhotoPlayback } from '../composables/motionSupport'
 import type { Resource, SpaceResource } from '@opencloud-eu/web-client'
 import { Photo } from '../types'
 

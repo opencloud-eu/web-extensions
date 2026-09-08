@@ -91,7 +91,7 @@ export default defineWebApplication({
       routes,
       navItems,
       translations,
-      extensions: menuItems
+      extensions: menuItems as unknown as ClassicApplicationScript['extensions']
     }
   }
 })

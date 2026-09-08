@@ -25,7 +25,9 @@ function sample<T>(items: T[], count: number): T[] {
 }
 
 function takenDateTimeAggregation(container: SearchHitsContainer): SearchAggregation | undefined {
-  return container.aggregations?.find((a) => a.field === 'photo.takenDateTime' && !a.metricKind)
+  return container.aggregations?.find(
+    (a) => a.field === 'photo.takenDateTime' && !a['@libre.graph.metric']
+  )
 }
 
 /** "x years ago" anniversary groups: photos taken on this day (or month) over the years */
