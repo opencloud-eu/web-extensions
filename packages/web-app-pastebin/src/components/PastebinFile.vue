@@ -53,7 +53,8 @@
         {{ error }}
       </div>
       <div v-else-if="content" class="ext:overflow-x-auto">
-        <table class="code-table ext:w-full ext:border-collapse" :class="codeThemeClass">
+        <link v-if="formattedLines.isHighlighted" rel="stylesheet" :href="themeUrl" />
+        <table class="code-table ext:w-full ext:border-collapse">
           <tr v-for="(line, index) in formattedLines.lines" :key="index" class="line-row">
             <td class="line-number">{{ index + 1 }}</td>
             <td class="line-content" v-html="line" />
@@ -73,6 +74,8 @@ import hljs from 'highlight.js/lib/core'
 import { useGettext } from 'vue3-gettext'
 import { scrollToFile } from '../utils'
 import { storeToRefs } from 'pinia'
+import lightThemeUrl from 'highlight.js/styles/github.css?url'
+import darkThemeUrl from 'highlight.js/styles/github-dark.css?url'
 
 // Register common languages
 import javascript from 'highlight.js/lib/languages/javascript'
@@ -204,9 +207,8 @@ function escapeHtml(text: string): string {
   return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 }
 
-const codeThemeClass = computed(() => {
-  if (!unref(formattedLines).isHighlighted) return ''
-  return unref(currentTheme).isDark ? 'highlight-dark-theme' : 'highlight-light-theme'
+const themeUrl = computed(() => {
+  return unref(currentTheme).isDark ? darkThemeUrl : lightThemeUrl
 })
 
 const copyContent = () => {
@@ -248,16 +250,6 @@ onMounted(async () => {
   }
 })
 </script>
-
-<style lang="scss" scoped>
-.highlight-light-theme :deep {
-  @import 'highlight.js/styles/github';
-}
-
-.highlight-dark-theme :deep {
-  @import 'highlight.js/styles/github-dark';
-}
-</style>
 
 <style scoped>
 .code-table {
