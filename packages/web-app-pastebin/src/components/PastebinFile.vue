@@ -13,10 +13,11 @@
       }}</span>
       <oc-button
         v-if="anchorHref"
+        v-oc-tooltip="$gettext('Link to this file')"
+        :aria-label="$gettext('Link to this file')"
         appearance="raw"
         size="small"
         class="ext:ml-1.5 ext:opacity-30 hover:ext:opacity-100"
-        :title="$gettext('Link to this file')"
         @click="copyAnchorLink"
       >
         <oc-icon :name="anchorCopied ? 'checkbox-circle' : 'link'" size="small" />
@@ -24,18 +25,20 @@
       <div class="ext:ml-auto ext:flex ext:items-center ext:gap-2">
         <oc-button
           v-if="content"
+          v-oc-tooltip="$gettext('Copy content')"
+          :aria-label="$gettext('Copy content')"
           appearance="raw"
           size="small"
-          :title="$gettext('Copy content')"
           @click="copyContent"
         >
           <oc-icon :name="copied ? 'checkbox-circle' : 'file-copy'" size="small" />
         </oc-button>
         <oc-button
           v-if="content"
+          v-oc-tooltip="$gettext('Download raw file')"
+          :aria-label="$gettext('Download raw file')"
           appearance="raw"
           size="small"
-          :title="$gettext('Download raw file')"
           @click="downloadRaw"
         >
           <oc-icon name="download" size="small" />
@@ -50,8 +53,9 @@
         {{ error }}
       </div>
       <div v-else-if="content" class="ext:overflow-x-auto">
+        <link v-if="formattedLines.isHighlighted" rel="stylesheet" :href="themeUrl" />
         <table class="code-table ext:w-full ext:border-collapse">
-          <tr v-for="(line, index) in lines" :key="index" class="line-row">
+          <tr v-for="(line, index) in formattedLines.lines" :key="index" class="line-row">
             <td class="line-number">{{ index + 1 }}</td>
             <td class="line-content" v-html="line" />
           </tr>
@@ -62,13 +66,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, unref } from 'vue'
 import { Resource, SpaceResource } from '@opencloud-eu/web-client'
-import { ResourceIcon, useClientService } from '@opencloud-eu/web-pkg'
+import { ResourceIcon, useClientService, useThemeStore, useMessages } from '@opencloud-eu/web-pkg'
 import { useClipboard } from '@vueuse/core'
 import hljs from 'highlight.js/lib/core'
 import { useGettext } from 'vue3-gettext'
 import { scrollToFile } from '../utils'
+import { storeToRefs } from 'pinia'
+import lightThemeUrl from 'highlight.js/styles/github.css?url'
+import darkThemeUrl from 'highlight.js/styles/github-dark.css?url'
 
 // Register common languages
 import javascript from 'highlight.js/lib/languages/javascript'
@@ -112,7 +119,10 @@ const emit = defineEmits<{ loaded: [] }>()
 
 const { $gettext } = useGettext()
 const clientService = useClientService()
+const { showMessage } = useMessages()
 const { copy, copied } = useClipboard({ legacy: true, copiedDuring: 1500 })
+const themeStore = useThemeStore()
+const { currentTheme } = storeToRefs(themeStore)
 
 const anchorHref = computed(() => {
   // Use the share URL when available (authenticated view), fall back to the current URL
@@ -135,7 +145,13 @@ const { copy: copyAnchor, copied: anchorCopied } = useClipboard({
 
 const scrollToSelf = () => scrollToFile(props.resource.name)
 const copyAnchorLink = () => {
-  if (anchorHref.value) copyAnchor(anchorHref.value)
+  if (anchorHref.value) {
+    copyAnchor(anchorHref.value)
+    showMessage({
+      title: $gettext('Link copied'),
+      desc: $gettext('The public pastebin link has been copied to your clipboard.')
+    })
+  }
 }
 
 const loading = ref(true)
@@ -167,16 +183,23 @@ const languageFromExtension = (name: string): string | undefined => {
   return ext ? map[ext] : undefined
 }
 
-const lines = computed(() => {
-  if (!content.value) return []
+const formattedLines = computed(() => {
+  if (!content.value) return { lines: [], isHighlighted: false }
+
   const lang = languageFromExtension(props.resource.name)
   try {
-    const highlighted = lang
+    const result = lang
       ? hljs.highlight(content.value, { language: lang })
       : hljs.highlightAuto(content.value)
-    return highlighted.value.split('\n')
+    return {
+      lines: result.value.split('\n'),
+      isHighlighted: true
+    }
   } catch {
-    return content.value.split('\n').map((l) => escapeHtml(l))
+    return {
+      lines: content.value.split('\n').map(escapeHtml),
+      isHighlighted: false
+    }
   }
 })
 
@@ -184,8 +207,17 @@ function escapeHtml(text: string): string {
   return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 }
 
+const themeUrl = computed(() => {
+  return unref(currentTheme).isDark ? darkThemeUrl : lightThemeUrl
+})
+
 const copyContent = () => {
-  if (content.value) copy(content.value)
+  if (content.value) {
+    copy(content.value)
+    showMessage({
+      title: $gettext('Content copied')
+    })
+  }
 }
 
 const downloadRaw = () => {

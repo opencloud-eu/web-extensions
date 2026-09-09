@@ -152,13 +152,13 @@ export class PastebinPage {
 
   async getShareLinkHref(): Promise<string> {
     return this.clickAndReadClipboard(() =>
-      this.page.locator('header button[title="Copy public link"]').click()
+      this.page.locator('header button[aria-label="Copy public link"]').click()
     )
   }
 
   async getAnchorHref(filename: string): Promise<string> {
     return this.clickAndReadClipboard(() =>
-      this.getFileContainer(filename).locator('button[title="Link to this file"]').click()
+      this.getFileContainer(filename).locator('button[aria-label="Link to this file"]').click()
     )
   }
 }
