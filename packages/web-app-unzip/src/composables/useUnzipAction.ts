@@ -1,4 +1,5 @@
 import {
+  ApplicationSetupOptions,
   dirname,
   FileAction,
   FileActionOptions,
@@ -21,15 +22,18 @@ import * as zip from '@zip.js/zip.js'
 import workerUrl from '@zip.js/zip.js/dist/zip-web-worker.js?worker&url'
 
 const SUPPORTED_MIME_TYPES = ['application/zip']
-const MAX_SIZE_MB = 64 // in mb
+const DEFAULT_MAX_ARCHIVE_SIZE_MB = 64 // in mb
 
 // uppy's convention for directory-upload metadata on the file object. mirrors the
 // (non-exported) FileWithPath in web/packages/web-pkg/src/services/uppy/uppyService.ts.
 // uppyService.getRelativeFilePath reads .relativePath from file.data.
 type FileWithPath = Blob & { relativePath?: string }
 
-export const useUnzipAction = () => {
+export const useUnzipAction = ({ applicationConfig }: ApplicationSetupOptions) => {
   const { $gettext, current: currentLanguage } = useGettext()
+  // admins can raise the limit via the app config, e.g. `unzip: { config: { maxArchiveSize: 1000000000 } }`
+  const configuredMaxSize = Number(applicationConfig?.maxArchiveSize)
+  const maxSize = configuredMaxSize > 0 ? configuredMaxSize : DEFAULT_MAX_ARCHIVE_SIZE_MB * 1000000
   const clientService = useClientService()
   const loadingService = useLoadingService()
   const userStore = useUserStore()
@@ -129,12 +133,11 @@ export const useUnzipAction = () => {
       },
       isDisabled: ({ resources }) => {
         const archiveSize = Number(resources[0].size || 0)
-        const maxSize = MAX_SIZE_MB * 1000000
         return archiveSize > maxSize
       },
       disabledTooltip: () =>
         $gettext('Archive exceeds the maximum size of %{maxSize}', {
-          maxSize: formatFileSize(MAX_SIZE_MB * 1000000, currentLanguage)
+          maxSize: formatFileSize(maxSize, currentLanguage)
         }),
       isVisible: ({ resources }) => {
         if (resources.length !== 1) {

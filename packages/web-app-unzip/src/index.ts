@@ -4,9 +4,9 @@ import { defineWebApplication } from '@opencloud-eu/web-pkg'
 import { useExtensions } from './composables/useExtensions'
 
 export default defineWebApplication({
-  setup() {
+  setup(args) {
     const { $gettext } = useGettext()
-    const extensions = useExtensions()
+    const extensions = useExtensions(args)
 
     return {
       appInfo: {

@@ -1,4 +1,4 @@
-import { useMessages } from '@opencloud-eu/web-pkg'
+import { AppConfigObject, ApplicationSetupOptions, useMessages } from '@opencloud-eu/web-pkg'
 import { Resource, SpaceResource } from '@opencloud-eu/web-client'
 import { GetFileContentsResponse } from '@opencloud-eu/web-client/webdav'
 import { defaultComponentMocks, getComposableWrapper } from '@opencloud-eu/web-test-helpers'
@@ -71,6 +71,28 @@ describe('unzip action', () => {
         }
       })
     })
+    it('respects the configured maximum size', () => {
+      getWrapper({
+        applicationConfig: { maxArchiveSize: 1000000000 },
+        setup: (action) => {
+          const resource = mock<Resource>({ size: 65 * 1000000 })
+          expect(unref(action).isDisabled({ space, resources: [resource] })).toBeFalsy()
+          expect(unref(action).disabledTooltip({ space, resources: [resource] })).toContain('1 GB')
+        }
+      })
+    })
+    it.each([{ maxArchiveSize: 0 }, { maxArchiveSize: -1 }, { maxArchiveSize: 'foo' }])(
+      'falls back to the default maximum size for the invalid config %s',
+      (applicationConfig) => {
+        getWrapper({
+          applicationConfig,
+          setup: (action) => {
+            const resource = mock<Resource>({ size: 65 * 1000000 })
+            expect(unref(action).isDisabled({ space, resources: [resource] })).toBeTruthy()
+          }
+        })
+      }
+    )
   })
   describe('handler', () => {
     it('shows an error message if an entry is encrypted', () => {
@@ -133,7 +155,8 @@ describe('unzip action', () => {
 function getWrapper({
   setup,
   currentFolder = mock<Resource>({ path: '' }),
-  zipEntries = []
+  zipEntries = [],
+  applicationConfig = {}
 }: {
   setup: (
     instance: ReturnType<typeof useUnzipAction>,
@@ -141,6 +164,7 @@ function getWrapper({
   ) => void
   currentFolder?: Resource
   zipEntries?: zip.Entry[]
+  applicationConfig?: AppConfigObject
 }) {
   closeMock = vi.fn()
   getEntriesMock = vi.fn().mockResolvedValue(zipEntries)
@@ -154,7 +178,7 @@ function getWrapper({
   return {
     wrapper: getComposableWrapper(
       () => {
-        const instance = useUnzipAction()
+        const instance = useUnzipAction(mock<ApplicationSetupOptions>({ applicationConfig }))
         setup(instance, mocks)
       },
       {

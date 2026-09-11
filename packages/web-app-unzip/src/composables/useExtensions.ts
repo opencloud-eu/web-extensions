@@ -1,9 +1,9 @@
-import { ActionExtension } from '@opencloud-eu/web-pkg'
+import { ActionExtension, ApplicationSetupOptions } from '@opencloud-eu/web-pkg'
 import { computed, unref } from 'vue'
 import { useUnzipAction } from './useUnzipAction'
 
-export const useExtensions = () => {
-  const action = useUnzipAction()
+export const useExtensions = (args: ApplicationSetupOptions) => {
+  const action = useUnzipAction(args)
 
   const actionExtension = computed<ActionExtension>(() => {
     return {
