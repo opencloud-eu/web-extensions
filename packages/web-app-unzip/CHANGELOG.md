@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.2.0](https://github.com/opencloud-eu/web-extensions/releases/tag/unzip-v2.2.0) - 2026-09-14
+
+### ✨ Features
+
+- Make the maximum archive size configurable [[#553](https://github.com/opencloud-eu/web-extensions/pull/553)]
+
+### 📦️ Dependencies
+
+- Update dependency @zip.js/zip.js to v2.8.61 [[#532](https://github.com/opencloud-eu/web-extensions/pull/532)]
+
 ## [2.1.0](https://github.com/opencloud-eu/web-extensions/releases/tag/unzip-v2.1.0) - 2026-07-15
 
 ### ✨ Features
