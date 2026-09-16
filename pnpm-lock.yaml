@@ -19,8 +19,8 @@ importers:
         specifier: 7.4.0
         version: 7.4.0(debug@4.4.3(supports-color@8.1.1))(node-fetch@3.3.2)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.2.2(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.103.1)(sass@1.103.1)(terser@5.36.0)(yaml@2.9.0))(vitest@4.1.11(@types/node@24.13.3)(happy-dom@20.12.0)(vite@8.2.2(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.103.1)(sass@1.103.1)(terser@5.36.0)(yaml@2.9.0)))(vue-tsc@3.3.11(typescript@6.0.3))(vue@3.5.42(typescript@6.0.3))
       '@opencloud-eu/prettier-config':
-        specifier: ^7.0.0
-        version: 7.4.0(prettier@3.9.6)
+        specifier: ^8.0.0
+        version: 8.0.0(prettier@3.9.6)
       '@opencloud-eu/tsconfig':
         specifier: ^7.0.0
         version: 7.4.0
@@ -964,8 +964,8 @@ packages:
       vite: ^7.2.0 || ^8.0.0
       vitest: ^4.0.0
 
-  '@opencloud-eu/prettier-config@7.4.0':
-    resolution: {integrity: sha512-ZDuC2NGD4lMmkBdyeMjDZnlb/kJTZ98B9CsX8t9797d32B4511hUfgTdebKaTEjzZmgJhpNPJFlMi3nbhVM0Cw==}
+  '@opencloud-eu/prettier-config@8.0.0':
+    resolution: {integrity: sha512-4vI7c5ujJPkxQMdIbhW993SS6PVjhDPuZRK3Dd/GMJkqb/UziIH2kUcYSicDddahwwwYscU5O5BeE6moatd3cw==}
     peerDependencies:
       prettier: ^3.0.0
 
@@ -5526,7 +5526,7 @@ snapshots:
       - vue
       - vue-tsc
 
-  '@opencloud-eu/prettier-config@7.4.0(prettier@3.9.6)':
+  '@opencloud-eu/prettier-config@8.0.0(prettier@3.9.6)':
     dependencies:
       prettier: 3.9.6
 
