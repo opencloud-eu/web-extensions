@@ -310,7 +310,7 @@ importers:
   packages/web-app-notes:
     dependencies:
       '@opencloud-eu/design-system':
-        specifier: ^7.0.0
+        specifier: ^7.0.0 || ^8.0.0
         version: 7.4.0(@vue/compiler-sfc@3.5.42)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.42(typescript@6.0.3)))(rolldown@1.2.6)(vite@8.2.2(@types/node@24.13.3)(jiti@2.7.0)(sass-embedded@1.103.1)(sass@1.103.1)(terser@5.36.0)(yaml@2.9.0))(vue@3.5.42(typescript@6.0.3))
       '@opencloud-eu/web-client':
         specifier: ^7.0.0
