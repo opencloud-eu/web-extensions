@@ -40,13 +40,7 @@ import {
   useNotebookStore,
   useTocStore
 } from '../composables'
-import {
-  Action,
-  ActionExtension,
-  MenuSection,
-  useExtensionRegistry,
-  useFileActionsDelete
-} from '@opencloud-eu/web-pkg'
+import { Action, ActionExtension, MenuSection, useExtensionRegistry } from '@opencloud-eu/web-pkg'
 import { computed, unref } from 'vue'
 
 const { node } = defineProps<{
@@ -69,7 +63,6 @@ const renameAction = computed(() => {
 
 const { actions: actionsCreateFolder } = useActionsCreateFolder(unref(node))
 const { actions: actionsCreateNote } = useActionsCreateNote(unref(node))
-const { actions: actionsDelete } = useFileActionsDelete()
 
 const getActionOptions = (node: TocNode) => ({
   space: notebookStore.space,
@@ -80,7 +73,7 @@ const getFolderMenuSections = (node: TocNode): MenuSection[] => {
   const items: Action[] = [
     ...actionsCreateFolder,
     ...actionsCreateNote,
-    ...unref(actionsDelete),
+    // ...unref(actionsDelete), FIXME
     ...(unref(renameAction) ? [unref(renameAction)] : [])
   ].filter((action) => action.isVisible(getActionOptions(node)))
   return [

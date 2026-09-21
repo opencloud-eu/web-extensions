@@ -24,6 +24,6 @@
     "@emulatorjs/emulatorjs": "^4.2.3"
   },
   "peerDependencies": {
-    "@opencloud-eu/web-pkg": "^7.0.0"
+    "@opencloud-eu/web-pkg": "^8.0.0"
   }
 }
