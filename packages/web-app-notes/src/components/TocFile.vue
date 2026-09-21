@@ -42,7 +42,6 @@ import {
   ActionExtension,
   type MenuSection,
   useExtensionRegistry,
-  useFileActionsDelete,
   useRouter
 } from '@opencloud-eu/web-pkg'
 import { computed, unref } from 'vue'
@@ -70,7 +69,6 @@ const renameAction = computed(() => {
   return renameExtension?.action
 })
 
-const { actions: actionsDelete } = useFileActionsDelete()
 const { actions: actionsOpenDocument } = useActionsOpenDocument(node)
 const { actions: actionsSaveDocument } = useActionsSaveCurrentDocument(node)
 
@@ -86,7 +84,7 @@ const getFileMenuSections = (node: TocNode): MenuSection[] => {
   const items: Action[] = [
     ...actionsOpenDocument,
     ...actionsSaveDocument,
-    ...unref(actionsDelete),
+    // ...unref(actionsDelete), FIXME
     ...(unref(renameAction) ? [unref(renameAction)] : [])
   ].filter((action) => action.isVisible(getActionOptions(node)))
   return [
