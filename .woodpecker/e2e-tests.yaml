@@ -7,6 +7,7 @@ when:
 variables:
   - &node_image 'quay.io/opencloudeu/nodejs-ci:24@sha256:efb3ac3e7e7180aa24fec6f6811d7a59385798676a6a7081dc092faa0800951b'
   - &oc_image 'opencloudeu/opencloud-rolling:8.0.1@sha256:1e78144071ab3fc20d2533dd4c5709d24b7e1669c96439fdf7c73cb2808a5d5e'
+  - &yjs_image 'opencloudeu/yjs:1.0.0'
   - &alpine_image 'quay.io/opencloudeu/nodejs-alpine-ci:24@sha256:d0d21af0d1f50170a873967855840892cc38b498e2272592f933b458ee36d297'
   - &minio_mc_image 'minio/mc:RELEASE.2021-10-07T04-19-58Z@sha256:a1d9629e969a55e5b957dc7656c3ee893a95cf6c5733223fa0283b1f23f7142e'
   - &tika_image 'apache/tika:3.3.1.0@sha256:90b7fa1dc018434075fce9e1d9b88b1e3d0ea6979d0cf86e116c79a8073ae973'
@@ -14,6 +15,14 @@ variables:
 services:
   - name: tika
     image: *tika_image
+  # Relays Yjs updates between clients for collaborative apps. Reached by the
+  # browser through OpenCloud's proxy, see dev/docker/proxy.yaml.
+  - name: yjs
+    image: *yjs_image
+    environment:
+      PORT: '1234'
+      OPENCLOUD_URL: https://opencloud:9200
+      NODE_TLS_REJECT_UNAUTHORIZED: '0'
 
 steps:
   - name: pnpm-install
@@ -42,6 +51,7 @@ steps:
       PROXY_ENABLE_BASIC_AUTH: True
       WEB_ASSET_APPS_PATH: /woodpecker/apps
       WEB_UI_CONFIG_FILE: /var/lib/opencloud/web.config.json
+      WEB_OPTION_YJS_SERVER_URL: 'wss://opencloud:9200/yjs'
       # Tika configuration
       FRONTEND_FULL_TEXT_SEARCH_ENABLED: true
       SEARCH_EXTRACTOR_TYPE: tika
@@ -49,6 +59,7 @@ steps:
       SEARCH_EXTRACTOR_CS3SOURCE_INSECURE: true
     commands:
       - cp dev/docker/opencloud.apps.yaml /etc/opencloud/apps.yaml
+      - cp dev/docker/proxy.yaml /etc/opencloud/proxy.yaml
       - cp dev/woodpecker/opencloud.web.config.json /var/lib/opencloud/web.config.json
       - opencloud init || true && opencloud server
   - name: wait-for-opencloud

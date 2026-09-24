@@ -1,0 +1,9 @@
+# Routes '/yjs' to the yjs container. The browser reaches the collaboration
+# websocket through OpenCloud's own reverse proxy, so it stays same-origin and
+# needs no extra `connect-src` entry in csp.yaml.
+additional_policies:
+  - name: default
+    routes:
+      - endpoint: /yjs
+        backend: http://yjs:1234
+        unprotected: true
