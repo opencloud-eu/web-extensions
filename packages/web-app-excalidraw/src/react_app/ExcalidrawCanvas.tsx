@@ -2,9 +2,13 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { Excalidraw } from '@excalidraw/excalidraw'
 import { ExcalidrawBinding, yjsToExcalidraw } from 'y-excalidraw'
 import '@excalidraw/excalidraw/index.css'
-import type { ExcalidrawImperativeAPI } from '@excalidraw/excalidraw/types'
+import type {
+  ExcalidrawImperativeAPI,
+  ExcalidrawInitialDataState
+} from '@excalidraw/excalidraw/types'
 import * as Y from 'yjs'
 import type { Awareness } from 'y-protocols/awareness'
+import { observeAppState, readAppState, writeAppState } from '../adapters/excalidrawAdapter'
 
 // Excalidraw lazy-loads fonts / locales / lib data at runtime. Without an
 // override, it falls back to `https://esm.sh/@excalidraw/excalidraw@…/dist/prod/`
@@ -49,8 +53,11 @@ export default function ExcalidrawCanvas({
 }: ExcalidrawCanvasProps) {
   const [api, setApi] = useState<ExcalidrawImperativeAPI | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
-  const initialData = useMemo(
-    () => ({ elements: yjsToExcalidraw(ydoc.getArray<Y.Map<unknown>>('elements')) }),
+  const initialData = useMemo<ExcalidrawInitialDataState>(
+    () => ({
+      elements: yjsToExcalidraw(ydoc.getArray<Y.Map<unknown>>('elements')),
+      appState: readAppState(ydoc) as ExcalidrawInitialDataState['appState']
+    }),
     [ydoc]
   )
 
@@ -62,32 +69,47 @@ export default function ExcalidrawCanvas({
 
     // y-excalidraw needs the DOM node for its undo/redo button hijacking.
     // We pass it only when we also pass an undoManager; without one, the
-    // binding skips that whole block and the DOM node isn't read.
-    const undoManager = new Y.UndoManager(yElements, {
-      // Skip transactions coming from the wrapper (hydrate / reset /
-      // stale-recovery) — those aren't user actions and shouldn't land in
-      // the undo stack.
-      trackedOrigins: new Set([null, undefined])
-    })
+    // binding skips that whole block and the DOM node isn't read. A read-only
+    // session has no undo/redo buttons to hijack, so it gets neither.
+    const undoManager = isReadOnly
+      ? null
+      : new Y.UndoManager(yElements, {
+          // Skip transactions coming from the wrapper (hydrate / reset /
+          // stale-recovery) — those aren't user actions and shouldn't land in
+          // the undo stack.
+          trackedOrigins: new Set([null, undefined])
+        })
 
     const binding = new ExcalidrawBinding(
       yElements,
       yAssets,
       api,
       awareness,
-      containerRef.current ? { excalidrawDom: containerRef.current, undoManager } : undefined
+      undoManager && containerRef.current
+        ? { excalidrawDom: containerRef.current, undoManager }
+        : undefined
     )
+
+    // y-excalidraw syncs elements and assets, not the scene settings. Carry
+    // remote changes to those over ourselves; the local direction goes out
+    // through `onChange` below.
+    const unobserveAppState = observeAppState(ydoc, (appState) => {
+      api.updateScene({
+        appState: appState as Parameters<typeof api.updateScene>[0]['appState']
+      })
+    })
 
     window.__excalidrawAPI = api
     window.__excalidrawYDoc = ydoc
 
     return () => {
+      unobserveAppState()
       binding.destroy()
-      undoManager.destroy()
+      undoManager?.destroy()
       if (window.__excalidrawAPI === api) delete window.__excalidrawAPI
       if (window.__excalidrawYDoc === ydoc) delete window.__excalidrawYDoc
     }
-  }, [api, ydoc, awareness])
+  }, [api, ydoc, awareness, isReadOnly])
 
   return (
     <div ref={containerRef} style={{ width: '100%', height: '100%' }} className="excalidraw-host">
@@ -95,6 +117,10 @@ export default function ExcalidrawCanvas({
         initialData={initialData}
         excalidrawAPI={(instance: ExcalidrawImperativeAPI) => setApi(instance)}
         viewModeEnabled={isReadOnly}
+        onChange={(_elements, appState) => {
+          if (isReadOnly) return
+          writeAppState(ydoc, appState as unknown as Record<string, unknown>)
+        }}
         onPointerUpdate={(payload: {
           pointer: { x: number; y: number; tool: 'pointer' | 'laser' }
           button: 'down' | 'up'

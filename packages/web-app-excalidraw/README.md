@@ -6,12 +6,9 @@ read-only for users without write access.
 
 ## Requirements
 
-Collaborative editing needs OpenCloud to ship a web version that shares `yjs` with extensions.
-Excalidraw keeps its scene in a shared Y.Doc that the host creates; Yjs identifies its shared
-types by constructor, so an extension bundling its own copy fails on the first write
-([yjs#438](https://github.com/yjs/yjs/issues/438)).
-
-Without a reachable Yjs server the app still works, it just does not sync between clients.
+Requires OpenCloud <!-- TODO: fill in the release that ships this --> or newer. Older
+versions still open and save whiteboards, but every client works on its own copy and
+changes are not shared.
 
 ## Setup for collaboration
 
