@@ -4,8 +4,4 @@
 
 ### ✨ Features
 
-- Collaborative Excalidraw whiteboards [[#3111](https://github.com/opencloud-eu/web/issues/3111)]
-
-### Breaking changes
-
-- The extension only loads with OpenCloud versions that share `yjs` with extensions.
+- Collaborative Excalidraw whiteboards [[#572](https://github.com/opencloud-eu/web-extensions/pull/572)]
