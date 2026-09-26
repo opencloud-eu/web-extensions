@@ -2,6 +2,27 @@
 
 OpenCloud Maps app can display `.gpx` files and show geo location data for single pictures in the sidebar or for a whole folder as a folder view.
 
+## Location data
+
+The sidebar panel and the folder view use the location stored on each file, which WebDAV returns as `oc:location`. The app does not read EXIF data itself. OpenCloud's search service stores the location when it extracts a file's metadata, and only its Tika extractor reads GPS data. With the default extractor (`basic`), pictures never get a location and the folder view shows "No files with location data".
+
+To enable it, point the search service to an [Apache Tika](https://tika.apache.org/) server:
+
+```yaml
+SEARCH_EXTRACTOR_TYPE: tika
+SEARCH_EXTRACTOR_TIKA_TIKA_URL: http://tika:9998
+```
+
+In [opencloud-compose](https://github.com/opencloud-eu/opencloud-compose) this is what `search/tika.yml` adds.
+
+Files uploaded after that get their location within seconds. Files that were indexed before keep none, because unchanged files are skipped when the index is rebuilt, so force a rescan:
+
+```bash
+opencloud search index --all-spaces --force-rescan --insecure
+```
+
+`--insecure` is needed when the internal gRPC services run without TLS, which is the default. The search service only extracts metadata from files up to 20 MiB by default (`SEARCH_CONTENT_EXTRACTION_SIZE_LIMIT`, in bytes), so larger pictures get no location.
+
 ## Configuration
 
 In `apps.yaml` you can override configuration like this:
