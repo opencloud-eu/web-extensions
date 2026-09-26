@@ -11,6 +11,7 @@ This repository contains a collection of [OpenCloud Web](https://github.com/open
 - [web-app-calculator](./packages/web-app-calculator/)
 - [web-app-cast](./packages/web-app-cast/)
 - [web-app-draw-io](./packages/web-app-draw-io/)
+- [web-app-excalidraw](./packages/web-app-excalidraw/)
 - [web-app-external-sites](./packages/web-app-external-sites/)
 - [web-app-importer](./packages/web-app-importer/)
 - [web-app-json-viewer](./packages/web-app-json-viewer/)

@@ -21,6 +21,7 @@ services:
       # WEB
       WEB_ASSET_APPS_PATH: /web/apps
       WEB_UI_CONFIG_FILE: /web/config.json
+      WEB_OPTION_YJS_SERVER_URL: 'wss://host.docker.internal:9200/yjs'
 
       # TIKA
       SEARCH_EXTRACTOR_TYPE: 'tika'
@@ -39,12 +40,14 @@ services:
       - ./dev/docker/opencloud.web.config.json:/web/config.json
       - ./dev/docker/opencloud.apps.yaml:/etc/opencloud/apps.yaml
       - ./dev/docker/csp.yaml:/etc/opencloud/csp.yaml
+      - ./dev/docker/proxy.yaml:/etc/opencloud/proxy.yaml
       # apps
       - ./packages/web-app-calculator/dist:/web/apps/calculator
       - ./packages/web-app-arcade/dist:/web/apps/arcade
       - ./packages/web-app-cast/dist:/web/apps/cast
       - ./packages/web-app-bpmn/dist:/web/apps/bpmn
       - ./packages/web-app-draw-io/dist:/web/apps/draw-io
+      - ./packages/web-app-excalidraw/dist:/web/apps/excalidraw
       - ./packages/web-app-external-sites/dist:/web/apps/external-sites
       - ./packages/web-app-importer/dist:/web/apps/importer
       - ./packages/web-app-json-viewer/dist:/web/apps/json-viewer
@@ -55,6 +58,20 @@ services:
       - ./packages/web-app-unzip/dist:/web/apps/unzip
     depends_on:
       - traefik
+
+  yjs:
+    image: opencloudeu/yjs:1.0.0
+    extra_hosts:
+      - host.docker.internal:${DOCKER_HOST:-host-gateway}
+    environment:
+      PORT: '1234'
+      OPENCLOUD_URL: https://host.docker.internal:9200
+      # Dev only: accept the self-signed cert from Traefik
+      NODE_TLS_REJECT_UNAUTHORIZED: '0'
+    networks:
+      - traefik
+    restart: unless-stopped
+    stop_grace_period: 20s
 
   companion:
     image: transloadit/companion:7.0.2@sha256:7ad47a25ee69e51ea1e09cafc86c81f60aae2aee72cb288d5ab4c6d13570b9ba

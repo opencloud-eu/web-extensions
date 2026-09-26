@@ -1,0 +1,32 @@
+{
+  "name": "excalidraw",
+  "version": "1.0.0",
+  "private": true,
+  "description": "OpenCloud Web collaborative Excalidraw whiteboard editor",
+  "license": "AGPL-3.0",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm vite build",
+    "build:w": "pnpm vite build --watch --mode development",
+    "check:types": "vue-tsc --noEmit",
+    "test:unit": "NODE_OPTIONS=--unhandled-rejections=throw vitest"
+  },
+  "dependencies": {
+    "@excalidraw/excalidraw": "^0.18.1",
+    "fractional-indexing": "^3.2.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "y-excalidraw": "^2.0.12"
+  },
+  "devDependencies": {
+    "@opencloud-eu/web-client": "^8.0.0",
+    "@opencloud-eu/web-pkg": "^8.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "vite-plugin-static-copy": "^3.0.0",
+    "vue": "^3.4.21",
+    "vue3-gettext": "^4.0.0",
+    "y-protocols": "^1.0.7",
+    "yjs": "^13.6.0"
+  }
+}
