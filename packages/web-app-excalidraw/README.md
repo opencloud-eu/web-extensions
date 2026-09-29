@@ -6,9 +6,17 @@ read-only for users without write access.
 
 ## Requirements
 
-Requires OpenCloud <!-- TODO: fill in the release that ships this --> or newer. Older
-versions still open and save whiteboards, but every client works on its own copy and
-changes are not shared.
+The app takes its Yjs runtime from OpenCloud Web instead of bundling its own - two copies of
+Yjs on one page do not work together. Both sides have to provide it:
+
+- at build time, through `@opencloud-eu/extension-sdk`, which lists `yjs` and
+  `y-protocols/awareness` as external modules,
+- at run time, through the OpenCloud that serves the app, whose Web shares those same modules
+  with external apps ([opencloud-eu/web#3398](https://github.com/opencloud-eu/web/pull/3398)).
+
+The version pinned in the root `package.json` is the build side of that, so there is no
+separate version to track here. Against an OpenCloud that is older than its extension-sdk, the
+app fails to start a session and the browser console reports `Yjs was already imported`.
 
 ## Setup for collaboration
 
