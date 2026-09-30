@@ -48,7 +48,6 @@ export const extensions = ({
     action: {
       name: 'cast',
       icon: 'cast',
-      category: 'tertiary',
       handler,
       label: () => $gettext('Cast'),
       isVisible: ({ resources }: FileActionOptions) => {
