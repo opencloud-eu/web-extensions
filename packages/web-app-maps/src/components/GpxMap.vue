@@ -22,7 +22,7 @@
 <script setup lang="ts">
 import { onMounted, ref, onBeforeUnmount, watch, unref, useTemplateRef } from 'vue'
 import { useGettext } from 'vue3-gettext'
-import maplibregl from 'maplibre-gl'
+import * as maplibregl from 'maplibre-gl'
 import { useMap } from '../composables'
 import { parseGpx, type GpxMetadata } from '../helpers/gpx'
 
