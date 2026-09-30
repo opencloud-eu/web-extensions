@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import { ref, unref, computed, onMounted, onUnmounted, useTemplateRef } from 'vue'
-import maplibregl from 'maplibre-gl'
+import * as maplibregl from 'maplibre-gl'
 import { useMap, useMapPins } from '../composables'
 import { Resource } from '@opencloud-eu/web-client'
 

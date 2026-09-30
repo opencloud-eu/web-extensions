@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.1.1](https://github.com/opencloud-eu/web-extensions/releases/tag/maps-v3.1.1) - 2026-09-30
+
+### 🔒 Security
+
+- Update dependency maplibre-gl to v6 [[#551](https://github.com/opencloud-eu/web-extensions/pull/551)]
+
+### 🐛 Bug Fixes
+
+- Show the map attribution collapsed by default [[#521](https://github.com/opencloud-eu/web-extensions/pull/521)]
+
 ## [3.1.0](https://github.com/opencloud-eu/web-extensions/releases/tag/maps-v3.1.0) - 2026-07-15
 
 ### ✨ Features
