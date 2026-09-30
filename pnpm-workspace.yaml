@@ -22,3 +22,5 @@ minimumReleaseAgeExclude:
   - vite@8.0.16
   - '@opencloud-eu/extension-sdk@7.3.0-alpha.1'
   - '@opencloud-eu/web-test-helpers@7.3.0'
+  # Renovate security update: maplibre-gl@6.4.1
+  - maplibre-gl@6.4.1
