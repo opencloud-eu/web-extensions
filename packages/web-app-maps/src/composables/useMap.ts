@@ -1,12 +1,16 @@
-import maplibregl from 'maplibre-gl'
+import * as maplibregl from 'maplibre-gl'
 import { Protocol } from 'pmtiles'
 import { layers, LIGHT } from '@protomaps/basemaps'
 import type { MapsConfig } from '../types'
+import maplibreWorkerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url'
 
 export type GeoCoordinates = {
   latitude: number
   longitude: number
 }
+
+// maplibre resolves its worker relative to its own module, which Vite does not emit
+maplibregl.setWorkerUrl(maplibreWorkerUrl)
 
 let pmtilesRegistered = false
 

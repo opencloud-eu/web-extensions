@@ -1,6 +1,6 @@
 import { unref, watch, computed, Ref, ComputedRef } from 'vue'
 import { Resource } from '@opencloud-eu/web-client'
-import maplibregl from 'maplibre-gl'
+import * as maplibregl from 'maplibre-gl'
 
 export const useMapPins = (
   resources: Ref<Resource[]> | ComputedRef<Resource[]>,

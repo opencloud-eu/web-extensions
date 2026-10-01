@@ -15,7 +15,8 @@ vi.mock('maplibre-gl', () => {
   }
 
   return {
-    default: { Marker, LngLatBounds }
+    Marker,
+    LngLatBounds
   }
 })
 

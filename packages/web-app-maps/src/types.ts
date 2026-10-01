@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import type maplibregl from 'maplibre-gl'
+import type * as maplibregl from 'maplibre-gl'
 
 export const MapsConfigSchema = z.object({
   folderViewEnabled: z.boolean().optional(),
