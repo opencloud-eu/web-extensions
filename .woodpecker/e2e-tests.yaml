@@ -19,6 +19,10 @@ services:
   # browser through OpenCloud's proxy, see dev/docker/proxy.yaml.
   - name: yjs
     image: *yjs_image
+    # The image CMD is relative to its WORKDIR (/app), but woodpecker runs the
+    # container in the workspace, so the entrypoint needs the absolute path.
+    commands:
+      - node /app/src/server.ts
     environment:
       PORT: '1234'
       OPENCLOUD_URL: https://opencloud:9200
