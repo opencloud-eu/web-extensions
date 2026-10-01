@@ -1,4 +1,5 @@
-import { test, Page, expect } from '@playwright/test'
+import { Page } from '@playwright/test'
+import { test, expect } from '../../../../support/test'
 import { FilesAppBar } from '../../../../support/pages/filesAppBarActions'
 import { ExcalidrawPage } from '../../../../support/pages/excalidrawPage'
 import { loginAsUser, logout } from '../../../../support/helpers/authHelper'
@@ -17,7 +18,11 @@ test.afterEach(async () => {
   }
 })
 
-test('create, draw on and reopen an excalidraw whiteboard', async () => {
+test('create, draw on and reopen an excalidraw whiteboard', async ({ skipIfWeb }) => {
+  // The app takes yjs from the host instead of bundling its own copy. Web shares it
+  // since web#3398, before that the app cannot start at all.
+  skipIfWeb('<8.1.0', 'needs shared yjs from web#3398')
+
   const filesAppBar = new FilesAppBar(userPage)
   await filesAppBar.createNewFile('excalidraw')
   await expect(userPage).toHaveURL(/.*excalidraw/)
