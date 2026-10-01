@@ -15,8 +15,9 @@ Yjs on one page do not work together. Both sides have to provide it:
   with external apps ([opencloud-eu/web#3398](https://github.com/opencloud-eu/web/pull/3398)).
 
 The version pinned in the root `package.json` is the build side of that, so there is no
-separate version to track here. Against an OpenCloud that is older than its extension-sdk, the
-app fails to start a session and the browser console reports `Yjs was already imported`.
+separate version to track here. The run time side is up to the deployment: the app needs an
+OpenCloud whose Web is 8.1.0 or newer. Against an older one it fails to start a session and
+the browser console reports `Yjs was already imported`.
 
 ## Setup for collaboration
 
