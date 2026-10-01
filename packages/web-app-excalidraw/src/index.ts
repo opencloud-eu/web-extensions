@@ -38,7 +38,7 @@ export default defineWebApplication({
           extension: 'excalidraw',
           routeName: applicationId,
           newFileMenu: {
-            menuTitle: () => $gettext('Excalidraw whiteboard')
+            menuTitle: () => $gettext('Whiteboard')
           }
         }
       ]
