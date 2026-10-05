@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.0.0](https://github.com/opencloud-eu/web-extensions/releases/tag/excalidraw-v1.0.0) - unreleased
+## [1.0.0](https://github.com/opencloud-eu/web-extensions/releases/tag/excalidraw-v1.0.0) - 2026-10-05
 
 ### ✨ Features
 
