@@ -18,9 +18,6 @@ overrides:
 allowBuilds:
   '@parcel/watcher': true
 minimumReleaseAgeExclude:
-  # Renovate security update: vite@8.0.16
-  - vite@8.0.16
-  - '@opencloud-eu/extension-sdk@7.3.0-alpha.1'
   # Needed to release the excalidraw app on the day 8.1.0 was published
   - '@opencloud-eu/extension-sdk@8.1.0'
   - '@opencloud-eu/web-test-helpers@7.3.0'
