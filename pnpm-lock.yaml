@@ -16,8 +16,8 @@ importers:
         specifier: ^8.0.0
         version: 8.0.0(@typescript-eslint/eslint-plugin@8.66.0(@typescript-eslint/parser@8.66.0(eslint@10.11.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.11.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.11.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(vue-eslint-parser@10.4.1(eslint@10.11.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1))
       '@opencloud-eu/extension-sdk':
-        specifier: ~8.1.0-alpha.1
-        version: 8.1.0-alpha.1(debug@4.4.3(supports-color@8.1.1))(node-fetch@3.3.2)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.1(@types/node@24.19.0)(jiti@2.7.0)(sass-embedded@1.105.0)(sass@1.105.0)(terser@5.36.0)(yaml@2.9.0))(vitest@5.0.2(@types/node@24.19.0)(happy-dom@20.14.5)(vite@8.3.1(@types/node@24.19.0)(jiti@2.7.0)(sass-embedded@1.105.0)(sass@1.105.0)(terser@5.36.0)(yaml@2.9.0)))(vue-tsc@3.3.11(typescript@6.0.3))(vue@3.5.43(typescript@6.0.3))
+        specifier: ^8.1.0
+        version: 8.1.0(debug@4.4.3(supports-color@8.1.1))(node-fetch@3.3.2)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.1(@types/node@24.19.0)(jiti@2.7.0)(sass-embedded@1.105.0)(sass@1.105.0)(terser@5.36.0)(yaml@2.9.0))(vitest@5.0.2(@types/node@24.19.0)(happy-dom@20.14.5)(vite@8.3.1(@types/node@24.19.0)(jiti@2.7.0)(sass-embedded@1.105.0)(sass@1.105.0)(terser@5.36.0)(yaml@2.9.0)))(vue-tsc@3.3.11(typescript@6.0.3))(vue@3.5.43(typescript@6.0.3))
       '@opencloud-eu/prettier-config':
         specifier: ^8.0.0
         version: 8.0.0(prettier@3.9.9)
@@ -1076,8 +1076,8 @@ packages:
     peerDependencies:
       eslint: ^9.0.0 || ^10.0.0
 
-  '@opencloud-eu/extension-sdk@8.1.0-alpha.1':
-    resolution: {integrity: sha512-2ITVWMT/TxB1xu92NUdvoW0AY/QnPrSC7wkjqv/NnkBN31oj8lvTmwiBtn5/7ooEy7nfzSH1FSjPJnE4K+gbtw==}
+  '@opencloud-eu/extension-sdk@8.1.0':
+    resolution: {integrity: sha512-cN5D8iqjw3DvusU59ANXq+ISOH6g791KpY1ygq7BIn+nqXHr5hQzYIZwgUdmCgy4NuT5HM9W0VDjOQiknYI4MA==}
     peerDependencies:
       vite: ^7.2.0 || ^8.0.0
       vitest: ^4.0.0 || ^5.0.0
@@ -6614,7 +6614,7 @@ snapshots:
       - supports-color
       - vue-eslint-parser
 
-  '@opencloud-eu/extension-sdk@8.1.0-alpha.1(debug@4.4.3(supports-color@8.1.1))(node-fetch@3.3.2)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.1(@types/node@24.19.0)(jiti@2.7.0)(sass-embedded@1.105.0)(sass@1.105.0)(terser@5.36.0)(yaml@2.9.0))(vitest@5.0.2(@types/node@24.19.0)(happy-dom@20.14.5)(vite@8.3.1(@types/node@24.19.0)(jiti@2.7.0)(sass-embedded@1.105.0)(sass@1.105.0)(terser@5.36.0)(yaml@2.9.0)))(vue-tsc@3.3.11(typescript@6.0.3))(vue@3.5.43(typescript@6.0.3))':
+  '@opencloud-eu/extension-sdk@8.1.0(debug@4.4.3(supports-color@8.1.1))(node-fetch@3.3.2)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.1(@types/node@24.19.0)(jiti@2.7.0)(sass-embedded@1.105.0)(sass@1.105.0)(terser@5.36.0)(yaml@2.9.0))(vitest@5.0.2(@types/node@24.19.0)(happy-dom@20.14.5)(vite@8.3.1(@types/node@24.19.0)(jiti@2.7.0)(sass-embedded@1.105.0)(sass@1.105.0)(terser@5.36.0)(yaml@2.9.0)))(vue-tsc@3.3.11(typescript@6.0.3))(vue@3.5.43(typescript@6.0.3))':
     dependencies:
       '@module-federation/vite': 1.14.2(debug@4.4.3(supports-color@8.1.1))(node-fetch@3.3.2)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.1(@types/node@24.19.0)(jiti@2.7.0)(sass-embedded@1.105.0)(sass@1.105.0)(terser@5.36.0)(yaml@2.9.0))(vue-tsc@3.3.11(typescript@6.0.3))
       '@tailwindcss/vite': 4.3.3(vite@8.3.1(@types/node@24.19.0)(jiti@2.7.0)(sass-embedded@1.105.0)(sass@1.105.0)(terser@5.36.0)(yaml@2.9.0))
