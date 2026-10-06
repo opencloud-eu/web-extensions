@@ -60,7 +60,7 @@ services:
       - traefik
 
   yjs:
-    image: opencloudeu/yjs:1.0.0
+    image: opencloudeu/yjs:1.1.0@sha256:99c6ce4688b06544c4e17cf149ceaefb90e2043d4e83d004c4f13c637a733dc4
     extra_hosts:
       - host.docker.internal:${DOCKER_HOST:-host-gateway}
     environment:
