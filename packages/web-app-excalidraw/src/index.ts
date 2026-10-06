@@ -36,7 +36,6 @@ export default defineWebApplication({
       name: $gettext('Excalidraw'),
       id: applicationId,
       icon: 'resource-type-graphic',
-      // The resource-type-* icons only exist as `fill`, while app icons default to `line`.
       iconFillType: 'fill',
       defaultExtension: 'excalidraw',
       extensions: [
