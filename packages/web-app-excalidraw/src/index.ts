@@ -1,5 +1,9 @@
 import { useGettext } from 'vue3-gettext'
-import { AppWrapperRoute, defineWebApplication } from '@opencloud-eu/web-pkg'
+import {
+  AppWrapperRoute,
+  defineWebApplication,
+  type ApplicationInformation
+} from '@opencloud-eu/web-pkg'
 import App from './App.vue'
 import { makeExcalidrawAdapter } from './adapters/excalidrawAdapter'
 import translations from '../l10n/translations.json'
@@ -28,10 +32,12 @@ export default defineWebApplication({
       }
     ]
 
-    const appInfo = {
+    const appInfo: ApplicationInformation = {
       name: $gettext('Excalidraw'),
       id: applicationId,
       icon: 'resource-type-graphic',
+      // The resource-type-* icons only exist as `fill`, while app icons default to `line`.
+      iconFillType: 'fill',
       defaultExtension: 'excalidraw',
       extensions: [
         {
