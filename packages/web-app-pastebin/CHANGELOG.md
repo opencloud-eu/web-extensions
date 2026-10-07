@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.2.0](https://github.com/opencloud-eu/web-extensions/releases/tag/pastebin-v2.2.0) - 2026-10-07
+
+### ✨ Features
+
+- Support highlight.js dark mode [[#550](https://github.com/opencloud-eu/web-extensions/pull/550)]
+
+### 🐛 Bug Fixes
+
+- Use OpenCloud UI tooltip [[#550](https://github.com/opencloud-eu/web-extensions/pull/550)]
+- Include parent context when navigating to the view and edit routes [[#550](https://github.com/opencloud-eu/web-extensions/pull/550)]
+
 ## [2.1.0](https://github.com/opencloud-eu/web-extensions/releases/tag/pastebin-v2.1.0) - 2026-07-15
 
 ### ✨ Features
