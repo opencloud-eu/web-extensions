@@ -35,7 +35,7 @@ export default defineWebApplication({
     const appInfo: ApplicationInformation = {
       name: $gettext('Excalidraw'),
       id: applicationId,
-      icon: 'resource-type-graphic',
+      icon: 'resource-type-whiteboard',
       iconFillType: 'fill',
       defaultExtension: 'excalidraw',
       extensions: [
