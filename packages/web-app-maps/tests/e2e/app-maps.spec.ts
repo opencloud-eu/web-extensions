@@ -49,7 +49,7 @@ test('see metadata of the image file.', async () => {
     'exif-panel-focalLength': '4.38 mm',
     'exif-panel-fNumber': 'f/1.73',
     'exif-panel-exposureTime': '1/4695',
-    'exif-panel-iso': '-',
+    'exif-panel-iso': '61',
     'exif-panel-orientation': '1',
     'exif-panel-takenDateTime': 'Aug 20, 2023',
     'exif-panel-location': '48.406408, 9.258861'
