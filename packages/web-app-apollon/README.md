@@ -19,10 +19,6 @@ The app takes its Yjs runtime from OpenCloud Web instead of bundling its own, se
 [Excalidraw app](../web-app-excalidraw/README.md#requirements) for the details. It needs an
 OpenCloud whose Web is 8.1.0 or newer.
 
-The app hands OpenCloud's shared document and awareness to the Apollon editor and uses
-editor-free helpers to load and save the model. Both need an Apollon release that provides
-them.
-
 ## Setup for collaboration
 
 The same as for the [Excalidraw app](../web-app-excalidraw/README.md#setup-for-collaboration).
