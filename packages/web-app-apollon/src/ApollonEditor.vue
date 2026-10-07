@@ -38,7 +38,7 @@ onMounted(() => {
       showPresence: true,
       showCursors: true,
       showSelectionHighlights: true,
-      showFollow: false
+      showFollow: true
     }
   })
 })
