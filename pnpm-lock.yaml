@@ -208,8 +208,8 @@ importers:
         specifier: ^0.18.1
         version: 0.18.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       fractional-indexing:
-        specifier: ^3.2.0
-        version: 3.4.0
+        specifier: ^4.0.0
+        version: 4.0.0
       react:
         specifier: ^19.0.0
         version: 19.3.0
@@ -3309,6 +3309,10 @@ packages:
 
   fractional-indexing@3.4.0:
     resolution: {integrity: sha512-8J3glhz2rrpKG6KmI7wmJo3zH1VjeOpN+vTJSw1fOyO+Viqq3zX6/5NGh6oaZB2qIAYdOYuu5Dz9xp4faOO0Pg==}
+    engines: {node: ^14.13.1 || >=16.0.0}
+
+  fractional-indexing@4.0.0:
+    resolution: {integrity: sha512-Nr2P1Yyaj2sy1Qdt/wI3GcByxrUdbSKg5+cGvw8f18hT2SkQt6V72iOjBpk7IO3UkzBsdlGRs2a4z6dLrJprgw==}
     engines: {node: ^14.13.1 || >=16.0.0}
 
   fs-extra@9.1.0:
@@ -8993,6 +8997,8 @@ snapshots:
   fractional-indexing@3.2.0: {}
 
   fractional-indexing@3.4.0: {}
+
+  fractional-indexing@4.0.0: {}
 
   fs-extra@9.1.0:
     dependencies:
