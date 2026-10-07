@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Excalidraw } from '@excalidraw/excalidraw'
+import { Excalidraw, useHandleLibrary } from '@excalidraw/excalidraw'
 import { ExcalidrawBinding, yjsToExcalidraw } from 'y-excalidraw'
 import '@excalidraw/excalidraw/index.css'
 import type {
   ExcalidrawImperativeAPI,
   ExcalidrawInitialDataState
 } from '@excalidraw/excalidraw/types'
+import type { LibraryPersistenceAdapter } from '@excalidraw/excalidraw/data/library'
 import * as Y from 'yjs'
 import type { Awareness } from 'y-protocols/awareness'
 import { observeAppState, readAppState, writeAppState } from '../adapters/excalidrawAdapter'
@@ -33,6 +34,7 @@ interface ExcalidrawCanvasProps {
   ydoc: Y.Doc
   awareness: Awareness
   isReadOnly?: boolean
+  libraryAdapter?: LibraryPersistenceAdapter | null
 }
 
 // Test hook: exposes the live ExcalidrawImperativeAPI on `window` so the
@@ -49,9 +51,13 @@ declare global {
 export default function ExcalidrawCanvas({
   ydoc,
   awareness,
-  isReadOnly = false
+  isReadOnly = false,
+  libraryAdapter = null
 }: ExcalidrawCanvasProps) {
   const [api, setApi] = useState<ExcalidrawImperativeAPI | null>(null)
+  useHandleLibrary(
+    libraryAdapter ? { excalidrawAPI: api, adapter: libraryAdapter } : { excalidrawAPI: api }
+  )
   const containerRef = useRef<HTMLDivElement>(null)
   const initialData = useMemo<ExcalidrawInitialDataState>(
     () => ({
