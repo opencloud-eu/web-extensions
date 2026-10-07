@@ -74,7 +74,7 @@ services:
     stop_grace_period: 20s
 
   companion:
-    image: transloadit/companion:7.1.0@sha256:a2ac3c4e37d905c5e6949587c700247c17c841c6947d787ce977fa4345390056
+    image: transloadit/companion:7.1.1@sha256:2b09c5c0a3c9d1aab10c5a7abc3e4ca0d55bdaedebce91a5d939679595ed7375
     extra_hosts:
       - host.docker.internal:${DOCKER_HOST:-host-gateway}
     environment:
