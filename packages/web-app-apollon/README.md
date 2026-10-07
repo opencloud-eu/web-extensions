@@ -15,9 +15,7 @@ reads and writes. Files from older Apollon versions are migrated when they are s
 
 ## Requirements
 
-The app takes its Yjs runtime from OpenCloud Web instead of bundling its own, see the
-[Excalidraw app](../web-app-excalidraw/README.md#requirements) for the details. It needs an
-OpenCloud whose Web is 8.1.0 or newer.
+OpenCloud Web 8.1.0 or newer.
 
 ## Setup for collaboration
 
