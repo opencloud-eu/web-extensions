@@ -11,6 +11,26 @@ describe('external sites config', () => {
     expect(sites[0].icon).toBe('book')
   })
 
+  it('accepts a named icon with a fill type and a color for a site', () => {
+    const icon = { name: 'sun', fillType: 'line', color: '#ffd400' }
+
+    const { sites } = ExternalSitesConfigSchema.parse({ sites: [site(icon)] })
+
+    expect(sites[0].icon).toEqual(icon)
+  })
+
+  it('rejects a named icon with an unknown fill type', () => {
+    expect(() =>
+      ExternalSitesConfigSchema.parse({ sites: [site({ name: 'sun', fillType: 'solid' })] })
+    ).toThrow()
+  })
+
+  it('rejects an icon that is a named icon and an image at once', () => {
+    expect(() =>
+      ExternalSitesConfigSchema.parse({ sites: [site({ name: 'sun', src: 'https://x/y.svg' })] })
+    ).toThrow()
+  })
+
   it('accepts an image icon for a site', () => {
     const icon = { src: 'https://docs.example.org/logo.svg' }
 

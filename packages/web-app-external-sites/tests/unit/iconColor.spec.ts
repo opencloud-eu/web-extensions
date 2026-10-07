@@ -17,6 +17,10 @@ describe('fallbackIconColor', () => {
     expect(fallbackIconColor(icon)).toBe(color)
   })
 
+  it('derives the color of a named icon from its name', () => {
+    expect(fallbackIconColor({ name: 'key', fillType: 'line' })).toBe('#01985c')
+  })
+
   it('returns nothing for an image icon, which needs no derived color', () => {
     expect(fallbackIconColor({ src: 'https://example.org/key.svg' })).toBeUndefined()
   })

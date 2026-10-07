@@ -55,10 +55,11 @@ function withDesiredContrast(rgb: Rgb): Rgb {
 }
 
 export function fallbackIconColor(icon?: ExternalSiteIcon): string | undefined {
-  if (typeof icon !== 'string' || !icon) {
+  const name = typeof icon === 'string' ? icon : icon && 'name' in icon ? icon.name : undefined
+  if (!name) {
     return undefined
   }
-  const hex = withDesiredContrast(hashedColor(icon))
+  const hex = withDesiredContrast(hashedColor(name))
     .map((value) => value.toString(16).padStart(2, '0'))
     .join('')
   return `#${hex}`

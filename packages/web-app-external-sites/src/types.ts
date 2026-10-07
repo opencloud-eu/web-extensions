@@ -14,12 +14,18 @@ export const VisibilityControlSchema = z
 
 export type VisibilityControl = z.infer<typeof VisibilityControlSchema>
 
-export const ImageIconSchema = z.object({
+export const NamedIconSchema = z.strictObject({
+  name: z.string(),
+  fillType: z.enum(['fill', 'line', 'none']).optional(),
+  color: z.string().optional()
+})
+
+export const ImageIconSchema = z.strictObject({
   src: z.string(),
   srcDark: z.string().optional()
 })
 
-export const IconSchema = z.union([z.string(), ImageIconSchema])
+export const IconSchema = z.union([z.string(), NamedIconSchema, ImageIconSchema])
 
 export type ExternalSiteIcon = z.infer<typeof IconSchema>
 
