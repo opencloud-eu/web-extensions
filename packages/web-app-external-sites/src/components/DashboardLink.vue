@@ -5,7 +5,7 @@
         <oc-application-icon
           v-if="site.icon"
           :icon="site.icon"
-          :color-primary="site.color"
+          :color-primary="site.color ?? fallbackIconColor(site.icon)"
           class="ext:shrink-0"
         />
         <div>
@@ -20,6 +20,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { ExternalSite } from '../types'
+import { fallbackIconColor } from '../iconColor'
 import { makeSlug } from '../utils'
 import { urlJoin } from '@opencloud-eu/web-client'
 

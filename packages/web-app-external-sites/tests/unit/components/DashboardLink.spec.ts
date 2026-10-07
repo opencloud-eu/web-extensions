@@ -15,6 +15,12 @@ describe('dashboard link', () => {
     expect(wrapper.find('.oc-application-icon').attributes('style')).toContain('#0d856f')
   })
 
+  it('shows a site without a color whose icon name the host cannot derive a color from', () => {
+    const { wrapper } = createWrapper({ icon: 'key' })
+
+    expect(wrapper.find('.oc-application-icon').attributes('style')).toContain('#01985c')
+  })
+
   it('shows no icon for a site without one', () => {
     const { wrapper } = createWrapper({})
 

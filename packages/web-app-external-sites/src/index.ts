@@ -12,6 +12,7 @@ import {
   makeSlug,
   flattenSites
 } from './utils'
+import { fallbackIconColor } from './iconColor'
 
 import '@opencloud-eu/extension-sdk/tailwind.css'
 import App from './App.vue'
@@ -113,7 +114,7 @@ export default defineWebApplication({
         id: `${appId}-${s.name}`,
         type: 'appMenuItem' as const,
         label: () => $gettext(s.name),
-        color: s.color,
+        color: s.color ?? fallbackIconColor(s.icon),
         icon: s.icon,
         priority: s.priority,
         ...(s.target === 'embedded' && {
@@ -128,7 +129,7 @@ export default defineWebApplication({
         label: () => dashboard.name,
         icon: dashboard.icon || 'grid',
         path: urlJoin(...[appId, dashboard.path].filter(Boolean)),
-        ...(dashboard.color && { color: dashboard.color })
+        color: dashboard.color ?? fallbackIconColor(dashboard.icon || 'grid')
       }))
 
       return [...siteMenuItems, ...dashboardMenuItems]
