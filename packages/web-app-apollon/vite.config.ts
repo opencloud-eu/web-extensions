@@ -4,10 +4,7 @@ export default defineConfig({
   name: 'apollon',
   server: {
     port: 9230,
-    strictPort: true,
-    watch: {
-      ignored: ['**/.__mf__temp/**']
-    }
+    strictPort: true
   },
   test: {
     exclude: ['**/e2e/**']
