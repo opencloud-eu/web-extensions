@@ -13,13 +13,11 @@ publicHoistPattern:
 
 overrides:
   '@module-federation/vite': '1.14.2'
+  # security updates
   '@module-federation/dts-plugin>axios': ^1.6.0
+  lodash-es: ^4.18.0
+  '@node-minify/core>glob': ^10.5.0
+  adm-zip: ^0.6.0
 
 allowBuilds:
   '@parcel/watcher': true
-minimumReleaseAgeExclude:
-  # Needed to release the excalidraw app on the day 8.1.0 was published
-  - '@opencloud-eu/extension-sdk@8.1.0'
-  - '@opencloud-eu/web-test-helpers@7.3.0'
-  # Renovate security update: maplibre-gl@6.4.1
-  - maplibre-gl@6.4.1
