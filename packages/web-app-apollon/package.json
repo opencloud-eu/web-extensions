@@ -1,0 +1,28 @@
+{
+  "name": "web-app-apollon",
+  "version": "0.1.0",
+  "private": true,
+  "description": "OpenCloud Web collaborative Apollon UML editor",
+  "license": "AGPL-3.0",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm vite build",
+    "build:w": "pnpm vite build --watch --mode development",
+    "check:types": "vue-tsc --noEmit",
+    "test:unit": "NODE_OPTIONS=--unhandled-rejections=throw vitest"
+  },
+  "dependencies": {
+    "@tumaet/apollon": "5.3.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@opencloud-eu/web-client": "^8.0.0",
+    "@opencloud-eu/web-pkg": "^8.0.0",
+    "pinia": "^4.0.0",
+    "vue": "^3.4.21",
+    "vue3-gettext": "^4.0.0",
+    "y-protocols": "^1.0.7",
+    "yjs": "^13.6.0"
+  }
+}
