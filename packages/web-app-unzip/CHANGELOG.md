@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.2.1](https://github.com/opencloud-eu/web-extensions/releases/tag/unzip-v2.2.1) - 2026-10-07
+
+### 📦️ Dependencies
+
+- Update dependency @zip.js/zip.js to v2.23.0 [[#544](https://github.com/opencloud-eu/web-extensions/pull/544)] [[#568](https://github.com/opencloud-eu/web-extensions/pull/568)] [[#582](https://github.com/opencloud-eu/web-extensions/pull/582)]
+
 ## [2.2.0](https://github.com/opencloud-eu/web-extensions/releases/tag/unzip-v2.2.0) - 2026-09-14
 
 ### ✨ Features

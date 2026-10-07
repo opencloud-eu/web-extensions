@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.0.1](https://github.com/opencloud-eu/web-extensions/releases/tag/importer-v2.0.1) - 2026-10-07
+
+### 📦️ Dependencies
+
+- Update uppy dependencies to v6 [[#546](https://github.com/opencloud-eu/web-extensions/pull/546)]
+
 ## [2.0.0](https://github.com/opencloud-eu/web-extensions/releases/tag/importer-v2.0.0) - 2026-08-26
 
 ### Breaking changes

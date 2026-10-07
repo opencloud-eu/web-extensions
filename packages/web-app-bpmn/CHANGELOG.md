@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.1](https://github.com/opencloud-eu/web-extensions/releases/tag/bpmn-v1.1.1) - 2026-10-07
+
+### 📦️ Dependencies
+
+- Update dependency camunda-bpmn-moddle to v8 [[#539](https://github.com/opencloud-eu/web-extensions/pull/539)]
+
 ## [1.1.0](https://github.com/opencloud-eu/web-extensions/releases/tag/web-app-bpmn-v1.1.0) - 2026-08-31
 
 ### ✨ Features
