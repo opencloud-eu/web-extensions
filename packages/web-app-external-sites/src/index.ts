@@ -115,6 +115,8 @@ export default defineWebApplication({
         type: 'appMenuItem' as const,
         label: () => $gettext(s.name),
         color: s.color ?? fallbackIconColor(s.icon),
+        // FIXME: remove the cast once the app is built against a web-pkg that types the icon
+        // of an app menu item as an image icon as well (opencloud-eu/web#3580).
         icon: s.icon as AppMenuItemExtension['icon'],
         priority: s.priority,
         ...(s.target === 'embedded' && {
@@ -127,6 +129,7 @@ export default defineWebApplication({
         id: `${appId}-dashboard-${dashboard.name}`,
         type: 'appMenuItem' as const,
         label: () => dashboard.name,
+        // FIXME: remove the cast, see the app menu items of the sites above.
         icon: (dashboard.icon || 'grid') as AppMenuItemExtension['icon'],
         path: urlJoin(...[appId, dashboard.path].filter(Boolean)),
         color: dashboard.color ?? fallbackIconColor(dashboard.icon || 'grid')
