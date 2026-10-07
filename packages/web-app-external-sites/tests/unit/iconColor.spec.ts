@@ -17,6 +17,10 @@ describe('fallbackIconColor', () => {
     expect(fallbackIconColor(icon)).toBe(color)
   })
 
+  it('returns nothing for an image icon, which needs no derived color', () => {
+    expect(fallbackIconColor({ src: 'https://example.org/key.svg' })).toBeUndefined()
+  })
+
   it('returns nothing without an icon', () => {
     expect(fallbackIconColor(undefined)).toBeUndefined()
   })

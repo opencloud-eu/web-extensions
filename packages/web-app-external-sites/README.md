@@ -31,7 +31,7 @@ The following attributes are optional:
 
 - **`color`** _(string)_ - specifies the Hex color codes of the icon background of the menu item.
 - **`target`** _(enum)_ - `["external"|"embedded"]` specifies the target in wich the url gets opened. Defaults to `external`. See explanation above
-- **`icon`** _(string)_ - specifies the name of a [Remix Icon](https://remixicon.com/) to be used for the menu item.
+- **`icon`** _(string | object)_ - specifies the icon of the menu item. Either the name of a [Remix Icon](https://remixicon.com/), or an image: `{ "src": "https://example.org/logo.svg" }`, optionally with `"srcDark"` for a variant that is used in dark mode. Image icons need an OpenCloud Web that supports them; an older Web shows the menu item without an icon. The image has to be allowed by the content security policy of the OpenCloud instance (`img-src`), a `data:` URI works without changes.
 - **`priority`** _(number)_ - specifies the order of the menu item. `50` is probably a good place to start, then go up/down based on where the item should be placed. Defaults to the highest possible number, so the item will most likely end up at the bottom of the list.
 - **`visibility`** _(object, optional)_ – "Visibility Control" for displaying sites based on user groups. See the explanation below.
 
@@ -105,7 +105,7 @@ Sites not inside a group are shown above the groups without a headline.
 ### Optional Dashboard Attributes
 
 - **`color`** _(string)_ – Specifies the hex color code of the icon background for the dashboard.
-- **`icon`** _(string)_ – Specifies the name of a [Remix Icon](https://remixicon.com/) to be used for the dashboard menu item.
+- **`icon`** _(string | object)_ – Specifies the icon of the dashboard menu item: the name of a [Remix Icon](https://remixicon.com/) or an image, as for a site.
 - **`visibility`** _(object)_ – "Visibility Control" for displaying sites based on user groups. See the explanation below.
 
 ## Visibility

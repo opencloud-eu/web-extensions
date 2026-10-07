@@ -6,6 +6,8 @@
 // dashboard or app menu with it. Until then the app derives the color itself, the same way the
 // fixed host does, so the icons look the same once this is removed.
 
+import { ExternalSiteIcon } from './types'
+
 type Rgb = [number, number, number]
 
 const WHITE: Rgb = [255, 255, 255]
@@ -52,8 +54,8 @@ function withDesiredContrast(rgb: Rgb): Rgb {
   }
 }
 
-export function fallbackIconColor(icon?: string): string | undefined {
-  if (!icon) {
+export function fallbackIconColor(icon?: ExternalSiteIcon): string | undefined {
+  if (typeof icon !== 'string' || !icon) {
     return undefined
   }
   const hex = withDesiredContrast(hashedColor(icon))
