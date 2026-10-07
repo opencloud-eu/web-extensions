@@ -68,8 +68,6 @@ services:
       OPENCLOUD_URL: https://host.docker.internal:9200
       # Dev only: accept the self-signed cert from Traefik
       NODE_TLS_REJECT_UNAUTHORIZED: '0'
-    networks:
-      - traefik
     restart: unless-stopped
     stop_grace_period: 20s
 
