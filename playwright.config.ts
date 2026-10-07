@@ -49,6 +49,21 @@ export default defineConfig({
       use: { ...devices['Desktop Safari'], browserName: 'webkit', ignoreHTTPSErrors: true }
     },
     {
+      name: 'apollon-chromium',
+      testDir: './packages/web-app-apollon/tests/e2e',
+      use: { ...devices['Desktop Chrome'], browserName: 'chromium', ignoreHTTPSErrors: true }
+    },
+    {
+      name: 'apollon-firefox',
+      testDir: './packages/web-app-apollon/tests/e2e',
+      use: { ...devices['Desktop Firefox'], browserName: 'firefox', ignoreHTTPSErrors: true }
+    },
+    {
+      name: 'apollon-webkit',
+      testDir: './packages/web-app-apollon/tests/e2e',
+      use: { ...devices['Desktop Safari'], browserName: 'webkit', ignoreHTTPSErrors: true }
+    },
+    {
       name: 'calculator-chromium',
       testDir: './packages/web-app-calculator/tests/e2e',
       use: { ...devices['Desktop Chrome'], browserName: 'chromium', ignoreHTTPSErrors: true }

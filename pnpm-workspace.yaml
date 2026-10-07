@@ -14,9 +14,15 @@ publicHoistPattern:
 overrides:
   '@module-federation/vite': '1.14.2'
   '@module-federation/dts-plugin>axios': ^1.6.0
+  # Apollon holds React Flow at 12.11.x: 12.12.0 ignores touch pointers on the pane
+  # in its multi-selection mode, so tapping empty canvas no longer clears the
+  # selection. Keep in step with the pin in ls1intum/Apollon's pnpm-workspace.yaml.
+  '@xyflow/react': 12.11.1
 
 allowBuilds:
   '@parcel/watcher': true
+  # jspdf transitive (optional Apollon export); postinstall only prints a notice
+  'core-js': false
 minimumReleaseAgeExclude:
   # Needed to release the excalidraw app on the day 8.1.0 was published
   - '@opencloud-eu/extension-sdk@8.1.0'
