@@ -14,12 +14,27 @@ export const VisibilityControlSchema = z
 
 export type VisibilityControl = z.infer<typeof VisibilityControlSchema>
 
+export const NamedIconSchema = z.strictObject({
+  name: z.string(),
+  fillType: z.enum(['fill', 'line', 'none']).optional(),
+  color: z.string().optional()
+})
+
+export const ImageIconSchema = z.strictObject({
+  src: z.string(),
+  srcDark: z.string().optional()
+})
+
+export const IconSchema = z.union([z.string(), NamedIconSchema, ImageIconSchema])
+
+export type ExternalSiteIcon = z.infer<typeof IconSchema>
+
 export const ExternalSiteSchema = z.object({
   name: z.string(),
   target: z.enum(['embedded', 'external']).optional().default('external'),
   url: z.string(),
   color: z.string().optional(),
-  icon: z.string().optional(),
+  icon: IconSchema.optional(),
   priority: z.number().optional(),
   description: z.string().optional(),
   visibility: VisibilityControlSchema.optional()
@@ -50,7 +65,7 @@ export const ExternalSiteDashboardSchema = z.object({
   path: z.string().optional(),
 
   name: z.string(),
-  icon: z.string().optional(),
+  icon: IconSchema.optional(),
   color: z.string().optional(),
   sites: z.array(ExternalSiteOrSiteGroupSchema),
   visibility: VisibilityControlSchema.optional()
