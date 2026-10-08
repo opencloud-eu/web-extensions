@@ -1,4 +1,4 @@
-import { Browser, Page } from '@playwright/test'
+import { Browser, Page, expect } from '@playwright/test'
 import { LoginPage } from '../pages/loginPage'
 import { createContext, closeContext } from './actorHelper'
 
@@ -18,6 +18,7 @@ export async function loginAsUser(
     ),
     loginPage.login(username, password)
   ])
+  await expect(loginPage.myAccount).toBeVisible({ timeout: 15000 })
   return { page }
 }
 
