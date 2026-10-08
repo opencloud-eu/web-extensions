@@ -77,7 +77,9 @@ export class ExcalidrawPage {
 
   loadFont(family: string): Promise<boolean> {
     return this.page.evaluate(async (fontFamily) => {
-      const faces = await document.fonts.load(`20px "${fontFamily}"`, 'a').catch(() => [])
+      const faces = await document.fonts
+        .load(`20px "${fontFamily}"`, 'a')
+        .catch((): FontFace[] => [])
       return faces.some((face) => face.status === 'loaded')
     }, family)
   }
