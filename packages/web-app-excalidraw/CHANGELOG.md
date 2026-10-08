@@ -9,6 +9,7 @@
 ### 🐛 Bug Fixes
 
 - Load the Excalidraw fonts again instead of rendering text in a fallback typeface [[#619](https://github.com/opencloud-eu/web-extensions/pull/619)]
+- Return to the same tab when adding a library [[#613](https://github.com/opencloud-eu/web-extensions/pull/613)]
 
 ### 📦️ Dependencies
 
