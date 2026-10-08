@@ -4,7 +4,9 @@ import { createElement } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import type * as Y from 'yjs'
 import type { Awareness } from 'y-protocols/awareness'
+import { useClientService, useSpacesStore } from '@opencloud-eu/web-pkg'
 import ExcalidrawCanvas from './react_app/ExcalidrawCanvas'
+import { makeLibraryAdapter } from './adapters/libraryAdapter'
 
 // We mount Excalidraw - a React-only component - via vanilla React 18+ `createRoot`. The
 // component is keyed by the file in App.vue, so `ydoc` and `awareness` never change within one
@@ -28,13 +30,20 @@ const props = defineProps({
 const containerRef = ref<HTMLElement | null>(null)
 let root: Root | null = null
 
+const clientService = useClientService()
+const spacesStore = useSpacesStore()
+const libraryAdapter = spacesStore.personalSpace
+  ? makeLibraryAdapter(clientService.webdav, spacesStore.personalSpace)
+  : null
+
 const renderReact = () => {
   if (!root) return
   root.render(
     createElement(ExcalidrawCanvas, {
       ydoc: props.ydoc,
       awareness: props.awareness,
-      isReadOnly: props.isReadOnly
+      isReadOnly: props.isReadOnly,
+      libraryAdapter
     })
   )
 }
