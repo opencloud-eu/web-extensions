@@ -2,23 +2,14 @@ import type { HttpError, SpaceResource } from '@opencloud-eu/web-client'
 import type { WebDAV } from '@opencloud-eu/web-client/webdav'
 import type { LibraryPersistenceAdapter } from '@excalidraw/excalidraw/data/library'
 
-export const LIBRARY_FOLDER = '/.space/excalidraw'
-export const LIBRARY_FOLDERS = ['/.space', LIBRARY_FOLDER]
-export const LIBRARY_PATH = `${LIBRARY_FOLDER}/library.excalidrawlib`
+export const LIBRARY_FOLDERS = ['/.space', '/.space/excalidraw']
+export const LIBRARY_PATH = '/.space/excalidraw/library.excalidrawlib'
 
 export function makeLibraryAdapter(
   webdav: WebDAV,
   space: SpaceResource
 ): LibraryPersistenceAdapter {
   async function ensureLibraryFolders() {
-    try {
-      await webdav.getFileInfo(space, { path: LIBRARY_FOLDER })
-      return
-    } catch (e) {
-      if ((e as HttpError).statusCode !== 404) {
-        throw e
-      }
-    }
     for (const path of LIBRARY_FOLDERS) {
       await webdav.createFolder(space, { path }).catch(() => {})
     }
@@ -44,8 +35,15 @@ export function makeLibraryAdapter(
         source: 'opencloud-excalidraw',
         libraryItems
       })
-      await ensureLibraryFolders()
-      await webdav.putFileContents(space, { path: LIBRARY_PATH, content })
+      try {
+        await webdav.putFileContents(space, { path: LIBRARY_PATH, content })
+      } catch (e) {
+        if ((e as HttpError).statusCode !== 409) {
+          throw e
+        }
+        await ensureLibraryFolders()
+        await webdav.putFileContents(space, { path: LIBRARY_PATH, content })
+      }
     }
   }
 }
