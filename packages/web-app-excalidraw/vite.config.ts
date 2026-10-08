@@ -1,6 +1,8 @@
 import { defineConfig } from '@opencloud-eu/extension-sdk'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
 
+const excalidrawProd = 'node_modules/@excalidraw/excalidraw/dist/prod'
+
 export default defineConfig({
   name: 'excalidraw',
   plugins: [
@@ -14,8 +16,9 @@ export default defineConfig({
     viteStaticCopy({
       targets: [
         {
-          src: 'node_modules/@excalidraw/excalidraw/dist/prod/{fonts,locales,data}',
-          dest: 'excalidraw-assets'
+          src: `${excalidrawProd}/{fonts,locales,data}`,
+          dest: 'excalidraw-assets',
+          rename: { stripBase: excalidrawProd.split('/').length }
         }
       ]
     })
