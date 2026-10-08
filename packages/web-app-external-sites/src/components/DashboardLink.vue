@@ -2,7 +2,12 @@
   <oc-card class="ext:bg-role-surface-container ext:border">
     <component :is="site.target === 'embedded' ? 'router-link' : 'a'" v-bind="linkProps">
       <div class="ext:flex ext:items-center ext:gap-4">
-        <oc-icon v-if="site.icon" :name="site.icon" :color="site.color" size="large" />
+        <oc-application-icon
+          v-if="site.icon"
+          :icon="site.icon"
+          :color-primary="site.color ?? fallbackIconColor(site.icon)"
+          class="ext:shrink-0"
+        />
         <div>
           <h3 class="ext:my-0 ext:truncate" v-text="site.name" />
           <p class="ext:my-0" v-text="site.description" />
@@ -15,6 +20,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { ExternalSite } from '../types'
+import { fallbackIconColor } from '../iconColor'
 import { makeSlug } from '../utils'
 import { urlJoin } from '@opencloud-eu/web-client'
 
