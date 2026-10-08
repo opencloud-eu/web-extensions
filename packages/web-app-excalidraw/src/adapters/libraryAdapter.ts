@@ -11,7 +11,9 @@ export function makeLibraryAdapter(
 ): LibraryPersistenceAdapter {
   async function ensureLibraryFolders() {
     for (const path of LIBRARY_FOLDERS) {
-      await webdav.createFolder(space, { path }).catch(() => {})
+      try {
+        await webdav.createFolder(space, { path })
+      } catch {}
     }
   }
 
