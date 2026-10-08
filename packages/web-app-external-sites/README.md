@@ -36,7 +36,7 @@ The following attributes are optional:
   - a named icon: `{ "name": "cloud", "fillType": "line", "color": "#ffd400" }`. `fillType` is `"fill"`, `"line"` or `"none"`, and `color` is the color of the icon itself, which is drawn on the background set by the `color` of the site,
   - an image: `{ "src": "https://example.org/logo.svg" }`, optionally with `"srcDark"` for a variant that is used in dark mode. The image has to be allowed by the content security policy of the OpenCloud instance (`img-src`), a `data:` URI works without changes.
 
-  The two object forms need an OpenCloud Web newer than 8.1.0. Do not configure one on an older Web: the app menu and the dashboards can fail to render there.
+  The two object forms need an OpenCloud newer than 9.0.0. Do not configure one on an older version: the app menu and the dashboards can fail to render there.
 
 - **`priority`** _(number)_ - specifies the order of the menu item. `50` is probably a good place to start, then go up/down based on where the item should be placed. Defaults to the highest possible number, so the item will most likely end up at the bottom of the list.
 - **`visibility`** _(object, optional)_ – "Visibility Control" for displaying sites based on user groups. See the explanation below.
