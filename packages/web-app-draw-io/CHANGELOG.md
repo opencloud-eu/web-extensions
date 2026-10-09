@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.3.0](https://github.com/opencloud-eu/web-extensions/releases/tag/draw-io-v2.3.0) - 2026-10-09
+
+### ✨ Features
+
+- Ship the CSP rule for the default editor URL as `csp.defaults.yaml` [[#621](https://github.com/opencloud-eu/web-extensions/pull/621)]
+
 ## [2.2.0](https://github.com/opencloud-eu/web-extensions/releases/tag/draw-io-v2.2.0) - 2026-08-19
 
 ### ✨ Features

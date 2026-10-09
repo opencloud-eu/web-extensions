@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.2.0](https://github.com/opencloud-eu/web-extensions/releases/tag/maps-v3.2.0) - 2026-10-09
+
+### ✨ Features
+
+- Ship the required CSP rules as `csp.yaml` and the rules for the default tile server and glyph source as `csp.defaults.yaml` [[#621](https://github.com/opencloud-eu/web-extensions/pull/621)]
+
 ## [3.1.1](https://github.com/opencloud-eu/web-extensions/releases/tag/maps-v3.1.1) - 2026-09-30
 
 ### 🔒 Security

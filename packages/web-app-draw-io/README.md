@@ -16,16 +16,15 @@ draw-io:
 
 ## CSP requirements
 
-The embedded editor needs to be allowed as an iFrame source. In the file `csp.yaml`, add the draw.io URL to the `frame-src` section:
+The embedded editor needs to be allowed as an iFrame source. The rule for the default `url` is shipped in `csp.defaults.yaml`, see [CSP files](../../README.md#content-security-policy) for how to load it:
 
 ```yaml
 directives:
   frame-src:
-    - "'self'"
     - 'https://embed.diagrams.net/'
 ```
 
-`https://embed.diagrams.net/` is part of the default OpenCloud CSP configuration. If you configure a different `url`, that host needs to be added instead.
+`https://embed.diagrams.net/` is also part of the default OpenCloud CSP configuration. If you configure a different `url`, add that host to the `frame-src` section of your own CSP file instead.
 
 ## Privacy Notice
 

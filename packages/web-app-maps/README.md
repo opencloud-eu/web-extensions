@@ -69,25 +69,26 @@ maps:
 
 ## CSP requirements
 
-To enable seamless integration of traffic to tile servers, the Content Security Policy of OpenCloud has to be adopted.
+The app ships its CSP rules in two files, see [CSP files](../../README.md#content-security-policy) for how to load them.
 
-In the file `csp.yaml`, add the tile server URL(s) to the `connect-src:` section. MapLibre also requires web workers, so `worker-src` and `child-src` must allow `blob:`:
+MapLibre renders the map in a web worker, which the app serves from its own origin. `csp.yaml` contains the rule for it:
 
 ```yaml
 directives:
   worker-src:
     - "'self'"
-    - 'blob:'
-  child-src:
-    - "'self'"
-    - 'blob:'
-  connect-src:
-    - "'self'"
-    - 'blob:'
-    - 'https://tile.openstreetmap.org/'
 ```
 
-When using PMTiles with the default font configuration, also add `https://protomaps.github.io/` to `connect-src`.
+`csp.defaults.yaml` allows the hosts of the default configuration, which are the OpenStreetMap tile server and the font glyphs for PMTiles:
+
+```yaml
+directives:
+  connect-src:
+    - 'https://tile.openstreetmap.org/'
+    - 'https://protomaps.github.io/'
+```
+
+If you configure a different tile server, glyph source or map style, add those hosts to the `connect-src` section of your own CSP file instead.
 
 ## Privacy Notice
 

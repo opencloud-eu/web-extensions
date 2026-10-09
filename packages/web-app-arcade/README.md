@@ -4,24 +4,16 @@ OpenCloud Arcade lets you open and play `.nes`, `.snes`, `.smc`, `.sfc`, `.gb`, 
 
 ## CSP requirements
 
-Arcade requires the following CSP directives for EmulatorJS runtime execution:
+Arcade needs the following CSP rules for the EmulatorJS runtime. They are shipped in `csp.yaml`, see [CSP files](../../README.md#content-security-policy) for how to load them:
 
 ```yaml
-worker-src:
-  - "'self'"
-  - 'blob:'
-```
-
-```yaml
-script-src:
-  - "'self'"
-  - "'unsafe-eval'"
-  - 'blob:'
-```
-
-```yaml
-connect-src:
-  - "'self'"
-  - 'blob:'
-  - 'data:'
+directives:
+  worker-src:
+    - "'self'"
+    - 'blob:'
+  script-src:
+    - "'unsafe-eval'"
+    - 'blob:'
+  connect-src:
+    - 'data:'
 ```
