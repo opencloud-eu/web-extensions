@@ -16,7 +16,7 @@ services:
       # PROXY
       PROXY_ENABLE_BASIC_AUTH: true
       PROXY_TLS: false
-      PROXY_CSP_CONFIG_FILE_LOCATION: /etc/opencloud/csp.yaml
+      PROXY_CSP_CONFIG_FILE_LOCATION: '/packages/*/public/csp.yaml,/packages/*/public/csp.defaults.yaml,/packages/web-app-maps/public/csp.protomaps-fonts.yaml,/etc/opencloud/csp/*.yaml'
 
       # WEB
       WEB_ASSET_APPS_PATH: /web/apps
@@ -39,8 +39,9 @@ services:
       - ./dev/docker/opencloud.idp.config.yaml:/etc/opencloud/idp.yaml
       - ./dev/docker/opencloud.web.config.json:/web/config.json
       - ./dev/docker/opencloud.apps.yaml:/etc/opencloud/apps.yaml
-      - ./dev/docker/csp.yaml:/etc/opencloud/csp.yaml
+      - ./dev/docker/csp:/etc/opencloud/csp
       - ./dev/docker/proxy.yaml:/etc/opencloud/proxy.yaml
+      - ./packages:/packages:ro
       # apps
       - ./packages/web-app-calculator/dist:/web/apps/calculator
       - ./packages/web-app-arcade/dist:/web/apps/arcade

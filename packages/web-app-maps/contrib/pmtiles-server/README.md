@@ -51,6 +51,8 @@ directives:
     - 'http://localhost:9205/'
 ```
 
+The dev stack of this repository already allows it via [`dev/docker/csp/maps.yaml`](../../../../dev/docker/csp/maps.yaml).
+
 After changing either file, restart OpenCloud for the new configuration to take effect.
 
 ## Updating tiles
