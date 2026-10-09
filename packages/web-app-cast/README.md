@@ -14,13 +14,7 @@ cast:
 
 ## CSP requirements
 
-The Google Cast SDK is loaded from `www.gstatic.com`, which needs to be allowed as a script source. The rule is shipped in `csp.yaml`, see [CSP files](../../README.md#content-security-policy) for how to load it:
-
-```yaml
-directives:
-  script-src:
-    - 'https://www.gstatic.com/'
-```
+This app has CSP requirements. Make sure the [CSP files](../../README.md#content-security-policy) for your setup are loaded, or add their rules manually to your own CSP file.
 
 ## Privacy Notice
 

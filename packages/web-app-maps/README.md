@@ -69,33 +69,9 @@ maps:
 
 ## CSP requirements
 
-The app ships its CSP rules in separate files, see [CSP files](../../README.md#content-security-policy) for how to load them.
+This app has CSP requirements. Make sure the [CSP files](../../README.md#content-security-policy) for your setup are loaded, or add their rules manually to your own CSP file.
 
-MapLibre renders the map in a web worker, which the app serves from its own origin. `csp.yaml` contains the rule for it:
-
-```yaml
-directives:
-  worker-src:
-    - "'self'"
-```
-
-`csp.defaults.yaml` allows the OpenStreetMap tile server of the default configuration:
-
-```yaml
-directives:
-  connect-src:
-    - 'https://tile.openstreetmap.org/'
-```
-
-`csp.protomaps-fonts.yaml` is only needed when using PMTiles with the default font configuration. It allows the host the font glyphs are loaded from:
-
-```yaml
-directives:
-  connect-src:
-    - 'https://protomaps.github.io/'
-```
-
-If you configure a different tile server, glyph source or map style, add those hosts to the `connect-src` section of your own CSP file instead.
+`csp.protomaps-fonts.yaml` is only needed when using PMTiles with the default font configuration. If you configure a different tile server, glyph source or map style, allow those hosts in `connect-src` instead.
 
 ## Privacy Notice
 
