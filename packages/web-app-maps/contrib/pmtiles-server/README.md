@@ -42,13 +42,16 @@ maps:
 
 ### csp.yaml
 
-`http://localhost:9205/` needs to be allowed in the `connect-src` directive. The rule is part of the `csp.defaults.yaml` shipped with the maps app, see [CSP files](../../../../README.md#content-security-policy) for how to load it. If you serve the tiles under a different host, add that host to your own CSP file instead:
+Add `http://localhost:9205/` to the `connect-src` directive:
 
 ```yaml
 directives:
   connect-src:
+    - "'self'"
     - 'http://localhost:9205/'
 ```
+
+The dev stack of this repository already allows it via [`dev/docker/csp/maps.yaml`](../../../../dev/docker/csp/maps.yaml).
 
 After changing either file, restart OpenCloud for the new configuration to take effect.
 

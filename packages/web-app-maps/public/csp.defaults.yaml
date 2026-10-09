@@ -2,4 +2,3 @@ directives:
   connect-src:
     - 'https://tile.openstreetmap.org/'
     - 'https://protomaps.github.io/'
-    - 'http://localhost:9205/'
