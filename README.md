@@ -33,7 +33,7 @@ Some apps need additional rules in the Content Security Policy (CSP) of OpenClou
 - `csp.defaults.yaml` contains the rules the app needs with its default configuration, for example the default tile server of the maps app. If you configure different hosts, leave this file out and add your hosts to your own CSP file instead.
 - Further files like `csp.protomaps-fonts.yaml` of the maps app cover optional setups. They are described in the README of the app and should be added to the list individually, only where you need them, instead of via a glob pattern.
 
-OpenCloud can merge these files into its default CSP. This requires a version in which `PROXY_CSP_CONFIG_FILE_LOCATION` accepts a comma-separated list of paths and glob patterns ([opencloud-eu/opencloud#3686](https://github.com/opencloud-eu/opencloud/pull/3686)):
+OpenCloud can merge these files into its default CSP. This requires OpenCloud 9.0.0 or newer:
 
 ```yaml
 PROXY_CSP_CONFIG_FILE_LOCATION: '/web/apps/*/csp.yaml,/web/apps/*/csp.defaults.yaml,/etc/opencloud/csp.yaml'
