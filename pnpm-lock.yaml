@@ -123,13 +123,13 @@ importers:
         version: 18.31.0
       bpmn-js-properties-panel:
         specifier: ^5.34.0
-        version: 5.65.1(@bpmn-io/properties-panel@3.56.1)(bpmn-js@18.31.0)(camunda-bpmn-js-behaviors@1.18.0(bpmn-js@18.31.0)(camunda-bpmn-moddle@8.0.2)(zeebe-bpmn-moddle@2.0.0(moddle@8.2.1)))(diagram-js@15.28.0)
+        version: 5.65.2(@bpmn-io/properties-panel@3.56.1)(bpmn-js@18.31.0)(camunda-bpmn-js-behaviors@1.18.0(bpmn-js@18.31.0)(camunda-bpmn-moddle@8.0.2)(zeebe-bpmn-moddle@2.0.0(moddle@8.2.1)))(diagram-js@15.28.0)
       camunda-bpmn-moddle:
         specifier: ^8.0.0
         version: 8.0.2
       diagram-js-minimap:
         specifier: ^5.3.0
-        version: 5.5.0
+        version: 5.6.0
     devDependencies:
       '@opencloud-eu/web-client':
         specifier: ^8.0.0
@@ -2538,8 +2538,8 @@ packages:
   boolbase@1.0.0:
     resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
 
-  bpmn-js-properties-panel@5.65.1:
-    resolution: {integrity: sha512-eTydbsylBisb1M/QANI+KpTPGzrXdjX81idmfxjZ2FG0gZDg8Ipb1mBmfiAYwoqB9dCJJQHqi7kOYXh7k5spZg==}
+  bpmn-js-properties-panel@5.65.2:
+    resolution: {integrity: sha512-VQrldSRso2uYK2ERLk/PTQL3Ft24sed4xqMTT6KOM66dcVYfFzIUQZiaakZrkFu3AwDvAv0ipqfUpwzbtPrkeA==}
     peerDependencies:
       '@bpmn-io/properties-panel': '>= 3.42.0'
       bpmn-js: '>= 11.5'
@@ -2981,8 +2981,8 @@ packages:
     peerDependencies:
       diagram-js: '*'
 
-  diagram-js-minimap@5.5.0:
-    resolution: {integrity: sha512-03E/TxGHNsydUNpFDvrlG0HHNon13rRZUvsm+cpWo34Ot7Xof84WVZsnjde31xVT8ooeU1HxJ/za8o78g0373Q==}
+  diagram-js-minimap@5.6.0:
+    resolution: {integrity: sha512-PY/MmgqCvi78r5jreUaUuHz5I+fgFAnN/ldJqjHcKTILpqg0qVhuzbQaOGEjWcreuObxD/9zk1+fjtTzhOA77w==}
 
   diagram-js@15.28.0:
     resolution: {integrity: sha512-szp5V8ipbwMNB2aR1c7ABvN1N4bVdl5K1uO6Lpcn+LQ/Sw5C9fKwo6GOaV0ZVX8rWoZKb4ki34Qt6UZ8Z/Ig9w==}
@@ -8202,7 +8202,7 @@ snapshots:
 
   boolbase@1.0.0: {}
 
-  bpmn-js-properties-panel@5.65.1(@bpmn-io/properties-panel@3.56.1)(bpmn-js@18.31.0)(camunda-bpmn-js-behaviors@1.18.0(bpmn-js@18.31.0)(camunda-bpmn-moddle@8.0.2)(zeebe-bpmn-moddle@2.0.0(moddle@8.2.1)))(diagram-js@15.28.0):
+  bpmn-js-properties-panel@5.65.2(@bpmn-io/properties-panel@3.56.1)(bpmn-js@18.31.0)(camunda-bpmn-js-behaviors@1.18.0(bpmn-js@18.31.0)(camunda-bpmn-moddle@8.0.2)(zeebe-bpmn-moddle@2.0.0(moddle@8.2.1)))(diagram-js@15.28.0):
     dependencies:
       '@bpmn-io/extract-process-variables': 2.2.1
       '@bpmn-io/properties-panel': 3.56.1
@@ -8666,7 +8666,7 @@ snapshots:
       min-dash: 5.1.0
       min-dom: 5.3.0
 
-  diagram-js-minimap@5.5.0:
+  diagram-js-minimap@5.6.0:
     dependencies:
       min-dash: 5.1.0
       min-dom: 5.3.0
