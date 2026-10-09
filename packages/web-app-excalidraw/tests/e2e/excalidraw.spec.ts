@@ -44,3 +44,22 @@ test('create, draw on and reopen an excalidraw whiteboard', async ({ skipIfWeb }
   await excalidraw.waitForYjsElementCount(1)
   expect(await excalidraw.getElementCount()).toBe(1)
 })
+
+test('load the excalidraw fonts from the app itself', async ({ skipIfWeb }) => {
+  skipIfWeb('<8.1.0', 'needs shared yjs from web#3398')
+
+  const filesAppBar = new FilesAppBar(userPage)
+  await filesAppBar.createNewFile('excalidraw')
+
+  const excalidraw = new ExcalidrawPage(userPage)
+  await expect(excalidraw.canvas).toBeVisible()
+  await excalidraw.waitForApi()
+
+  // Excalidraw falls back to a CDN when the app does not serve a font, so the font
+  // being usable is not enough: the first request has to succeed against the app.
+  const fontResponse = userPage.waitForResponse((resp) =>
+    /\/excalidraw-assets\/fonts\/Excalifont\/[^/]+\.woff2$/.test(resp.url())
+  )
+  expect(await excalidraw.loadFont('Excalifont')).toBe(true)
+  expect((await fontResponse).status()).toBe(200)
+})

@@ -75,6 +75,15 @@ export class ExcalidrawPage {
     await this.waitForYjsElementCount(expectedCount)
   }
 
+  loadFont(family: string): Promise<boolean> {
+    return this.page.evaluate(async (fontFamily) => {
+      const faces = await document.fonts
+        .load(`20px "${fontFamily}"`, 'a')
+        .catch((): FontFace[] => [])
+      return faces.some((face) => face.status === 'loaded')
+    }, family)
+  }
+
   async save() {
     await this.page.locator('#app-save-action:not([disabled])').waitFor()
 
