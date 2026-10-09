@@ -69,9 +69,17 @@ maps:
 
 ## CSP requirements
 
-This app has CSP requirements. Make sure the [CSP files](../../README.md#content-security-policy) for your setup are loaded, or add their rules manually to your own CSP file.
+This app needs additional CSP rules, which it ships in the following files:
 
-`csp.protomaps-fonts.yaml` is only needed when using PMTiles with the default font configuration. If you configure a different tile server, glyph source or map style, allow those hosts in `connect-src` instead.
+| File                                                            | Purpose                                                      |
+| --------------------------------------------------------------- | ------------------------------------------------------------ |
+| [`csp.yaml`](./public/csp.yaml)                                 | Always required. Allows the map rendering worker.            |
+| [`csp.defaults.yaml`](./public/csp.defaults.yaml)               | Allows the default OpenStreetMap tile server.                |
+| [`csp.protomaps-fonts.yaml`](./public/csp.protomaps-fonts.yaml) | Only needed for PMTiles with the default font configuration. |
+
+If you configure a different tile server, glyph source or map style, allow those hosts in `connect-src` instead.
+
+See [Content Security Policy](../../README.md#content-security-policy) for how to load them.
 
 ## Privacy Notice
 

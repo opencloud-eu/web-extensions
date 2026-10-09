@@ -16,9 +16,15 @@ draw-io:
 
 ## CSP requirements
 
-This app has CSP requirements. Make sure the [CSP files](../../README.md#content-security-policy) for your setup are loaded, or add their rules manually to your own CSP file.
+This app needs additional CSP rules, which it ships in the following files:
+
+| File                                              | Purpose                                             |
+| ------------------------------------------------- | --------------------------------------------------- |
+| [`csp.defaults.yaml`](./public/csp.defaults.yaml) | Allows embedding the editor from the default `url`. |
 
 If you configure a different `url`, allow that host in `frame-src` instead.
+
+See [Content Security Policy](../../README.md#content-security-policy) for how to load them.
 
 ## Privacy Notice
 
