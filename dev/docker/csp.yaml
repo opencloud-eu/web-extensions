@@ -1,5 +1,3 @@
 directives:
-  connect-src:
-    - 'http://localhost:9205/'
   frame-src:
     - 'https://docs.opencloud.eu'

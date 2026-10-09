@@ -79,13 +79,14 @@ directives:
     - "'self'"
 ```
 
-`csp.defaults.yaml` allows the hosts of the default configuration, which are the OpenStreetMap tile server and the font glyphs for PMTiles:
+`csp.defaults.yaml` allows the hosts of the default configuration, which are the OpenStreetMap tile server and the font glyphs for PMTiles, as well as the [self-hosted tile server](contrib/pmtiles-server/) from this repository:
 
 ```yaml
 directives:
   connect-src:
     - 'https://tile.openstreetmap.org/'
     - 'https://protomaps.github.io/'
+    - 'http://localhost:9205/'
 ```
 
 If you configure a different tile server, glyph source or map style, add those hosts to the `connect-src` section of your own CSP file instead.

@@ -42,12 +42,11 @@ maps:
 
 ### csp.yaml
 
-Add `http://localhost:9205/` to the `connect-src` directive:
+`http://localhost:9205/` needs to be allowed in the `connect-src` directive. The rule is part of the `csp.defaults.yaml` shipped with the maps app, see [CSP files](../../../../README.md#content-security-policy) for how to load it. If you serve the tiles under a different host, add that host to your own CSP file instead:
 
 ```yaml
 directives:
   connect-src:
-    - "'self'"
     - 'http://localhost:9205/'
 ```
 
