@@ -58,6 +58,11 @@ export default function ExcalidrawCanvas({
   useHandleLibrary(
     libraryAdapter ? { excalidrawAPI: api, adapter: libraryAdapter } : { excalidrawAPI: api }
   )
+  useEffect(() => {
+    if (!window.name) {
+      window.name = `opencloud-excalidraw-${crypto.randomUUID()}`
+    }
+  }, [])
   const containerRef = useRef<HTMLDivElement>(null)
   const initialData = useMemo<ExcalidrawInitialDataState>(
     () => ({
@@ -121,6 +126,7 @@ export default function ExcalidrawCanvas({
     <div ref={containerRef} style={{ width: '100%', height: '100%' }} className="excalidraw-host">
       <Excalidraw
         initialData={initialData}
+        libraryReturnUrl={encodeURIComponent(window.location.href.split('#')[0])}
         excalidrawAPI={(instance: ExcalidrawImperativeAPI) => setApi(instance)}
         viewModeEnabled={isReadOnly}
         onChange={(_elements, appState) => {
