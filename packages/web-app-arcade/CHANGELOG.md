@@ -1,6 +1,6 @@
 # Changelog
 
-## [3.1.0](https://github.com/opencloud-eu/web-extensions/releases/tag/arcade-v3.1.0) - 2026-10-09
+## [3.1.0](https://github.com/opencloud-eu/web-extensions/releases/tag/arcade-v3.1.0) - YYYY-MM-DD
 
 ### ✨ Features
 

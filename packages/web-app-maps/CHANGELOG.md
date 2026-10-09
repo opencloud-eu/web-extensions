@@ -1,6 +1,6 @@
 # Changelog
 
-## [3.2.0](https://github.com/opencloud-eu/web-extensions/releases/tag/maps-v3.2.0) - 2026-10-09
+## [3.2.0](https://github.com/opencloud-eu/web-extensions/releases/tag/maps-v3.2.0) - YYYY-MM-DD
 
 ### ✨ Features
 

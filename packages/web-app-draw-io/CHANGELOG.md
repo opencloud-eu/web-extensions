@@ -1,6 +1,6 @@
 # Changelog
 
-## [2.3.0](https://github.com/opencloud-eu/web-extensions/releases/tag/draw-io-v2.3.0) - 2026-10-09
+## [2.3.0](https://github.com/opencloud-eu/web-extensions/releases/tag/draw-io-v2.3.0) - YYYY-MM-DD
 
 ### ✨ Features
 

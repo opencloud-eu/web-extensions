@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.1.0](https://github.com/opencloud-eu/web-extensions/releases/tag/cast-v1.1.0) - 2026-10-09
+## [1.1.0](https://github.com/opencloud-eu/web-extensions/releases/tag/cast-v1.1.0) - YYYY-MM-DD
 
 ### ✨ Features
 
