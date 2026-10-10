@@ -82,7 +82,9 @@ describe('PdfToolbar', () => {
 
   it('shows the current page and page count', () => {
     const wrapper = createWrapper()
-    expect((wrapper.find('.pdf-studio-page-number').element as HTMLInputElement).value).toBe('2')
+    expect((wrapper.find('.pdf-studio-page-number input').element as HTMLInputElement).value).toBe(
+      '2'
+    )
     expect(wrapper.find('.pdf-studio-pages-count').text()).toBe('of 5')
   })
 
@@ -105,13 +107,13 @@ describe('PdfToolbar', () => {
 
   it('navigates to an entered page number', async () => {
     const wrapper = createWrapper()
-    await wrapper.find('.pdf-studio-page-number').setValue('4')
+    await wrapper.find('.pdf-studio-page-number input').setValue('4')
     expect(wrapper.emitted('goToPage')).toEqual([[4]])
   })
 
   it.each(['0', '6', 'abc'])('resets an invalid page number "%s"', async (value) => {
     const wrapper = createWrapper()
-    const input = wrapper.find('.pdf-studio-page-number')
+    const input = wrapper.find('.pdf-studio-page-number input')
     await input.setValue(value)
     expect(wrapper.emitted('goToPage')).toBeUndefined()
     expect((input.element as HTMLInputElement).value).toBe('2')
