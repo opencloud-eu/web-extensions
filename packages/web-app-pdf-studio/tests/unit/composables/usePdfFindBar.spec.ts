@@ -1,9 +1,9 @@
 import { mock } from 'vitest-mock-extended'
-import type { EventBus } from 'pdfjs-dist/web/pdf_viewer.mjs'
+// pdf_viewer.mjs takes PDF.js from globalThis.pdfjsLib, which pdfjs-dist sets when imported.
+import 'pdfjs-dist'
+import { FindState, type EventBus } from 'pdfjs-dist/web/pdf_viewer.mjs'
 import { getComposableWrapper } from '@opencloud-eu/web-test-helpers'
 import { usePdfFindBar } from '../../../src/composables/usePdfFindBar'
-
-vi.mock('pdfjs-dist/web/pdf_viewer.mjs', () => ({ FindState: { FOUND: 0, NOT_FOUND: 1 } }))
 
 const OPTIONS = {
   highlightAll: true,
@@ -45,7 +45,10 @@ describe('usePdfFindBar', () => {
       findPrevious: true,
       ...OPTIONS
     })
-    emit('updatefindcontrolstate', { state: 1, matchesCount: { current: 0, total: 0 } })
+    emit('updatefindcontrolstate', {
+      state: FindState.NOT_FOUND,
+      matchesCount: { current: 0, total: 0 }
+    })
     expect(findBarState.findResult.value).toEqual({ current: 0, total: 0, notFound: true })
     emit('updatefindmatchescount', { matchesCount: { current: 2, total: 7 } })
     expect(findBarState.findResult.value).toEqual({ current: 2, total: 7, notFound: true })

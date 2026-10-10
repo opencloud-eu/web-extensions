@@ -1,9 +1,5 @@
 <template>
-  <div
-    ref="studioRoot"
-    class="pdf-studio ext:flex ext:size-full ext:flex-col"
-    :style="{ colorScheme: isDarkTheme ? 'dark' : 'light' }"
-  >
+  <div ref="studioRoot" class="pdf-studio ext:flex ext:size-full ext:flex-col">
     <pdf-toolbar
       v-if="pdfDocument"
       ref="toolbar"
@@ -126,12 +122,11 @@ import { computed, onMounted, provide, ref, unref, useTemplateRef } from 'vue'
 import { until, useElementBounding } from '@vueuse/core'
 import { AnnotationEditorType, type PDFDocumentProxy } from 'pdfjs-dist'
 import type { Resource } from '@opencloud-eu/web-client'
-import { useThemeStore } from '@opencloud-eu/web-pkg'
 import '@opencloud-eu/extension-sdk/tailwind.css'
 import 'pdfjs-dist/web/pdf_viewer.css'
 import '../styles/pdfjs-integration.css'
 import '../styles/print.css'
-import { usePdfViewer } from '../composables/usePdfViewer'
+import { pdfEventBusKey, usePdfViewer } from '../composables/usePdfViewer'
 import { usePdfDocument } from '../composables/usePdfDocument'
 import { usePdfSaving } from '../composables/usePdfSaving'
 import { usePdfPageOperations } from '../composables/usePdfPageOperations'
@@ -169,10 +164,9 @@ const { resource, currentContent, isReadOnly, isDirty } = defineProps<{
 const emit = defineEmits<{
   'update:currentContent': [content: ArrayBuffer]
   save: []
+  /** AppWrapper calls it after each of its saves. */
+  'register:onSaveCallback': [callback: () => Promise<void>]
 }>()
-
-const themeStore = useThemeStore()
-const isDarkTheme = computed(() => !!themeStore.currentTheme?.isDark)
 
 const studioRoot = useTemplateRef<HTMLDivElement>('studioRoot')
 const viewerContainer = useTemplateRef<HTMLDivElement>('viewerContainer')
@@ -303,6 +297,7 @@ const { attachments, openAttachment } = usePdfAttachments({
   downloadManager
 })
 
+provide(pdfEventBusKey, eventBus)
 provide(pdfLayersKey, usePdfLayers({ viewer, eventBus }))
 const { pageLabels } = usePdfPageLabels({ viewer, eventBus })
 
@@ -319,6 +314,7 @@ const {
   scheduleCheck: scheduleChangeCheck,
   flush,
   reset: resetChangeTracking,
+  afterSave,
   save
 } = usePdfSaving({
   pdfDocument,
@@ -328,7 +324,6 @@ const {
   isReadOnly: () => isReadOnly,
   isDirty: () => isDirty,
   content: () => currentContent,
-  etag: () => resource.etag,
   editing: {
     editorMode,
     editingStates,
@@ -341,6 +336,7 @@ const {
   onChange: (content) => emit('update:currentContent', content),
   onSave: () => emit('save')
 })
+emit('register:onSaveCallback', afterSave)
 
 // Scrolling far away removes the layers of pages, including an open comment.
 eventBus.on('updateviewarea', hidePopupOfRemovedPage)

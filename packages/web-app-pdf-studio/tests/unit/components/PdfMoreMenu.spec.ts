@@ -1,11 +1,9 @@
 import { ref } from 'vue'
+// pdf_viewer.mjs takes PDF.js from globalThis.pdfjsLib, which pdfjs-dist sets when imported.
+import 'pdfjs-dist'
+import { ScrollMode, SpreadMode } from 'pdfjs-dist/web/pdf_viewer.mjs'
 import { defaultPlugins, mount, ocDropStub } from '@opencloud-eu/web-test-helpers'
 import PdfMoreMenu from '../../../src/components/PdfMoreMenu.vue'
-
-vi.mock('pdfjs-dist/web/pdf_viewer.mjs', () => ({
-  ScrollMode: { VERTICAL: 0, HORIZONTAL: 1, WRAPPED: 2, PAGE: 3 },
-  SpreadMode: { NONE: 0, ODD: 1, EVEN: 2 }
-}))
 
 const screen = { isMobile: ref(false), isTablet: ref(false) }
 vi.mock('@opencloud-eu/design-system/composables', () => ({ useIsMobile: () => screen }))
@@ -15,7 +13,7 @@ function createWrapper(
   { attachTo }: { attachTo?: HTMLElement } = {}
 ) {
   return mount(PdfMoreMenu, {
-    props: { scrollMode: 0, spreadMode: 0, ...props },
+    props: { scrollMode: ScrollMode.VERTICAL, spreadMode: SpreadMode.NONE, ...props },
     attachTo,
     global: {
       plugins: [...defaultPlugins()],
@@ -140,11 +138,13 @@ describe('PdfMoreMenu', () => {
   })
 
   it('offers the page layout', async () => {
-    const wrapper = createWrapper({ spreadMode: 1 })
+    const wrapper = createWrapper({ spreadMode: SpreadMode.ODD })
     expect(wrapper.find('.pdf-studio-spread-option[aria-current="true"]').text()).toBe(
       'Odd spreads'
     )
-    await wrapper.find('.pdf-studio-scroll-option[data-mode="2"]').trigger('click')
-    expect(wrapper.emitted('setScrollMode')).toEqual([[2]])
+    await wrapper
+      .find(`.pdf-studio-scroll-option[data-mode="${ScrollMode.WRAPPED}"]`)
+      .trigger('click')
+    expect(wrapper.emitted('setScrollMode')).toEqual([[ScrollMode.WRAPPED]])
   })
 })

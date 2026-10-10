@@ -15,7 +15,7 @@ vi.mock('../../src/components/PdfStudio.vue', () => ({
       isReadOnly: { type: Boolean, required: true },
       isDirty: { type: Boolean, required: true }
     },
-    emits: ['update:currentContent', 'save'],
+    emits: ['update:currentContent', 'save', 'register:onSaveCallback'],
     template: '<div class="pdf-studio-stub" />'
   })
 }))
@@ -27,7 +27,9 @@ describe('PDF Studio app', () => {
     expect(Object.keys(App.props)).toEqual(
       expect.arrayContaining(['resource', 'currentContent', 'isReadOnly', 'isDirty'])
     )
-    expect(App.emits).toEqual(expect.arrayContaining(['update:currentContent', 'save']))
+    expect(App.emits).toEqual(
+      expect.arrayContaining(['update:currentContent', 'save', 'register:onSaveCallback'])
+    )
   })
 
   it('passes content and state through to the editor and relays its events', async () => {
@@ -50,7 +52,10 @@ describe('PDF Studio app', () => {
     const newContent = new ArrayBuffer(3)
     editor.vm.$emit('update:currentContent', newContent)
     editor.vm.$emit('save')
+    const afterSave = vi.fn()
+    editor.vm.$emit('register:onSaveCallback', afterSave)
     expect(wrapper.emitted('update:currentContent')[0]).toEqual([newContent])
     expect(wrapper.emitted('save')).toHaveLength(1)
+    expect(wrapper.emitted('register:onSaveCallback')[0]).toEqual([afterSave])
   })
 })

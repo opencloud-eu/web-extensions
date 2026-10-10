@@ -27,6 +27,7 @@ vi.mock('pdfjs-dist', () => ({
 }))
 vi.mock('pdfjs-dist/web/pdf_viewer.css', () => ({}))
 vi.mock('../../../src/composables/usePdfViewer', () => ({
+  pdfEventBusKey: Symbol('pdfEventBus'),
   usePdfViewer: () => ({
     eventBus: mock<EventBus>(),
     scriptingManager: {},
@@ -70,6 +71,7 @@ function createWrapper({
   const load = vi.fn()
   const scheduleCheck = vi.fn()
   const save = vi.fn()
+  const afterSave = vi.fn()
   vi.mocked(usePdfDocument).mockReturnValue({
     pdfDocument: shallowRef(mock<PDFDocumentProxy>({ isPureXfa: false })),
     isLoading: ref(false),
@@ -83,6 +85,7 @@ function createWrapper({
     scheduleCheck,
     flush: vi.fn(),
     reset: vi.fn(),
+    afterSave,
     save
   })
 
@@ -94,7 +97,7 @@ function createWrapper({
     },
     attachTo: document.body
   })
-  return { wrapper, load, save, scheduleCheck, currentContent }
+  return { wrapper, load, save, afterSave, scheduleCheck, currentContent }
 }
 
 describe('PdfStudio', () => {
@@ -110,6 +113,17 @@ describe('PdfStudio', () => {
     load.mockClear()
     wrapper.findComponent({ name: 'PdfLoadStatus' }).vm.$emit('retry')
     expect(load).toHaveBeenCalledWith(currentContent)
+    wrapper.unmount()
+  })
+
+  it('reports written changes as the content and registers for the saves of AppWrapper', () => {
+    const { wrapper, afterSave } = createWrapper()
+    expect(wrapper.emitted('register:onSaveCallback')).toEqual([[afterSave]])
+    const content = new ArrayBuffer(2)
+    vi.mocked(usePdfSaving).mock.lastCall[0].onChange(content)
+    vi.mocked(usePdfSaving).mock.lastCall[0].onSave()
+    expect(wrapper.emitted('update:currentContent')).toEqual([[content]])
+    expect(wrapper.emitted('save')).toHaveLength(1)
     wrapper.unmount()
   })
 

@@ -8,7 +8,10 @@ const { TouchManager, screen } = vi.hoisted(() => ({
   TouchManager: vi.fn(),
   screen: { isMobile: { value: false } }
 }))
-vi.mock('pdfjs-dist', () => ({ TouchManager }))
+vi.mock('pdfjs-dist', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('pdfjs-dist')>()),
+  TouchManager
+}))
 vi.mock('@opencloud-eu/design-system/composables', () => ({ useIsMobile: () => screen }))
 
 // happy-dom ignores the init values of WheelEvent.

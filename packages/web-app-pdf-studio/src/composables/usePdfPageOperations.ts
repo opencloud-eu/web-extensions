@@ -63,7 +63,8 @@ type DocumentState = {
   previousPageNumbers: PreviousPageNumbers
 }
 
-// Each step keeps a whole file, so only as many as fit into this (undo and redo together).
+// Each step keeps a whole file, so only as many undo steps as fit into this. The redo steps come
+// from undone ones, so there are at most as many of them.
 const MAX_HISTORY_BYTES = 200_000_000
 
 /** What to focus on the page after a page action, see PdfThumbnail. */

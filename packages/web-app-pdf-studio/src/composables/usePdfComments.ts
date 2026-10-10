@@ -248,16 +248,12 @@ export function usePdfComments({
     hideSidebar() {
       setComments(undefined)
     },
-    addComment: updateComment,
     updateComment,
     removeComments(ids: string[]) {
       const list = unref(comments)
       if (list) {
         setComments(list.filter(({ id }) => !ids.includes(id)))
       }
-    },
-    selectComment(id: string) {
-      selectedCommentId.value = id
     },
     toggleCommentPopup: togglePopup,
     destroyPopup: hidePopup,

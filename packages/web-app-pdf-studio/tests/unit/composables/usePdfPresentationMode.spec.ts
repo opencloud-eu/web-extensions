@@ -1,14 +1,14 @@
 import { nextTick, ref, shallowRef } from 'vue'
 import { mock } from 'vitest-mock-extended'
-import type { EventBus, PDFViewer } from 'pdfjs-dist/web/pdf_viewer.mjs'
+import { AnnotationEditorType } from 'pdfjs-dist'
+import {
+  ScrollMode,
+  SpreadMode,
+  type EventBus,
+  type PDFViewer
+} from 'pdfjs-dist/web/pdf_viewer.mjs'
 import { getComposableWrapper } from '@opencloud-eu/web-test-helpers'
 import { usePdfPresentationMode } from '../../../src/composables/usePdfPresentationMode'
-
-vi.mock('pdfjs-dist', () => ({ AnnotationEditorType: { DISABLE: -1, NONE: 0, INK: 15 } }))
-vi.mock('pdfjs-dist/web/pdf_viewer.mjs', () => ({
-  ScrollMode: { VERTICAL: 0, PAGE: 3 },
-  SpreadMode: { NONE: 0, ODD: 1 }
-}))
 
 let unmount: () => void
 
@@ -30,9 +30,9 @@ function setup() {
     pagesCount: 14,
     currentPageNumber: 5,
     currentScaleValue: 'auto',
-    scrollMode: 0,
-    spreadMode: 0,
-    annotationEditorMode: 15 as unknown as PDFViewer['annotationEditorMode'],
+    scrollMode: ScrollMode.VERTICAL,
+    spreadMode: SpreadMode.NONE,
+    annotationEditorMode: AnnotationEditorType.INK as unknown as PDFViewer['annotationEditorMode'],
     nextPage: vi.fn(() => true),
     previousPage: vi.fn(() => true)
   })
@@ -66,10 +66,10 @@ describe('usePdfPresentationMode', () => {
     await presentation.request()
     await vi.runOnlyPendingTimersAsync()
     expect(presentation.isActive.value).toBe(true)
-    expect(viewer.scrollMode).toBe(3)
+    expect(viewer.scrollMode).toBe(ScrollMode.PAGE)
     expect(viewer.currentScaleValue).toBe('page-fit')
     expect(viewer.currentPageNumber).toBe(5)
-    expect(viewer.annotationEditorMode).toEqual({ mode: 0 })
+    expect(viewer.annotationEditorMode).toEqual({ mode: AnnotationEditorType.NONE })
     expect(eventBus.dispatch).toHaveBeenCalledWith('presentationmodechanged', {
       source: null,
       state: 3
@@ -95,10 +95,10 @@ describe('usePdfPresentationMode', () => {
     leaveFullscreen()
     await vi.runOnlyPendingTimersAsync()
     expect(presentation.isActive.value).toBe(false)
-    expect(viewer.scrollMode).toBe(0)
+    expect(viewer.scrollMode).toBe(ScrollMode.VERTICAL)
     expect(viewer.currentScaleValue).toBe('auto')
     expect(viewer.currentPageNumber).toBe(9)
-    expect(viewer.annotationEditorMode).toEqual({ mode: 15 })
+    expect(viewer.annotationEditorMode).toEqual({ mode: AnnotationEditorType.INK })
   })
 
   it('only closes the context menu with the first click after it', async () => {

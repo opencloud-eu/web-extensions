@@ -2,22 +2,12 @@ import { nextTick, shallowRef } from 'vue'
 import { flushPromises } from '@vue/test-utils'
 import { mock } from 'vitest-mock-extended'
 import type { PDFDocumentProxy } from 'pdfjs-dist'
-import { EventBus } from 'pdfjs-dist/web/pdf_viewer.mjs'
-import type { DownloadManager } from 'pdfjs-dist/web/pdf_viewer.mjs'
+// pdf_viewer.mjs takes PDF.js from globalThis.pdfjsLib, which pdfjs-dist sets when imported.
+import 'pdfjs-dist'
+import { EventBus, type DownloadManager } from 'pdfjs-dist/web/pdf_viewer.mjs'
 import { getComposableWrapper } from '@opencloud-eu/web-test-helpers'
 import { usePdfAttachments } from '../../../src/composables/usePdfAttachments'
-
-vi.mock('pdfjs-dist/web/pdf_viewer.mjs', () => ({
-  EventBus: class {
-    listeners = new Map<string, (evt: unknown) => void>()
-    on(name: string, listener: (evt: unknown) => void) {
-      this.listeners.set(name, listener)
-    }
-    dispatch(name: string, evt: unknown) {
-      this.listeners.get(name)?.(evt)
-    }
-  }
-}))
+import { polyfillGetOrInsertComputed } from '../pdfjsPolyfills'
 
 function setup() {
   const files = new Map([['0', { filename: 'invoice.xml', description: 'Invoice data' }]])
@@ -37,6 +27,8 @@ function setup() {
 }
 
 describe('usePdfAttachments', () => {
+  polyfillGetOrInsertComputed()
+
   it('lists the attachments of the document and of annotations, each file once', async () => {
     const { attachments, eventBus } = setup()
     await flushPromises()

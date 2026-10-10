@@ -281,7 +281,9 @@ export function usePdfShortcuts({
   let isCtrlKeyDown = false
 
   function onKeydown(event: KeyboardEvent) {
-    isCtrlKeyDown = event.key === 'Control'
+    if (event.key === 'Control') {
+      isCtrlKeyDown = true
+    }
     if (event.altKey) {
       // Ctrl+Alt+P (Cmd+Alt+P) and Ctrl+Alt+G. By code, with Alt it types another key.
       if (!(event.ctrlKey || event.metaKey) || event.shiftKey || isInModal(event)) {
@@ -426,7 +428,13 @@ export function usePdfShortcuts({
       onEscape(event)
     }
   })
-  useEventListener(window, 'keyup', () => (isCtrlKeyDown = false))
+  useEventListener(window, 'keyup', (event: KeyboardEvent) => {
+    if (event.key === 'Control') {
+      isCtrlKeyDown = false
+    }
+  })
+  // The key may be released while another window has the focus.
+  useEventListener(window, 'blur', () => (isCtrlKeyDown = false))
   // Also over the toolbar and the sidebar, the browser would zoom the whole page otherwise.
   useEventListener(root, 'wheel', onWheel, { passive: false })
 }

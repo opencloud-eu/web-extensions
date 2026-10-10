@@ -1,25 +1,13 @@
 import { mock } from 'vitest-mock-extended'
-import type { PDFDocumentProxy } from 'pdfjs-dist'
+import { AnnotationEditorType, type PDFDocumentProxy } from 'pdfjs-dist'
 import { getComposableWrapper } from '@opencloud-eu/web-test-helpers'
 import { usePdfViewer } from '../../../src/composables/usePdfViewer'
+import { polyfillGetOrInsertComputed } from '../pdfjsPolyfills'
 
 const { calls } = vi.hoisted(() => ({ calls: [] as [string, unknown][] }))
 
-vi.mock('pdfjs-dist', () => ({
-  AnnotationEditorType: { DISABLE: -1, NONE: 0, INK: 15 },
-  AnnotationMode: { ENABLE: 1, ENABLE_FORMS: 2 }
-}))
 vi.mock('../../../src/helpers/pdfjs', () => ({ createScripting: vi.fn(), pdfjsAssetUrls: {} }))
-vi.mock('pdfjs-dist/web/pdf_viewer.mjs', () => {
-  class EventBus {
-    listeners = new Map<string, ((evt: unknown) => void)[]>()
-    on(name: string, listener: (evt: unknown) => void) {
-      this.listeners.set(name, [...(this.listeners.get(name) ?? []), listener])
-    }
-    dispatch(name: string, evt: unknown) {
-      this.listeners.get(name)?.forEach((listener) => listener(evt))
-    }
-  }
+vi.mock('pdfjs-dist/web/pdf_viewer.mjs', async (importOriginal) => {
   // Records what the viewer gets set, in order.
   class PDFViewer {
     pagesCount = 3
@@ -43,10 +31,9 @@ vi.mock('pdfjs-dist/web/pdf_viewer.mjs', () => {
     }
   }
   return {
-    EventBus,
+    ...(await importOriginal<typeof import('pdfjs-dist/web/pdf_viewer.mjs')>()),
     PDFViewer,
     DownloadManager: class {},
-    LinkTarget: { BLANK: 2 },
     PDFFindController: class {},
     PDFLinkService: class {
       setViewer() {}
@@ -54,9 +41,7 @@ vi.mock('pdfjs-dist/web/pdf_viewer.mjs', () => {
     },
     PDFScriptingManager: class {
       setViewer() {}
-    },
-    ScrollMode: { VERTICAL: 0 },
-    SpreadMode: { NONE: 0 }
+    }
   }
 })
 
@@ -77,6 +62,8 @@ function setup() {
 }
 
 describe('usePdfViewer', () => {
+  polyfillGetOrInsertComputed()
+
   it('shows the page of a new document before applying the zoom', () => {
     const { viewer } = setup()
     viewer.setDocument(mock<PDFDocumentProxy>(), { pageNumber: 2 })
@@ -99,14 +86,14 @@ describe('usePdfViewer', () => {
     const { viewer } = setup()
     viewer.setDocument(mock<PDFDocumentProxy>())
     viewer.eventBus.dispatch('annotationeditoruimanager', { uiManager: {} })
-    viewer.eventBus.dispatch('annotationeditormodechanged', { mode: 15 })
+    viewer.eventBus.dispatch('annotationeditormodechanged', { mode: AnnotationEditorType.INK })
     viewer.eventBus.dispatch('pagesinit', { source: null })
     expect(calls).not.toContainEqual(['annotationEditorMode', expect.anything()])
 
     viewer.setDocument(mock<PDFDocumentProxy>())
-    expect(viewer.editorMode.value).toBe(0)
+    expect(viewer.editorMode.value).toBe(AnnotationEditorType.NONE)
     viewer.eventBus.dispatch('annotationeditoruimanager', { uiManager: {} })
     viewer.eventBus.dispatch('pagesinit', { source: null })
-    expect(calls).toContainEqual(['annotationEditorMode', { mode: 15 }])
+    expect(calls).toContainEqual(['annotationEditorMode', { mode: AnnotationEditorType.INK }])
   })
 })

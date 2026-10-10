@@ -1,17 +1,13 @@
 import { ref } from 'vue'
 import { mock } from 'vitest-mock-extended'
 import type { Resource } from '@opencloud-eu/web-client'
+import { SupportedImageMimeTypes } from 'pdfjs-dist'
 import { getComposableWrapper } from '@opencloud-eu/web-test-helpers'
 import { useClientService, useMessages, useModals } from '@opencloud-eu/web-pkg'
 import { usePdfCloudImagePicker } from '../../../src/composables/usePdfCloudImagePicker'
 
-vi.mock('pdfjs-dist', () => ({
-  SupportedImageMimeTypes: new Set(['image/png', 'image/jpeg'])
-}))
 vi.mock('@opencloud-eu/web-pkg', async (importOriginal) => ({
   ...(await importOriginal<typeof import('@opencloud-eu/web-pkg')>()),
-  useModals: vi.fn(),
-  useMessages: vi.fn(),
   useClientService: vi.fn(),
   useGetMatchingSpace: () => ({ getMatchingSpace: vi.fn(() => ({ id: 'space' })) }),
   useFolderLink: () => ({ getParentFolderLink: vi.fn(() => ({ name: 'parent-folder' })) })
@@ -24,29 +20,31 @@ type PickerAttrs = {
 }
 
 function setup({ fails = false } = {}) {
-  const dispatchModal = vi.fn()
-  const showErrorMessage = vi.fn()
   const getFileContents = fails
     ? vi.fn().mockRejectedValue(new Error('nope'))
     : vi.fn().mockResolvedValue({ body: new Uint8Array([1, 2]).buffer })
-  vi.mocked(useModals).mockReturnValue({ dispatchModal } as never)
-  vi.mocked(useMessages).mockReturnValue({ showErrorMessage } as never)
   vi.mocked(useClientService).mockReturnValue({ webdav: { getFileContents } } as never)
 
   const onImage = vi.fn()
   let picker: ReturnType<typeof usePdfCloudImagePicker>
+  let modals: ReturnType<typeof useModals>
+  let messages: ReturnType<typeof useMessages>
   getComposableWrapper(() => {
+    modals = useModals()
+    messages = useMessages()
     picker = usePdfCloudImagePicker({ resource: ref(mock<Resource>()), onImage })
   })
   picker.openPicker()
-  const attrs = dispatchModal.mock.calls[0][0].customComponentAttrs() as PickerAttrs
-  return { attrs, onImage, getFileContents, showErrorMessage }
+  const attrs = vi
+    .mocked(modals.dispatchModal)
+    .mock.calls[0][0].customComponentAttrs() as PickerAttrs
+  return { attrs, onImage, getFileContents, showErrorMessage: messages.showErrorMessage }
 }
 
 describe('usePdfCloudImagePicker', () => {
   it('opens the file picker in the folder of the PDF, limited to supported images', () => {
     const { attrs } = setup()
-    expect(attrs.allowedFileTypes).toEqual(['image/png', 'image/jpeg'])
+    expect(attrs.allowedFileTypes).toEqual([...SupportedImageMimeTypes])
     expect(attrs.parentFolderLink).toEqual({ name: 'parent-folder' })
   })
 

@@ -30,9 +30,22 @@
 }
 
 /*
+ * pdf_viewer.css asks for the color scheme of the system (see vite.config.ts), the viewer
+ * follows the OpenCloud theme instead, which the runtime marks on the document. PDF.js'
+ * editor toolbars and comment buttons take their colors from it.
+ */
+.pdf-studio {
+  color-scheme: light;
+}
+
+[data-color-scheme='dark'] .pdf-studio {
+  color-scheme: dark;
+}
+
+/*
  * PDF.js focuses the selected annotation and marks it with its own outline. OpenCloud's global
- * focus ring would add a second one around it. Its selector has a high specificity (a chain of
- * :not()), hence !important.
+ * focus ring (in a cascade layer, so this unlayered rule wins anyway) would add a second one
+ * around it.
  */
 .pdf-studio
   .annotationEditorLayer

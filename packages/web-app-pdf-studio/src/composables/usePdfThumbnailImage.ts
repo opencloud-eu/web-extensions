@@ -1,6 +1,7 @@
 import { onBeforeUnmount, shallowRef, toValue, watch, type MaybeRefOrGetter } from 'vue'
 import { useIntersectionObserver, useObjectUrl, type MaybeComputedElementRef } from '@vueuse/core'
 import type { PDFDocumentProxy, RenderTask } from 'pdfjs-dist'
+import type { EventBus } from 'pdfjs-dist/web/pdf_viewer.mjs'
 import type { usePdfThumbnailCache } from './usePdfThumbnailCache'
 
 // Sharp on screens with twice the pixels, at the width of the sidebar.
@@ -16,7 +17,8 @@ export function usePdfThumbnailImage({
   pdfDocument,
   pageNumber,
   rotation,
-  cache
+  cache,
+  eventBus
 }: {
   element: MaybeComputedElementRef
   pdfDocument: MaybeRefOrGetter<PDFDocumentProxy>
@@ -25,6 +27,11 @@ export function usePdfThumbnailImage({
   rotation: MaybeRefOrGetter<number>
   /** Shown until rendered, e.g. the image of the page before a page action. */
   cache?: ReturnType<typeof usePdfThumbnailCache>
+  /**
+   * Of the viewer: PDFViewer frees the memory of pages rendered only for the thumbnails once
+   * it hears of them, like the thumbnails of the PDF.js viewer tell it.
+   */
+  eventBus?: Pick<EventBus, 'dispatch'>
 }) {
   const image = shallowRef<Blob | null>(cache?.get(toValue(pageNumber), toValue(rotation)))
   // Revoked when replaced or unmounted.
@@ -52,6 +59,11 @@ export function usePdfThumbnailImage({
     canvas.height = Math.floor(viewport.height)
     renderTask = page.render({ canvas, viewport })
     await renderTask.promise
+    eventBus?.dispatch('thumbnailrendered', {
+      source: null,
+      pageNumber: toValue(pageNumber),
+      pdfPage: page
+    })
     const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve))
     if (currentRotation === toValue(rotation) && !isUnmounted && blob) {
       image.value = blob

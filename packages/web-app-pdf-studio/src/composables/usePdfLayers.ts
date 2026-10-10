@@ -42,10 +42,9 @@ export function usePdfLayers({
   let config: OptionalContentConfig | null = null
 
   async function update(promise: Promise<OptionalContentConfig | null>) {
-    const pdfViewer = unref(viewer)
     const current = await promise
     // A newer document or change came in meanwhile.
-    if (pdfViewer !== unref(viewer) || promise !== pdfViewer?.optionalContentConfigPromise) {
+    if (promise !== unref(viewer)?.optionalContentConfigPromise) {
       return
     }
     config = current

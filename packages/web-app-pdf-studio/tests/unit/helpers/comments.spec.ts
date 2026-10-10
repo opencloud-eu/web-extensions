@@ -6,9 +6,6 @@ import {
   type CommentData
 } from '../../../src/helpers/comments'
 
-// The real module starts fetching resources under happy-dom.
-vi.mock('pdfjs-dist', () => ({ PDFDateString: {} }))
-
 const POPUP_WIDTH = 288
 
 function comment(data: Partial<CommentData> = {}): CommentData {

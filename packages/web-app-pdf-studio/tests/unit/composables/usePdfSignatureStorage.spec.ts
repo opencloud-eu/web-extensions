@@ -3,9 +3,10 @@ import { getComposableWrapper } from '@opencloud-eu/web-test-helpers'
 import { usePdfSignatureStorage } from '../../../src/composables/usePdfSignatureStorage'
 
 // The real compression needs browser streams, a JSON round trip keeps the contract.
-vi.mock('pdfjs-dist', () => {
+vi.mock('pdfjs-dist', async (importOriginal) => {
   let count = 0
   return {
+    ...(await importOriginal<typeof import('pdfjs-dist')>()),
     getUuid: () => `uuid-${++count}`,
     SignatureExtractor: {
       compressSignature: vi.fn((data: object) => Promise.resolve(JSON.stringify(data))),

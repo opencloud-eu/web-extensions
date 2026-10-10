@@ -8,28 +8,11 @@ import {
   isCreatingSignature,
   isDrawing
 } from '../../../src/helpers/pdfjsInternals'
+import { polyfillGetOrInsertComputed } from '../pdfjsPolyfills'
 
 // Against PDF.js itself: these tests fail when an update changes what the app relies on.
 describe('PDF.js', () => {
-  // PDF.js uses it, browsers have it, Node doesn't yet.
-  type ComputedMap = Map<unknown, unknown> & {
-    getOrInsertComputed?: (key: unknown, compute: (key: unknown) => unknown) => unknown
-  }
-  const mapPrototype = Map.prototype as ComputedMap
-  const hasGetOrInsertComputed = !!mapPrototype.getOrInsertComputed
-  beforeAll(() => {
-    mapPrototype.getOrInsertComputed ??= function (this: ComputedMap, key, compute) {
-      if (!this.has(key)) {
-        this.set(key, compute(key))
-      }
-      return this.get(key)
-    }
-  })
-  afterAll(() => {
-    if (!hasGetOrInsertComputed) {
-      delete mapPrototype.getOrInsertComputed
-    }
-  })
+  polyfillGetOrInsertComputed()
 
   const managers: AnnotationEditorUIManager[] = []
   afterEach(() => managers.splice(0).forEach((manager) => manager.destroy()))

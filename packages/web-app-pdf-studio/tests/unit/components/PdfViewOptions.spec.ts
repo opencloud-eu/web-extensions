@@ -1,12 +1,10 @@
+// pdf_viewer.mjs takes PDF.js from globalThis.pdfjsLib, which pdfjs-dist sets when imported.
+import 'pdfjs-dist'
+import { ScrollMode, SpreadMode } from 'pdfjs-dist/web/pdf_viewer.mjs'
 import { defaultPlugins, mount } from '@opencloud-eu/web-test-helpers'
 import PdfViewOptions from '../../../src/components/PdfViewOptions.vue'
 
-vi.mock('pdfjs-dist/web/pdf_viewer.mjs', () => ({
-  ScrollMode: { VERTICAL: 0, HORIZONTAL: 1, WRAPPED: 2, PAGE: 3 },
-  SpreadMode: { NONE: 0, ODD: 1, EVEN: 2 }
-}))
-
-function createWrapper(scrollMode = 0, spreadMode = 1) {
+function createWrapper(scrollMode = ScrollMode.VERTICAL, spreadMode = SpreadMode.ODD) {
   return mount(PdfViewOptions, {
     props: { scrollMode, spreadMode },
     global: { plugins: [...defaultPlugins()], stubs: { 'oc-icon': true } }
@@ -31,14 +29,16 @@ describe('PdfViewOptions', () => {
     ])
     expect(
       wrapper.findAll('[aria-current]').map((option) => option.attributes('data-mode'))
-    ).toEqual(['0', '1'])
+    ).toEqual([`${ScrollMode.VERTICAL}`, `${SpreadMode.ODD}`])
   })
 
   it('emits the chosen modes', async () => {
     const wrapper = createWrapper()
-    await wrapper.find('.pdf-studio-scroll-option[data-mode="2"]').trigger('click')
-    await wrapper.find('.pdf-studio-spread-option[data-mode="0"]').trigger('click')
-    expect(wrapper.emitted('setScrollMode')).toEqual([[2]])
-    expect(wrapper.emitted('setSpreadMode')).toEqual([[0]])
+    await wrapper
+      .find(`.pdf-studio-scroll-option[data-mode="${ScrollMode.WRAPPED}"]`)
+      .trigger('click')
+    await wrapper.find(`.pdf-studio-spread-option[data-mode="${SpreadMode.NONE}"]`).trigger('click')
+    expect(wrapper.emitted('setScrollMode')).toEqual([[ScrollMode.WRAPPED]])
+    expect(wrapper.emitted('setSpreadMode')).toEqual([[SpreadMode.NONE]])
   })
 })

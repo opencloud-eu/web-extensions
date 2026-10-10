@@ -1,30 +1,13 @@
 import { shallowRef } from 'vue'
 import { mock } from 'vitest-mock-extended'
+import { AnnotationEditorParamsType, AnnotationEditorType } from 'pdfjs-dist'
+import { EventBus, type PDFViewer } from 'pdfjs-dist/web/pdf_viewer.mjs'
 import { getComposableWrapper } from '@opencloud-eu/web-test-helpers'
-import type { EventBus, PDFViewer } from 'pdfjs-dist/web/pdf_viewer.mjs'
 import { usePdfEditing } from '../../../src/composables/usePdfEditing'
-
-vi.mock('pdfjs-dist', () => ({
-  AnnotationEditorType: { NONE: 0, HIGHLIGHT: 9, INK: 15, SIGNATURE: 101 },
-  AnnotationEditorParamsType: { CREATE: 2, INK_THICKNESS: 22, FREETEXT_SIZE: 11 }
-}))
-
-function createEventBus() {
-  const listeners = new Map<string, ((evt: unknown) => void)[]>()
-  return mock<EventBus>({
-    on: (name: string, listener: (evt: unknown) => void) =>
-      listeners.set(name, [...(listeners.get(name) ?? []), listener]),
-    off: (name: string, listener: (evt: unknown) => void) =>
-      listeners.set(
-        name,
-        (listeners.get(name) ?? []).filter((l) => l !== listener)
-      ),
-    dispatch: (name: string, evt: unknown) => listeners.get(name)?.forEach((l) => l(evt))
-  })
-}
+import { polyfillGetOrInsertComputed } from '../pdfjsPolyfills'
 
 function setup() {
-  const eventBus = createEventBus()
+  const eventBus = new EventBus()
   const viewer = mock<PDFViewer>({ pagesCount: 2 })
   Object.defineProperties(viewer, {
     viewer: { value: document.createElement('div') },
@@ -68,34 +51,38 @@ async function flush() {
 }
 
 describe('usePdfEditing', () => {
+  polyfillGetOrInsertComputed()
+
   it('follows the tool PDF.js reports', async () => {
     const { editing } = setup()
-    editing.selectTool(15)
+    editing.selectTool(AnnotationEditorType.INK)
     await flush()
-    expect(editing.editorMode.value).toBe(15)
+    expect(editing.editorMode.value).toBe(AnnotationEditorType.INK)
     // The active tool again turns it off.
-    editing.selectTool(15)
+    editing.selectTool(AnnotationEditorType.INK)
     await flush()
-    expect(editing.editorMode.value).toBe(0)
+    expect(editing.editorMode.value).toBe(AnnotationEditorType.NONE)
   })
 
   it('creates annotations once the tool is ready', async () => {
     const { editing, uiManager } = setup()
-    await editing.createEditor(9, { foo: 1 })
-    expect(editing.editorMode.value).toBe(9)
-    expect(uiManager.updateParams).toHaveBeenCalledWith(2, { foo: 1 })
+    await editing.createEditor(AnnotationEditorType.HIGHLIGHT, { foo: 1 })
+    expect(editing.editorMode.value).toBe(AnnotationEditorType.HIGHLIGHT)
+    expect(uiManager.updateParams).toHaveBeenCalledWith(AnnotationEditorParamsType.CREATE, {
+      foo: 1
+    })
   })
 
   it('asks for a new signature right away when choosing the signature tool', async () => {
     const { editing, uiManager } = setup()
-    editing.selectTool(101)
+    editing.selectTool(AnnotationEditorType.SIGNATURE)
     await flush()
-    expect(uiManager.updateParams).toHaveBeenCalledWith(2, null)
+    expect(uiManager.updateParams).toHaveBeenCalledWith(AnnotationEditorParamsType.CREATE, null)
     // Also for further signatures, instead of leaving the tool.
-    editing.selectTool(101)
+    editing.selectTool(AnnotationEditorType.SIGNATURE)
     await flush()
     expect(uiManager.updateParams).toHaveBeenCalledTimes(2)
-    expect(editing.editorMode.value).toBe(101)
+    expect(editing.editorMode.value).toBe(AnnotationEditorType.SIGNATURE)
   })
 
   describe('Escape', () => {
@@ -105,13 +92,13 @@ describe('usePdfEditing', () => {
 
     it('hands it to PDF.js and keeps the tool, like the PDF.js viewer', async () => {
       const { editing, uiManager } = setup()
-      editing.selectTool(15)
+      editing.selectTool(AnnotationEditorType.INK)
       await flush()
       const event = escape()
       editing.handleEscape(event)
       await flush()
       expect(uiManager.keydown).toHaveBeenCalledWith(event)
-      expect(editing.editorMode.value).toBe(15)
+      expect(editing.editorMode.value).toBe(AnnotationEditorType.INK)
     })
 
     it('leaves Escape alone once something handled it, e.g. the find bar', () => {
@@ -126,37 +113,56 @@ describe('usePdfEditing', () => {
   describe('tool settings', () => {
     it('change the selection, otherwise the defaults (PDF.js decides)', async () => {
       const { editing, uiManager } = setup()
-      editing.selectTool(15)
+      editing.selectTool(AnnotationEditorType.INK)
       await flush()
-      await editing.updateEditorSetting(15, 22, 5)
-      expect(uiManager.updateParams).toHaveBeenCalledWith(22, 5)
+      await editing.updateEditorSetting(
+        AnnotationEditorType.INK,
+        AnnotationEditorParamsType.INK_THICKNESS,
+        5
+      )
+      expect(uiManager.updateParams).toHaveBeenCalledWith(
+        AnnotationEditorParamsType.INK_THICKNESS,
+        5
+      )
       expect(uiManager.unselectAll).not.toHaveBeenCalled()
-      expect(editing.editorParams.value.get(22)).toBe(5)
+      expect(editing.editorParams.value.get(AnnotationEditorParamsType.INK_THICKNESS)).toBe(5)
     })
 
     // A selection of another tool would get the setting.
     it('switch to their tool first', async () => {
       const { editing, uiManager } = setup()
-      await editing.updateEditorSetting(9, 31, '#FFFF98')
-      expect(editing.editorMode.value).toBe(9)
-      expect(uiManager.updateParams).toHaveBeenCalledWith(31, '#FFFF98')
+      await editing.updateEditorSetting(
+        AnnotationEditorType.HIGHLIGHT,
+        AnnotationEditorParamsType.HIGHLIGHT_COLOR,
+        '#FFFF98'
+      )
+      expect(editing.editorMode.value).toBe(AnnotationEditorType.HIGHLIGHT)
+      expect(uiManager.updateParams).toHaveBeenCalledWith(
+        AnnotationEditorParamsType.HIGHLIGHT_COLOR,
+        '#FFFF98'
+      )
     })
 
     it('finish the drawing so far, which then gets the setting', async () => {
       const { editing, layers } = setup()
-      editing.selectTool(15)
+      editing.selectTool(AnnotationEditorType.INK)
       await flush()
-      await editing.updateEditorSetting(15, 22, 5)
+      await editing.updateEditorSetting(
+        AnnotationEditorType.INK,
+        AnnotationEditorParamsType.INK_THICKNESS,
+        5
+      )
       expect(layers[0].commitOrRemove).toHaveBeenCalled()
     })
 
     // E.g. of a selected annotation, or the defaults when a new drawing starts.
     it('show what PDF.js reports', () => {
       const { editing, eventBus } = setup()
-      eventBus.dispatch('annotationeditorparamschanged', { details: [[22, 10]] })
-      expect(editing.editorParams.value.get(22)).toBe(10)
-      eventBus.dispatch('annotationeditorparamschanged', { details: [[22, 1]] })
-      expect(editing.editorParams.value.get(22)).toBe(1)
+      const type = AnnotationEditorParamsType.INK_THICKNESS
+      eventBus.dispatch('annotationeditorparamschanged', { details: [[type, 10]] })
+      expect(editing.editorParams.value.get(type)).toBe(10)
+      eventBus.dispatch('annotationeditorparamschanged', { details: [[type, 1]] })
+      expect(editing.editorParams.value.get(type)).toBe(1)
     })
   })
 
@@ -241,8 +247,8 @@ describe('usePdfEditing', () => {
 
   it('switches tools when PDF.js asks, e.g. "Comment" on selected text', async () => {
     const { editing, eventBus } = setup()
-    eventBus.dispatch('showannotationeditorui', { mode: 9 })
+    eventBus.dispatch('showannotationeditorui', { mode: AnnotationEditorType.HIGHLIGHT })
     await flush()
-    expect(editing.editorMode.value).toBe(9)
+    expect(editing.editorMode.value).toBe(AnnotationEditorType.HIGHLIGHT)
   })
 })

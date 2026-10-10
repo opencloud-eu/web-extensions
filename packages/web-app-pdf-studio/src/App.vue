@@ -7,6 +7,7 @@
     :is-dirty="isDirty"
     @update:current-content="emit('update:currentContent', $event)"
     @save="emit('save')"
+    @register:on-save-callback="emit('register:onSaveCallback', $event)"
   />
 </template>
 
@@ -37,5 +38,7 @@ const { resource, currentContent, isReadOnly, isDirty } = defineProps<{
 const emit = defineEmits<{
   'update:currentContent': [content: ArrayBuffer]
   save: []
+  /** AppWrapper calls it after each of its saves, see usePdfSaving. */
+  'register:onSaveCallback': [callback: () => Promise<void>]
 }>()
 </script>

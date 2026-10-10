@@ -77,7 +77,13 @@ export function usePdfPrint({
     }
     const img = document.createElement('img')
     img.src = URL.createObjectURL(blob)
-    await img.decode()
+    try {
+      await img.decode()
+    } catch (e) {
+      // Not in the container yet, so cleanup() wouldn't revoke it.
+      URL.revokeObjectURL(img.src)
+      throw e
+    }
     return img
   }
 

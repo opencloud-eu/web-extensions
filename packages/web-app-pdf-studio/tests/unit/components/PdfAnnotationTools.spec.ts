@@ -2,30 +2,6 @@ import { defaultPlugins, mount, ocDropStub } from '@opencloud-eu/web-test-helper
 import { AnnotationEditorParamsType, AnnotationEditorType } from 'pdfjs-dist'
 import PdfAnnotationTools from '../../../src/components/PdfAnnotationTools.vue'
 
-// The real module starts fetching resources under happy-dom, only the enums are needed.
-vi.mock('pdfjs-dist', () => ({
-  AnnotationEditorType: {
-    NONE: 0,
-    FREETEXT: 3,
-    HIGHLIGHT: 9,
-    STAMP: 13,
-    INK: 15,
-    POPUP: 16,
-    SIGNATURE: 101
-  },
-  AnnotationEditorParamsType: {
-    FREETEXT_SIZE: 11,
-    FREETEXT_COLOR: 12,
-    INK_COLOR: 21,
-    INK_THICKNESS: 22,
-    INK_OPACITY: 23,
-    HIGHLIGHT_COLOR: 31,
-    HIGHLIGHT_THICKNESS: 32,
-    HIGHLIGHT_FREE: 33,
-    HIGHLIGHT_SHOW_ALL: 34
-  }
-}))
-
 function createWrapper({
   editorMode = AnnotationEditorType.NONE,
   disabled = false,

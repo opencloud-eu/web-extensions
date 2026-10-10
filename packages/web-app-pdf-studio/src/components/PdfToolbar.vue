@@ -230,7 +230,7 @@ const { $gettext } = useGettext()
 // The separator lies in the group's padding: hiding it at the start of a row (see below)
 // doesn't change any width, so it can't change where the groups wrap. In the color of borders.
 const groupClass =
-  'ext:relative ext:inline-flex ext:items-center ext:gap-0.5 ext:pl-[3px] ext:before:absolute ext:before:inset-y-0 ext:before:left-0 ext:before:w-px ext:before:bg-role-surface-container-highest ext:forced-colors:before:bg-[CanvasText] ext:data-row-start:before:hidden'
+  'ext:relative ext:inline-flex ext:items-center ext:gap-0.5 ext:pl-[3px] ext:before:absolute ext:before:inset-y-0 ext:before:left-0 ext:before:w-px ext:before:bg-role-border ext:forced-colors:before:bg-[CanvasText] ext:data-row-start:before:hidden'
 
 // Like in the PDF.js viewer.
 const canZoomIn = computed(() => scale < MAX_SCALE)

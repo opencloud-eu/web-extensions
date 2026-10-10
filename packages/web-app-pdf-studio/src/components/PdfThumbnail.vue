@@ -59,7 +59,6 @@
             <oc-icon name="more-2" fill-type="line" size-class="ext:size-4" />
           </oc-button>
           <oc-drop
-            ref="actionsDrop"
             :drop-id="`pdf-studio-page-actions-drop-${pageNumber}`"
             :toggle="`#pdf-studio-page-actions-${pageNumber}`"
             :title="$gettext('Page %{page}', { page: label })"
@@ -94,6 +93,7 @@ import type { PDFDocumentProxy } from 'pdfjs-dist'
 import { usePdfThumbnailImage } from '../composables/usePdfThumbnailImage'
 import { THUMBNAIL_GAP, THUMBNAIL_HEIGHT } from '../composables/usePdfThumbnailList'
 import { pdfThumbnailCacheKey } from '../composables/usePdfThumbnailCache'
+import { pdfEventBusKey } from '../composables/usePdfViewer'
 import PdfMenuItem from './PdfMenuItem.vue'
 
 const {
@@ -167,7 +167,8 @@ const { imageUrl } = usePdfThumbnailImage({
   pdfDocument: () => pdfDocument,
   pageNumber: () => pageNumber,
   rotation: () => rotation,
-  cache: inject(pdfThumbnailCacheKey, undefined)
+  cache: inject(pdfThumbnailCacheKey, undefined),
+  eventBus: inject(pdfEventBusKey, undefined)
 })
 
 const pageButton = useTemplateRef<{ $el: HTMLElement }>('pageButton')

@@ -1,4 +1,12 @@
-import { onBeforeUnmount, ref, shallowRef, toValue, unref, type MaybeRefOrGetter } from 'vue'
+import {
+  onBeforeUnmount,
+  ref,
+  shallowRef,
+  toValue,
+  unref,
+  type InjectionKey,
+  type MaybeRefOrGetter
+} from 'vue'
 import { promiseTimeout, useEventListener, useResizeObserver } from '@vueuse/core'
 import { AnnotationEditorType, AnnotationMode, type PDFDocumentProxy } from 'pdfjs-dist'
 import {
@@ -22,6 +30,9 @@ const PRESET_SCALE_VALUES = ['auto', 'page-fit', 'page-width']
 
 /** A preset of PDF.js or a zoom factor as string, e.g. '1.25'. */
 export type ScaleValue = 'auto' | 'page-actual' | 'page-fit' | 'page-width' | (string & {})
+
+/** The event bus of the viewer, for components that tell PDF.js about things, e.g. thumbnails. */
+export const pdfEventBusKey: InjectionKey<EventBus> = Symbol('pdfEventBus')
 
 /** Read by PDFViewer, but missing from its option types. */
 type ExtraViewerOptions = {
@@ -157,8 +168,8 @@ export function usePdfViewer({
       scriptingManager,
       downloadManager,
       imageResourcesPath: pdfjsAssetUrls.images,
-      // Required whenever editing is enabled, PDF.js looks up color names in it even for
-      // non-highlight editors. Same palette as the PDF.js viewer.
+      // The highlight tool looks up its color names in it, without the option it fails. Same
+      // palette as the PDF.js viewer.
       annotationEditorHighlightColors: highlightColorsOption,
       annotationMode: readOnly ? AnnotationMode.ENABLE : AnnotationMode.ENABLE_FORMS,
       annotationEditorMode: readOnly ? AnnotationEditorType.DISABLE : AnnotationEditorType.NONE,

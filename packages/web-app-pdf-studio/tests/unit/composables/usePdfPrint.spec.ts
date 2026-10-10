@@ -5,9 +5,6 @@ import { getComposableWrapper } from '@opencloud-eu/web-test-helpers'
 import { useModals, type Modal } from '@opencloud-eu/web-pkg'
 import { usePdfPrint } from '../../../src/composables/usePdfPrint'
 
-vi.mock('pdfjs-dist', () => ({ AnnotationMode: { ENABLE_STORAGE: 3 } }))
-vi.mock('pdfjs-dist/web/pdf_viewer.mjs', () => ({}))
-
 function setup({ numPages = 2 } = {}) {
   const page = mock<PDFPageProxy>({ rotate: 0 })
   page.getViewport.mockReturnValue(

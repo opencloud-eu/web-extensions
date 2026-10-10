@@ -231,9 +231,10 @@ export function usePdfChangeTracking({
   async function flush(): Promise<boolean> {
     cancelCheck()
     // Let a running save finish first, then check whether anything is still pending. A loop,
-    // because several callers may be waiting for the same running save.
+    // because several callers may be waiting for the same running save. Its failure is reported
+    // by its own caller, this one gets its own result.
     while (runningFlush) {
-      await runningFlush
+      await runningFlush.catch(() => {})
     }
     runningFlush = writeChanges().finally(() => {
       runningFlush = undefined
@@ -283,10 +284,10 @@ export function usePdfChangeTracking({
     },
     { capture: true }
   )
-  useEventListener(root, ['pointerup', 'keyup', 'input', 'change'], () => scheduleCheck())
-
+  useEventListener(root, ['pointerup', 'keyup', 'change'], () => scheduleCheck())
   // Typing and drawing count as changes right away, also before PDF.js stores them.
   useEventListener(root, 'input', () => {
+    scheduleCheck()
     if (toValue(isEnabled) && isTracking && hasUnfinishedEdits()) {
       markChanged()
     }

@@ -4,9 +4,11 @@ import type { CommentTarget } from './comments'
 
 /**
  * The parts of PDF.js this app needs that its type declarations don't cover. Everything else is
- * declared by pdfjs-dist, so the type check reports what an update changes. These are checked
- * against PDF.js itself by tests/unit/helpers/pdfjsInternals.spec.ts, and missing parts end in
- * the behavior without them instead of errors.
+ * declared by pdfjs-dist, so the type check reports what an update changes. The class while
+ * drawing, the image reading and the lookup of editable annotations are checked against PDF.js
+ * itself by tests/unit/helpers/pdfjsInternals.spec.ts, the private fields (`_uiManager`, the
+ * hidden signature editor, `popup`) only by shape. Missing parts end in the behavior without
+ * them instead of errors.
  */
 
 /** PDF.js disables text selection while drawing (`disableUserSelect`), without a getter. */

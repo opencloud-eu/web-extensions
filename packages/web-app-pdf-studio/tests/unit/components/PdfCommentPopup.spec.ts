@@ -6,7 +6,8 @@ import type { CommentPopup } from '../../../src/composables/usePdfComments'
 vi.mock('@opencloud-eu/web-pkg', () => ({
   formatDateFromJSDate: () => 'January 1, 2026'
 }))
-vi.mock('pdfjs-dist', () => ({
+vi.mock('pdfjs-dist', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('pdfjs-dist')>()),
   PDFDateString: { toDateObject: () => new Date(2026, 0, 1) },
   renderRichText: ({ html }: { html: string }, element: HTMLElement) => {
     element.textContent = html

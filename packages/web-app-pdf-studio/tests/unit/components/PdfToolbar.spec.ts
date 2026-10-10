@@ -1,16 +1,9 @@
 import { nextTick, ref } from 'vue'
 import { useResizeObserver } from '@vueuse/core'
+import { AnnotationEditorParamsType, AnnotationEditorType } from 'pdfjs-dist'
+import { ScrollMode, SpreadMode } from 'pdfjs-dist/web/pdf_viewer.mjs'
 import { defaultPlugins, mount } from '@opencloud-eu/web-test-helpers'
 import PdfToolbar from '../../../src/components/PdfToolbar.vue'
-
-vi.mock('pdfjs-dist/web/pdf_viewer.mjs', () => ({
-  ScrollMode: { VERTICAL: 0, HORIZONTAL: 1, WRAPPED: 2, PAGE: 3 },
-  SpreadMode: { NONE: 0, ODD: 1, EVEN: 2 }
-}))
-vi.mock('pdfjs-dist', () => ({
-  AnnotationEditorType: { NONE: 0, FREETEXT: 3, HIGHLIGHT: 9, STAMP: 13, INK: 15, POPUP: 16 },
-  AnnotationEditorParamsType: {}
-}))
 
 vi.mock('@vueuse/core', async (importOriginal) => ({
   ...(await importOriginal<typeof import('@vueuse/core')>()),
@@ -29,9 +22,9 @@ function createWrapper(props: Partial<Props> = {}) {
       pagesCount: 5,
       scaleValue: 'auto',
       scale: 1,
-      scrollMode: 0,
-      spreadMode: 0,
-      editorMode: 0,
+      scrollMode: ScrollMode.VERTICAL,
+      spreadMode: SpreadMode.NONE,
+      editorMode: AnnotationEditorType.NONE,
       canAnnotate: true,
       editingStates: {
         hasSomethingToUndo: true,
@@ -147,12 +140,19 @@ describe('PdfToolbar', () => {
     const zoom = wrapper.findComponent({ name: 'PdfZoomMenu' })
     zoom.vm.$emit('setScale', 'page-fit')
     const tools = wrapper.findComponent({ name: 'PdfAnnotationTools' })
-    tools.vm.$emit('selectTool', 15)
-    tools.vm.$emit('updateParam', 15, 21, '#ff0000')
+    tools.vm.$emit('selectTool', AnnotationEditorType.INK)
+    tools.vm.$emit(
+      'updateParam',
+      AnnotationEditorType.INK,
+      AnnotationEditorParamsType.INK_COLOR,
+      '#ff0000'
+    )
     tools.vm.$emit('addImage', 'cloud')
     expect(wrapper.emitted('setScale')).toEqual([['page-fit']])
-    expect(wrapper.emitted('selectTool')).toEqual([[15]])
-    expect(wrapper.emitted('updateParam')).toEqual([[15, 21, '#ff0000']])
+    expect(wrapper.emitted('selectTool')).toEqual([[AnnotationEditorType.INK]])
+    expect(wrapper.emitted('updateParam')).toEqual([
+      [AnnotationEditorType.INK, AnnotationEditorParamsType.INK_COLOR, '#ff0000']
+    ])
     expect(wrapper.emitted('addImage')).toEqual([['cloud']])
   })
 
