@@ -93,7 +93,6 @@ export function usePdfViewer({
     pdfViewer.scrollMode = unref(scrollMode)
     pdfViewer.spreadMode = unref(spreadMode)
     pdfViewer.pagesRotation = unref(rotation)
-    // The page first, "auto" zoom depends on its orientation.
     pdfViewer.currentPageNumber = Math.min(initialPageNumber, pdfViewer.pagesCount)
     pdfViewer.currentScaleValue = unref(scaleValue)
     // A new document starting on page 1 changes no page in PDF.js' eyes, so it doesn't tell.
@@ -106,6 +105,14 @@ export function usePdfViewer({
     // PDF.js has no uiManager for read-only files and XFA forms.
     if (initialEditorMode !== AnnotationEditorType.NONE && unref(editing.uiManager)) {
       pdfViewer.annotationEditorMode = { mode: initialEditorMode }
+    }
+  })
+  // Until all pages are loaded, PDF.js gives them the size of the first one, which "auto" etc.
+  // used for the page shown. The PDF.js viewer waits for them, here the zoom is applied again.
+  eventBus.on('pagesloaded', () => {
+    const value = unref(scaleValue)
+    if (PRESET_SCALE_VALUES.includes(value)) {
+      unref(viewer).currentScaleValue = value
     }
   })
   eventBus.on('pagechanging', ({ pageNumber: page }: { pageNumber: number }) => {

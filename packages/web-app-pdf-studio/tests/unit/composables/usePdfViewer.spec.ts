@@ -85,6 +85,16 @@ describe('usePdfViewer', () => {
     expect(viewer.pageNumber.value).toBe(2)
   })
 
+  // Until then PDF.js gives all pages the size of the first one, like the PDF.js viewer waits.
+  it('applies the zoom again once all pages are loaded', () => {
+    const { viewer } = setup()
+    viewer.setDocument(mock<PDFDocumentProxy>(), { pageNumber: 2 })
+    viewer.eventBus.dispatch('pagesinit', { source: null })
+    calls.length = 0
+    viewer.eventBus.dispatch('pagesloaded', { source: null, pagesCount: 3 })
+    expect(calls).toEqual([['currentScaleValue', { value: 'auto', pageNumber: 2 }]])
+  })
+
   it('keeps the active tool for a rebuilt document', () => {
     const { viewer } = setup()
     viewer.setDocument(mock<PDFDocumentProxy>())
