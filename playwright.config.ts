@@ -124,6 +124,21 @@ export default defineConfig({
       use: { ...devices['Desktop Safari'], browserName: 'webkit', ignoreHTTPSErrors: true }
     },
     {
+      name: 'pdf-studio-chromium',
+      testDir: './packages/web-app-pdf-studio/tests/e2e',
+      use: { ...devices['Desktop Chrome'], browserName: 'chromium', ignoreHTTPSErrors: true }
+    },
+    {
+      name: 'pdf-studio-firefox',
+      testDir: './packages/web-app-pdf-studio/tests/e2e',
+      use: { ...devices['Desktop Firefox'], browserName: 'firefox', ignoreHTTPSErrors: true }
+    },
+    {
+      name: 'pdf-studio-webkit',
+      testDir: './packages/web-app-pdf-studio/tests/e2e',
+      use: { ...devices['Desktop Safari'], browserName: 'webkit', ignoreHTTPSErrors: true }
+    },
+    {
       name: 'json-viewer-chromium',
       testDir: './packages/web-app-json-viewer/tests/e2e',
       use: { ...devices['Desktop Chrome'], browserName: 'chromium', ignoreHTTPSErrors: true }
