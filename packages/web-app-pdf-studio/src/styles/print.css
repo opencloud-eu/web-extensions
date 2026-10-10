@@ -1,0 +1,36 @@
+/* See usePdfPrint.ts. Only the rendered pages are visible while printing. */
+#pdf-studio-print-container {
+  display: none;
+}
+
+@media print {
+  /* Only while PDF Studio prints, the stylesheet stays loaded when other apps print */
+  body:has(> #pdf-studio-print-container) > :not(#pdf-studio-print-container) {
+    display: none !important;
+  }
+
+  #pdf-studio-print-container {
+    display: block;
+  }
+
+  /* Pure XFA forms, same as #printContainer in the PDF.js viewer */
+  #pdf-studio-print-container > .xfaPrintedPage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    break-after: page;
+    break-inside: avoid;
+  }
+
+  #pdf-studio-print-container > .xfaPrintedPage .xfaPage {
+    position: absolute;
+  }
+
+  #pdf-studio-print-container img {
+    display: block;
+    max-width: 100%;
+    max-height: 100vh;
+    margin: 0 auto;
+    break-after: page;
+  }
+}
