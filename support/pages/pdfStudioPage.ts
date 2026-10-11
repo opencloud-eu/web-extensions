@@ -1,3 +1,4 @@
+import path from 'path'
 import { expect, Locator, Page } from '@playwright/test'
 import { FilesPage } from './filesPage'
 
@@ -14,12 +15,31 @@ export class PdfStudioPage {
     this.closeBtn = this.page.getByLabel('Close').first()
   }
 
-  async open(file: string) {
+  async open(file: string, { password }: { password?: string } = {}) {
     const filesPage = new FilesPage(this.page)
     await filesPage.getResourceNameSelector(file).click({ button: 'right' })
     await filesPage.openWithButton.hover()
     await this.page.locator('.oc-files-actions-pdf-studio-trigger').click()
+    if (password) {
+      await this.enterPassword(password)
+    }
     await this.pages.first().locator('.canvasWrapper canvas').first().waitFor()
+  }
+
+  async enterPassword(password: string) {
+    const modal = this.page.locator('.pdf-studio-password-modal')
+    await modal.locator('input').fill(password)
+    await modal.locator('.oc-modal-body-actions-confirm').click()
+    await modal.waitFor({ state: 'detached' })
+  }
+
+  /** An image from the device, like a user choosing it in the file dialog. */
+  async addImage(file: string) {
+    await this.page.locator('#pdf-studio-image-toggle').click()
+    const fileChooser = this.page.waitForEvent('filechooser')
+    await this.page.locator('.pdf-studio-add-image-device').click()
+    await (await fileChooser).setFiles(path.resolve('./support/filesForUpload', file))
+    await this.viewer.locator('.stampEditor').waitFor()
   }
 
   formField(name: string): Locator {
@@ -98,11 +118,34 @@ export class PdfStudioPage {
   }
 
   async deletePage(pageNumber: number) {
-    await this.page.locator('.pdf-studio-toggle-sidebar').click()
+    await this.pageAction(pageNumber, 'delete-page')
+  }
+
+  /** An action of a page in the sidebar, e.g. `move-page-down`. */
+  async pageAction(pageNumber: number, action: string) {
+    await this.openSidebarView('pages')
     await this.page
       .locator(`.pdf-studio-thumbnail[data-page-number="${pageNumber}"] .pdf-studio-page-actions`)
       .click()
-    await this.page.locator('.pdf-studio-delete-page').filter({ visible: true }).click()
+    await this.page.locator(`.pdf-studio-${action}`).filter({ visible: true }).click()
+  }
+
+  async openSidebarView(view: 'pages' | 'outline' | 'attachments' | 'layers') {
+    if (!(await this.page.locator('.pdf-studio-sidebar').isVisible())) {
+      await this.page.locator('.pdf-studio-toggle-sidebar').click()
+    }
+    await this.page.locator('#pdf-studio-sidebar-views-toggle').click()
+    await this.page.locator(`.pdf-studio-sidebar-view-${view}`).click()
+  }
+
+  async moreAction(id: string) {
+    await this.page.locator('#pdf-studio-more-toggle').click()
+    await this.page.locator(`.pdf-studio-more-${id}`).click()
+  }
+
+  /** The text of a page, e.g. to tell pages apart after moving them. */
+  pageText(pageNumber: number): Locator {
+    return this.pages.nth(pageNumber - 1).locator('.textLayer')
   }
 
   async find(query: string) {

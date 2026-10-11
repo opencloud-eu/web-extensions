@@ -103,7 +103,10 @@ export async function getDocumentProperties(
   doc: PDFDocumentProxy,
   { pageNumber, rotation, locale }: { pageNumber: number; rotation: number; locale: string }
 ): Promise<DocumentProperties> {
-  const { info, metadata } = (await doc.getMetadata()) as {
+  // Broken metadata in the file: the properties from the document itself only.
+  const { info, metadata } = (await doc
+    .getMetadata()
+    .catch(() => ({ info: {}, metadata: null as null }))) as {
     info: DocumentInfo
     metadata: { get(name: string): string | string[] | undefined } | null
   }

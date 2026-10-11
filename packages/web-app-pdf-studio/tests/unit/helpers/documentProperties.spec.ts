@@ -90,4 +90,18 @@ describe('getDocumentProperties', () => {
     })
     expect(properties.keywords).toBeUndefined()
   })
+
+  it('shows the properties of the document itself with broken metadata', async () => {
+    const doc = mock<PDFDocumentProxy>({
+      numPages: 3,
+      getMetadata: vi.fn().mockRejectedValue(new Error('Broken')),
+      getPage: () => Promise.resolve(page(612, 792))
+    })
+    const properties = await getDocumentProperties(doc, {
+      pageNumber: 1,
+      rotation: 0,
+      locale: 'de'
+    })
+    expect(properties).toMatchObject({ title: undefined, pageCount: 3, isLinearized: false })
+  })
 })

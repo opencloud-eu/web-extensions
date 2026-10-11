@@ -42,7 +42,8 @@ export function usePdfLayers({
   let config: OptionalContentConfig | null = null
 
   async function update(promise: Promise<OptionalContentConfig | null>) {
-    const current = await promise
+    // Broken layers in the file are left out instead of loading forever.
+    const current = await promise.catch((): null => null)
     // A newer document or change came in meanwhile.
     if (promise !== unref(viewer)?.optionalContentConfigPromise) {
       return

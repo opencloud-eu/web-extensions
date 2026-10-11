@@ -112,7 +112,8 @@ export function usePdfOutline({
       if (!doc) {
         return
       }
-      const items = (await doc.getOutline()) ?? []
+      // A broken outline in the file is left out instead of loading forever.
+      const items = (await doc.getOutline().catch((): null => null)) ?? []
       if (doc !== toValue(pdfDocument)) {
         return
       }

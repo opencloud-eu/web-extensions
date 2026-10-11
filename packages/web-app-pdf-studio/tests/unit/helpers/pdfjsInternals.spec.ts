@@ -10,9 +10,33 @@ import {
   isCreatingSignature,
   isDrawing
 } from '../../../src/helpers/pdfjsInternals'
+import { hasString, includesCode } from '../pdfjsSource'
 
 // Against PDF.js itself: these tests fail when an update changes what the app relies on.
 describe('PDF.js', () => {
+  // The app looks for them in PDF.js' elements, see the uses in src.
+  it.each([
+    'noUserSelect',
+    'signatureEditor',
+    'annotationLayer',
+    'annotationEditorLayer',
+    'waiting',
+    'editToolbar',
+    'annotationCommentButton',
+    'popupTriggerArea',
+    'highlightAnnotation',
+    'inkAnnotation',
+    'freeTextAnnotation',
+    'stampAnnotation'
+  ])('still has the class "%s"', (className) => {
+    expect(hasString(className)).toBe(true)
+  })
+
+  // "page" is also the name of a URL parameter in PDF.js.
+  it('still has the class "page"', () => {
+    expect(includesCode('className = "page"')).toBe(true)
+  })
+
   const managers: AnnotationEditorUIManager[] = []
   afterEach(() => managers.splice(0).forEach((manager) => manager.destroy()))
 

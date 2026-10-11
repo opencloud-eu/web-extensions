@@ -55,6 +55,7 @@ import PdfToolbarButton from './PdfToolbarButton.vue'
 import PdfMenuItem from './PdfMenuItem.vue'
 
 const {
+  inMenu,
   scrollMode,
   spreadMode,
   canUndo = false,
@@ -69,6 +70,8 @@ const {
   isFirstPage = false,
   isLastPage = false
 } = defineProps<{
+  /** What the toolbar has no room for, see PdfToolbar. */
+  inMenu: { print: boolean; undo: boolean; zoom: boolean }
   scrollMode: number
   spreadMode: number
   canUndo?: boolean
@@ -106,9 +109,8 @@ const emit = defineEmits<{
 
 const { $gettext } = useGettext()
 
-// What doesn't fit into the toolbar is offered here, see PdfToolbar. Phones (touch) get no
-// presentation mode and no hand tool.
-const { isMobile, isTablet } = useIsMobile()
+// Phones (touch) get no presentation mode and no hand tool.
+const { isMobile } = useIsMobile()
 
 type MenuItem = {
   id: string
@@ -156,7 +158,7 @@ const groups = computed<MenuGroup[]>(() =>
     {
       id: 'output',
       items: [
-        ...onlyIf(unref(isTablet), {
+        ...onlyIf(inMenu.print, {
           id: 'print',
           icon: 'printer',
           label: $gettext('Print'),
@@ -175,7 +177,7 @@ const groups = computed<MenuGroup[]>(() =>
       id: 'edit',
       items: [
         ...onlyIf(
-          canAnnotate && unref(isTablet),
+          canAnnotate && inMenu.undo,
           {
             id: 'undo',
             icon: 'arrow-go-back',
@@ -197,7 +199,7 @@ const groups = computed<MenuGroup[]>(() =>
       id: 'zoom',
       items: [
         ...onlyIf(
-          unref(isMobile),
+          inMenu.zoom,
           {
             id: 'zoom-in',
             icon: 'zoom-in',

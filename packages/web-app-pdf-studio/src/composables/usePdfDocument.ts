@@ -4,6 +4,13 @@ import type { PDFDocumentLoadingTask, PDFDocumentProxy } from 'pdfjs-dist'
 import { useModals } from '@opencloud-eu/web-pkg'
 import { loadPdfDocument, type PasswordRequest } from '../helpers/pdfjs'
 
+/**
+ * Loads the file into PDF.js, also again after page operations, which rebuild it. Others start
+ * over with each document in one of two ways: what reads data from it (outline, attachments,
+ * properties) watches `pdfDocument`, what depends on the pages shown (layers, page labels, view
+ * state) listens to PDF.js' `pagesinit`. `onLoaded` sets the document in the viewer in the same
+ * tick as `pdfDocument` changes, reads check the document is still current when they resolve.
+ */
 export function usePdfDocument({
   onLoaded,
   onPasswordCancelled

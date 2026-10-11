@@ -49,7 +49,7 @@
         />
       </div>
 
-      <div v-if="!isMobile" :class="groupClass">
+      <div v-if="!inMenu.zoom" :class="groupClass">
         <pdf-toolbar-button
           :label="$gettext('Zoom out')"
           icon="subtract"
@@ -71,7 +71,7 @@
         />
       </div>
 
-      <div v-if="canAnnotate && !isTablet" :class="groupClass">
+      <div v-if="canAnnotate && !inMenu.undo" :class="groupClass">
         <pdf-toolbar-button
           :label="$gettext('Undo')"
           icon="arrow-go-back"
@@ -95,7 +95,7 @@
 
       <div :class="groupClass">
         <pdf-toolbar-button
-          v-if="!isTablet"
+          v-if="!inMenu.print"
           :label="$gettext('Print')"
           icon="printer"
           :disabled="isPrinting"
@@ -104,6 +104,7 @@
           @click="emit('print')"
         />
         <pdf-more-menu
+          :in-menu="inMenu"
           :scroll-mode="scrollMode"
           :spread-mode="spreadMode"
           :can-annotate="canAnnotate"
@@ -240,6 +241,12 @@ const canZoomOut = computed(() => scale > MIN_SCALE)
 // What fits, like in the PDF.js viewer: the rest is in the "More actions" menu. Phones get the
 // annotation tools in a picker.
 const { isMobile, isTablet } = useIsMobile()
+// Shown either here or in the menu, never both.
+const inMenu = computed(() => ({
+  print: unref(isTablet),
+  undo: unref(isTablet),
+  zoom: unref(isMobile)
+}))
 
 // The same for the annotation tools and the tool picker that replaces them on small screens.
 const toolsProps = computed(() => ({

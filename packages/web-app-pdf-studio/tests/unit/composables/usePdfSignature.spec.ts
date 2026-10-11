@@ -4,6 +4,7 @@ import type { AnnotationEditorUIManager } from 'pdfjs-dist'
 import { getComposableWrapper } from '@opencloud-eu/web-test-helpers'
 import { useModals, type Modal } from '@opencloud-eu/web-pkg'
 import { getSavedSignatureParams, usePdfSignature } from '../../../src/composables/usePdfSignature'
+import { getMissingMembers } from '../pdfjsSource'
 
 type SignatureModalAttrs = {
   canSave: boolean
@@ -62,6 +63,11 @@ function setup({ isPublicLink = false } = {}) {
 }
 
 describe('usePdfSignature', () => {
+  // PDF.js does without what is missing, e.g. after an update.
+  it('provides everything PDF.js uses of the signature manager', () => {
+    expect(getMissingMembers('signatureManager', setup().manager)).toEqual([])
+  })
+
   it('asks for a new signature and adds it like the PDF.js viewer', async () => {
     const { manager, modal, modalAttrs, uiManager, editor, onChange } = setup()
     manager.getSignature({ uiManager, editor: editor as never })

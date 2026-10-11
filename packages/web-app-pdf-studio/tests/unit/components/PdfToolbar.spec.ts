@@ -81,6 +81,21 @@ describe('PdfToolbar', () => {
   })
 
   it.each([
+    ['wide screens', false, false],
+    ['tablets', false, true],
+    ['phones', true, true]
+  ])('shows each action either in the toolbar or in the menu on %s', (_, isMobile, isTablet) => {
+    screen.isMobile.value = isMobile
+    screen.isTablet.value = isTablet
+    const wrapper = createWrapper({ canAnnotate: true })
+    const inMenu = wrapper.findComponent({ name: 'PdfMoreMenu' }).props('inMenu')
+    expect(inMenu).toEqual({ print: isTablet, undo: isTablet, zoom: isMobile })
+    expect(wrapper.find('.pdf-studio-print').exists()).toBe(!inMenu.print)
+    expect(wrapper.find('.pdf-studio-undo').exists()).toBe(!inMenu.undo)
+    expect(wrapper.find('.pdf-studio-zoom-in').exists()).toBe(!inMenu.zoom)
+  })
+
+  it.each([
     [1, '.pdf-studio-previous-page'],
     [5, '.pdf-studio-next-page']
   ])('disables page navigation beyond the document on page %i', (pageNumber, selector) => {

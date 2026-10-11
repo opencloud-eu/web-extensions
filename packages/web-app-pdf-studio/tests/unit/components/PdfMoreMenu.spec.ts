@@ -5,7 +5,7 @@ import { ScrollMode, SpreadMode } from 'pdfjs-dist/web/pdf_viewer.mjs'
 import { defaultPlugins, mount, ocDropStub } from '@opencloud-eu/web-test-helpers'
 import PdfMoreMenu from '../../../src/components/PdfMoreMenu.vue'
 
-const screen = { isMobile: ref(false), isTablet: ref(false) }
+const screen = { isMobile: ref(false) }
 vi.mock('@opencloud-eu/design-system/composables', () => ({ useIsMobile: () => screen }))
 
 function createWrapper(
@@ -13,7 +13,12 @@ function createWrapper(
   { attachTo }: { attachTo?: HTMLElement } = {}
 ) {
   return mount(PdfMoreMenu, {
-    props: { scrollMode: ScrollMode.VERTICAL, spreadMode: SpreadMode.NONE, ...props },
+    props: {
+      inMenu: { print: false, undo: false, zoom: false },
+      scrollMode: ScrollMode.VERTICAL,
+      spreadMode: SpreadMode.NONE,
+      ...props
+    },
     attachTo,
     global: {
       plugins: [...defaultPlugins()],
@@ -21,6 +26,9 @@ function createWrapper(
     }
   })
 }
+
+const tablet = { print: true, undo: true, zoom: false }
+const phone = { print: true, undo: true, zoom: true }
 
 function itemIds(wrapper: ReturnType<typeof createWrapper>) {
   return wrapper
@@ -31,7 +39,6 @@ function itemIds(wrapper: ReturnType<typeof createWrapper>) {
 describe('PdfMoreMenu', () => {
   afterEach(() => {
     screen.isMobile.value = false
-    screen.isTablet.value = false
   })
 
   it('offers what the toolbar of wide screens has no room for, like the PDF.js viewer', () => {
@@ -47,9 +54,8 @@ describe('PdfMoreMenu', () => {
     ])
   })
 
-  it('also offers print, undo and redo on tablets, zoom only on phones', () => {
-    screen.isTablet.value = true
-    const ids = itemIds(createWrapper({ canAnnotate: true, canPresent: true }))
+  it('also offers what the toolbar has no room for', () => {
+    const ids = itemIds(createWrapper({ inMenu: tablet, canAnnotate: true, canPresent: true }))
     for (const id of ['print', 'undo', 'redo', 'present', 'hand-tool']) {
       expect(ids).toContain(`pdf-studio-more-${id}`)
     }
@@ -58,17 +64,15 @@ describe('PdfMoreMenu', () => {
 
   it('offers no presentation mode and hand tool on phones', () => {
     screen.isMobile.value = true
-    screen.isTablet.value = true
-    const ids = itemIds(createWrapper({ canAnnotate: true, canPresent: true }))
+    const ids = itemIds(createWrapper({ inMenu: phone, canAnnotate: true, canPresent: true }))
     expect(ids).not.toContain('pdf-studio-more-present')
     expect(ids).not.toContain('pdf-studio-more-hand-tool')
     expect(ids).toContain('pdf-studio-more-zoom-in')
   })
 
   it('offers undo and redo only where the document can be edited', () => {
-    screen.isTablet.value = true
-    expect(createWrapper().find('.pdf-studio-more-undo').exists()).toBe(false)
-    const wrapper = createWrapper({ canAnnotate: true, canUndo: true })
+    expect(createWrapper({ inMenu: tablet }).find('.pdf-studio-more-undo').exists()).toBe(false)
+    const wrapper = createWrapper({ inMenu: tablet, canAnnotate: true, canUndo: true })
     expect(wrapper.find('.pdf-studio-more-undo').attributes('disabled')).toBeUndefined()
     expect(wrapper.find('.pdf-studio-more-redo').attributes('disabled')).toBeDefined()
   })
@@ -77,9 +81,7 @@ describe('PdfMoreMenu', () => {
     ['zoom-in', 'zoomIn'],
     ['zoom-out', 'zoomOut']
   ])('emits %s on phones', async (id, event) => {
-    screen.isMobile.value = true
-    screen.isTablet.value = true
-    const wrapper = createWrapper()
+    const wrapper = createWrapper({ inMenu: phone })
     await wrapper.find(`.pdf-studio-more-${id}`).trigger('click')
     expect(wrapper.emitted(event)).toEqual([[]])
   })
@@ -95,16 +97,14 @@ describe('PdfMoreMenu', () => {
     ['hand-tool', 'setHandTool', [true]],
     ['properties', 'showProperties', []]
   ])('emits %s', async (id, event, args) => {
-    screen.isTablet.value = true
-    const wrapper = createWrapper({ canPresent: true })
+    const wrapper = createWrapper({ inMenu: tablet, canPresent: true })
     await wrapper.find(`.pdf-studio-more-${id}`).trigger('click')
     expect(wrapper.emitted(event)).toEqual([args])
   })
 
   it('disables what goes nowhere, like the PDF.js viewer', () => {
-    screen.isMobile.value = true
-    screen.isTablet.value = true
     const wrapper = createWrapper({
+      inMenu: phone,
       canZoomIn: false,
       canZoomOut: false,
       isFirstPage: true,

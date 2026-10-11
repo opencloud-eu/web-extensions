@@ -4,32 +4,8 @@ import { usePdfShortcuts, type PdfShortcutActions } from '../../../src/composabl
 
 const mounted: { unmount: () => void }[] = []
 
-const { TouchManager, screen } = vi.hoisted(() => ({
-  TouchManager: vi.fn(),
-  screen: { isMobile: { value: false } }
-}))
-vi.mock('pdfjs-dist', async (importOriginal) => ({
-  ...(await importOriginal<typeof import('pdfjs-dist')>()),
-  TouchManager
-}))
+const { screen } = vi.hoisted(() => ({ screen: { isMobile: { value: false } } }))
 vi.mock('@opencloud-eu/design-system/composables', () => ({ useIsMobile: () => screen }))
-
-// happy-dom ignores the init values of WheelEvent.
-
-function wheel(init: {
-  deltaY: number
-  deltaMode?: number
-  ctrlKey?: boolean
-  clientX?: number
-  clientY?: number
-}) {
-  const event = new Event('wheel', { cancelable: true, bubbles: true })
-  const defaults = { ctrlKey: false, metaKey: false, deltaX: 0, deltaZ: 0, deltaMode: 0 }
-  for (const [key, value] of Object.entries({ ...defaults, ...init })) {
-    Object.defineProperty(event, key, { value })
-  }
-  return event
-}
 
 function setup({
   isReadOnly = false,
@@ -59,8 +35,6 @@ function setup({
     zoomIn: vi.fn(),
     zoomOut: vi.fn(),
     resetZoom: vi.fn(),
-    zoomAt: vi.fn(),
-    panBy: vi.fn(),
     undo: vi.fn(),
     redo: vi.fn(),
     handleEscape: vi.fn(),
@@ -80,7 +54,6 @@ function setup({
       editingStates,
       isPageFit,
       isFindBarOpen,
-      scale: 1,
       actions
     })
   )
@@ -380,42 +353,6 @@ describe('usePdfShortcuts', () => {
     expect(actions.undo).not.toHaveBeenCalled()
   })
 
-  it('leaves the mouse wheel to the presentation mode while presenting', () => {
-    const { container, actions } = setup({ isPresenting: true })
-    container.dispatchEvent(
-      wheel({ deltaY: -100, deltaMode: 1, ctrlKey: true, clientX: 0, clientY: 0 })
-    )
-    expect(actions.zoomAt).not.toHaveBeenCalled()
-  })
-
-  it('zooms around the pointer in steps with ctrl + mouse wheel', () => {
-    const { container, actions } = setup()
-    const event = wheel({ deltaY: -100, deltaMode: 1, ctrlKey: true, clientX: 10, clientY: 20 })
-    container.dispatchEvent(event)
-    container.dispatchEvent(
-      wheel({ deltaY: 3, deltaMode: 1, ctrlKey: true, clientX: 0, clientY: 0 })
-    )
-    container.dispatchEvent(wheel({ deltaY: 100, deltaMode: 1 }))
-    expect(actions.zoomAt.mock.calls).toEqual([
-      [{ steps: 1 }, [10, 20]],
-      [{ steps: -1 }, [0, 0]]
-    ])
-    expect(event.defaultPrevented).toBe(true)
-  })
-
-  // Trackpads send many small events per pinch, each one a zoom step would be far too fast.
-  it('zooms continuously when pinching, like the PDF.js viewer', () => {
-    const { container, actions } = setup()
-    for (let i = 0; i < 10; i++) {
-      container.dispatchEvent(wheel({ deltaY: -2, ctrlKey: true }))
-    }
-    const factor = actions.zoomAt.mock.calls.reduce(
-      (total, [{ scaleFactor }]) => total * scaleFactor,
-      1
-    )
-    expect(factor).toBeCloseTo(1.22, 1)
-  })
-
   // PDF.js only handles them while a tool is active, the toolbar buttons work without.
   it.each([
     ['ArrowDown', false, 'nextPage'],
@@ -427,15 +364,6 @@ describe('usePdfShortcuts', () => {
     const { container, actions, press } = setup({ isPageFit: true })
     press(container, { key, shiftKey })
     expect(actions[action]).toHaveBeenCalled()
-  })
-
-  it('zooms the pages when pinching on touch screens, like the PDF.js viewer', () => {
-    const { actions } = setup()
-    const { onPinching, onPanning } = TouchManager.mock.lastCall[0]
-    onPinching([10, 20], 100, 150, 1, 2)
-    expect(actions.zoomAt).toHaveBeenCalledWith({ scaleFactor: 1.5 }, [10, 20], [1, 2])
-    onPanning(3, 4)
-    expect(actions.panBy).toHaveBeenCalledWith(3, 4)
   })
 
   it('finds the next and previous match with ctrl + g', () => {

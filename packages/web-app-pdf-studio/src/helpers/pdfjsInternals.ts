@@ -8,7 +8,9 @@ import type { CommentTarget } from './comments'
  * drawing, the image reading and the lookup of editable annotations are checked against PDF.js
  * itself by tests/unit/helpers/pdfjsInternals.spec.ts, the private fields (`_uiManager`, the
  * hidden signature editor, `popup`) only by shape. Missing parts end in the behavior without
- * them instead of errors.
+ * them instead of errors. The class names the app looks for, what PDF.js uses of the managers
+ * passed to its viewer (comments, signatures, alt text) and the text ids of usePdfL10n are
+ * checked against PDF.js' code (tests/unit/pdfjsSource.ts), so an update reports them as well.
  */
 
 /** PDF.js disables text selection while drawing (`disableUserSelect`), without a getter. */

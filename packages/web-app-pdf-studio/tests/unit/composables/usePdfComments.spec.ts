@@ -6,6 +6,7 @@ import { useModals, type Modal } from '@opencloud-eu/web-pkg'
 import { AnnotationType, type AnnotationEditorUIManager, type PDFDocumentProxy } from 'pdfjs-dist'
 import { usePdfComments } from '../../../src/composables/usePdfComments'
 import type { CommentData, CommentTarget } from '../../../src/helpers/comments'
+import { getMissingMembers } from '../pdfjsSource'
 
 function comment(id: string, date: string, data: Partial<CommentData> = {}): CommentData {
   return {
@@ -82,6 +83,12 @@ function setup({ isReadOnly = false } = {}) {
 }
 
 describe('usePdfComments', () => {
+  // PDF.js does without what is missing, e.g. after an update.
+  it('provides everything PDF.js uses of the comment manager', () => {
+    const { comments } = setup()
+    expect(getMissingMembers('commentManager', comments.commentManager)).toEqual([])
+  })
+
   describe('list', () => {
     it('lists comments with text, newest first, while the comments tool is active', () => {
       const { comments } = setup()

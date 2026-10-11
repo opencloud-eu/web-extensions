@@ -22,6 +22,10 @@ const SPREAD_MODES: Record<string, number> = {
  * viewer follows it: the sidebar view and pages side by side.
  */
 export async function getInitialView(doc: PDFDocumentProxy) {
-  const [pageMode, pageLayout] = await Promise.all([doc.getPageMode(), doc.getPageLayout()])
+  // A broken entry in the file: the default for it.
+  const [pageMode, pageLayout] = await Promise.all([
+    doc.getPageMode().catch((): undefined => undefined),
+    doc.getPageLayout().catch((): undefined => undefined)
+  ])
   return { sidebarView: SIDEBAR_VIEWS[pageMode], spreadMode: SPREAD_MODES[pageLayout] }
 }

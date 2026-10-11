@@ -33,4 +33,15 @@ describe('getInitialView', () => {
   ])('shows pages side by side for page layout %s', async (pageLayout, spreadMode) => {
     expect((await getInitialView(createDocument(null, pageLayout))).spreadMode).toBe(spreadMode)
   })
+
+  it('keeps the default for a broken entry, follows the other one', async () => {
+    const doc = mock<PDFDocumentProxy>({
+      getPageMode: vi.fn().mockRejectedValue(new Error('Broken')),
+      getPageLayout: vi.fn().mockResolvedValue('TwoPageLeft')
+    })
+    expect(await getInitialView(doc)).toEqual({
+      sidebarView: undefined,
+      spreadMode: SpreadMode.ODD
+    })
+  })
 })

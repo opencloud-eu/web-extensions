@@ -26,7 +26,8 @@ export function usePdfPageLabels({
     pageLabels.value = undefined
     const pdfViewer = unref(viewer)
     const doc = pdfViewer?.pdfDocument
-    const labels = await doc?.getPageLabels()
+    // Broken labels in the file: page numbers instead.
+    const labels = await doc?.getPageLabels().catch((): null => null)
     // A newer document came in meanwhile.
     if (!labels || doc !== unref(viewer)?.pdfDocument || isPlainNumbering(labels)) {
       return

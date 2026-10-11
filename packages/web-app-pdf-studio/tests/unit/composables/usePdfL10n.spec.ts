@@ -1,5 +1,8 @@
+import { readFileSync } from 'node:fs'
+import { createRequire } from 'node:module'
 import { getComposableWrapper } from '@opencloud-eu/web-test-helpers'
 import { usePdfL10n } from '../../../src/composables/usePdfL10n'
+import { hasString } from '../pdfjsSource'
 
 function setup() {
   let l10n: ReturnType<typeof usePdfL10n>['l10n']
@@ -19,6 +22,17 @@ function createElement(id: string, args?: object) {
 }
 
 describe('usePdfL10n', () => {
+  // A renamed id would leave the text English, e.g. after an update.
+  it('translates only texts PDF.js still uses', () => {
+    const source = readFileSync(
+      createRequire(import.meta.url).resolve('../../../src/composables/usePdfL10n.ts'),
+      'utf8'
+    )
+    const ids = [...source.matchAll(/'(pdfjs-[\w-]+)'/g)].map(([, id]) => id)
+    expect(ids.length).toBeGreaterThan(0)
+    expect(ids.filter((id) => !hasString(id))).toEqual([])
+  })
+
   it('translates the texts and attributes PDF.js marks', async () => {
     const l10n = setup()
     const root = document.createElement('div')

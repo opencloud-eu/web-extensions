@@ -134,6 +134,7 @@ import { getSavedSignatureParams, usePdfSignature } from '../composables/usePdfS
 import { usePdfSignatureStorage } from '../composables/usePdfSignatureStorage'
 import { usePdfComments } from '../composables/usePdfComments'
 import { usePdfShortcuts } from '../composables/usePdfShortcuts'
+import { usePdfZoomGestures } from '../composables/usePdfZoomGestures'
 import { usePdfFindBar } from '../composables/usePdfFindBar'
 import { usePdfPresentationMode } from '../composables/usePdfPresentationMode'
 import { usePdfHandTool } from '../composables/usePdfHandTool'
@@ -215,21 +216,17 @@ const {
 })
 
 const {
+  editing,
   viewer,
   eventBus,
   linkService,
   downloadManager,
   scriptingManager,
-  uiManager,
   pagesCount,
   pageNumber,
   scaleValue,
   scale,
   rotation,
-  editorMode,
-  isToolActive,
-  editingStates,
-  editorParams,
   setDocument,
   goToPage,
   nextPage,
@@ -244,17 +241,6 @@ const {
   setScrollMode,
   setSpreadMode,
   rotate,
-  createEditor,
-  leaveTool,
-  selectTool,
-  handleEscape,
-  isDrawing,
-  hasUnfinishedEdits,
-  finishDrawings,
-  commitEditing,
-  updateEditorSetting,
-  undo,
-  redo,
   getAnnotationComment,
   getCommentButton
 } = usePdfViewer({
@@ -265,6 +251,22 @@ const {
   signatureManager,
   commentManager
 })
+const {
+  uiManager,
+  editorMode,
+  isToolActive,
+  editingStates,
+  editorParams,
+  createEditor,
+  leaveTool,
+  selectTool,
+  handleEscape,
+  finishDrawings,
+  commitEditing,
+  updateEditorSetting,
+  undo,
+  redo
+} = editing
 
 // Back to where the file was opened from, like AppWrapper's close button.
 const { closeApp } = useAppNavigation({
@@ -339,14 +341,7 @@ const {
   isReadOnly: () => isReadOnly,
   isDirty: () => isDirty,
   content: () => currentContent,
-  editing: {
-    editorMode,
-    editingStates,
-    isDrawing,
-    hasUnfinishedEdits,
-    finishDrawings,
-    commitEditing
-  },
+  editing,
   scripting: scriptingManager,
   onChange: (content) => emit('update:currentContent', content),
   onSave: () => emit('save')
@@ -469,7 +464,6 @@ usePdfShortcuts({
   editingStates,
   isPageFit: () => unref(scaleValue) === 'page-fit',
   isFindBarOpen,
-  scale,
   actions: {
     save: () => save({ goOnTyping: true }),
     print,
@@ -483,8 +477,6 @@ usePdfShortcuts({
     zoomIn,
     zoomOut,
     resetZoom: () => setScale('auto'),
-    zoomAt,
-    panBy,
     undo: undoChange,
     redo: redoChange,
     nextPage,
@@ -494,6 +486,15 @@ usePdfShortcuts({
     rotate,
     handleEscape
   }
+})
+
+usePdfZoomGestures({
+  root: studioRoot,
+  container: viewerContainer,
+  isPresenting,
+  scale,
+  zoomAt,
+  panBy
 })
 
 onMounted(async () => {

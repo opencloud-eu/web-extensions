@@ -41,7 +41,7 @@ async function setup(pageNumber: number) {
     page,
     contributions,
     example,
-    outline,
+    items: outline,
     linkService,
     openAttachment
   }
@@ -49,16 +49,16 @@ async function setup(pageNumber: number) {
 
 describe('usePdfOutline', () => {
   it('knows the pages of the entries, only of those that exist', async () => {
-    const { getPageNumber, outline } = await setup(1)
-    expect(getPageNumber(outline[2])).toBe(10)
-    expect(getPageNumber(outline[3])).toBeUndefined()
+    const { getPageNumber, items } = await setup(1)
+    expect(getPageNumber(items[2])).toBe(10)
+    expect(getPageNumber(items[3])).toBeUndefined()
   })
 
   it('takes the last entry before the current page as current section', async () => {
-    const { isCurrent, example, page, outline } = await setup(2)
+    const { isCurrent, example, page, items } = await setup(2)
     expect(isCurrent(example)).toBe(true)
     page.value = 12
-    expect(isCurrent(outline[2])).toBe(true)
+    expect(isCurrent(items[2])).toBe(true)
   })
 
   // Several entries start on page 2.
@@ -72,19 +72,19 @@ describe('usePdfOutline', () => {
   })
 
   it('expands entries unless the PDF marks them as closed, toggles them', async () => {
-    const { isExpanded, toggle, outline } = await setup(1)
-    expect(isExpanded(outline[0])).toBe(false)
-    expect(isExpanded(outline[1])).toBe(true)
-    toggle(outline[0])
-    expect(isExpanded(outline[0])).toBe(true)
+    const { isExpanded, toggle, items } = await setup(1)
+    expect(isExpanded(items[0])).toBe(false)
+    expect(isExpanded(items[1])).toBe(true)
+    toggle(items[0])
+    expect(isExpanded(items[0])).toBe(true)
   })
 
   it('forgets the clicked entry with another document', async () => {
-    const { isCurrent, open, contributions, example, pdfDocument, outline } = await setup(2)
+    const { isCurrent, open, contributions, example, pdfDocument, items } = await setup(2)
     open(contributions)
     pdfDocument.value = mock<PDFDocumentProxy>({
       numPages: 14,
-      getOutline: vi.fn().mockResolvedValue(outline)
+      getOutline: vi.fn().mockResolvedValue(items)
     })
     await flushPromises()
     expect(isCurrent(contributions)).toBe(false)
@@ -104,5 +104,14 @@ describe('usePdfOutline', () => {
     expect(linkService.executeNamedAction).toHaveBeenCalledWith('NextPage')
     expect(openAttachment).toHaveBeenCalledWith({ id: 'a', filename: 'invoice.xml' })
     expect(linkService.executeSetOCGState).toHaveBeenCalledWith({ state: [] })
+  })
+
+  it('has no outline for a broken one instead of loading forever', async () => {
+    const { outline, pdfDocument } = await setup(1)
+    pdfDocument.value = mock<PDFDocumentProxy>({
+      getOutline: vi.fn().mockRejectedValue(new Error('Broken'))
+    })
+    await flushPromises()
+    expect(outline.value).toEqual([])
   })
 })

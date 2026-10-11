@@ -40,20 +40,22 @@ vi.mock('../../../src/composables/usePdfViewer', () => ({
     eventBus: mock<EventBus>(),
     scriptingManager: {},
     linkService: {},
-    uiManager: shallowRef(mock<AnnotationEditorUIManager>()),
-    commitEditing: vi.fn(() => () => {}),
-    isDrawing: () => false,
-    hasUnfinishedEdits: () => false,
-    finishDrawings: vi.fn(),
+    editing: {
+      uiManager: shallowRef(mock<AnnotationEditorUIManager>()),
+      commitEditing: vi.fn(() => () => {}),
+      isDrawing: () => false,
+      hasUnfinishedEdits: () => false,
+      finishDrawings: vi.fn(),
+      editorMode: ref(0),
+      isToolActive: ref(false),
+      editingStates: ref({}),
+      createEditor,
+      handleEscape
+    },
     pagesCount: ref(1),
     pageNumber: ref(1),
     scaleValue: ref('auto'),
-    editorMode: ref(0),
-    isToolActive: ref(false),
-    editingStates: ref({}),
-    setDocument: vi.fn(),
-    createEditor,
-    handleEscape
+    setDocument: vi.fn()
   })
 }))
 vi.mock('../../../src/composables/usePdfDocument', () => ({
@@ -78,7 +80,13 @@ function createWrapper({ isReadOnly = false }: { isReadOnly?: boolean } = {}) {
   const save = vi.fn()
   const afterSave = vi.fn()
   vi.mocked(usePdfDocument).mockReturnValue({
-    pdfDocument: shallowRef(mock<PDFDocumentProxy>({ isPureXfa: false })),
+    pdfDocument: shallowRef(
+      mock<PDFDocumentProxy>({
+        isPureXfa: false,
+        getOutline: vi.fn().mockResolvedValue(null),
+        getAttachments: vi.fn().mockResolvedValue(null)
+      })
+    ),
     isLoading: ref(false),
     loadError: ref<Error>(),
     documentKey: ref(1),

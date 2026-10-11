@@ -7,6 +7,7 @@ import {
 } from 'pdfjs-dist'
 import type { EventBus, PDFViewer } from 'pdfjs-dist/web/pdf_viewer.mjs'
 import { isCreatingSignature, isDrawing as isViewerDrawing } from '../helpers/pdfjsInternals'
+import { usePdfFormFieldCommit } from './usePdfFormFieldCommit'
 
 // PDF.js' move of the editor comes with two timeouts of 0 ms.
 const CARET_RESTORE_MS = 200
@@ -23,7 +24,7 @@ const NO_EDITING_STATES: EditingStates = {
   hasSelectedEditor: false
 }
 
-/** PDF.js' annotation editing: the active tool, its settings, undo/redo. */
+/** PDF.js' annotation editing: the active tool, its settings, undo/redo, committing edits. */
 export function usePdfEditing({
   eventBus,
   viewer
@@ -31,6 +32,8 @@ export function usePdfEditing({
   eventBus: EventBus
   viewer: MaybeRefOrGetter<PDFViewer | undefined>
 }) {
+  const { commitFormField } = usePdfFormFieldCommit({ eventBus })
+
   // Missing for read-only files and XFA forms, PDF.js doesn't edit them.
   const uiManager = shallowRef<AnnotationEditorUIManager>()
   const editorMode = ref<number>(AnnotationEditorType.NONE)
@@ -153,10 +156,6 @@ export function usePdfEditing({
     updateParams(type, value)
   }
 
-  /**
-   * The strokes of a drawing are one annotation, which PDF.js adds to its storage only once the
-   * drawing is finished, e.g. when leaving the tool. While drawing, it disables text selection.
-   */
   /** PDF.js disables text selection for drawing, and for dragging a selected annotation. */
   function isDrawing() {
     const pdfViewer = toValue(viewer)
@@ -256,66 +255,6 @@ export function usePdfEditing({
     }
   }
 
-  // Typed into since it was committed, PDF.js commits unchanged fields neither.
-  let typedField: EventTarget | undefined
-  // Committed for saving while it keeps the focus, see filterSandboxUpdate().
-  let committedField: { id: string; element: EventTarget } | undefined
-  useEventListener(document, 'input', (event: Event) => (typedField = event.target), {
-    capture: true
-  })
-  useEventListener(document, 'focusout', () => (committedField = undefined), { capture: true })
-
-  /**
-   * PDF.js lets the form scripts commit (format, calculate) a text field once it loses the focus,
-   * which changes the storage. Committed before saving, the blur afterwards changes nothing.
-   */
-  function commitFormField() {
-    const field = document.activeElement
-    if (
-      field !== typedField ||
-      !(field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement) ||
-      !['text', 'password', 'textarea'].includes(field.type) ||
-      !field.closest('.annotationLayer')
-    ) {
-      return
-    }
-    typedField = undefined
-    committedField = { id: field.dataset.elementId, element: field }
-    // The same event as PDF.js sends on blur.
-    eventBus.dispatch('dispatcheventinsandbox', {
-      source: null,
-      detail: {
-        id: field.dataset.elementId,
-        name: 'Keystroke',
-        value: field.value,
-        willCommit: true,
-        commitKey: 1,
-        selStart: field.selectionStart,
-        selEnd: field.selectionEnd
-      }
-    })
-  }
-
-  /**
-   * The scripts answer a commit with the value of the field, which PDF.js writes into it even
-   * while it has the focus. Typed into since it was committed for saving, what was typed would
-   * be lost, so the value is left out then: the field has it, and the scripts get it with the
-   * next commit.
-   */
-  function filterSandboxUpdate<T extends { id?: string; value?: unknown }>(detail: T): T {
-    if (
-      committedField &&
-      detail.id === committedField.id &&
-      typedField === committedField.element &&
-      'value' in detail
-    ) {
-      const filtered = { ...detail }
-      delete filtered.value
-      return filtered
-    }
-    return detail
-  }
-
   function undo() {
     // Undoes the drawing so far as a whole, like after clicking anywhere else.
     finishDrawings()
@@ -341,7 +280,6 @@ export function usePdfEditing({
     hasUnfinishedEdits,
     finishDrawings,
     commitEditing,
-    filterSandboxUpdate,
     updateEditorSetting,
     undo,
     redo

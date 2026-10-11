@@ -1,8 +1,6 @@
-import { onBeforeUnmount, onMounted, toValue, unref, type MaybeRefOrGetter } from 'vue'
+import { toValue, unref, type MaybeRefOrGetter } from 'vue'
 import { useEventListener } from '@vueuse/core'
-import { TouchManager } from 'pdfjs-dist'
 import { useIsMobile } from '@opencloud-eu/design-system/composables'
-import { MAX_SCALE, MIN_SCALE } from '../helpers/pdfjs'
 
 export type PdfShortcutActions = {
   save: () => void | Promise<void>
@@ -22,13 +20,6 @@ export type PdfShortcutActions = {
   zoomIn: () => void
   zoomOut: () => void
   resetZoom: () => void
-  /** Zooms around a point on the screen, by zoom steps or by a factor, moving the pages along. */
-  zoomAt: (
-    change: { steps?: number; scaleFactor?: number },
-    origin: [number, number],
-    pan?: [number, number]
-  ) => void
-  panBy: (dx: number, dy: number) => void
   nextPage: () => void
   previousPage: () => void
   firstPage: () => void
@@ -77,7 +68,7 @@ const SCROLL_KEYS = [
   ' '
 ]
 
-/** Keyboard shortcuts, Ctrl + mouse wheel zoom and pinching, following the PDF.js viewer. */
+/** Keyboard shortcuts, following the PDF.js viewer. Zooming by gestures: usePdfZoomGestures. */
 export function usePdfShortcuts({
   root,
   container,
@@ -87,7 +78,6 @@ export function usePdfShortcuts({
   editingStates,
   isPageFit,
   isFindBarOpen,
-  scale,
   actions
 }: {
   root: MaybeRefOrGetter<HTMLElement | null>
@@ -101,8 +91,6 @@ export function usePdfShortcuts({
   editingStates: MaybeRefOrGetter<{ hasSomethingToUndo: boolean; hasSomethingToRedo: boolean }>
   isPageFit: MaybeRefOrGetter<boolean>
   isFindBarOpen: MaybeRefOrGetter<boolean>
-  /** The current zoom, e.g. 1.25 for 125%. */
-  scale: MaybeRefOrGetter<number>
   actions: PdfShortcutActions
 }) {
   const { isMobile } = useIsMobile()
@@ -284,13 +272,7 @@ export function usePdfShortcuts({
     }
   }
 
-  // Pinching on a trackpad also arrives as wheel events with the Ctrl key, but without pressing it.
-  let isCtrlKeyDown = false
-
   function onKeydown(event: KeyboardEvent) {
-    if (event.key === 'Control') {
-      isCtrlKeyDown = true
-    }
     if (event.altKey) {
       // Ctrl+Alt+P (Cmd+Alt+P) and Ctrl+Alt+G. By code, with Alt it types another key.
       if (!(event.ctrlKey || event.metaKey) || event.shiftKey || isInModal(event)) {
@@ -314,93 +296,6 @@ export function usePdfShortcuts({
     }
     handleKeyShortcut(event)
   }
-
-  // Pinching zooms continuously, a mouse wheel in zoom steps. The remainders add up, small
-  // movements would be lost otherwise.
-  let unusedTicks = 0
-  const wheelFactor = { unused: 1 }
-  const touchFactor = { unused: 1 }
-
-  function accumulateTicks(ticks: number) {
-    if (Math.sign(unusedTicks) === -Math.sign(ticks)) {
-      unusedTicks = 0
-    }
-    unusedTicks += ticks
-    const wholeTicks = Math.trunc(unusedTicks)
-    unusedTicks -= wholeTicks
-    return wholeTicks
-  }
-
-  function accumulateFactor(factor: number, remainder: { unused: number }) {
-    const previousScale = toValue(scale)
-    const target = Math.min(
-      Math.max(previousScale * factor * remainder.unused, MIN_SCALE),
-      MAX_SCALE
-    )
-    // PDF.js rounds the zoom to whole percents.
-    const newScale = Math.round(target * 100) / 100
-    remainder.unused = target / newScale
-    return newScale / previousScale
-  }
-
-  function onWheel(event: WheelEvent) {
-    if (toValue(isPresenting)) {
-      return
-    }
-    const scaleFactor = Math.exp(-event.deltaY / 100)
-    const isPinch =
-      event.ctrlKey &&
-      !isCtrlKeyDown &&
-      event.deltaMode === WheelEvent.DOM_DELTA_PIXEL &&
-      event.deltaX === 0 &&
-      event.deltaZ === 0 &&
-      Math.abs(scaleFactor - 1) < 0.05
-    if (!isPinch && !event.ctrlKey && !event.metaKey) {
-      return
-    }
-    event.preventDefault()
-    const origin: [number, number] = [event.clientX, event.clientY]
-    if (isPinch) {
-      actions.zoomAt({ scaleFactor: accumulateFactor(scaleFactor, wheelFactor) }, origin)
-      return
-    }
-    // Upwards zooms in.
-    const delta = -Math.sign(event.deltaY) * Math.hypot(event.deltaX, event.deltaY)
-    const steps =
-      event.deltaMode === WheelEvent.DOM_DELTA_PIXEL
-        ? accumulateTicks(delta / 30)
-        : Math.abs(delta) >= 1
-          ? Math.sign(delta)
-          : accumulateTicks(delta)
-    if (steps) {
-      actions.zoomAt({ steps }, origin)
-    }
-  }
-
-  // Pinching on touch screens zooms the pages instead of the whole browser page.
-  const touchAbort = new AbortController()
-  onMounted(() => {
-    new TouchManager({
-      container: toValue(container),
-      isPinchingDisabled: () => toValue(isPresenting),
-      onPinching: (
-        origin: [number, number],
-        prevDistance: number,
-        distance: number,
-        panX: number,
-        panY: number
-      ) => {
-        const scaleFactor = accumulateFactor(distance / prevDistance, touchFactor)
-        actions.zoomAt({ scaleFactor }, origin, [panX, panY])
-      },
-      onPinchEnd: () => {
-        touchFactor.unused = 1
-      },
-      onPanning: actions.panBy,
-      signal: touchAbort.signal
-    })
-  })
-  onBeforeUnmount(() => touchAbort.abort())
 
   function onEscape(event: KeyboardEvent) {
     // Drops are bottom drawers on small screens. Their own Escape handling comes after
@@ -435,13 +330,4 @@ export function usePdfShortcuts({
       onEscape(event)
     }
   })
-  useEventListener(window, 'keyup', (event: KeyboardEvent) => {
-    if (event.key === 'Control') {
-      isCtrlKeyDown = false
-    }
-  })
-  // The key may be released while another window has the focus.
-  useEventListener(window, 'blur', () => (isCtrlKeyDown = false))
-  // Also over the toolbar and the sidebar, the browser would zoom the whole page otherwise.
-  useEventListener(root, 'wheel', onWheel, { passive: false })
 }

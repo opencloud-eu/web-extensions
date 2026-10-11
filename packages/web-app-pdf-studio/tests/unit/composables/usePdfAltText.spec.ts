@@ -3,6 +3,7 @@ import type { AnnotationEditorUIManager } from 'pdfjs-dist'
 import { getComposableWrapper } from '@opencloud-eu/web-test-helpers'
 import { useModals, type Modal } from '@opencloud-eu/web-pkg'
 import { usePdfAltText } from '../../../src/composables/usePdfAltText'
+import { getMissingMembers } from '../pdfjsSource'
 
 type AltTextData = { altText?: string; decorative?: boolean }
 type AltTextModalAttrs = AltTextData & { onSave: (data: AltTextData) => void }
@@ -24,6 +25,15 @@ function setup(altTextData?: AltTextData) {
 }
 
 describe('usePdfAltText', () => {
+  // PDF.js does without what is missing, e.g. after an update.
+  it('provides everything PDF.js uses of the alt text manager', () => {
+    let altText: ReturnType<typeof usePdfAltText>
+    getComposableWrapper(() => {
+      altText = usePdfAltText({ onChange: vi.fn() })
+    })
+    expect(getMissingMembers('altTextManager', altText.altTextManager)).toEqual([])
+  })
+
   it('opens a dialog with the current description and pauses PDF.js shortcuts', () => {
     const { attrs, uiManager } = setup({ altText: 'A cat', decorative: false })
     expect(attrs).toEqual(expect.objectContaining({ altText: 'A cat', decorative: false }))

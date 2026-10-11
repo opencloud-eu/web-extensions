@@ -36,7 +36,8 @@ export function usePdfAttachments({
     () => toValue(pdfDocument),
     async (doc) => {
       attachments.value = undefined
-      const files = await doc?.getAttachments()
+      // A broken part of the file is left out instead of loading forever.
+      const files = await doc?.getAttachments().catch((): null => null)
       if (!doc || doc !== toValue(pdfDocument)) {
         return
       }

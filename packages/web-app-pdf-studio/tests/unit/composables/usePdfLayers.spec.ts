@@ -19,7 +19,7 @@ function createConfig() {
   }
 }
 
-function setup(config: object | null = createConfig()) {
+function setup(config: object | null | Error = createConfig()) {
   const listeners: Record<string, (event?: object) => void> = {}
   const eventBus = mock<EventBus>({
     on: (name: string, listener: () => void) => (listeners[name] = listener)
@@ -37,7 +37,7 @@ function setup(config: object | null = createConfig()) {
       listeners.optionalcontentconfigchanged({ promise })
     }
   })
-  let current = Promise.resolve(config)
+  let current = config instanceof Error ? Promise.reject(config) : Promise.resolve(config)
   return { layers, listeners, config }
 }
 
@@ -59,8 +59,11 @@ describe('usePdfLayers', () => {
     ])
   })
 
-  it('has no layers for documents without', async () => {
-    const { layers, listeners } = setup(null)
+  it.each([
+    ['without', null],
+    ['with broken ones', new Error('Broken')]
+  ])('has no layers for documents %s', async (_, config) => {
+    const { layers, listeners } = setup(config)
     listeners.pagesinit()
     await vi.waitFor(() => expect(layers.layers.value).toEqual([]))
   })

@@ -182,8 +182,8 @@ describe('usePdfEditing', () => {
     expect(editing.hasUnfinishedEdits()).toBe(false)
   })
 
-  // Otherwise the scripts commit it when it loses the focus, after the save.
-  it('lets the form scripts commit the focused text field, like PDF.js on blur', () => {
+  // The details are in usePdfFormFieldCommit.spec.ts.
+  it('lets the form scripts commit a typed text field as well', () => {
     const { editing, eventBus } = setup()
     const sandboxEvents: unknown[] = []
     eventBus.on('dispatcheventinsandbox', ({ detail }: { detail: unknown }) =>
@@ -193,53 +193,12 @@ describe('usePdfEditing', () => {
     layer.className = 'annotationLayer'
     const field = document.createElement('input')
     field.dataset.elementId = '12R'
-    field.value = 'AAA'
     layer.append(field)
     document.body.append(layer)
     field.focus()
-    // Unchanged, like PDF.js on blur.
-    editing.commitEditing()
-    expect(sandboxEvents).toHaveLength(0)
     field.dispatchEvent(new Event('input', { bubbles: true }))
     editing.commitEditing()
-    expect(sandboxEvents).toEqual([
-      expect.objectContaining({ id: '12R', name: 'Keystroke', value: 'AAA', willCommit: true })
-    ])
-    editing.commitEditing()
-    expect(sandboxEvents).toHaveLength(1)
-
-    // The scripts echo the committed value, which must not replace what was typed since.
-    expect(editing.filterSandboxUpdate({ id: '12R', value: 'AAA' })).toEqual({
-      id: '12R',
-      value: 'AAA'
-    })
-    field.dispatchEvent(new Event('input', { bubbles: true }))
-    expect(editing.filterSandboxUpdate({ id: '12R', value: 'AAA', siblings: null })).toEqual({
-      id: '12R',
-      siblings: null
-    })
-    expect(editing.filterSandboxUpdate({ id: '13R', value: 'B' })).toEqual({
-      id: '13R',
-      value: 'B'
-    })
-    // Once the field is left, PDF.js' own commit on blur gets through again.
-    field.blur()
-    expect(editing.filterSandboxUpdate({ id: '12R', value: 'AAA' })).toEqual({
-      id: '12R',
-      value: 'AAA'
-    })
-    field.focus()
-
-    // Not checkboxes and the like, nor fields outside the document.
-    field.type = 'checkbox'
-    field.dispatchEvent(new Event('input', { bubbles: true }))
-    editing.commitEditing()
-    field.type = 'text'
-    document.body.append(field)
-    field.focus()
-    field.dispatchEvent(new Event('input', { bubbles: true }))
-    editing.commitEditing()
-    expect(sandboxEvents).toHaveLength(1)
+    expect(sandboxEvents).toEqual([expect.objectContaining({ id: '12R', willCommit: true })])
     document.body.innerHTML = ''
   })
 

@@ -7,7 +7,7 @@ import {
   type InjectionKey,
   type MaybeRefOrGetter
 } from 'vue'
-import { promiseTimeout, useEventListener, useResizeObserver } from '@vueuse/core'
+import { promiseTimeout, useResizeObserver } from '@vueuse/core'
 import { AnnotationEditorType, AnnotationMode, type PDFDocumentProxy } from 'pdfjs-dist'
 import {
   DownloadManager,
@@ -80,14 +80,7 @@ export function usePdfViewer({
   })
   const { l10n } = usePdfL10n()
   const viewer = shallowRef<PDFViewer>()
-  const {
-    reset: resetEditing,
-    filterSandboxUpdate,
-    ...editing
-  } = usePdfEditing({ eventBus, viewer })
-  useEventListener(window, 'updatefromsandbox', ({ detail }: CustomEvent) =>
-    eventBus.dispatch('updatefromsandbox', { source: window, detail: filterSandboxUpdate(detail) })
-  )
+  const { reset: resetEditing, ...editing } = usePdfEditing({ eventBus, viewer })
 
   const pagesCount = ref(0)
   const pageNumber = ref(1)
@@ -324,7 +317,7 @@ export function usePdfViewer({
   })
 
   return {
-    ...editing,
+    editing,
     viewer,
     eventBus,
     linkService,

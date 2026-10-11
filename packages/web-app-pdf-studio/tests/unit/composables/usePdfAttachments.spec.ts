@@ -69,4 +69,13 @@ describe('usePdfAttachments', () => {
     await flushPromises()
     expect(attachments.attachments.value).toEqual([])
   })
+
+  it('lists no files of a broken attachment list instead of loading forever', async () => {
+    const { attachments, pdfDocument } = setup()
+    pdfDocument.value = mock<PDFDocumentProxy>({
+      getAttachments: vi.fn().mockRejectedValue(new Error('Broken'))
+    })
+    await flushPromises()
+    expect(attachments.attachments.value).toEqual([])
+  })
 })

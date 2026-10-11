@@ -113,7 +113,7 @@ describe('usePdfViewer', () => {
     expect(calls).not.toContainEqual(['annotationEditorMode', expect.anything()])
 
     viewer.setDocument(mock<PDFDocumentProxy>())
-    expect(viewer.editorMode.value).toBe(AnnotationEditorType.NONE)
+    expect(viewer.editing.editorMode.value).toBe(AnnotationEditorType.NONE)
     viewer.eventBus.dispatch('annotationeditoruimanager', { uiManager: {} })
     viewer.eventBus.dispatch('pagesinit', { source: null })
     expect(calls).toContainEqual(['annotationEditorMode', { mode: AnnotationEditorType.INK }])
