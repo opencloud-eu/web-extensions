@@ -25,24 +25,29 @@
       <template v-for="tool in tools" :key="tool.id">
         <pdf-menu-item
           v-if="tool.id !== 'stamp'"
-          :class="`pdf-studio-tool-picker-${tool.id}`"
+          :class="[
+            `pdf-studio-tool-picker-${tool.id}`,
+            { 'ext:rounded-b-none!': tool.settings && tool.mode === editorMode }
+          ]"
           :label="tool.label"
           :icon="tool.icon"
           :fill-type="tool.fillType"
           :is-active="tool.mode === editorMode"
           @click="selectTool(tool.mode)"
         />
+        <li
+          v-if="tool.settings && tool.mode === editorMode"
+          class="pdf-studio-tool-picker-settings ext:-mt-1 ext:mb-1 ext:rounded-b-sm ext:border-4 ext:border-t-0 ext:border-role-secondary-container ext:p-3"
+          :aria-label="tool.settingsLabel"
+        >
+          <pdf-tool-settings
+            :settings="tool.settings"
+            :values="getValues(tool.settings)"
+            @update="(type, value) => emit('updateParam', tool.mode, type, value)"
+          />
+        </li>
       </template>
     </oc-list>
-    <div v-if="activeTool?.settings" :class="sectionClass" class="pdf-studio-tool-picker-settings">
-      <p :class="headingClass" v-text="activeTool.settingsLabel" />
-      <pdf-tool-settings
-        class="ext:px-2"
-        :settings="activeTool.settings"
-        :values="getValues(activeTool.settings)"
-        @update="(type, value) => emit('updateParam', activeTool.mode, type, value)"
-      />
-    </div>
     <div :class="sectionClass">
       <p :class="headingClass" v-text="imageTool.label" />
       <oc-list>

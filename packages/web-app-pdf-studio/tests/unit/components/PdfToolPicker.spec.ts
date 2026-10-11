@@ -66,7 +66,12 @@ describe('PdfToolPicker', () => {
     expect(createWrapper().find('#pdf-studio-tool-picker-toggle').attributes('aria-label')).toBe(
       'Annotation tools'
     )
-    expect(wrapper.find('.pdf-studio-tool-picker-settings').text()).toContain('Drawing settings')
+    // The settings follow the entry of the active tool, as its sub menu.
+    const settings = wrapper.find('.pdf-studio-tool-picker-settings')
+    expect(settings.attributes('aria-label')).toBe('Drawing settings')
+    expect(settings.element.previousElementSibling).toBe(
+      wrapper.find('.pdf-studio-tool-picker-ink').element.closest('li')
+    )
     expect(createWrapper().find('.pdf-studio-tool-picker-settings').exists()).toBe(false)
   })
 
