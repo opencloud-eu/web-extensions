@@ -4,7 +4,7 @@
       v-bind="$attrs"
       class="ext:w-full ext:p-2"
       :class="{
-        'ext:forced-colors:bg-[Highlight] ext:forced-colors:text-[HighlightText] ext:forced-colors:[&_svg]:fill-[HighlightText]':
+        'ext:forced-colors:outline-2 ext:forced-colors:-outline-offset-2 ext:forced-colors:outline-[Highlight]':
           isActive
       }"
       :aria-current="isActive || undefined"

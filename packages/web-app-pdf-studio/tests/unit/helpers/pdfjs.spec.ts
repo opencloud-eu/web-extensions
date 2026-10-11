@@ -1,10 +1,10 @@
 import { getDocument, GlobalWorkerOptions, PasswordResponses } from 'pdfjs-dist'
 import { loadPdfDocument, pdfjsAssetUrls } from '../../../src/helpers/pdfjs'
 
-vi.mock('pdfjs-dist', () => ({
+vi.mock('pdfjs-dist', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('pdfjs-dist')>()),
   getDocument: vi.fn(() => ({ destroy: vi.fn(), onPassword: null })),
-  GlobalWorkerOptions: { workerSrc: '' },
-  PasswordResponses: { NEED_PASSWORD: 1, INCORRECT_PASSWORD: 2 }
+  GlobalWorkerOptions: { workerSrc: '' }
 }))
 
 describe('pdfjs helpers', () => {

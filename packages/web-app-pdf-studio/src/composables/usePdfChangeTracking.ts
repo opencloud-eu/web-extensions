@@ -63,6 +63,8 @@ export function usePdfChangeTracking({
   let hasEmittedMarker = false
   // What was emitted last, the props catch up only with the next render.
   let latestContent: ArrayBuffer | undefined
+  // The content the emitted hash stands for, without the copies of markChanged().
+  let hashedContent: ArrayBuffer | undefined
   // The storage state of the content last saved (or loaded), see markSaved().
   let saved: { hash: string; content: ArrayBuffer } | undefined
 
@@ -96,6 +98,7 @@ export function usePdfChangeTracking({
     isTracking = false
     hasEmittedMarker = false
     latestContent = undefined
+    hashedContent = undefined
     saved = undefined
   }
 
@@ -129,6 +132,7 @@ export function usePdfChangeTracking({
     emittedHash = hash
     isTracking = true
     saved = { hash, content: toValue(content) }
+    hashedContent = saved.content
   }
 
   /**
@@ -138,6 +142,7 @@ export function usePdfChangeTracking({
   function markSaved() {
     if (isTracking) {
       saved = { hash: emittedHash, content: toValue(content) }
+      hashedContent = saved.content
     }
   }
 
@@ -200,11 +205,25 @@ export function usePdfChangeTracking({
       // Checked again once the image is there, nothing else reports it.
       if (isImageLoading) {
         startCheckTimer()
+        return false
+      }
+      // A change undone before it was written: a copy marked the file as changed (see
+      // markChanged()), the content of the storage as it is takes its place again, which may be
+      // the saved one. Not while an edit is still unfinished, that is what the copy is for.
+      if (
+        latestContent &&
+        latestContent !== hashedContent &&
+        !hasUnfinishedEdits() &&
+        !isDrawing()
+      ) {
+        emit(hashedContent)
+        return true
       }
       return false
     }
     if (hash === saved?.hash) {
       emittedHash = hash
+      hashedContent = saved.content
       emit(saved.content)
       return true
     }
@@ -218,7 +237,8 @@ export function usePdfChangeTracking({
     emittedHash = hash
     // WebDAV expects a plain ArrayBuffer of exactly the file, a copy only if it is a part of one.
     const isWholeBuffer = bytes.byteOffset === 0 && bytes.byteLength === bytes.buffer.byteLength
-    emit(isWholeBuffer ? (bytes.buffer as ArrayBuffer) : bytes.slice().buffer)
+    hashedContent = isWholeBuffer ? (bytes.buffer as ArrayBuffer) : bytes.slice().buffer
+    emit(hashedContent)
 
     // Edits that landed while the worker was busy are picked up by another round.
     if (readStorage(doc).hash !== emittedHash) {
@@ -231,9 +251,10 @@ export function usePdfChangeTracking({
   async function flush(): Promise<boolean> {
     cancelCheck()
     // Let a running save finish first, then check whether anything is still pending. A loop,
-    // because several callers may be waiting for the same running save.
+    // because several callers may be waiting for the same running save. Its failure is reported
+    // by its own caller, this one gets its own result.
     while (runningFlush) {
-      await runningFlush
+      await runningFlush.catch(() => {})
     }
     runningFlush = writeChanges().finally(() => {
       runningFlush = undefined
@@ -283,10 +304,10 @@ export function usePdfChangeTracking({
     },
     { capture: true }
   )
-  useEventListener(root, ['pointerup', 'keyup', 'input', 'change'], () => scheduleCheck())
-
+  useEventListener(root, ['pointerup', 'keyup', 'change'], () => scheduleCheck())
   // Typing and drawing count as changes right away, also before PDF.js stores them.
   useEventListener(root, 'input', () => {
+    scheduleCheck()
     if (toValue(isEnabled) && isTracking && hasUnfinishedEdits()) {
       markChanged()
     }

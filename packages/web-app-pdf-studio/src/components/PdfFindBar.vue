@@ -1,14 +1,17 @@
 <template>
   <oc-bubble-menu
-    class="pdf-studio-find-bar ext:gap-1 ext:text-sm"
+    class="pdf-studio-find-bar ext:gap-1 ext:py-0.5 ext:text-sm ext:sm:py-1"
     @keydown.esc.prevent="emit('close')"
     @keydown.stop
   >
-    <div class="ext:relative ext:w-52 ext:min-w-28 ext:shrink">
+    <div class="ext:relative ext:w-52 ext:min-w-44 ext:shrink">
       <oc-search-bar
         ref="searchBar"
         v-model="query"
-        class="pdf-studio-find-input ext:[&_input]:pr-16 ext:[&_.oc-search-button-wrapper]:hidden!"
+        class="pdf-studio-find-input ext:[&_input]:pr-14 ext:[&_.oc-search-button-wrapper]:hidden!"
+        :class="{
+          'pdf-studio-find-not-found ext:[&_input]:border-role-error!': findResult.notFound
+        }"
         :label="$gettext('Find in document')"
         :placeholder="$gettext('Find in document…')"
         icon=""
@@ -18,7 +21,8 @@
       />
       <span
         v-if="query"
-        class="pdf-studio-find-count ext:pointer-events-none ext:absolute ext:top-1/2 ext:right-3 ext:-translate-y-1/2 ext:text-xs ext:tabular-nums ext:text-role-on-surface-variant"
+        class="pdf-studio-find-count ext:pointer-events-none ext:absolute ext:top-1/2 ext:right-2.5 ext:-translate-y-1/2 ext:text-xs ext:tabular-nums"
+        :class="findResult.notFound ? 'ext:text-role-error' : 'ext:text-role-on-surface-variant'"
         aria-hidden="true"
         v-text="countText"
       />
@@ -158,9 +162,10 @@ function focus() {
 
 onMounted(() => {
   focus()
-  // The previous search again.
+  // The previous search is shown again where it was, like in the PDF.js viewer: PDF.js keeps
+  // the current match while the find bar is closed, this type only brings the highlights back.
   if (unref(query)) {
-    search('')
+    search('highlightallchange')
   }
 })
 

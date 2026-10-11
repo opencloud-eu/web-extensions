@@ -13,8 +13,7 @@ function comment(id: string, text: string): CommentData {
     rect: [0, 0, 1, 1],
     color: [255, 0, 0],
     modificationDate: 'D:20260101',
-    contentsObj: { str: text },
-    popupRef: 'p'
+    contentsObj: { str: text }
   }
 }
 
@@ -76,16 +75,20 @@ describe('PdfCommentsDrop', () => {
     screen.isMobile.value = false
   })
 
-  it('keeps the list while working with the comments on the page', () => {
+  it.each([
+    ['their popups', 'pdf-studio-comment-popup'],
+    ['their buttons', 'annotationCommentButton'],
+    ['annotations that are their own button, e.g. sticky notes', 'popupTriggerArea']
+  ])('keeps the list while working with the comments on the page: %s', (_, className) => {
     const { wrapper, show } = createWrapper([])
-    const popup = document.createElement('div')
-    popup.className = 'pdf-studio-comment-popup'
-    document.body.append(popup)
-    popup.click()
+    const element = document.createElement('div')
+    element.className = className
+    document.body.append(element)
+    element.click()
     wrapper.findComponent({ name: 'OcDrop' }).vm.$emit('hideDrop')
     expect(show).toHaveBeenCalledWith({ noFocus: true })
     expect(wrapper.emitted('close')).toBeUndefined()
-    popup.remove()
+    element.remove()
   })
 
   it('shows line breaks of Acrobat comments', () => {

@@ -34,7 +34,6 @@ function setup({
   }
   vi.mocked(usePdfChangeTracking).mockReturnValue(tracking)
   const state = { isDirty }
-  const etag = ref('1')
   const resumeTyping = vi.fn()
   const editorMode = ref(0)
   const editing = {
@@ -65,7 +64,6 @@ function setup({
       isReadOnly,
       isDirty: () => state.isDirty,
       content: new ArrayBuffer(1),
-      etag,
       editing,
       scripting,
       onChange: vi.fn(),
@@ -73,7 +71,7 @@ function setup({
     })
   })
   mounted.push(wrapper)
-  return { saving, tracking, editing, scripting, resumeTyping, onSave, etag, state, eventBus }
+  return { saving, tracking, editing, scripting, resumeTyping, onSave, state, eventBus }
 }
 
 describe('usePdfSaving', () => {
@@ -185,7 +183,8 @@ describe('usePdfSaving', () => {
     })
   })
 
-  // E.g. autosave: it saves the copy that marked the file as changed.
+  // E.g. autosave: it saves the copy that marked the file as changed. AppWrapper calls
+  // afterSave() once it is done.
   describe("AppWrapper's saves", () => {
     it.each([
       [true, 1],
@@ -193,20 +192,18 @@ describe('usePdfSaving', () => {
     ])(
       'save the content that followed the copy (copy saved: %s)',
       async (hasChangeMarker, count) => {
-        const { onSave, etag } = setup({ hasChangeMarker, isDirty: true })
-        etag.value = '2'
-        await flushPromises()
+        const { saving, onSave } = setup({ hasChangeMarker, isDirty: true })
+        await saving.afterSave()
         expect(onSave).toHaveBeenCalledTimes(count)
       }
     )
 
     it('keep edits that are still unfinished marked, without saving again', async () => {
-      const { onSave, etag, tracking, editing } = setup({
+      const { saving, onSave, tracking, editing } = setup({
         hasChangeMarker: true,
         hasUnfinishedEdits: true
       })
-      etag.value = '2'
-      await flushPromises()
+      await saving.afterSave()
       expect(editing.finishDrawings).toHaveBeenCalled()
       expect(onSave).not.toHaveBeenCalled()
       expect(tracking.markSaved).toHaveBeenCalled()
@@ -215,10 +212,9 @@ describe('usePdfSaving', () => {
 
     it('do not save the same again when the changes cannot be written', async () => {
       const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
-      const { onSave, etag, tracking } = setup({ hasChangeMarker: true, isDirty: true })
+      const { saving, onSave, tracking } = setup({ hasChangeMarker: true, isDirty: true })
       tracking.flush.mockRejectedValue(new TypeError('broken'))
-      etag.value = '2'
-      await flushPromises()
+      await saving.afterSave()
       expect(onSave).not.toHaveBeenCalled()
       expect(tracking.markSaved).not.toHaveBeenCalled()
       expect(consoleError).toHaveBeenCalled()
@@ -226,9 +222,8 @@ describe('usePdfSaving', () => {
     })
 
     it('make the saved content the one to come back to', async () => {
-      const { etag, tracking } = setup()
-      etag.value = '2'
-      await flushPromises()
+      const { saving, tracking } = setup()
+      await saving.afterSave()
       expect(tracking.markSaved).toHaveBeenCalled()
     })
   })

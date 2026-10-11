@@ -1,13 +1,11 @@
 import {
   getAnnotationElement,
+  getAnnotationLocation,
   getCommentColor,
   getCommentPopupPosition,
   getCommentText,
   type CommentData
 } from '../../../src/helpers/comments'
-
-// The real module starts fetching resources under happy-dom.
-vi.mock('pdfjs-dist', () => ({ PDFDateString: {} }))
 
 const POPUP_WIDTH = 288
 
@@ -40,6 +38,34 @@ describe('comments', () => {
     })
   })
 
+  describe('getAnnotationLocation', () => {
+    it('knows page and id of a saved annotation from its elements', () => {
+      const page = document.createElement('div')
+      page.className = 'page'
+      page.dataset.pageNumber = '3'
+      const annotation = document.createElement('section')
+      annotation.dataset.annotationId = '12R'
+      const button = document.createElement('button')
+      button.className = 'annotationCommentButton'
+      page.append(annotation, button)
+      expect(getAnnotationLocation({ elementBeforePopup: button })).toEqual({
+        pageNumber: 3,
+        id: '12R'
+      })
+      // Editors of saved annotations know the id, new ones have none.
+      expect(
+        getAnnotationLocation({
+          elementBeforePopup: button,
+          annotationElementId: '5R',
+          pageIndex: 1
+        })
+      ).toEqual({ pageNumber: 2, id: '5R' })
+      expect(
+        getAnnotationLocation({ elementBeforePopup: document.createElement('div') })
+      ).toBeUndefined()
+    })
+  })
+
   describe('getCommentText', () => {
     it('prefers the plain text and turns carriage returns of Acrobat into line breaks', () => {
       expect(getCommentText(comment({ contentsObj: { str: 'One\r\nTwo\rThree' } }))).toBe(
@@ -69,9 +95,12 @@ describe('comments', () => {
       expect(left(getCommentPopupPosition(target(0.9), POPUP_WIDTH))).toBeCloseTo(63.2)
     })
 
-    it('moves it left of the button if the list of comments covers it, within the page', () => {
+    it('moves it left of the list of comments if it covers it, within the page', () => {
       const listRect = new DOMRect(300, 0, 300, 500)
       expect(left(getCommentPopupPosition(target(0.1), POPUP_WIDTH, listRect))).toBeCloseTo(1)
+      // Also where moving it left of the button leaves it under the list.
+      const listRight = new DOMRect(700, 0, 300, 500)
+      expect(left(getCommentPopupPosition(target(0.9), POPUP_WIDTH, listRight))).toBeCloseTo(40.2)
     })
 
     // E.g. on phones, where the page is hardly wider than the popup.
@@ -87,6 +116,20 @@ describe('comments', () => {
       expect(
         getCommentPopupPosition(target(0.9, { hasDefaultPosition: false }), POPUP_WIDTH)
       ).toEqual({ left: '90%', top: '20%' })
+    })
+
+    it('moves such popups left of the list of comments if it covers them', () => {
+      const listRect = new DOMRect(700, 0, 300, 500)
+      expect(
+        left(
+          getCommentPopupPosition(target(0.6, { hasDefaultPosition: false }), POPUP_WIDTH, listRect)
+        )
+      ).toBeCloseTo(40.2)
+      // Not when it lies below the list.
+      const listAbove = new DOMRect(700, 0, 300, 100)
+      expect(
+        getCommentPopupPosition(target(0.6, { hasDefaultPosition: false }), POPUP_WIDTH, listAbove)
+      ).toEqual({ left: '60%', top: '20%' })
     })
   })
 })

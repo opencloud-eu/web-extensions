@@ -39,6 +39,8 @@ describe('PdfPageNumber', () => {
     const wrapper = createWrapper(['i', 'ii', 'iii', '1', '2'])
     expect(wrapper.find('input').element.value).toBe('iii')
     expect(wrapper.find('input').attributes('type')).toBe('text')
+    // Long labels get cut off in the field.
+    expect(wrapper.find('input').attributes('title')).toBe('iii')
     expect(wrapper.find('.pdf-studio-pages-count').text()).toBe('(3 of 5)')
     await enter(wrapper, 'ii')
     // A label wins over the page number.

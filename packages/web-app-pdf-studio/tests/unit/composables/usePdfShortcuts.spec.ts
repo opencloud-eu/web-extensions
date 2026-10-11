@@ -8,7 +8,10 @@ const { TouchManager, screen } = vi.hoisted(() => ({
   TouchManager: vi.fn(),
   screen: { isMobile: { value: false } }
 }))
-vi.mock('pdfjs-dist', () => ({ TouchManager }))
+vi.mock('pdfjs-dist', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('pdfjs-dist')>()),
+  TouchManager
+}))
 vi.mock('@opencloud-eu/design-system/composables', () => ({ useIsMobile: () => screen }))
 
 // happy-dom ignores the init values of WheelEvent.
@@ -231,6 +234,26 @@ describe('usePdfShortcuts', () => {
     expect(actions.rotate.mock.calls).toEqual([[90], [-90]])
   })
 
+  it('leaves keys alone in the editors and toolbars of PDF.js, e.g. Home in the color picker', () => {
+    const { root, actions, press } = setup()
+    const toolbar = document.createElement('div')
+    toolbar.className = 'editToolbar'
+    const button = document.createElement('button')
+    toolbar.append(button)
+    root.append(toolbar)
+    const event = press(button, { key: 'Home' })
+    expect(actions.firstPage).not.toHaveBeenCalled()
+    expect(event.defaultPrevented).toBe(false)
+    // A selected annotation keeps the shortcuts, like in the PDF.js viewer.
+    const layer = document.createElement('div')
+    layer.className = 'annotationEditorLayer'
+    const editor = document.createElement('div')
+    layer.append(editor)
+    root.append(layer)
+    press(editor, { key: '+' })
+    expect(actions.zoomIn).toHaveBeenCalled()
+  })
+
   it('leaves keys alone while typing', () => {
     const { input, actions, press } = setup()
     const event = press(input, { key: 'n' })
@@ -286,8 +309,13 @@ describe('usePdfShortcuts', () => {
     'switches to the hand tool or text selection with %s, like the PDF.js viewer',
     (key, isHand) => {
       const { container, actions, press } = setup()
+      // The host focuses its search with `s`.
+      const hostShortcut = vi.fn()
+      window.addEventListener('keydown', hostShortcut)
       press(container, { key })
+      window.removeEventListener('keydown', hostShortcut)
       expect(actions.setHandTool).toHaveBeenCalledWith(isHand)
+      expect(hostShortcut).not.toHaveBeenCalled()
     }
   )
 

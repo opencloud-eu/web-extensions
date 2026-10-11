@@ -27,9 +27,13 @@ function createWrapper(findResult: Partial<FindResult> = {}, query = '') {
 }
 
 describe('PdfFindBar', () => {
-  it('searches for the previous query again when reopened', () => {
+  it('shows the previous search again where it was when reopened', () => {
     const wrapper = createWrapper({}, 'foo')
-    expect(wrapper.emitted('find')[0][0]).toBe('foo')
+    expect(wrapper.emitted('find')[0]).toEqual([
+      'foo',
+      expect.any(Object),
+      { type: 'highlightallchange', findPrevious: false }
+    ])
     wrapper.unmount()
   })
 
@@ -119,6 +123,12 @@ describe('PdfFindBar', () => {
     // For screen readers
     expect(wrapper.find('.pdf-studio-find-result').text()).toBe(text)
     wrapper.unmount()
+  })
+
+  it('shows when nothing was found', () => {
+    const wrapper = createWrapper({ current: 0, total: 0, notFound: true }, 'xyz')
+    expect(wrapper.find('.pdf-studio-find-input').classes()).toContain('pdf-studio-find-not-found')
+    expect(wrapper.find('.pdf-studio-find-result').text()).toBe('Phrase not found')
   })
 
   it('closes on escape', async () => {

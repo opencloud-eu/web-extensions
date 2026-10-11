@@ -2,8 +2,10 @@ import { mock } from 'vitest-mock-extended'
 import { AnnotationEditorUIManager, AnnotationLayer } from 'pdfjs-dist'
 import { EventBus, type PDFViewer } from 'pdfjs-dist/web/pdf_viewer.mjs'
 import {
+  getAnnotationCommentButton,
   getAnnotationPopup,
   getEditorUiManager,
+  hasRenderedAnnotations,
   getImageBitmap,
   isCreatingSignature,
   isDrawing
@@ -11,26 +13,6 @@ import {
 
 // Against PDF.js itself: these tests fail when an update changes what the app relies on.
 describe('PDF.js', () => {
-  // PDF.js uses it, browsers have it, Node doesn't yet.
-  type ComputedMap = Map<unknown, unknown> & {
-    getOrInsertComputed?: (key: unknown, compute: (key: unknown) => unknown) => unknown
-  }
-  const mapPrototype = Map.prototype as ComputedMap
-  const hasGetOrInsertComputed = !!mapPrototype.getOrInsertComputed
-  beforeAll(() => {
-    mapPrototype.getOrInsertComputed ??= function (this: ComputedMap, key, compute) {
-      if (!this.has(key)) {
-        this.set(key, compute(key))
-      }
-      return this.get(key)
-    }
-  })
-  afterAll(() => {
-    if (!hasGetOrInsertComputed) {
-      delete mapPrototype.getOrInsertComputed
-    }
-  })
-
   const managers: AnnotationEditorUIManager[] = []
   afterEach(() => managers.splice(0).forEach((manager) => manager.destroy()))
 
@@ -114,6 +96,30 @@ describe('pdfjsInternals', () => {
     const file = new File([], 'a.png')
     expect(await getImageBitmap(uiManager, file)).toBe(bitmap)
     expect(await getImageBitmap(uiManager, file)).toBeNull()
+  })
+
+  it('finds the comment button of a saved annotation on a rendered page', () => {
+    const div = document.createElement('div')
+    div.innerHTML =
+      '<section data-annotation-id="12R"></section><button class="annotationCommentButton"></button>' +
+      '<section data-annotation-id="13R"></section><a></a>' +
+      // Annotations whose text is the comment are their own trigger, e.g. sticky notes and lines.
+      '<section data-annotation-id="14R" class="popupTriggerArea"></section>' +
+      '<section data-annotation-id="15R"><svg><line class="popupTriggerArea" /></svg></section>'
+    const viewer = mock<PDFViewer>({
+      getPageView: vi.fn((pageIndex: number) =>
+        pageIndex === 0 ? { annotationLayer: { div } } : { annotationLayer: { div: null } }
+      )
+    })
+    expect(hasRenderedAnnotations(viewer, 0)).toBe(true)
+    expect(hasRenderedAnnotations(viewer, 1)).toBe(false)
+    expect(getAnnotationCommentButton(viewer, 0, '12R')).toBe(div.querySelector('button'))
+    expect(getAnnotationCommentButton(viewer, 0, '13R')).toBeNull()
+    expect(getAnnotationCommentButton(viewer, 0, '14R')).toBe(
+      div.querySelector('[data-annotation-id="14R"]')
+    )
+    expect(getAnnotationCommentButton(viewer, 0, '15R')).toBe(div.querySelector('line'))
+    expect(getAnnotationCommentButton(viewer, 1, '12R')).toBeNull()
   })
 
   it('finds the comment popup of a saved annotation once its page is rendered', () => {

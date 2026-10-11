@@ -1,21 +1,42 @@
 import { markRaw, ref, shallowRef, toValue, unref, type MaybeRefOrGetter } from 'vue'
 import { useGettext } from 'vue3-gettext'
 import {
+  AnnotationType,
   applyOpacity,
   CSSConstants,
   findContrastColor,
-  type AnnotationEditorUIManager
+  type AnnotationEditorUIManager,
+  type PDFDocumentProxy
 } from 'pdfjs-dist'
 import { useModals } from '@opencloud-eu/web-pkg'
 import PdfCommentModal from '../components/PdfCommentModal.vue'
 import {
   getAnnotationElement,
+  getAnnotationLocation,
   getCommentDate,
   type CommentData,
   type CommentTarget
 } from '../helpers/comments'
 import { pauseEditShortcuts } from '../helpers/editShortcuts'
 import { getEditorUiManager } from '../helpers/pdfjsInternals'
+
+/**
+ * Annotations with comments that PDF.js lists only for the ones its editors handle (highlights,
+ * drawings, text, images). The others are listed here as well, read-only.
+ */
+const OTHER_COMMENT_TYPES = new Set<number>([
+  AnnotationType.TEXT,
+  AnnotationType.LINE,
+  AnnotationType.SQUARE,
+  AnnotationType.CIRCLE,
+  AnnotationType.POLYGON,
+  AnnotationType.POLYLINE,
+  AnnotationType.UNDERLINE,
+  AnnotationType.SQUIGGLY,
+  AnnotationType.STRIKEOUT,
+  AnnotationType.CARET,
+  AnnotationType.FILEATTACHMENT
+])
 
 export type CommentPopup = {
   target: CommentTarget
@@ -43,8 +64,8 @@ function compareComments(a: CommentData, b: CommentData) {
   )
 }
 
-function hasText({ popupRef, contentsObj, richText }: CommentData) {
-  return !!popupRef && !!(contentsObj?.str || richText?.str)
+function hasText({ contentsObj, richText }: CommentData) {
+  return !!(contentsObj?.str || richText?.str)
 }
 
 /** The id the list knows the comment by. Editors report it, saved annotations don't. */
@@ -71,18 +92,23 @@ function canSaveComment(target: CommentTarget) {
  * built from OpenCloud components (see PdfCommentPopup and PdfCommentsDrop).
  */
 export function usePdfComments({
+  pdfDocument,
   isReadOnly,
   onChange,
   getUiManager,
   getAnnotationComment,
+  getCommentButton,
   goToXY
 }: {
+  pdfDocument: MaybeRefOrGetter<PDFDocumentProxy | undefined>
   /** Comments can still be read, but not changed. */
   isReadOnly: MaybeRefOrGetter<boolean>
   onChange: () => void
   getUiManager: () => AnnotationEditorUIManager | undefined
   /** The comment of a saved annotation, PDF.js has no editors for them without a tool. */
   getAnnotationComment: (pageIndex: number, id: string) => Promise<CommentTarget | undefined>
+  /** The button of a saved annotation's comment, for the ones PDF.js has no editor for. */
+  getCommentButton: (pageIndex: number, id: string) => HTMLElement | null | undefined
   goToXY: (pageNumber: number, x: number, y: number) => void
 }) {
   const { $gettext } = useGettext()
@@ -93,8 +119,105 @@ export function usePdfComments({
   const selectedCommentId = ref<string>()
   const popup = shallowRef<CommentPopup>()
 
+  // The list is completed asynchronously, a newer one (or none) makes that obsolete.
+  let listVersion = 0
+
   function setComments(list: CommentData[] | undefined) {
     comments.value = list?.filter(hasText).sort(compareComments)
+  }
+
+  function clearComments() {
+    listVersion++
+    setComments(undefined)
+  }
+
+  /** The author of a saved annotation's comment, PDF.js' editors and popups leave it out. */
+  async function getAuthor(
+    location: ReturnType<typeof getAnnotationLocation>
+  ): Promise<CommentData['titleObj'] | undefined> {
+    const doc = toValue(pdfDocument)
+    if (!doc || !location) {
+      return undefined
+    }
+    const page = await doc.getPage(location.pageNumber)
+    const annotations = (await page.getAnnotations()) as CommentData[]
+    return annotations.find(({ id }) => id === location.id)?.titleObj
+  }
+
+  /**
+   * The authors of listed comments of saved annotations: PDF.js' editors of them report the
+   * annotation's id, but no author.
+   */
+  async function getAuthors(list: CommentData[]) {
+    const authors = new Map<string, CommentData['titleObj']>()
+    await Promise.all(
+      list.map(async ({ id, pageIndex, titleObj }) => {
+        if (!id || titleObj) {
+          return
+        }
+        const author = await getAuthor({ pageNumber: pageIndex + 1, id })
+        if (author?.str) {
+          authors.set(id, author)
+        }
+      })
+    )
+    return authors
+  }
+
+  // Per document, like PDF.js does for its own: the worker parses every page for it. A page
+  // operation gives a new document, and the app can't change these comments.
+  let otherComments: { doc: PDFDocumentProxy; promise: Promise<CommentData[]> } | undefined
+
+  /** The comments of annotations PDF.js has no editor for, e.g. sticky notes. */
+  function getOtherComments() {
+    const doc = toValue(pdfDocument)
+    if (!doc) {
+      return Promise.resolve([])
+    }
+    if (otherComments?.doc !== doc) {
+      otherComments = {
+        doc,
+        promise: doc
+          .getAnnotationsByType(OTHER_COMMENT_TYPES, new Set())
+          .then((others) => (others ?? []) as CommentData[])
+      }
+    }
+    return otherComments.promise
+  }
+
+  /** PDF.js lists the comments of its editors, the ones of other annotations join them. */
+  async function showSidebar(list: CommentData[] | undefined) {
+    const version = ++listVersion
+    setComments(list)
+    if (!list) {
+      return
+    }
+    const [others, authors] = await Promise.all([
+      getOtherComments().catch((): CommentData[] => {
+        // Tried again next time.
+        otherComments = undefined
+        return []
+      }),
+      getAuthors(list).catch(() => new Map<string, CommentData['titleObj']>())
+    ])
+    if (version !== listVersion) {
+      return
+    }
+    // Edits in the meantime are in the current list.
+    const current = (unref(comments) ?? []).map((data) =>
+      authors.has(data.id) ? { ...data, titleObj: authors.get(data.id) } : data
+    )
+    setComments([...current, ...others])
+  }
+
+  async function addAuthor(target: CommentTarget) {
+    const titleObj = await getAuthor(getAnnotationLocation(target)).catch(
+      (): undefined => undefined
+    )
+    const current = unref(popup)
+    if (titleObj?.str && current?.target === target) {
+      popup.value = { ...current, data: { ...current.data, titleObj } }
+    }
   }
 
   function hidePopup() {
@@ -160,6 +283,10 @@ export function usePdfComments({
     }
     if (isSelected) {
       selectedCommentId.value = getCommentId(target, data)
+    }
+    // The author of a saved annotation shows up once looked up, new ones have none.
+    if (!data.titleObj) {
+      addAuthor(target)
     }
   }
 
@@ -228,6 +355,9 @@ export function usePdfComments({
       const target = await getAnnotationComment(pageIndex, id)
       if (target) {
         togglePopup(target, true)
+      } else {
+        // Annotations without an editor, PDF.js opens their comments through the button.
+        getCommentButton(pageIndex, id)?.click()
       }
     }
   }
@@ -235,7 +365,9 @@ export function usePdfComments({
   function updateComment(annotation: CommentData) {
     const list = unref(comments)
     if (list) {
-      setComments([...list.filter(({ id }) => id !== annotation.id), annotation])
+      // The editor reports no author, the one looked up stays.
+      const titleObj = list.find(({ id }) => id === annotation.id)?.titleObj
+      setComments([...list.filter(({ id }) => id !== annotation.id), { ...annotation, titleObj }])
     }
   }
 
@@ -244,11 +376,8 @@ export function usePdfComments({
     // only exists while open, so it gets a stand-in.
     dialogElement: document.createElement('div'),
     setSidebarUiManager() {},
-    showSidebar: setComments,
-    hideSidebar() {
-      setComments(undefined)
-    },
-    addComment: updateComment,
+    showSidebar,
+    hideSidebar: clearComments,
     updateComment,
     removeComments(ids: string[]) {
       const list = unref(comments)
@@ -256,15 +385,12 @@ export function usePdfComments({
         setComments(list.filter(({ id }) => !ids.includes(id)))
       }
     },
-    selectComment(id: string) {
-      selectedCommentId.value = id
-    },
     toggleCommentPopup: togglePopup,
     destroyPopup: hidePopup,
     updatePopupColor(target: CommentTarget) {
       const current = unref(popup)
       if (current?.target === target) {
-        popup.value = { ...current, data: target.getData() }
+        popup.value = { ...current, data: { ...target.getData(), titleObj: current.data.titleObj } }
       }
     },
     showDialog,
@@ -277,7 +403,8 @@ export function usePdfComments({
     },
     destroy() {
       hidePopup()
-      setComments(undefined)
+      clearComments()
+      otherComments = undefined
     }
   }
 

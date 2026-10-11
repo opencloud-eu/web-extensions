@@ -30,40 +30,29 @@
 
     <div
       id="pdf-studio-signature-panel"
-      class="ext:flex ext:h-56 ext:flex-col ext:rounded-xl ext:bg-role-surface-container ext:p-3"
+      class="ext:relative ext:flex ext:h-56 ext:flex-col ext:rounded-sm ext:border ext:border-role-outline-variant ext:bg-role-surface ext:text-role-on-surface ext:has-[input:focus-visible]:border-role-outline"
       role="tabpanel"
       :aria-labelledby="`pdf-studio-signature-tab-${activeTab}`"
     >
-      <div
-        v-if="activeTab !== 'image'"
-        class="ext:relative ext:flex-1 ext:overflow-hidden ext:rounded-lg ext:bg-white ext:text-black ext:shadow-sm ext:has-[input:focus-visible]:outline-2 ext:has-[input:focus-visible]:outline-role-secondary"
+      <pdf-signature-draw v-if="activeTab === 'draw'" v-model="drawnCurves" />
+      <oc-text-input
+        v-else-if="activeTab === 'type'"
+        id="pdf-studio-signature-name"
+        ref="typeInput"
+        v-model="typedText"
+        class="pdf-studio-signature-type ext:my-auto ext:px-8"
+        :label="$gettext('Your name')"
+        :placeholder="$gettext('Your name')"
+        :has-border="false"
       >
-        <div
-          class="ext:pointer-events-none ext:absolute ext:inset-x-8 ext:bottom-10 ext:border-b ext:border-gray-300 ext:pb-1 ext:text-lg ext:leading-none ext:text-gray-400"
-          aria-hidden="true"
-          v-text="'×'"
-        />
-        <pdf-signature-draw v-if="activeTab === 'draw'" v-model="drawnCurves" />
-        <oc-text-input
-          v-else
-          id="pdf-studio-signature-name"
-          ref="typeInput"
-          v-model="typedText"
-          class="pdf-studio-signature-type ext:absolute ext:inset-x-10 ext:bottom-11"
-          :label="$gettext('Your name')"
-          :placeholder="$gettext('Your name')"
-          :has-border="false"
-        >
-          <template #label>
-            <label
-              class="ext:sr-only"
-              for="pdf-studio-signature-name"
-              v-text="$gettext('Your name')"
-            />
-          </template>
-        </oc-text-input>
-      </div>
-
+        <template #label>
+          <label
+            class="ext:sr-only"
+            for="pdf-studio-signature-name"
+            v-text="$gettext('Your name')"
+          />
+        </template>
+      </oc-text-input>
       <pdf-signature-image
         v-else
         v-model:data="imageData"
@@ -77,12 +66,32 @@
       role="alert"
       v-text="signatureError"
     />
-    <pdf-signature-options
-      v-model:description="description"
-      v-model:is-saved="isSaved"
-      :can-save="canSave"
+    <oc-text-input
+      v-model="description"
+      class="pdf-studio-signature-description"
+      :label="$gettext('Description (alt text)')"
       :disabled="!hasSignature"
+      clear-button-enabled
     />
+    <div class="ext:flex ext:justify-end">
+      <oc-switch
+        v-model:checked="isSaved"
+        class="pdf-studio-signature-save ext:inline-flex"
+        :label="$gettext('Save signature')"
+        :disabled="!hasSignature || !canSave"
+      >
+        <oc-contextual-helper
+          v-if="!canSave"
+          :title="$gettext('Save signature')"
+          :text="
+            $gettext(
+              'You’ve reached the limit of %{max} saved signatures. Remove one to save more.',
+              { max: String(MAX_SIGNATURES) }
+            )
+          "
+        />
+      </oc-switch>
+    </div>
   </div>
 </template>
 
@@ -90,10 +99,10 @@
 import { computed, nextTick, reactive, ref, shallowRef, unref, useTemplateRef, watch } from 'vue'
 import { useGettext } from 'vue3-gettext'
 import type { Modal } from '@opencloud-eu/web-pkg'
-import PdfSignatureOptions from './PdfSignatureOptions.vue'
 import PdfSignatureImage from './PdfSignatureImage.vue'
 import PdfSignatureDraw from './PdfSignatureDraw.vue'
 import type { DrawnCurves, SignatureData } from '../composables/usePdfSignature'
+import { MAX_SIGNATURES } from '../composables/usePdfSignatureStorage'
 
 const {
   getDrawnSignature,
@@ -257,11 +266,5 @@ defineExpose({ onConfirm })
   font-style: italic;
   height: 4rem;
   text-align: center;
-  /* On white paper also in the dark theme */
-  color: #000;
-}
-
-.pdf-studio-signature-type :deep(input::placeholder) {
-  color: #6b7280;
 }
 </style>

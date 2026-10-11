@@ -1,27 +1,26 @@
 import { mock } from 'vitest-mock-extended'
 import type { AnnotationEditorUIManager } from 'pdfjs-dist'
 import { getComposableWrapper } from '@opencloud-eu/web-test-helpers'
-import { useModals } from '@opencloud-eu/web-pkg'
+import { useModals, type Modal } from '@opencloud-eu/web-pkg'
 import { usePdfAltText } from '../../../src/composables/usePdfAltText'
 
-vi.mock('@opencloud-eu/web-pkg', async (importOriginal) => ({
-  ...(await importOriginal<typeof import('@opencloud-eu/web-pkg')>()),
-  useModals: vi.fn()
-}))
+type AltTextData = { altText?: string; decorative?: boolean }
+type AltTextModalAttrs = AltTextData & { onSave: (data: AltTextData) => void }
 
-function setup(altTextData?: { altText?: string; decorative?: boolean }) {
-  const dispatchModal = vi.fn()
-  vi.mocked(useModals).mockReturnValue({ dispatchModal } as never)
+function setup(altTextData?: AltTextData) {
   const onChange = vi.fn()
   let altText: ReturnType<typeof usePdfAltText>
+  let modals: ReturnType<typeof useModals>
   getComposableWrapper(() => {
+    modals = useModals()
     altText = usePdfAltText({ onChange })
   })
   const uiManager = mock<AnnotationEditorUIManager>()
   const editor = { altTextData, altTextFinish: vi.fn(), isSelected: false }
   altText.altTextManager.editAltText(uiManager, editor)
-  const modal = dispatchModal.mock.calls[0][0]
-  return { modal, attrs: modal.customComponentAttrs(), uiManager, editor, onChange }
+  const modal = vi.mocked(modals.dispatchModal).mock.calls[0][0] as Modal
+  const attrs = modal.customComponentAttrs() as AltTextModalAttrs
+  return { modal, attrs, uiManager, editor, onChange }
 }
 
 describe('usePdfAltText', () => {

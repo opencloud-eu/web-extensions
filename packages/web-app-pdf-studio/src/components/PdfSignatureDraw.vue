@@ -1,7 +1,7 @@
 <template>
   <p
     v-if="!curves && !stroke"
-    class="ext:pointer-events-none ext:absolute ext:inset-0 ext:m-0 ext:flex ext:items-center ext:justify-center ext:pb-6 ext:text-sm ext:text-gray-500"
+    class="ext:pointer-events-none ext:absolute ext:inset-0 ext:m-0 ext:flex ext:items-center ext:justify-center ext:text-sm ext:text-role-on-surface-variant"
     v-text="$gettext('Draw your signature here')"
   />
   <svg
@@ -17,7 +17,7 @@
     <path
       :d="path"
       fill="none"
-      stroke="black"
+      stroke="currentColor"
       stroke-width="2"
       stroke-linecap="round"
       pointer-events="none"
@@ -31,7 +31,7 @@
     :disabled="!curves"
     @click="curves = undefined"
   >
-    <oc-icon name="eraser" fill-type="line" size-class="ext:size-4" color="#4b5563" />
+    <oc-icon name="eraser" fill-type="line" size-class="ext:size-4" />
   </oc-button>
 </template>
 

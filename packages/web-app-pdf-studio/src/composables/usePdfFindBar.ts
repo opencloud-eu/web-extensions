@@ -41,7 +41,7 @@ export function usePdfFindBar({
   // Kept while the find bar is closed, like in the PDF.js viewer.
   const findQuery = ref('')
   const findOptions = ref<FindOptions>({
-    highlightAll: true,
+    highlightAll: false,
     caseSensitive: false,
     entireWord: false,
     matchDiacritics: false
@@ -53,9 +53,16 @@ export function usePdfFindBar({
   eventBus.on('updatefindmatchescount', ({ matchesCount }: { matchesCount: MatchesCount }) => {
     findResult.value = { ...unref(findResult), ...matchesCount }
   })
+  // Closing the find bar makes PDF.js report "found" once, while the result is kept for
+  // reopening. Finding again while closed (Ctrl+G) reports the new match the same way.
+  let isClosing = false
   eventBus.on(
     'updatefindcontrolstate',
     ({ state, matchesCount }: { state: number; matchesCount: MatchesCount }) => {
+      if (isClosing) {
+        isClosing = false
+        return
+      }
       findResult.value = { ...matchesCount, notFound: state === FindState.NOT_FOUND }
     }
   )
@@ -84,6 +91,8 @@ export function usePdfFindBar({
     if (unref(isFindBarOpen)) {
       lastFind = { query, options }
     }
+    // PDF.js skips the report of closing without a document.
+    isClosing = false
     eventBus.dispatch('find', { source: null, type, query, findPrevious, ...options })
   }
 
@@ -110,8 +119,9 @@ export function usePdfFindBar({
     const hasFocus = !!toValue(findBar)?.$el.contains(document.activeElement)
     isFindBarOpen.value = false
     lastFind = undefined
+    // PDF.js removes the highlights, but keeps the search and the current match.
+    isClosing = true
     eventBus.dispatch('findbarclose', { source: null })
-    findResult.value = NO_FIND_RESULT
     if (hasFocus) {
       onClose()
     }

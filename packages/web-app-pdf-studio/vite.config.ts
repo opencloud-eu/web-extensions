@@ -17,6 +17,7 @@ const pdfjsAssets = [
 
 export default defineConfig({
   name: 'pdf-studio',
+  test: { setupFiles: ['tests/unit/setup.ts'] },
   plugins: [
     viteStaticCopy({
       targets: pdfjsAssets.map((src) => ({

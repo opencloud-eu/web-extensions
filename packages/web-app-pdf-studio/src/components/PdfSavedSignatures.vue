@@ -17,7 +17,7 @@
         @click="emit('add', signature)"
       >
         <svg
-          class="ext:h-10 ext:w-28 ext:shrink-0 ext:rounded ext:bg-role-surface-container ext:p-1"
+          class="ext:h-10 ext:w-24 ext:shrink-0 ext:rounded ext:bg-role-surface-container ext:p-1"
           :viewBox="viewBox"
           preserveAspectRatio="xMidYMid meet"
           aria-hidden="true"

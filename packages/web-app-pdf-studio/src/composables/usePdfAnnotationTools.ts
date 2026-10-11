@@ -1,4 +1,4 @@
-import { computed, toValue, unref, type MaybeRefOrGetter } from 'vue'
+import { computed, toValue, type MaybeRefOrGetter } from 'vue'
 import { useGettext } from 'vue3-gettext'
 import { useAuthStore } from '@opencloud-eu/web-pkg'
 import { AnnotationEditorParamsType, AnnotationEditorType } from 'pdfjs-dist'
@@ -75,134 +75,135 @@ export function usePdfAnnotationTools({
       : [])
   ])
 
-  const highlightColorLabels = computed<Record<HighlightColorName, string>>(() => ({
-    yellow: $gettext('Yellow'),
-    green: $gettext('Green'),
-    blue: $gettext('Blue'),
-    pink: $gettext('Pink'),
-    red: $gettext('Red')
-  }))
-
-  const tools = computed(() => [
-    {
-      id: 'signature',
-      mode: AnnotationEditorType.SIGNATURE,
-      icon: 'quill-pen',
-      label: $gettext('Add signature')
-    },
-    {
-      id: 'highlight',
-      mode: AnnotationEditorType.HIGHLIGHT,
-      icon: 'mark-pen',
-      label: $gettext('Highlight text'),
-      settingsLabel: $gettext('Highlight settings'),
-      settings: [
-        {
-          id: 'highlight-color',
-          label: $gettext('Color'),
-          type: 'swatches',
-          options: highlightColors.map(({ name, value }) => ({
-            value,
-            label: unref(highlightColorLabels)[name]
-          })),
-          paramType: AnnotationEditorParamsType.HIGHLIGHT_COLOR,
-          default: highlightColors[0].value
-        },
-        {
-          id: 'highlight-thickness',
-          label: $gettext('Thickness of free highlights'),
-          type: 'range',
-          min: 8,
-          max: 24,
-          paramType: AnnotationEditorParamsType.HIGHLIGHT_THICKNESS,
-          default: 12,
-          // Only free highlights (drawn with the tool) have a thickness.
-          disabled: toValue(params).get(AnnotationEditorParamsType.HIGHLIGHT_FREE) === false
-        },
-        {
-          id: 'highlight-show-all',
-          // Same label as in the PDF.js viewer.
-          label: $gettext('Show all'),
-          type: 'switch',
-          paramType: AnnotationEditorParamsType.HIGHLIGHT_SHOW_ALL,
-          default: true
-        }
-      ] satisfies ToolSetting[]
-    },
-    {
-      id: 'freetext',
-      mode: AnnotationEditorType.FREETEXT,
-      icon: 'font-size',
-      fillType: 'none' as const,
-      label: $gettext('Add text'),
-      settingsLabel: $gettext('Text settings'),
-      settings: [
-        {
-          id: 'freetext-color',
-          label: $gettext('Color'),
-          type: 'color',
-          paramType: AnnotationEditorParamsType.FREETEXT_COLOR,
-          default: '#000000'
-        },
-        {
-          id: 'freetext-size',
-          label: $gettext('Size'),
-          type: 'range',
-          min: 5,
-          max: 100,
-          paramType: AnnotationEditorParamsType.FREETEXT_SIZE,
-          default: 10
-        }
-      ] satisfies ToolSetting[]
-    },
-    {
-      id: 'ink',
-      mode: AnnotationEditorType.INK,
-      icon: 'pencil',
-      label: $gettext('Draw'),
-      settingsLabel: $gettext('Drawing settings'),
-      settings: [
-        {
-          id: 'ink-color',
-          label: $gettext('Color'),
-          type: 'color',
-          paramType: AnnotationEditorParamsType.INK_COLOR,
-          default: '#000000'
-        },
-        {
-          id: 'ink-thickness',
-          label: $gettext('Thickness'),
-          type: 'range',
-          min: 1,
-          max: 20,
-          paramType: AnnotationEditorParamsType.INK_THICKNESS,
-          default: 1
-        },
-        {
-          id: 'ink-opacity',
-          label: $gettext('Opacity'),
-          type: 'range',
-          min: 0.05,
-          max: 1,
-          step: 0.05,
-          paramType: AnnotationEditorParamsType.INK_OPACITY,
-          default: 1
-        }
-      ] satisfies ToolSetting[]
-    },
-    {
-      id: 'stamp',
-      mode: AnnotationEditorType.STAMP,
-      icon: 'image',
-      label: $gettext('Add image')
-    },
-    {
-      id: 'comments',
-      mode: AnnotationEditorType.POPUP,
-      icon: 'chat-3',
-      label: $gettext('Comments')
+  const tools = computed(() => {
+    const highlightColorLabels: Record<HighlightColorName, string> = {
+      yellow: $gettext('Yellow'),
+      green: $gettext('Green'),
+      blue: $gettext('Blue'),
+      pink: $gettext('Pink'),
+      red: $gettext('Red')
     }
-  ])
+    return [
+      {
+        id: 'signature',
+        mode: AnnotationEditorType.SIGNATURE,
+        icon: 'quill-pen',
+        label: $gettext('Add signature')
+      },
+      {
+        id: 'highlight',
+        mode: AnnotationEditorType.HIGHLIGHT,
+        icon: 'mark-pen',
+        label: $gettext('Highlight text'),
+        settingsLabel: $gettext('Highlight settings'),
+        settings: [
+          {
+            id: 'highlight-color',
+            label: $gettext('Color'),
+            type: 'swatches',
+            options: highlightColors.map(({ name, value }) => ({
+              value,
+              label: highlightColorLabels[name]
+            })),
+            paramType: AnnotationEditorParamsType.HIGHLIGHT_COLOR,
+            default: highlightColors[0].value
+          },
+          {
+            id: 'highlight-thickness',
+            label: $gettext('Thickness of free highlights'),
+            type: 'range',
+            min: 8,
+            max: 24,
+            paramType: AnnotationEditorParamsType.HIGHLIGHT_THICKNESS,
+            default: 12,
+            // Only free highlights (drawn with the tool) have a thickness.
+            disabled: toValue(params).get(AnnotationEditorParamsType.HIGHLIGHT_FREE) === false
+          },
+          {
+            id: 'highlight-show-all',
+            // Same label as in the PDF.js viewer.
+            label: $gettext('Show all'),
+            type: 'switch',
+            paramType: AnnotationEditorParamsType.HIGHLIGHT_SHOW_ALL,
+            default: true
+          }
+        ] satisfies ToolSetting[]
+      },
+      {
+        id: 'freetext',
+        mode: AnnotationEditorType.FREETEXT,
+        icon: 'font-size',
+        fillType: 'none' as const,
+        label: $gettext('Add text'),
+        settingsLabel: $gettext('Text settings'),
+        settings: [
+          {
+            id: 'freetext-color',
+            label: $gettext('Color'),
+            type: 'color',
+            paramType: AnnotationEditorParamsType.FREETEXT_COLOR,
+            default: '#000000'
+          },
+          {
+            id: 'freetext-size',
+            label: $gettext('Size'),
+            type: 'range',
+            min: 5,
+            max: 100,
+            paramType: AnnotationEditorParamsType.FREETEXT_SIZE,
+            default: 10
+          }
+        ] satisfies ToolSetting[]
+      },
+      {
+        id: 'ink',
+        mode: AnnotationEditorType.INK,
+        icon: 'pencil',
+        label: $gettext('Draw'),
+        settingsLabel: $gettext('Drawing settings'),
+        settings: [
+          {
+            id: 'ink-color',
+            label: $gettext('Color'),
+            type: 'color',
+            paramType: AnnotationEditorParamsType.INK_COLOR,
+            default: '#000000'
+          },
+          {
+            id: 'ink-thickness',
+            label: $gettext('Thickness'),
+            type: 'range',
+            min: 1,
+            max: 20,
+            paramType: AnnotationEditorParamsType.INK_THICKNESS,
+            default: 1
+          },
+          {
+            id: 'ink-opacity',
+            label: $gettext('Opacity'),
+            type: 'range',
+            min: 0.05,
+            max: 1,
+            step: 0.05,
+            paramType: AnnotationEditorParamsType.INK_OPACITY,
+            default: 1
+          }
+        ] satisfies ToolSetting[]
+      },
+      {
+        id: 'stamp',
+        mode: AnnotationEditorType.STAMP,
+        icon: 'image',
+        label: $gettext('Add image')
+      },
+      {
+        id: 'comments',
+        mode: AnnotationEditorType.POPUP,
+        icon: 'chat-3',
+        label: $gettext('Comments')
+      }
+    ]
+  })
 
   return { tools, imageSources, getValues }
 }

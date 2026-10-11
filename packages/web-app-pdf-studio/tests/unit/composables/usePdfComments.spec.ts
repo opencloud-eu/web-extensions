@@ -1,8 +1,9 @@
-import { ref } from 'vue'
+import { ref, shallowRef } from 'vue'
+import { flushPromises } from '@vue/test-utils'
 import { mock } from 'vitest-mock-extended'
 import { getComposableWrapper } from '@opencloud-eu/web-test-helpers'
 import { useModals, type Modal } from '@opencloud-eu/web-pkg'
-import type { AnnotationEditorUIManager } from 'pdfjs-dist'
+import { AnnotationType, type AnnotationEditorUIManager, type PDFDocumentProxy } from 'pdfjs-dist'
 import { usePdfComments } from '../../../src/composables/usePdfComments'
 import type { CommentData, CommentTarget } from '../../../src/helpers/comments'
 
@@ -13,7 +14,6 @@ function comment(id: string, date: string, data: Partial<CommentData> = {}): Com
     rect: [0, 0, 10, 10],
     modificationDate: date,
     contentsObj: { str: `Comment ${id}` },
-    popupRef: `${id}-popup`,
     ...data
   }
 }
@@ -40,6 +40,11 @@ function createTarget(data: Partial<CommentData> = {}) {
 
 function setup({ isReadOnly = false } = {}) {
   const onChange = vi.fn()
+  const getAnnotationsByType = vi.fn().mockResolvedValue([])
+  const getAnnotations = vi.fn().mockResolvedValue([])
+  const getPage = vi.fn().mockResolvedValue({ getAnnotations })
+  const pdfDocument = shallowRef(mock<PDFDocumentProxy>({ getAnnotationsByType, getPage }))
+  const getCommentButton = vi.fn().mockReturnValue(null)
   const uiManager = mock<AnnotationEditorUIManager>()
   uiManager.waitForEditorsRendered.mockResolvedValue(undefined)
   const goToXY = vi.fn()
@@ -49,17 +54,31 @@ function setup({ isReadOnly = false } = {}) {
   getComposableWrapper(() => {
     modals = useModals()
     comments = usePdfComments({
+      pdfDocument,
       isReadOnly: ref(isReadOnly),
       onChange,
       getUiManager: () => uiManager,
       getAnnotationComment,
+      getCommentButton,
       goToXY
     })
   })
   function lastModal() {
     return vi.mocked(modals.dispatchModal).mock.calls.at(-1)[0] as Modal
   }
-  return { comments, onChange, uiManager, goToXY, getAnnotationComment, lastModal }
+  return {
+    comments,
+    onChange,
+    uiManager,
+    goToXY,
+    getAnnotationComment,
+    getAnnotationsByType,
+    getAnnotations,
+    getPage,
+    getCommentButton,
+    pdfDocument,
+    lastModal
+  }
 }
 
 describe('usePdfComments', () => {
@@ -137,7 +156,128 @@ describe('usePdfComments', () => {
     })
   })
 
+  describe('comments of annotations without an editor', () => {
+    it('lists them with the ones of PDF.js, read-only', async () => {
+      const { comments, getAnnotationsByType } = setup()
+      const note = comment('note', 'D:20260301', { titleObj: { str: 'Jane' } })
+      getAnnotationsByType.mockResolvedValue([
+        note,
+        comment('x', 'D:20260301', { contentsObj: { str: '' } })
+      ])
+      comments.commentManager.showSidebar([comment('a', 'D:20260101')])
+      expect(comments.comments.value.map(({ id }) => id)).toEqual(['a'])
+      await flushPromises()
+      expect(comments.comments.value.map(({ id }) => id)).toEqual(['note', 'a'])
+      expect(getAnnotationsByType.mock.calls[0][0]).toContain(AnnotationType.TEXT)
+      expect(getAnnotationsByType.mock.calls[0][0]).not.toContain(AnnotationType.HIGHLIGHT)
+    })
+
+    it('shows the authors that the editors of saved annotations leave out', async () => {
+      const { comments, getAnnotations, getPage } = setup()
+      // Listed by the annotation's id, a new one has no annotation on the page.
+      getAnnotations.mockResolvedValue([{ id: 'a', titleObj: { str: 'Jane' } }])
+      comments.commentManager.showSidebar([
+        comment('a', 'D:20260101', { pageIndex: 2 }),
+        comment('b', 'D:20260201')
+      ])
+      await flushPromises()
+      expect(getPage).toHaveBeenCalledWith(3)
+      expect(comments.comments.value.map(({ titleObj }) => titleObj?.str)).toEqual([
+        undefined,
+        'Jane'
+      ])
+      // An edited comment keeps it, the editor reports none.
+      comments.commentManager.updateComment(comment('a', 'D:20260301'))
+      expect(comments.comments.value[0]).toMatchObject({ id: 'a', titleObj: { str: 'Jane' } })
+    })
+
+    it('lists sticky notes without a popup object, their text is the comment', async () => {
+      const { comments, getAnnotationsByType } = setup()
+      getAnnotationsByType.mockResolvedValue([comment('note', 'D:20260301')])
+      comments.commentManager.showSidebar([])
+      await flushPromises()
+      expect(comments.comments.value.map(({ id }) => id)).toEqual(['note'])
+    })
+
+    it('looks them up once per document, the worker parses every page for it', async () => {
+      const { comments, getAnnotationsByType, pdfDocument } = setup()
+      comments.commentManager.showSidebar([])
+      comments.commentManager.hideSidebar()
+      comments.commentManager.showSidebar([])
+      await flushPromises()
+      expect(getAnnotationsByType).toHaveBeenCalledTimes(1)
+      // E.g. after a page operation.
+      pdfDocument.value = mock<PDFDocumentProxy>({ getAnnotationsByType })
+      comments.commentManager.showSidebar([])
+      await flushPromises()
+      expect(getAnnotationsByType).toHaveBeenCalledTimes(2)
+    })
+
+    it('completes the newest list, with the edits made in the meantime', async () => {
+      const { comments, getAnnotationsByType } = setup()
+      const first = Promise.withResolvers<CommentData[]>()
+      getAnnotationsByType.mockReturnValue(first.promise)
+      comments.commentManager.showSidebar([comment('a', 'D:20260101')])
+      comments.commentManager.hideSidebar()
+      comments.commentManager.showSidebar([comment('b', 'D:20260101')])
+      comments.commentManager.updateComment(comment('b', 'D:20260301'))
+      comments.commentManager.removeComments(['x'])
+      first.resolve([comment('note', 'D:20260201')])
+      await flushPromises()
+      expect(comments.comments.value.map(({ id }) => id)).toEqual(['b', 'note'])
+      expect(comments.comments.value[0].modificationDate).toBe('D:20260301')
+    })
+
+    it('drops a completion that arrives after the list was hidden', async () => {
+      const { comments, getAnnotationsByType } = setup()
+      getAnnotationsByType.mockResolvedValue([comment('note', 'D:20260301')])
+      comments.commentManager.showSidebar([comment('a', 'D:20260101')])
+      comments.commentManager.hideSidebar()
+      await flushPromises()
+      expect(comments.comments.value).toBeUndefined()
+    })
+
+    it('opens them from the list through their button on the page', async () => {
+      const { comments, getCommentButton } = setup()
+      const button = document.createElement('button')
+      const click = vi.spyOn(button, 'click')
+      getCommentButton.mockReturnValue(button)
+      await comments.openComment(comment('note', 'D:20260301', { pageIndex: 1 }))
+      expect(getCommentButton).toHaveBeenCalledWith(1, 'note')
+      expect(click).toHaveBeenCalled()
+    })
+  })
+
   describe('popup', () => {
+    it('shows the author of a saved annotation edited by an editor', async () => {
+      const { comments, getAnnotations } = setup()
+      const target = { ...createTarget(), annotationElementId: '12R', pageIndex: 1 }
+      getAnnotations.mockResolvedValue([{ id: '12R', titleObj: { str: 'Jane' } }])
+      comments.commentManager.toggleCommentPopup(target, true)
+      await flushPromises()
+      expect(comments.popup.value.data.titleObj).toEqual({ str: 'Jane' })
+    })
+
+    it('shows the author of a saved annotation, PDF.js leaves it out', async () => {
+      const { comments, getAnnotations } = setup()
+      const target = createTarget({ id: undefined })
+      target.elementBeforePopup.className = 'annotationCommentButton'
+      const page = document.createElement('div')
+      page.className = 'page'
+      page.dataset.pageNumber = '2'
+      const annotation = document.createElement('section')
+      annotation.dataset.annotationId = 'a'
+      page.append(annotation, target.elementBeforePopup)
+      document.body.append(page)
+      getAnnotations.mockResolvedValue([{ id: 'b' }, { id: 'a', titleObj: { str: 'Jane' } }])
+      comments.commentManager.toggleCommentPopup(target, true)
+      await flushPromises()
+      expect(comments.popup.value.data.titleObj).toEqual({ str: 'Jane' })
+      // Updates of the popup keep it.
+      comments.commentManager.updatePopupColor(target)
+      expect(comments.popup.value.data.titleObj).toEqual({ str: 'Jane' })
+    })
+
     it('shows a preview on hover and opens it on click', () => {
       const { comments } = setup()
       const target = createTarget()

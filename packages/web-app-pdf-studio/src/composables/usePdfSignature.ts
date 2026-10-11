@@ -3,7 +3,7 @@ import { useGettext } from 'vue3-gettext'
 import type { AnnotationEditorUIManager } from 'pdfjs-dist'
 import { useModals } from '@opencloud-eu/web-pkg'
 import { pauseEditShortcuts } from '../helpers/editShortcuts'
-import { getEditorUiManager, getImageBitmap } from '../helpers/pdfjsInternals'
+import { getImageBitmap } from '../helpers/pdfjsInternals'
 import type {
   NewSignatureData,
   SavedSignature,
@@ -28,6 +28,7 @@ export type DrawnCurves = {
 const DEFAULT_HEIGHT_IN_PAGE = 40
 
 type SignatureEditor = {
+  _uiManager: AnnotationEditorUIManager
   isSelected: boolean
   description: string | null
   getDrawnSignature(curves: DrawnCurves): SignatureData | null
@@ -121,8 +122,7 @@ export function usePdfSignature({
   }
 
   function editDescription(editor: SignatureEditor) {
-    const uiManager = getEditorUiManager(editor)
-    const resume = uiManager ? pauseEditShortcuts(uiManager, editor) : () => {}
+    const resume = pauseEditShortcuts(editor._uiManager, editor)
     const previous = editor.description ?? ''
     // Like the PDF.js viewer's dialog: Update is only on for a change.
     const modal = dispatchModal({

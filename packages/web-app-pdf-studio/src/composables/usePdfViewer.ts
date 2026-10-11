@@ -1,4 +1,12 @@
-import { onBeforeUnmount, ref, shallowRef, toValue, unref, type MaybeRefOrGetter } from 'vue'
+import {
+  onBeforeUnmount,
+  ref,
+  shallowRef,
+  toValue,
+  unref,
+  type InjectionKey,
+  type MaybeRefOrGetter
+} from 'vue'
 import { promiseTimeout, useEventListener, useResizeObserver } from '@vueuse/core'
 import { AnnotationEditorType, AnnotationMode, type PDFDocumentProxy } from 'pdfjs-dist'
 import {
@@ -13,7 +21,11 @@ import {
   PDFViewer
 } from 'pdfjs-dist/web/pdf_viewer.mjs'
 import { createScripting, pdfjsAssetUrls } from '../helpers/pdfjs'
-import { getAnnotationPopup } from '../helpers/pdfjsInternals'
+import {
+  getAnnotationCommentButton,
+  getAnnotationPopup,
+  hasRenderedAnnotations
+} from '../helpers/pdfjsInternals'
 import { highlightColorsOption } from '../helpers/highlightColors'
 import { usePdfEditing } from './usePdfEditing'
 import { usePdfL10n } from './usePdfL10n'
@@ -22,6 +34,9 @@ const PRESET_SCALE_VALUES = ['auto', 'page-fit', 'page-width']
 
 /** A preset of PDF.js or a zoom factor as string, e.g. '1.25'. */
 export type ScaleValue = 'auto' | 'page-actual' | 'page-fit' | 'page-width' | (string & {})
+
+/** The event bus of the viewer, for components that tell PDF.js about things, e.g. thumbnails. */
+export const pdfEventBusKey: InjectionKey<EventBus> = Symbol('pdfEventBus')
 
 /** Read by PDFViewer, but missing from its option types. */
 type ExtraViewerOptions = {
@@ -63,13 +78,16 @@ export function usePdfViewer({
     eventBus,
     externalServices: { createScripting }
   })
-  useEventListener(window, 'updatefromsandbox', ({ detail }: CustomEvent) =>
-    eventBus.dispatch('updatefromsandbox', { source: window, detail })
-  )
-
   const { l10n } = usePdfL10n()
   const viewer = shallowRef<PDFViewer>()
-  const { reset: resetEditing, ...editing } = usePdfEditing({ eventBus, viewer })
+  const {
+    reset: resetEditing,
+    filterSandboxUpdate,
+    ...editing
+  } = usePdfEditing({ eventBus, viewer })
+  useEventListener(window, 'updatefromsandbox', ({ detail }: CustomEvent) =>
+    eventBus.dispatch('updatefromsandbox', { source: window, detail: filterSandboxUpdate(detail) })
+  )
 
   const pagesCount = ref(0)
   const pageNumber = ref(1)
@@ -93,7 +111,6 @@ export function usePdfViewer({
     pdfViewer.scrollMode = unref(scrollMode)
     pdfViewer.spreadMode = unref(spreadMode)
     pdfViewer.pagesRotation = unref(rotation)
-    // The page first, "auto" zoom depends on its orientation.
     pdfViewer.currentPageNumber = Math.min(initialPageNumber, pdfViewer.pagesCount)
     pdfViewer.currentScaleValue = unref(scaleValue)
     // A new document starting on page 1 changes no page in PDF.js' eyes, so it doesn't tell.
@@ -106,6 +123,14 @@ export function usePdfViewer({
     // PDF.js has no uiManager for read-only files and XFA forms.
     if (initialEditorMode !== AnnotationEditorType.NONE && unref(editing.uiManager)) {
       pdfViewer.annotationEditorMode = { mode: initialEditorMode }
+    }
+  })
+  // Until all pages are loaded, PDF.js gives them the size of the first one, which "auto" etc.
+  // used for the page shown. The PDF.js viewer waits for them, here the zoom is applied again.
+  eventBus.on('pagesloaded', () => {
+    const value = unref(scaleValue)
+    if (PRESET_SCALE_VALUES.includes(value)) {
+      unref(viewer).currentScaleValue = value
     }
   })
   eventBus.on('pagechanging', ({ pageNumber: page }: { pageNumber: number }) => {
@@ -150,8 +175,8 @@ export function usePdfViewer({
       scriptingManager,
       downloadManager,
       imageResourcesPath: pdfjsAssetUrls.images,
-      // Required whenever editing is enabled, PDF.js looks up color names in it even for
-      // non-highlight editors. Same palette as the PDF.js viewer.
+      // The highlight tool looks up its color names in it, without the option it fails. Same
+      // palette as the PDF.js viewer.
       annotationEditorHighlightColors: highlightColorsOption,
       annotationMode: readOnly ? AnnotationMode.ENABLE : AnnotationMode.ENABLE_FORMS,
       annotationEditorMode: readOnly ? AnnotationEditorType.DISABLE : AnnotationEditorType.NONE,
@@ -263,10 +288,15 @@ export function usePdfViewer({
    * once the annotations of its page are rendered, e.g. after scrolling to it.
    */
   async function getAnnotationComment(pageIndex: number, id: string) {
-    function findComment() {
-      return unref(viewer) && getAnnotationPopup(unref(viewer), pageIndex, id)
+    const pdfViewer = unref(viewer)
+    if (!pdfViewer) {
+      return null
     }
-    if (!findComment()) {
+    function findComment() {
+      return getAnnotationPopup(pdfViewer, pageIndex, id)
+    }
+    // Not for a rendered page without one, e.g. an annotation without an editor.
+    if (!findComment() && !hasRenderedAnnotations(pdfViewer, pageIndex)) {
       const rendered = new AbortController()
       await Promise.race([
         promiseTimeout(3000),
@@ -281,6 +311,11 @@ export function usePdfViewer({
       rendered.abort()
     }
     return findComment() ?? null
+  }
+
+  /** The button that opens the comment of a saved annotation, once its page is rendered. */
+  function getCommentButton(pageIndex: number, id: string) {
+    return unref(viewer) ? getAnnotationCommentButton(unref(viewer), pageIndex, id) : null
   }
 
   onBeforeUnmount(() => {
@@ -314,6 +349,7 @@ export function usePdfViewer({
     zoomIn,
     zoomOut,
     rotate,
-    getAnnotationComment
+    getAnnotationComment,
+    getCommentButton
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="data"
-    class="pdf-studio-signature-image-preview ext:relative ext:flex-1 ext:overflow-hidden ext:rounded-lg ext:bg-white ext:text-black ext:shadow-sm"
+    class="pdf-studio-signature-image-preview ext:relative ext:flex-1 ext:overflow-hidden"
   >
     <svg
       class="ext:absolute ext:inset-8 ext:size-[calc(100%-4rem)]"
@@ -19,13 +19,13 @@
       appearance="raw"
       @click="clear"
     >
-      <oc-icon name="eraser" fill-type="line" size-class="ext:size-4" color="#4b5563" />
+      <oc-icon name="eraser" fill-type="line" size-class="ext:size-4" />
     </oc-button>
   </div>
   <oc-file-input
     v-else
     v-model="files"
-    class="pdf-studio-signature-image ext:flex ext:flex-1 ext:flex-col ext:justify-center ext:rounded-lg ext:bg-role-surface ext:px-8 ext:shadow-sm"
+    class="pdf-studio-signature-image ext:flex ext:flex-1 ext:flex-col ext:justify-center ext:px-8"
     :label="$gettext('Image of your signature')"
     :description-message="$gettext('A photo or scan of your signature on white paper works best.')"
     :error-message="error"

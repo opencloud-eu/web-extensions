@@ -77,7 +77,13 @@ export function usePdfPrint({
     }
     const img = document.createElement('img')
     img.src = URL.createObjectURL(blob)
-    await img.decode()
+    try {
+      await img.decode()
+    } catch (e) {
+      // Not in the container yet, so cleanup() wouldn't revoke it.
+      URL.revokeObjectURL(img.src)
+      throw e
+    }
     return img
   }
 
@@ -101,6 +107,45 @@ export function usePdfPrint({
       builder.render({ viewport, intent: 'print' })
       page.append(builder.div)
     }
+  }
+
+  /**
+   * Renders the pages into the container, with progress and a way out for long documents,
+   * like the PDF.js viewer. False if cancelled (or the app was closed meanwhile).
+   */
+  async function renderPages(doc: PDFDocumentProxy, container: HTMLElement, isPortrait: boolean) {
+    // Freezes the current form values and annotations for the duration of the print.
+    const storage = doc.annotationStorage.print
+    const preparedPages = ref(0)
+    let isCancelled = false
+    const progressModal =
+      doc.numPages >= MIN_PAGES_FOR_PROGRESS &&
+      dispatchModal({
+        elementClass: 'pdf-studio-print-progress-modal',
+        title: $gettext('Preparing document for printing'),
+        // Cancelled with the dialog's close button.
+        hideActions: true,
+        customComponent: markRaw(PdfPrintProgress),
+        customComponentAttrs: () => ({ current: unref(preparedPages), total: doc.numPages }),
+        onCancel: () => {
+          isCancelled = true
+        }
+      })
+    try {
+      for (
+        let pageNumber = 1;
+        pageNumber <= doc.numPages && !isCancelled && !isUnmounted;
+        pageNumber++
+      ) {
+        container.append(await renderPage(doc, pageNumber, storage, isPortrait))
+        preparedPages.value = pageNumber
+      }
+    } finally {
+      if (progressModal) {
+        removeModal(progressModal.id)
+      }
+    }
+    return !isCancelled && !isUnmounted
   }
 
   async function print() {
@@ -133,43 +178,9 @@ export function usePdfPrint({
       pageStyle.textContent = `@page { size: ${width}pt ${height}pt; margin: 0; }`
       if (doc.isPureXfa) {
         renderXfaPages(doc, container)
-      } else {
-        // Freezes the current form values and annotations for the duration of the print.
-        const storage = doc.annotationStorage.print
-        // Like the PDF.js viewer: progress and a way out for long documents.
-        const preparedPages = ref(0)
-        let isCancelled = false
-        const progressModal =
-          doc.numPages >= MIN_PAGES_FOR_PROGRESS &&
-          dispatchModal({
-            elementClass: 'pdf-studio-print-progress-modal',
-            title: $gettext('Preparing document for printing'),
-            // Cancelled with the dialog's close button.
-            hideActions: true,
-            customComponent: markRaw(PdfPrintProgress),
-            customComponentAttrs: () => ({ current: unref(preparedPages), total: doc.numPages }),
-            onCancel: () => {
-              isCancelled = true
-            }
-          })
-        try {
-          for (
-            let pageNumber = 1;
-            pageNumber <= doc.numPages && !isCancelled && !isUnmounted;
-            pageNumber++
-          ) {
-            container.append(await renderPage(doc, pageNumber, storage, width <= height))
-            preparedPages.value = pageNumber
-          }
-        } finally {
-          if (progressModal) {
-            removeModal(progressModal.id)
-          }
-        }
-        if (isCancelled || isUnmounted) {
-          cleanup()
-          return
-        }
+      } else if (!(await renderPages(doc, container, width <= height))) {
+        cleanup()
+        return
       }
       document.head.append(pageStyle)
       document.body.append(container)

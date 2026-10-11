@@ -40,6 +40,11 @@ export type PdfShortcutActions = {
   handleEscape: (event: KeyboardEvent) => void
 }
 
+/** PDF.js handles the keys in the toolbar of an editor itself, e.g. Home in its color picker. */
+function isForPdfjs(event: KeyboardEvent) {
+  return !!(event.target as Element).closest?.('.editToolbar')
+}
+
 function isEditable(target: EventTarget | null) {
   return (
     target instanceof HTMLInputElement ||
@@ -234,7 +239,7 @@ export function usePdfShortcuts({
   function handleKeyShortcut(event: KeyboardEvent) {
     // Space presses a focused button, like in the PDF.js viewer.
     const isButtonPress = event.key === ' ' && event.target instanceof HTMLButtonElement
-    if (!isForApp(event) || isEditable(event.target) || isButtonPress) {
+    if (!isForApp(event) || isEditable(event.target) || isButtonPress || isForPdfjs(event)) {
       return
     }
     if (SCROLL_KEYS.includes(event.key)) {
@@ -273,6 +278,8 @@ export function usePdfShortcuts({
     }[event.key]
     if (handler) {
       event.preventDefault()
+      // The host has shortcuts of its own on these keys, e.g. `s` focuses its search.
+      event.stopImmediatePropagation()
       handler()
     }
   }
@@ -281,7 +288,9 @@ export function usePdfShortcuts({
   let isCtrlKeyDown = false
 
   function onKeydown(event: KeyboardEvent) {
-    isCtrlKeyDown = event.key === 'Control'
+    if (event.key === 'Control') {
+      isCtrlKeyDown = true
+    }
     if (event.altKey) {
       // Ctrl+Alt+P (Cmd+Alt+P) and Ctrl+Alt+G. By code, with Alt it types another key.
       if (!(event.ctrlKey || event.metaKey) || event.shiftKey || isInModal(event)) {
@@ -426,7 +435,13 @@ export function usePdfShortcuts({
       onEscape(event)
     }
   })
-  useEventListener(window, 'keyup', () => (isCtrlKeyDown = false))
+  useEventListener(window, 'keyup', (event: KeyboardEvent) => {
+    if (event.key === 'Control') {
+      isCtrlKeyDown = false
+    }
+  })
+  // The key may be released while another window has the focus.
+  useEventListener(window, 'blur', () => (isCtrlKeyDown = false))
   // Also over the toolbar and the sidebar, the browser would zoom the whole page otherwise.
   useEventListener(root, 'wheel', onWheel, { passive: false })
 }

@@ -2,7 +2,8 @@ import { defaultPlugins, mount } from '@opencloud-eu/web-test-helpers'
 import PdfSavedSignatures from '../../../src/components/PdfSavedSignatures.vue'
 import type { SavedSignature } from '../../../src/composables/usePdfSignatureStorage'
 
-vi.mock('pdfjs-dist', () => ({
+vi.mock('pdfjs-dist', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('pdfjs-dist')>()),
   SignatureExtractor: {
     processDrawnLines: vi.fn(() => ({
       outline: { viewBox: '0 0 10 5', toSVGPath: () => 'M0 0L10 5' }

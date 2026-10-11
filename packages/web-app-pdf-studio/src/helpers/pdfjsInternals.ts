@@ -4,9 +4,11 @@ import type { CommentTarget } from './comments'
 
 /**
  * The parts of PDF.js this app needs that its type declarations don't cover. Everything else is
- * declared by pdfjs-dist, so the type check reports what an update changes. These are checked
- * against PDF.js itself by tests/unit/helpers/pdfjsInternals.spec.ts, and missing parts end in
- * the behavior without them instead of errors.
+ * declared by pdfjs-dist, so the type check reports what an update changes. The class while
+ * drawing, the image reading and the lookup of editable annotations are checked against PDF.js
+ * itself by tests/unit/helpers/pdfjsInternals.spec.ts, the private fields (`_uiManager`, the
+ * hidden signature editor, `popup`) only by shape. Missing parts end in the behavior without
+ * them instead of errors.
  */
 
 /** PDF.js disables text selection while drawing (`disableUserSelect`), without a getter. */
@@ -34,6 +36,44 @@ export async function getImageBitmap(
   }
   const image = await imageManager?.getFromFile?.(file)
   return image?.bitmap ?? null
+}
+
+/** The elements of a page's annotations, once they are rendered. */
+function getAnnotationElements(viewer: PDFViewer, pageIndex: number) {
+  const pageView = viewer.getPageView(pageIndex) as {
+    annotationLayer?: { div?: HTMLElement | null }
+  }
+  return [
+    ...(pageView?.annotationLayer?.div?.querySelectorAll<HTMLElement>('[data-annotation-id]') ?? [])
+  ]
+}
+
+/** Whether the annotations of a page are rendered, e.g. to wait for them otherwise. */
+export function hasRenderedAnnotations(viewer: PDFViewer, pageIndex: number) {
+  return getAnnotationElements(viewer, pageIndex).length > 0
+}
+
+/**
+ * What opens the comment of a saved annotation through the comment manager when clicked, also
+ * for annotations PDF.js has no editor for (e.g. sticky notes): the button PDF.js puts after an
+ * annotation with a popup object, otherwise the annotation itself (or a part of it) is the
+ * trigger.
+ */
+export function getAnnotationCommentButton(viewer: PDFViewer, pageIndex: number, id: string) {
+  const annotation = getAnnotationElements(viewer, pageIndex).find(
+    (element) => element.dataset.annotationId === id
+  )
+  if (!annotation) {
+    return null
+  }
+  const button = annotation.nextElementSibling
+  if (button?.classList.contains('annotationCommentButton')) {
+    return button as HTMLElement
+  }
+  if (annotation.classList.contains('popupTriggerArea')) {
+    return annotation
+  }
+  return annotation.querySelector<HTMLElement>('.popupTriggerArea')
 }
 
 /** The comment popup PDF.js passes to the comment manager for a saved annotation. */

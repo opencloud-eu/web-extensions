@@ -31,7 +31,7 @@
       :padding-size="paddingSize"
       :close-on-click="false"
       :is-menu="isMenu"
-      class="ext:w-64"
+      :class="dropWidthClass"
     >
       <slot :hide="hide" />
     </oc-drop>
@@ -50,7 +50,8 @@ const {
   disabled = false,
   isDropDisabled = false,
   paddingSize = 'medium',
-  isMenu = true
+  isMenu = true,
+  dropWidthClass = 'ext:w-64'
 } = defineProps<{
   tool: { id: string; label: string; icon: string; fillType?: 'line' | 'none' }
   dropTitle: string
@@ -60,6 +61,8 @@ const {
   isDropDisabled?: boolean
   paddingSize?: 'small' | 'medium'
   isMenu?: boolean
+  /** The width of the drop, e.g. wider for the descriptions of saved signatures. */
+  dropWidthClass?: string
 }>()
 
 const emit = defineEmits<{ select: []; openDrop: [] }>()

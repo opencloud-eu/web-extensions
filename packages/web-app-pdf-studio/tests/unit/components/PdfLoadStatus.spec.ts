@@ -9,22 +9,13 @@ function createWrapper(props: Record<string, boolean>) {
       plugins: [...defaultPlugins()],
       stubs: {
         'oc-icon': true,
-        NoContentMessage: {
-          template: '<div><slot name="message" /><slot name="callToAction" /></div>'
-        }
+        NoContentMessage: { template: '<div><slot name="message" /></div>' }
       }
     }
   })
 }
 
 describe('PdfLoadStatus', () => {
-  it('offers to enter the password again after cancelling it', async () => {
-    const wrapper = createWrapper({ isPasswordCancelled: true })
-    expect(wrapper.text()).toContain('This PDF file is protected')
-    await wrapper.find('.pdf-studio-password-retry').trigger('click')
-    expect(wrapper.emitted('retry')).toHaveLength(1)
-  })
-
   it('explains files that can not be opened', () => {
     expect(createWrapper({ hasError: true }).text()).toContain('could not be opened')
   })

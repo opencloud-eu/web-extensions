@@ -170,3 +170,15 @@ test('comment on selected text', async () => {
   await userPage.locator('.pdf-studio-tool-comments').click()
   await expect(userPage.locator('.pdf-studio-comment-item')).toContainText('Looks good')
 })
+
+test('list all comments and open one from the list', async () => {
+  await pdfStudio.selectText('PDF Studio form')
+  await pdfStudio.addCommentToSelection('First comment')
+  await userPage.locator('.pdf-studio-tool-comments').click()
+  const item = userPage.locator('.pdf-studio-comment-item')
+  await expect(item).toBeVisible()
+  await expect(item).toContainText('First comment')
+  await item.click()
+  await expect(userPage.locator('.pdf-studio-comment-popup')).toBeVisible()
+  await expect(userPage.locator('.pdf-studio-comment-popup')).toContainText('First comment')
+})

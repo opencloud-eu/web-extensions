@@ -1,9 +1,5 @@
 <template>
-  <div
-    ref="studioRoot"
-    class="pdf-studio ext:flex ext:size-full ext:flex-col"
-    :style="{ colorScheme: isDarkTheme ? 'dark' : 'light' }"
-  >
+  <div ref="studioRoot" class="pdf-studio ext:flex ext:size-full ext:flex-col">
     <pdf-toolbar
       v-if="pdfDocument"
       ref="toolbar"
@@ -89,20 +85,16 @@
           ref="findBar"
           v-model:query="findQuery"
           v-model:options="findOptions"
-          class="ext:absolute ext:top-3 ext:z-30"
+          class="ext:absolute ext:top-1 ext:z-30"
           :style="{ left: `${findBarLeft}px`, maxWidth: `calc(100% - ${findBarLeft}px - 1rem)` }"
           :find-result="findResult"
           @find="find"
           @close="closeFindBar"
         />
-        <pdf-load-status
-          :is-loading="isLoading"
-          :has-error="!!loadError"
-          :is-password-cancelled="isPasswordCancelled"
-          @retry="load(currentContent)"
-        />
+        <pdf-load-status :is-loading="isLoading" :has-error="!!loadError" />
       </div>
       <pdf-comments-drop
+        v-if="pdfDocument"
         ref="commentsDrop"
         :comments="comments"
         :selected-id="selectedCommentId"
@@ -122,16 +114,16 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, provide, ref, unref, useTemplateRef } from 'vue'
+import { computed, onMounted, provide, ref, toRef, unref, useTemplateRef } from 'vue'
 import { until, useElementBounding } from '@vueuse/core'
 import { AnnotationEditorType, type PDFDocumentProxy } from 'pdfjs-dist'
 import type { Resource } from '@opencloud-eu/web-client'
-import { useThemeStore } from '@opencloud-eu/web-pkg'
+import { useAppNavigation, useRouter, type FileContext } from '@opencloud-eu/web-pkg'
 import '@opencloud-eu/extension-sdk/tailwind.css'
 import 'pdfjs-dist/web/pdf_viewer.css'
 import '../styles/pdfjs-integration.css'
 import '../styles/print.css'
-import { usePdfViewer } from '../composables/usePdfViewer'
+import { pdfEventBusKey, usePdfViewer } from '../composables/usePdfViewer'
 import { usePdfDocument } from '../composables/usePdfDocument'
 import { usePdfSaving } from '../composables/usePdfSaving'
 import { usePdfPageOperations } from '../composables/usePdfPageOperations'
@@ -159,20 +151,20 @@ import PdfLoadStatus from './PdfLoadStatus.vue'
 import PdfCommentsDrop from './PdfCommentsDrop.vue'
 import PdfCommentPopup from './PdfCommentPopup.vue'
 
-const { resource, currentContent, isReadOnly, isDirty } = defineProps<{
+const { resource, currentContent, isReadOnly, isDirty, currentFileContext } = defineProps<{
   resource: Resource
   currentContent: ArrayBuffer
   isReadOnly: boolean
   isDirty: boolean
+  currentFileContext: FileContext
 }>()
 
 const emit = defineEmits<{
   'update:currentContent': [content: ArrayBuffer]
   save: []
+  /** AppWrapper calls it after each of its saves. */
+  'register:onSaveCallback': [callback: () => Promise<void>]
 }>()
-
-const themeStore = useThemeStore()
-const isDarkTheme = computed(() => !!themeStore.currentTheme?.isDark)
 
 const studioRoot = useTemplateRef<HTMLDivElement>('studioRoot')
 const viewerContainer = useTemplateRef<HTMLDivElement>('viewerContainer')
@@ -212,10 +204,12 @@ const {
   editPopupComment,
   deletePopupComment
 } = usePdfComments({
+  pdfDocument: () => unref(pdfDocument),
   isReadOnly: () => isReadOnly,
   onChange: () => scheduleChangeCheck(),
   getUiManager: () => unref(uiManager),
   getAnnotationComment: (pageIndex, id) => getAnnotationComment(pageIndex, id),
+  getCommentButton: (pageIndex, id) => getCommentButton(pageIndex, id),
   goToXY: (pageNumber, x, y) => linkService.goToXY(pageNumber, x, y, { center: 'both' })
 })
 
@@ -260,7 +254,8 @@ const {
   updateEditorSetting,
   undo,
   redo,
-  getAnnotationComment
+  getAnnotationComment,
+  getCommentButton
 } = usePdfViewer({
   container: viewerContainer,
   viewerAlert: useTemplateRef<HTMLDivElement>('viewerAlert'),
@@ -270,14 +265,27 @@ const {
   commentManager
 })
 
-const { pdfDocument, documentKey, isLoading, loadError, isPasswordCancelled, load, getPassword } =
-  usePdfDocument({
-    onLoaded(doc, options) {
-      resetChangeTracking()
-      setDocument(doc, options)
-      applyInitialView(doc)
+// Back to where the file was opened from, like AppWrapper's close button.
+const { closeApp } = useAppNavigation({
+  router: useRouter(),
+  currentFileContext: toRef(() => currentFileContext)
+})
+
+const { pdfDocument, documentKey, isLoading, loadError, load, getPassword } = usePdfDocument({
+  onLoaded(doc, options) {
+    resetChangeTracking()
+    setDocument(doc, options)
+    applyInitialView(doc)
+  },
+  // Without the password there is nothing to show. A document rebuilt from the unlocked one
+  // (e.g. after deleting a page) is encrypted the same way, so PDF.js has no reason to ask again;
+  // if it does, the unlocked one stays.
+  onPasswordCancelled: () => {
+    if (!unref(pdfDocument)) {
+      closeApp()
     }
-  })
+  }
+})
 
 // Once when the file is opened, not after page operations, like the PDF.js viewer.
 let hasInitialView = false
@@ -303,6 +311,7 @@ const { attachments, openAttachment } = usePdfAttachments({
   downloadManager
 })
 
+provide(pdfEventBusKey, eventBus)
 provide(pdfLayersKey, usePdfLayers({ viewer, eventBus }))
 const { pageLabels } = usePdfPageLabels({ viewer, eventBus })
 
@@ -319,6 +328,7 @@ const {
   scheduleCheck: scheduleChangeCheck,
   flush,
   reset: resetChangeTracking,
+  afterSave,
   save
 } = usePdfSaving({
   pdfDocument,
@@ -328,7 +338,6 @@ const {
   isReadOnly: () => isReadOnly,
   isDirty: () => isDirty,
   content: () => currentContent,
-  etag: () => resource.etag,
   editing: {
     editorMode,
     editingStates,
@@ -341,7 +350,10 @@ const {
   onChange: (content) => emit('update:currentContent', content),
   onSave: () => emit('save')
 })
+emit('register:onSaveCallback', afterSave)
 
+// OcDrop looks its toggle up once when mounted, so the comments drop mounts together with the
+// toolbar the toggle is in.
 // Scrolling far away removes the layers of pages, including an open comment.
 eventBus.on('updateviewarea', hidePopupOfRemovedPage)
 

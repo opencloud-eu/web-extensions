@@ -411,6 +411,9 @@ importers:
 
   packages/web-app-pdf-studio:
     dependencies:
+      '@vueuse/core':
+        specifier: ^14.0.0
+        version: 14.4.0(vue@3.5.43(typescript@6.0.3))
       pdfjs-dist:
         specifier: ^6.4.299
         version: 6.4.299
@@ -424,9 +427,6 @@ importers:
       '@opencloud-eu/web-pkg':
         specifier: ^8.1.0
         version: 8.1.0(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extension-list@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.43)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.12)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.3(@types/node@24.19.1)(jiti@2.7.0)(sass-embedded@1.105.1)(sass@1.105.1)(terser@5.36.0))(vue@3.5.43(typescript@6.0.3))
-      '@vueuse/core':
-        specifier: ^14.0.0
-        version: 14.4.0(vue@3.5.43(typescript@6.0.3))
       vite-plugin-static-copy:
         specifier: ^4.0.0
         version: 4.1.1(vite@8.3.3(@types/node@24.19.1)(jiti@2.7.0)(sass-embedded@1.105.1)(sass@1.105.1)(terser@5.36.0))

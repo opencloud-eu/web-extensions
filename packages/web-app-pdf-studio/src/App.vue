@@ -5,8 +5,10 @@
     :current-content="currentContent"
     :is-read-only="isReadOnly"
     :is-dirty="isDirty"
+    :current-file-context="currentFileContext"
     @update:current-content="emit('update:currentContent', $event)"
     @save="emit('save')"
+    @register:on-save-callback="emit('register:onSaveCallback', $event)"
   />
 </template>
 
@@ -26,16 +28,21 @@ const PdfStudio = defineAsyncComponent({
 
 <script setup lang="ts">
 import type { Resource } from '@opencloud-eu/web-client'
+import type { FileContext } from '@opencloud-eu/web-pkg'
 
-const { resource, currentContent, isReadOnly, isDirty } = defineProps<{
+const { resource, currentContent, isReadOnly, isDirty, currentFileContext } = defineProps<{
   resource: Resource
   currentContent: ArrayBuffer
   isReadOnly: boolean
   isDirty: boolean
+  /** Where the file was opened from, to close the app. */
+  currentFileContext: FileContext
 }>()
 
 const emit = defineEmits<{
   'update:currentContent': [content: ArrayBuffer]
   save: []
+  /** AppWrapper calls it after each of its saves, see usePdfSaving. */
+  'register:onSaveCallback': [callback: () => Promise<void>]
 }>()
 </script>

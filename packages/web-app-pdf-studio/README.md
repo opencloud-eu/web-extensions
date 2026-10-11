@@ -25,7 +25,8 @@ Registers for `.pdf` files next to the built-in PDF viewer, so it is available v
   validation, …) run in PDF.js' sandbox. XFA forms can be filled in as well, but PDF.js can't
   add annotations to them or change their pages.
 - Password-protected PDFs: the password is asked for when opening and kept in memory while the
-  file is open, so the file stays encrypted with it when saving or changing pages.
+  file is open, so the file stays encrypted with it when saving or changing pages. Cancelling the
+  prompt closes the app.
 - Annotations: highlight text, add text, draw, add images from the device or the cloud, and add
   signatures (drawn, typed or from an image, with a description; up to five can be saved in
   the browser for reuse, like in the PDF.js viewer).
@@ -35,17 +36,18 @@ Registers for `.pdf` files next to the built-in PDF viewer, so it is available v
   selected, moved and changed with any tool (or by double-clicking saved ones); PDF.js' own
   toolbar on a selected annotation changes its color, deletes it or (for images) edits the
   image description. The settings of the active tool (color, size, thickness, …) change the
-  selected annotation and are used for new ones.
+  selected annotation, or the annotations created from then on if none is selected.
 - Comments: like in Firefox, comment on selected text or add a comment to a highlight, drawing or
-  image via its toolbar. The comments tool lists all comments of the document. Comments are
-  saved into the PDF. Existing ones (e.g. from Acrobat) can be read; they can be edited and
-  removed where PDF.js saves the change (highlights, drawings, text and images).
+  image via its toolbar. The comments tool lists all comments of the document, with their
+  authors. Comments are saved into the PDF. Existing ones (e.g. from Acrobat, also sticky notes)
+  can be read; they can be edited and removed where PDF.js saves the change (highlights,
+  drawings, text and images).
 - Pages: delete and reorder pages from the sidebar, undo and redo like other changes.
 - Read-only access (e.g. view-only shares or links) shows the document without any editing tools.
 
 Changes are written into the PDF itself and saved via OpenCloud (save button, `Ctrl+S`,
 autosave). The file counts as changed right away, also while drawing or typing, and no longer
-once all changes are undone. The app follows the OpenCloud light and dark theme, pages keep
+once all annotations are undone (form values stay changed, PDF.js keeps them). The app follows the OpenCloud light and dark theme, pages keep
 their original colors. PDF.js' own texts (annotation toolbars, placeholders, labels for screen
 readers) are translated like the rest of the app.
 

@@ -2,7 +2,8 @@ import { mock } from 'vitest-mock-extended'
 import type { PDFDocumentProxy, PDFPageProxy } from 'pdfjs-dist'
 import { getDocumentProperties, getPageSize } from '../../../src/helpers/documentProperties'
 
-vi.mock('pdfjs-dist', () => ({
+vi.mock('pdfjs-dist', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('pdfjs-dist')>()),
   PDFDateString: {
     toDateObject: (value: string) => (value ? new Date(Date.UTC(2024, 2, 1)) : null)
   }

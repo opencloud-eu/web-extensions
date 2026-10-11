@@ -51,7 +51,7 @@ describe('usePdfL10n', () => {
     const l10n = setup()
     const element = createElement('pdfjs-unknown')
     element.textContent = 'English'
-    await l10n.translateOnce(element)
+    await l10n.translate(element)
     expect(element.textContent).toBe('English')
     expect(await l10n.get('pdfjs-unknown')).toBeUndefined()
   })
@@ -59,7 +59,7 @@ describe('usePdfL10n', () => {
   it('formats texts with arguments', async () => {
     const l10n = setup()
     const element = createElement('pdfjs-editor-signature-editor1', { description: 'Jane & Co' })
-    await l10n.translateOnce(element)
+    await l10n.translate(element)
     expect(element.getAttribute('aria-description')).toBe('Signature editor: Jane & Co')
   })
 })

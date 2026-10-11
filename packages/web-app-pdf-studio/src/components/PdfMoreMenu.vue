@@ -20,11 +20,12 @@
       :key="group.id"
       :class="{ 'ext:mt-2 ext:border-t ext:border-role-border ext:pt-2': index > 0 }"
     >
-      <oc-list>
+      <oc-list :aria-label="group.label">
         <pdf-menu-item
           v-for="item in group.items"
           :key="item.id"
-          :class="`pdf-studio-more-${item.id}`"
+          :class="group.optionClass ?? `pdf-studio-more-${item.id}`"
+          :data-mode="item.mode"
           :label="item.label"
           :icon="item.icon"
           :fill-type="item.fillType"
@@ -33,14 +34,6 @@
           @click="item.handler"
         />
       </oc-list>
-    </div>
-    <div class="ext:mt-2 ext:border-t ext:border-role-border ext:pt-2">
-      <pdf-view-options
-        :scroll-mode="scrollMode"
-        :spread-mode="spreadMode"
-        @set-scroll-mode="emit('setScrollMode', $event)"
-        @set-spread-mode="emit('setSpreadMode', $event)"
-      />
     </div>
     <oc-list class="ext:mt-2 ext:border-t ext:border-role-border ext:pt-2">
       <pdf-menu-item
@@ -57,9 +50,9 @@
 import { computed, unref, useTemplateRef } from 'vue'
 import { useGettext } from 'vue3-gettext'
 import { useIsMobile } from '@opencloud-eu/design-system/composables'
+import { ScrollMode, SpreadMode } from 'pdfjs-dist/web/pdf_viewer.mjs'
 import PdfToolbarButton from './PdfToolbarButton.vue'
 import PdfMenuItem from './PdfMenuItem.vue'
-import PdfViewOptions from './PdfViewOptions.vue'
 
 const {
   scrollMode,
@@ -125,14 +118,40 @@ type MenuItem = {
   isActive?: boolean
   isDisabled?: boolean
   handler: () => void
+  /** Of a view option, e.g. the scroll mode. */
+  mode?: number
+}
+
+type MenuGroup = {
+  id: string
+  items: MenuItem[]
+  label?: string
+  /** The class of view options instead of the one from the id, e.g. for tests. */
+  optionClass?: string
 }
 
 function onlyIf(condition: boolean, ...items: MenuItem[]) {
   return condition ? items : []
 }
 
-// Like the secondary toolbar of the PDF.js viewer.
-const groups = computed(() =>
+/** A view option, e.g. a scroll mode: the current one is marked, choosing one sets it. */
+function viewOptions(
+  options: { mode: number; icon: string; label: string }[],
+  current: number,
+  select: (mode: number) => void
+): MenuItem[] {
+  return options.map(({ mode, icon, label }) => ({
+    id: String(mode),
+    mode,
+    icon,
+    label,
+    isActive: mode === current,
+    handler: () => select(mode)
+  }))
+}
+
+// Like the secondary toolbar of the PDF.js viewer, with the same choices and names.
+const groups = computed<MenuGroup[]>(() =>
   [
     {
       id: 'output',
@@ -257,6 +276,43 @@ const groups = computed(() =>
           }
         )
       ]
+    },
+    {
+      id: 'scroll',
+      label: $gettext('Scrolling'),
+      optionClass: 'pdf-studio-scroll-option',
+      items: viewOptions(
+        [
+          { mode: ScrollMode.PAGE, icon: 'file-paper', label: $gettext('Page scrolling') },
+          {
+            mode: ScrollMode.VERTICAL,
+            icon: 'arrow-up-down',
+            label: $gettext('Vertical scrolling')
+          },
+          {
+            mode: ScrollMode.HORIZONTAL,
+            icon: 'arrow-left-right',
+            label: $gettext('Horizontal scrolling')
+          },
+          { mode: ScrollMode.WRAPPED, icon: 'layout-grid', label: $gettext('Wrapped scrolling') }
+        ],
+        scrollMode,
+        (mode) => emit('setScrollMode', mode)
+      )
+    },
+    {
+      id: 'spread',
+      label: $gettext('Pages side by side'),
+      optionClass: 'pdf-studio-spread-option',
+      items: viewOptions(
+        [
+          { mode: SpreadMode.NONE, icon: 'file', label: $gettext('No spreads') },
+          { mode: SpreadMode.ODD, icon: 'book-open', label: $gettext('Odd spreads') },
+          { mode: SpreadMode.EVEN, icon: 'pages', label: $gettext('Even spreads') }
+        ],
+        spreadMode,
+        (mode) => emit('setSpreadMode', mode)
+      )
     }
   ].filter(({ items }) => items.length)
 )

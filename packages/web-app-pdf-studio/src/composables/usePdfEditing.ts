@@ -119,9 +119,7 @@ export function usePdfEditing({
   }
 
   function leaveTool() {
-    if (unref(isToolActive)) {
-      setEditorMode(unref(editorMode))
-    }
+    setAnnotationEditorMode({ mode: AnnotationEditorType.NONE })
   }
 
   /**
@@ -131,10 +129,6 @@ export function usePdfEditing({
    */
   function handleEscape(event: KeyboardEvent) {
     event.stopPropagation()
-    if (event.defaultPrevented) {
-      // Already handled, e.g. by the find bar closing itself.
-      return
-    }
     // Like in the PDF.js viewer, the tool stays active.
     unref(uiManager)?.keydown(event)
   }
@@ -145,9 +139,6 @@ export function usePdfEditing({
    * now on. Switches to the tool first, the selection of another tool would get the setting.
    */
   async function updateEditorSetting(mode: number, type: number, value: unknown) {
-    if (!unref(uiManager)) {
-      return
-    }
     await ensureEditorMode(mode)
     if (unref(editorMode) !== mode) {
       return
@@ -229,9 +220,12 @@ export function usePdfEditing({
 
   // Typed into since it was committed, PDF.js commits unchanged fields neither.
   let typedField: EventTarget | undefined
+  // Committed for saving while it keeps the focus, see filterSandboxUpdate().
+  let committedField: { id: string; element: EventTarget } | undefined
   useEventListener(document, 'input', (event: Event) => (typedField = event.target), {
     capture: true
   })
+  useEventListener(document, 'focusout', () => (committedField = undefined), { capture: true })
 
   /**
    * PDF.js lets the form scripts commit (format, calculate) a text field once it loses the focus,
@@ -248,6 +242,7 @@ export function usePdfEditing({
       return
     }
     typedField = undefined
+    committedField = { id: field.dataset.elementId, element: field }
     // The same event as PDF.js sends on blur.
     eventBus.dispatch('dispatcheventinsandbox', {
       source: null,
@@ -261,6 +256,26 @@ export function usePdfEditing({
         selEnd: field.selectionEnd
       }
     })
+  }
+
+  /**
+   * The scripts answer a commit with the value of the field, which PDF.js writes into it even
+   * while it has the focus. Typed into since it was committed for saving, what was typed would
+   * be lost, so the value is left out then: the field has it, and the scripts get it with the
+   * next commit.
+   */
+  function filterSandboxUpdate<T extends { id?: string; value?: unknown }>(detail: T): T {
+    if (
+      committedField &&
+      detail.id === committedField.id &&
+      typedField === committedField.element &&
+      'value' in detail
+    ) {
+      const filtered = { ...detail }
+      delete filtered.value
+      return filtered
+    }
+    return detail
   }
 
   function undo() {
@@ -288,6 +303,7 @@ export function usePdfEditing({
     hasUnfinishedEdits,
     finishDrawings,
     commitEditing,
+    filterSandboxUpdate,
     updateEditorSetting,
     undo,
     redo

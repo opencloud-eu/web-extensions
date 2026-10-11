@@ -13,11 +13,16 @@
     display: block;
   }
 
-  /* Pure XFA forms, same as #printContainer in the PDF.js viewer */
+  /*
+   * Pure XFA forms, like #printContainer in the PDF.js viewer, whose html and body are 100%
+   * high while printing. Here they aren't, so each page takes the paper (@page, see
+   * usePdfPrint.ts) by itself, otherwise they'd all have no height and print onto one sheet.
+   */
   #pdf-studio-print-container > .xfaPrintedPage {
     position: relative;
     width: 100%;
-    height: 100%;
+    height: 100vh;
+    overflow: hidden;
     break-after: page;
     break-inside: avoid;
   }

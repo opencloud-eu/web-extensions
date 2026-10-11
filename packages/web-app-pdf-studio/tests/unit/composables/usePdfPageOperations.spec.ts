@@ -1,4 +1,5 @@
 import { nextTick, ref, shallowRef, unref } from 'vue'
+import type { Mock } from 'vitest'
 import { mock } from 'vitest-mock-extended'
 import type { PDFDocumentProxy } from 'pdfjs-dist'
 import { getComposableWrapper } from '@opencloud-eu/web-test-helpers'
@@ -17,8 +18,9 @@ vi.mock('@opencloud-eu/web-pkg', async (importOriginal) => ({
 
 function setup({
   numPages = 3,
+  pageNumber = 2,
   storageSize = 0
-}: { numPages?: number; storageSize?: number } = {}) {
+}: { numPages?: number; pageNumber?: number; storageSize?: number } = {}) {
   const showErrorMessage = vi.fn()
   vi.mocked(useMessages).mockReturnValue({ showErrorMessage } as never)
   const extractPages = vi.fn().mockResolvedValue(new Uint8Array([7]))
@@ -36,6 +38,8 @@ function setup({
   }
   const onDocumentChanged = vi.fn()
   const beforeChange = vi.fn().mockResolvedValue(undefined)
+  // Changeable, e.g. scrolling while the pending changes are written.
+  const viewed = { pageNumber }
   const content = shallowRef(new Uint8Array([1]).buffer)
   // Loading the new document changes the current content.
   onDocumentChanged.mockImplementation((newContent: ArrayBuffer) => {
@@ -47,7 +51,7 @@ function setup({
       pdfDocument: shallowRef(doc),
       edits,
       getContent: () => unref(content),
-      getPageNumber: () => 2,
+      getPageNumber: () => viewed.pageNumber,
       getPassword: () => 'secret',
       beforeChange,
       onDocumentChanged
@@ -61,7 +65,8 @@ function setup({
     onDocumentChanged,
     showErrorMessage,
     content,
-    edits
+    edits,
+    viewed
   }
 }
 
@@ -83,8 +88,39 @@ describe('usePdfPageOperations', () => {
       const { operations, extractPages, onDocumentChanged } = setup()
       await operations.deletePage(3)
       expect(extractPages).toHaveBeenCalledWith([{ document: null, excludePages: [2] }])
-      // The last page was deleted, so the new last page is shown. The others keep their numbers.
+      // The others keep their numbers.
       expect(onDocumentChanged).toHaveBeenCalledWith(expect.any(ArrayBuffer), 2, [1, 2])
+    })
+
+    it.each([
+      ['stays on the viewed page before the deleted one', 2, 3, 2],
+      ['stays on the viewed page after the deleted one', 2, 1, 1],
+      ['shows the page that takes the place of the deleted one', 2, 2, 2],
+      ['shows the new last page when the viewed last page is deleted', 3, 3, 2]
+    ])('%s', async (_, pageNumber, deleted, expected) => {
+      const { operations, onDocumentChanged } = setup({ pageNumber })
+      await operations.deletePage(deleted)
+      expect(onDocumentChanged).toHaveBeenCalledWith(
+        expect.any(ArrayBuffer),
+        expected,
+        expect.any(Array)
+      )
+    })
+
+    it('takes the page viewed once the pending changes are written', async () => {
+      const { operations, onDocumentChanged, viewed } = setup({ pageNumber: 1 })
+      const done = operations.deletePage(3)
+      // Scrolled to the deleted page in the meantime.
+      viewed.pageNumber = 3
+      await done
+      expect(onDocumentChanged).toHaveBeenCalledWith(expect.any(ArrayBuffer), 2, expect.any(Array))
+    })
+
+    it('focuses the page that takes the place of the deleted one with the keyboard', async () => {
+      const { operations } = setup({ pageNumber: 3 })
+      const done = operations.deletePage(1, true)
+      expect(unref(operations.lastAction)).toEqual({ pageNumber: 1, focusTarget: 'page' })
+      await done
     })
   })
 
@@ -208,9 +244,13 @@ describe('usePdfPageOperations', () => {
     expect(Array.from(new Uint8Array(onDocumentChanged.mock.calls[0][0]))).toEqual([8])
   })
 
-  it('reports failures and unlocks again', async () => {
+  it.each([
+    ['an error', (extractPages: Mock) => extractPages.mockRejectedValueOnce(new Error('broken'))],
+    // PDF.js' worker reports extraction errors as an empty result.
+    ['an empty result', (extractPages: Mock) => extractPages.mockResolvedValueOnce(null)]
+  ])('reports %s of the extraction and unlocks again', async (_, fail) => {
     const { operations, extractPages, onDocumentChanged, showErrorMessage } = setup()
-    extractPages.mockRejectedValueOnce(new Error('broken'))
+    fail(extractPages)
     await operations.deletePage(1)
     expect(showErrorMessage).toHaveBeenCalledWith(
       expect.objectContaining({ title: 'Deleting the page failed' })
@@ -225,15 +265,6 @@ describe('usePdfPageOperations', () => {
     expect(beforeChange.mock.invocationCallOrder[0]).toBeLessThan(
       extractPages.mock.invocationCallOrder[0]
     )
-  })
-
-  // PDF.js' worker reports extraction errors as an empty result.
-  it('reports an empty extraction result as failure', async () => {
-    const { operations, extractPages, onDocumentChanged, showErrorMessage } = setup()
-    extractPages.mockResolvedValueOnce(null)
-    await operations.deletePage(1)
-    expect(showErrorMessage).toHaveBeenCalled()
-    expect(onDocumentChanged).not.toHaveBeenCalled()
   })
 
   it('runs one operation at a time', async () => {

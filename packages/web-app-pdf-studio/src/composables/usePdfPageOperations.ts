@@ -63,7 +63,8 @@ type DocumentState = {
   previousPageNumbers: PreviousPageNumbers
 }
 
-// Each step keeps a whole file, so only as many as fit into this (undo and redo together).
+// Each step keeps a whole file, so only as many undo steps as fit into this. The redo steps come
+// from undone ones, so there are at most as many of them.
 const MAX_HISTORY_BYTES = 200_000_000
 
 /** What to focus on the page after a page action, see PdfThumbnail. */
@@ -131,7 +132,8 @@ export function usePdfPageOperations({
 
   async function run(
     pageInfo: PageInfo,
-    nextPageNumber: number,
+    /** The page to show, given the page viewed once the pending changes are written. */
+    getNextPageNumber: (viewedPageNumber: number) => number,
     previousPageNumbers: PreviousPageNumbers,
     errorTitle: string
   ) {
@@ -148,7 +150,11 @@ export function usePdfPageOperations({
         throw new Error('PDF.js could not extract the pages')
       }
       // A standalone copy, WebDAV expects a plain ArrayBuffer.
-      await onDocumentChanged(bytes.slice().buffer, nextPageNumber, previousPageNumbers)
+      await onDocumentChanged(
+        bytes.slice().buffer,
+        getNextPageNumber(before.pageNumber),
+        previousPageNumbers
+      )
       const previous = invertPageNumbers(previousPageNumbers, doc.numPages)
       undoStack.value = [...unref(undoStack), { ...before, previousPageNumbers: previous }]
       redoStack.value = []
@@ -169,15 +175,25 @@ export function usePdfPageOperations({
   // the moved page shows where it went.
   function deletePage(pageNumber: number, isKeyboard = false) {
     const pagesCount = unref(pdfDocument)?.numPages ?? 0
-    // Not the delete button of the next page, that would be a delete too quick.
-    const nextPageNumber = Math.min(pageNumber, pagesCount - 1)
-    lastAction.value = isKeyboard ? { pageNumber: nextPageNumber, focusTarget: 'page' } : undefined
+    // The page that takes the place of the deleted one. Not the delete button of the next page,
+    // that would be a delete too quick.
+    const replacingPageNumber = Math.min(pageNumber, pagesCount - 1)
+    lastAction.value = isKeyboard
+      ? { pageNumber: replacingPageNumber, focusTarget: 'page' }
+      : undefined
+    // The view stays where it is, e.g. when deleting another page from the sidebar.
+    function getNextPageNumber(viewedPageNumber: number) {
+      if (viewedPageNumber === pageNumber) {
+        return replacingPageNumber
+      }
+      return viewedPageNumber - (viewedPageNumber > pageNumber ? 1 : 0)
+    }
     const previousPageNumbers = Array.from({ length: pagesCount - 1 }, (_, index) =>
       index < pageNumber - 1 ? index + 1 : index + 2
     )
     return run(
       { document: null, excludePages: [pageNumber - 1] },
-      nextPageNumber,
+      getNextPageNumber,
       previousPageNumbers,
       $gettext('Deleting the page failed')
     )
@@ -195,7 +211,7 @@ export function usePdfPageOperations({
     })
     return run(
       { document: null, pageIndices },
-      targetPageNumber,
+      () => targetPageNumber,
       previousPageNumbers,
       $gettext('Moving the page failed')
     )

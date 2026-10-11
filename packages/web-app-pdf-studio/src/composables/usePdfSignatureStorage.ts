@@ -1,5 +1,5 @@
-import { computed, nextTick, shallowRef, unref, watch } from 'vue'
-import { useLocalStorage } from '@vueuse/core'
+import { computed, nextTick, unref } from 'vue'
+import { computedAsync, useLocalStorage } from '@vueuse/core'
 import { getUuid, SignatureExtractor } from 'pdfjs-dist'
 
 // Same as the PDF.js viewer: in the browser's local storage, up to five.
@@ -47,37 +47,30 @@ export function usePdfSignatureStorage() {
       }
     }
   )
-  const signatures = shallowRef<SavedSignature[]>([])
-
-  watch(
-    stored,
-    async (entries) => {
-      const list = await Promise.all(
-        // Other apps of the same origin may have stored anything there.
-        Object.entries(entries ?? {}).map(async ([uuid, entry]) => {
-          if (typeof entry?.signatureData !== 'string') {
-            return null
-          }
-          const { description, signatureData } = entry
-          const data = await SignatureExtractor.decompressSignature(signatureData)
-          if (!data) {
-            return null
-          }
-          const { outlines, areContours, thickness, width, height } = data
-          return {
-            uuid,
-            description,
-            areContours,
-            lines: { curves: outlines.map((points) => ({ points })), thickness, width, height }
-          }
-        })
-      )
-      if (entries === unref(stored)) {
-        signatures.value = list.filter(Boolean)
-      }
-    },
-    { immediate: true }
-  )
+  // Decoded for the previews, an outdated decoding is dropped.
+  const signatures = computedAsync<SavedSignature[]>(async () => {
+    const list = await Promise.all(
+      // Other apps of the same origin may have stored anything there.
+      Object.entries(unref(stored) ?? {}).map(async ([uuid, entry]) => {
+        if (typeof entry?.signatureData !== 'string') {
+          return null
+        }
+        const { description, signatureData } = entry
+        const data = await SignatureExtractor.decompressSignature(signatureData)
+        if (!data) {
+          return null
+        }
+        const { outlines, areContours, thickness, width, height } = data
+        return {
+          uuid,
+          description,
+          areContours,
+          lines: { curves: outlines.map((points) => ({ points })), thickness, width, height }
+        }
+      })
+    )
+    return list.filter(Boolean)
+  }, [])
 
   const isFull = computed(() => unref(signatures).length >= MAX_SIGNATURES)
 

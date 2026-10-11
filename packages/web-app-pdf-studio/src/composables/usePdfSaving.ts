@@ -19,7 +19,6 @@ export function usePdfSaving({
   isReadOnly,
   isDirty,
   content,
-  etag,
   editing,
   scripting,
   onChange,
@@ -33,8 +32,6 @@ export function usePdfSaving({
   isReadOnly: MaybeRefOrGetter<boolean>
   isDirty: MaybeRefOrGetter<boolean>
   content: MaybeRefOrGetter<ArrayBuffer>
-  /** Changes with every save. */
-  etag: MaybeRefOrGetter<string | undefined>
   editing: {
     editorMode: MaybeRefOrGetter<number>
     editingStates: MaybeRefOrGetter<EditingStates>
@@ -75,39 +72,39 @@ export function usePdfSaving({
   // Form scripts update fields asynchronously, e.g. sums.
   eventBus.on('updatefromsandbox', tracking.scheduleCheck)
 
-  // AppWrapper's own saves (its button, autosave) may take the copy that marked the file as
-  // changed instead of the content that follows it.
-  watch(
-    () => toValue(etag),
-    async () => {
-      if (!tracking.takeChangeMarker()) {
-        await nextTick()
-        if (!toValue(isDirty)) {
-          tracking.markSaved()
-        }
-        return
-      }
-      // Drawings so far get saved too, text being typed stays in the box.
-      editing.finishDrawings()
-      try {
-        await tracking.flush()
-      } catch (e) {
-        // The file stays marked as changed, saving it again would save the same.
-        showSaveError(e as Error)
-        return
-      }
+  /**
+   * After every save of AppWrapper (also its button, autosave, the unsaved changes dialog), to
+   * register with it as its save callback. Its own saves may have taken the copy that marked
+   * the file as changed instead of the content that follows it, which gets saved then.
+   */
+  async function afterSave() {
+    if (!tracking.takeChangeMarker()) {
       await nextTick()
-      if (toValue(isDirty)) {
-        onSave()
-        return
+      if (!toValue(isDirty)) {
+        tracking.markSaved()
       }
-      tracking.markSaved()
-      // Still being typed: the file stays marked as changed, without saving the same again.
-      if (editing.hasUnfinishedEdits()) {
-        tracking.markChanged()
-      }
+      return
     }
-  )
+    // Drawings so far get saved too, text being typed stays in the box.
+    editing.finishDrawings()
+    try {
+      await tracking.flush()
+    } catch (e) {
+      // The file stays marked as changed, saving it again would save the same.
+      showSaveError(e as Error)
+      return
+    }
+    await nextTick()
+    if (toValue(isDirty)) {
+      onSave()
+      return
+    }
+    tracking.markSaved()
+    // Still being typed: the file stays marked as changed, without saving the same again.
+    if (editing.hasUnfinishedEdits()) {
+      tracking.markChanged()
+    }
+  }
 
   async function save({ goOnTyping = false } = {}) {
     // Text being typed or a drawing is only part of the document once finished.
@@ -155,6 +152,7 @@ export function usePdfSaving({
     scheduleCheck: tracking.scheduleCheck,
     flush: tracking.flush,
     reset: tracking.reset,
+    afterSave,
     save
   }
 }

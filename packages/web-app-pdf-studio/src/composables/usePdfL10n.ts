@@ -5,8 +5,6 @@ import { formatDateFromJSDate } from '@opencloud-eu/web-pkg'
 type Message = { value?: string; attributes?: Record<string, string> }
 type Args = Record<string, string | number>
 
-const RTL_LANGUAGES = ['ar', 'fa', 'he', 'ps', 'ur']
-
 /**
  * PDF.js' texts (toolbars of annotations, placeholders, labels for screen readers) in the
  * translations of the app. PDF.js marks its elements with `data-l10n-id` and
@@ -105,14 +103,11 @@ export function usePdfL10n() {
     if (!message) {
       return
     }
-    // Only on changes, setting the text is a mutation the observer would see again.
-    if (message.value !== undefined && element.textContent !== message.value) {
+    if (message.value !== undefined) {
       element.textContent = message.value
     }
     for (const [name, value] of Object.entries(message.attributes ?? {})) {
-      if (element.getAttribute(name) !== value) {
-        element.setAttribute(name, value)
-      }
+      element.setAttribute(name, value)
     }
   }
 
@@ -150,24 +145,15 @@ export function usePdfL10n() {
     }
   }
 
-  // Same interface as PDF.js' L10n.
+  // What PDF.js 6.4 calls of its L10n interface (`get` only for the alt text guessing).
   const l10n = {
-    getLanguage: () => gettext.current,
-    getDirection: () => (RTL_LANGUAGES.includes(gettext.current.split('_')[0]) ? 'rtl' : 'ltr'),
-    get(ids: string | string[], args: Args | null = null) {
-      if (Array.isArray(ids)) {
-        return Promise.resolve(ids.map((id) => getMessage(id)?.value))
-      }
-      return Promise.resolve(getMessage(ids, args ?? {})?.value)
+    get(id: string, args: Args | null = null) {
+      return Promise.resolve(getMessage(id, args ?? {})?.value)
     },
     translate(element: Element) {
       roots.add(element)
       translateTree(element)
       observer.observe(element, observerOptions)
-      return Promise.resolve()
-    },
-    translateOnce(element: Element) {
-      translateElement(element)
       return Promise.resolve()
     },
     // PDF.js pauses while adding big layers without texts of its own, e.g. the text layer.

@@ -191,14 +191,6 @@ describe('usePdfChangeTracking', () => {
     expect(onChange).not.toHaveBeenCalled()
   })
 
-  it('does nothing as long as the storage is unchanged', async () => {
-    const { doc, mocks } = createDocument()
-    const { tracking, onChange } = setup(doc)
-    expect(await tracking.flush()).toBe(false)
-    expect(mocks.saveDocument).not.toHaveBeenCalled()
-    expect(onChange).not.toHaveBeenCalled()
-  })
-
   it('emits the saved document once the storage changed', async () => {
     const { doc, state } = createDocument()
     const { tracking, onChange } = setup(doc)
@@ -232,6 +224,41 @@ describe('usePdfChangeTracking', () => {
     await tracking.flush()
     expect(onChange.mock.calls[4][0]).toBe(content)
     expect(mocks.saveDocument).toHaveBeenCalledTimes(3)
+  })
+
+  it('takes the copy back that marked a change undone before it was written', async () => {
+    vi.useFakeTimers()
+    const { doc, state } = createDocument()
+    const { tracking, onChange, content } = setup(doc)
+    state.hash = 'a'
+    tracking.scheduleCheck()
+    expect(onChange).toHaveBeenCalledTimes(1)
+    // Undone before the check, e.g. with a quick undo.
+    state.hash = ''
+    await vi.runAllTimersAsync()
+    expect(onChange).toHaveBeenCalledTimes(2)
+    expect(onChange.mock.calls[1][0]).toBe(content)
+    // The same back to a written change, which stays unsaved.
+    state.hash = 'a'
+    await tracking.flush()
+    const written = onChange.mock.calls[2][0]
+    state.hash = 'b'
+    tracking.scheduleCheck()
+    state.hash = 'a'
+    await vi.runAllTimersAsync()
+    expect(onChange).toHaveBeenCalledTimes(5)
+    expect(onChange.mock.calls[4][0]).toBe(written)
+  })
+
+  it('keeps the copy that marks an unfinished edit', async () => {
+    vi.useFakeTimers()
+    const { doc } = createDocument()
+    const { tracking, onChange, state } = setup(doc)
+    state.hasUnfinishedEdits = true
+    tracking.markChanged()
+    tracking.scheduleCheck()
+    await vi.runAllTimersAsync()
+    expect(onChange).toHaveBeenCalledTimes(1)
   })
 
   it('emits the original bytes when all annotations were removed again', async () => {
@@ -355,10 +382,11 @@ describe('usePdfChangeTracking', () => {
   )
 
   it('does not count what form scripts did when opening the document', async () => {
-    const { doc, state } = createDocument()
+    const { doc, state, mocks } = createDocument()
     state.hash = 'calculated-on-open'
     const { tracking, onChange } = setup(doc)
     expect(await tracking.flush()).toBe(false)
+    expect(mocks.saveDocument).not.toHaveBeenCalled()
     state.hash = 'edited'
     expect(await tracking.flush()).toBe(true)
     expect(onChange).toHaveBeenCalledTimes(1)

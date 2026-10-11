@@ -19,11 +19,11 @@
             v-oc-tooltip="option.label"
             appearance="raw"
             no-hover
-            class="pdf-studio-swatch ext:size-7 ext:rounded-full! ext:border-2"
+            class="pdf-studio-swatch ext:size-7 ext:rounded-full! ext:border-2 ext:forced-colors:[forced-color-adjust:none]"
             :class="
               isSelected(setting, option.value)
-                ? 'ext:border-role-on-surface'
-                : 'ext:border-role-outline'
+                ? 'ext:border-role-on-surface ext:forced-colors:border-[CanvasText] ext:forced-colors:outline-2 ext:forced-colors:outline-offset-2 ext:forced-colors:outline-[Highlight]'
+                : 'ext:border-role-outline ext:forced-colors:border-[GrayText]'
             "
             :style="{ backgroundColor: option.value }"
             :aria-label="option.label"

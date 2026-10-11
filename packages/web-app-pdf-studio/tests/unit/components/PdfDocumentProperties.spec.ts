@@ -4,15 +4,25 @@ import type { Modal } from '@opencloud-eu/web-pkg'
 import { defaultPlugins, mount } from '@opencloud-eu/web-test-helpers'
 import PdfDocumentProperties from '../../../src/components/PdfDocumentProperties.vue'
 
-function rows(properties: object, fileSize?: number) {
-  const wrapper = mount(PdfDocumentProperties, {
+type Props = InstanceType<typeof PdfDocumentProperties>['$props']
+
+function createWrapper(props: Partial<Props> = {}) {
+  return mount(PdfDocumentProperties, {
     props: {
       modal: mock<Modal>(),
-      fileName: 'form.pdf',
-      fileSize,
-      properties: { pageCount: 2, isLinearized: false, ...properties }
+      fileName: 'a.pdf',
+      properties: { pageCount: 1, isLinearized: false },
+      ...props
     },
-    global: { plugins: [...defaultPlugins()] }
+    global: { plugins: [...defaultPlugins()], stubs: { 'oc-icon': true } }
+  })
+}
+
+function rows(properties: Partial<Props['properties']>, fileSize?: number) {
+  const wrapper = createWrapper({
+    fileName: 'form.pdf',
+    fileSize,
+    properties: { pageCount: 2, isLinearized: false, ...properties }
   })
   const labels = wrapper.findAll('dt').map((dt) => dt.text())
   const values = wrapper.findAll('dd').map((dd) => dd.text())
@@ -53,14 +63,7 @@ describe('PdfDocumentProperties', () => {
   })
 
   it('groups the fields like the PDF.js viewer', () => {
-    const wrapper = mount(PdfDocumentProperties, {
-      props: {
-        modal: mock<Modal>(),
-        fileName: 'a.pdf',
-        properties: { pageCount: 1, isLinearized: false }
-      },
-      global: { plugins: [...defaultPlugins()] }
-    })
+    const wrapper = createWrapper()
     expect(wrapper.findAll('.oc-section-title').map((title) => title.text())).toEqual([
       'File',
       'Description',
@@ -69,17 +72,12 @@ describe('PdfDocumentProperties', () => {
   })
 
   it('shows the numbers of the page size in the language of the UI', async () => {
-    const wrapper = mount(PdfDocumentProperties, {
-      props: {
-        modal: mock<Modal>(),
-        fileName: 'a.pdf',
-        properties: {
-          pageCount: 1,
-          isLinearized: false,
-          pageSize: { width: 215.9, height: 279.4, unit: 'mm', isPortrait: true }
-        }
-      },
-      global: { plugins: [...defaultPlugins()] }
+    const wrapper = createWrapper({
+      properties: {
+        pageCount: 1,
+        isLinearized: false,
+        pageSize: { width: 215.9, height: 279.4, unit: 'mm', isPortrait: true }
+      }
     })
     wrapper.vm.$language.current = 'de'
     await nextTick()

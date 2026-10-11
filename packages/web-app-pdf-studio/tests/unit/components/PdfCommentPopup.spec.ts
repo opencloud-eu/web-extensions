@@ -3,17 +3,18 @@ import { defaultPlugins, mount } from '@opencloud-eu/web-test-helpers'
 import PdfCommentPopup from '../../../src/components/PdfCommentPopup.vue'
 import type { CommentPopup } from '../../../src/composables/usePdfComments'
 
-vi.mock('@opencloud-eu/web-pkg', () => ({
-  formatDateFromJSDate: () => 'January 1, 2026'
-}))
-vi.mock('pdfjs-dist', () => ({
-  PDFDateString: { toDateObject: () => new Date(2026, 0, 1) },
+vi.mock('pdfjs-dist', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('pdfjs-dist')>()),
   renderRichText: ({ html }: { html: string }, element: HTMLElement) => {
     element.textContent = html
   }
 }))
 
-function createWrapper({ isSelected = true, isEditable = true } = {}) {
+function createWrapper({
+  isSelected = true,
+  isEditable = true,
+  titleObj = undefined
+}: { isSelected?: boolean; isEditable?: boolean; titleObj?: { str: string; dir?: string } } = {}) {
   const parent = document.createElement('div')
   parent.className = 'page'
   const button = document.createElement('button')
@@ -32,7 +33,15 @@ function createWrapper({ isSelected = true, isEditable = true } = {}) {
       editComment: vi.fn(),
       focusCommentButton: vi.fn()
     },
-    data: { id: 'a', pageIndex: 0, rect: [], color: [255, 0, 0], contentsObj: { str: 'Hi there' } },
+    data: {
+      id: 'a',
+      pageIndex: 0,
+      rect: [],
+      color: [255, 0, 0],
+      contentsObj: { str: 'Hi there' },
+      modificationDate: 'D:20260101',
+      titleObj
+    },
     isSelected,
     isEditable
   } as unknown as CommentPopup
@@ -53,13 +62,21 @@ describe('PdfCommentPopup', () => {
     const { parent } = createWrapper()
     await flushPromises()
     const popup = parent.querySelector('.pdf-studio-comment-popup') as HTMLElement
-    expect(popup.textContent).toContain('January 1, 2026')
+    expect(popup.textContent).toMatch(/Jan 1, 2026, \d{1,2}:\d{2}/)
     expect(popup.textContent).toContain('Hi there')
     // Moved left of the button, there is no room on the right of the page.
     expect(parseFloat(popup.style.left)).toBeLessThan(90)
     expect(
       (popup.querySelector('[style*="background-color"]') as HTMLElement).style.backgroundColor
     ).toBe('rgb(255, 0, 0)')
+  })
+
+  it('shows the author of saved annotations', async () => {
+    const { parent } = createWrapper({ titleObj: { str: 'Jane Doe', dir: 'ltr' } })
+    await flushPromises()
+    const author = parent.querySelector('.pdf-studio-comment-author') as HTMLElement
+    expect(author.textContent).toBe('Jane Doe')
+    expect(author.dir).toBe('ltr')
   })
 
   it.each([

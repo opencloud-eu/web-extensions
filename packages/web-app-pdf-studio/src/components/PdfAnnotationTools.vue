@@ -9,6 +9,7 @@
         :is-active="editorMode === tool.mode"
         :disabled="disabled"
         padding-size="small"
+        drop-width-class="ext:w-80"
         @select="emit('selectTool', tool.mode)"
       >
         <pdf-saved-signatures

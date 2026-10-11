@@ -3,6 +3,7 @@ import { flushPromises } from '@vue/test-utils'
 import { mock } from 'vitest-mock-extended'
 import { useIntersectionObserver } from '@vueuse/core'
 import type { PageViewport, PDFDocumentProxy, PDFPageProxy, RenderTask } from 'pdfjs-dist'
+import type { EventBus } from 'pdfjs-dist/web/pdf_viewer.mjs'
 import { getComposableWrapper } from '@opencloud-eu/web-test-helpers'
 import { usePdfThumbnailImage } from '../../../src/composables/usePdfThumbnailImage'
 import { usePdfThumbnailCache } from '../../../src/composables/usePdfThumbnailCache'
@@ -14,7 +15,8 @@ vi.mock('@vueuse/core', async (importOriginal) => ({
 
 function setup({
   isRendered = true,
-  cache = undefined as ReturnType<typeof usePdfThumbnailCache> | undefined
+  cache = undefined as ReturnType<typeof usePdfThumbnailCache> | undefined,
+  eventBus = undefined as { dispatch: ReturnType<typeof vi.fn<EventBus['dispatch']>> } | undefined
 } = {}) {
   HTMLCanvasElement.prototype.toBlob = (callback: BlobCallback) => callback(new Blob(['png']))
   const renderTasks: RenderTask[] = []
@@ -41,7 +43,8 @@ function setup({
       pdfDocument,
       pageNumber: 2,
       rotation,
-      cache
+      cache,
+      eventBus
     }))
   })
   async function scrollIntoView() {
@@ -49,7 +52,7 @@ function setup({
     callback([{ isIntersecting: true } as IntersectionObserverEntry], undefined)
     await flushPromises()
   }
-  return { imageUrl, getViewport, render, renderTasks, rotation, scrollIntoView, wrapper }
+  return { imageUrl, getViewport, page, render, renderTasks, rotation, scrollIntoView, wrapper }
 }
 
 describe('usePdfThumbnailImage', () => {
@@ -82,6 +85,17 @@ describe('usePdfThumbnailImage', () => {
     expect(imageUrl.value).toBeTruthy()
     await scrollIntoView()
     expect(cache.get(2, 0)).not.toBe(previous)
+  })
+
+  it('tells the viewer about the rendered page, so it can free its memory', async () => {
+    const eventBus = { dispatch: vi.fn<EventBus['dispatch']>() }
+    const { page, scrollIntoView } = setup({ eventBus })
+    await scrollIntoView()
+    expect(eventBus.dispatch).toHaveBeenCalledWith('thumbnailrendered', {
+      source: null,
+      pageNumber: 2,
+      pdfPage: page
+    })
   })
 
   it('cancels the rendering when unmounted', async () => {

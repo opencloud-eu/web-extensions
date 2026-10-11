@@ -34,6 +34,15 @@
         />
       </template>
     </oc-list>
+    <div v-if="activeTool?.settings" :class="sectionClass" class="pdf-studio-tool-picker-settings">
+      <p :class="headingClass" v-text="activeTool.settingsLabel" />
+      <pdf-tool-settings
+        class="ext:px-2"
+        :settings="activeTool.settings"
+        :values="getValues(activeTool.settings)"
+        @update="(type, value) => emit('updateParam', activeTool.mode, type, value)"
+      />
+    </div>
     <div :class="sectionClass">
       <p :class="headingClass" v-text="imageTool.label" />
       <oc-list>
@@ -46,15 +55,6 @@
           @click="addImage(source.id)"
         />
       </oc-list>
-    </div>
-    <div v-if="activeTool?.settings" :class="sectionClass" class="pdf-studio-tool-picker-settings">
-      <p :class="headingClass" v-text="activeTool.settingsLabel" />
-      <pdf-tool-settings
-        class="ext:px-2"
-        :settings="activeTool.settings"
-        :values="getValues(activeTool.settings)"
-        @update="(type, value) => emit('updateParam', activeTool.mode, type, value)"
-      />
     </div>
     <div v-if="savedSignatures.length" :class="sectionClass">
       <p :class="headingClass" v-text="$gettext('Saved signatures')" />

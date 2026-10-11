@@ -1,11 +1,9 @@
 import { ref } from 'vue'
+// pdf_viewer.mjs takes PDF.js from globalThis.pdfjsLib, which pdfjs-dist sets when imported.
+import 'pdfjs-dist'
+import { ScrollMode, SpreadMode } from 'pdfjs-dist/web/pdf_viewer.mjs'
 import { defaultPlugins, mount, ocDropStub } from '@opencloud-eu/web-test-helpers'
 import PdfMoreMenu from '../../../src/components/PdfMoreMenu.vue'
-
-vi.mock('pdfjs-dist/web/pdf_viewer.mjs', () => ({
-  ScrollMode: { VERTICAL: 0, HORIZONTAL: 1, WRAPPED: 2, PAGE: 3 },
-  SpreadMode: { NONE: 0, ODD: 1, EVEN: 2 }
-}))
 
 const screen = { isMobile: ref(false), isTablet: ref(false) }
 vi.mock('@opencloud-eu/design-system/composables', () => ({ useIsMobile: () => screen }))
@@ -15,7 +13,7 @@ function createWrapper(
   { attachTo }: { attachTo?: HTMLElement } = {}
 ) {
   return mount(PdfMoreMenu, {
-    props: { scrollMode: 0, spreadMode: 0, ...props },
+    props: { scrollMode: ScrollMode.VERTICAL, spreadMode: SpreadMode.NONE, ...props },
     attachTo,
     global: {
       plugins: [...defaultPlugins()],
@@ -139,12 +137,30 @@ describe('PdfMoreMenu', () => {
     expect(wrapper.find('.pdf-studio-more-hand-tool').attributes('disabled')).toBeDefined()
   })
 
-  it('offers the page layout', async () => {
-    const wrapper = createWrapper({ spreadMode: 1 })
-    expect(wrapper.find('.pdf-studio-spread-option[aria-current="true"]').text()).toBe(
-      'Odd spreads'
-    )
-    await wrapper.find('.pdf-studio-scroll-option[data-mode="2"]').trigger('click')
-    expect(wrapper.emitted('setScrollMode')).toEqual([[2]])
+  it('offers the scroll and spread modes of the PDF.js viewer, the current ones marked', async () => {
+    const wrapper = createWrapper({ spreadMode: SpreadMode.ODD })
+    const scroll = wrapper.findAll('.pdf-studio-scroll-option')
+    const spread = wrapper.findAll('.pdf-studio-spread-option')
+    expect(scroll.map((option) => option.text())).toEqual([
+      'Page scrolling',
+      'Vertical scrolling',
+      'Horizontal scrolling',
+      'Wrapped scrolling'
+    ])
+    expect(spread.map((option) => option.text())).toEqual([
+      'No spreads',
+      'Odd spreads',
+      'Even spreads'
+    ])
+    expect(
+      wrapper.findAll('[data-mode][aria-current]').map((option) => option.attributes('data-mode'))
+    ).toEqual([`${ScrollMode.VERTICAL}`, `${SpreadMode.ODD}`])
+    expect(wrapper.find('[aria-label="Scrolling"]').exists()).toBe(true)
+    await wrapper
+      .find(`.pdf-studio-scroll-option[data-mode="${ScrollMode.WRAPPED}"]`)
+      .trigger('click')
+    await wrapper.find(`.pdf-studio-spread-option[data-mode="${SpreadMode.NONE}"]`).trigger('click')
+    expect(wrapper.emitted('setScrollMode')).toEqual([[ScrollMode.WRAPPED]])
+    expect(wrapper.emitted('setSpreadMode')).toEqual([[SpreadMode.NONE]])
   })
 })

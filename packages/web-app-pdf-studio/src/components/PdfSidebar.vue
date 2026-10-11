@@ -18,6 +18,7 @@
       <oc-drop
         drop-id="pdf-studio-sidebar-views"
         toggle="#pdf-studio-sidebar-views-toggle"
+        :title="$gettext('Sidebar view')"
         mode="click"
         padding-size="small"
         class="ext:w-auto ext:min-w-48"

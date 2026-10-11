@@ -1,8 +1,9 @@
+import { nextTick } from 'vue'
 import type { PDFDocumentProxy } from 'pdfjs-dist'
 import { getComposableWrapper } from '@opencloud-eu/web-test-helpers'
 import { useModals, type Modal } from '@opencloud-eu/web-pkg'
 import { usePdfDocument } from '../../../src/composables/usePdfDocument'
-import { loadPdfDocument } from '../../../src/helpers/pdfjs'
+import { loadPdfDocument, type PasswordRequest } from '../../../src/helpers/pdfjs'
 
 vi.mock('../../../src/helpers/pdfjs', () => ({ loadPdfDocument: vi.fn() }))
 
@@ -26,18 +27,19 @@ function createTask() {
 
 function setup() {
   const onLoaded = vi.fn()
+  const onPasswordCancelled = vi.fn()
   let document: ReturnType<typeof usePdfDocument>
   let modals: ReturnType<typeof useModals>
   getComposableWrapper(() => {
     modals = useModals()
     vi.mocked(modals.dispatchModal).mockImplementation((modal) => ({ ...modal, id: 'modal' }))
-    document = usePdfDocument({ onLoaded })
+    document = usePdfDocument({ onLoaded, onPasswordCancelled })
   })
   // The last password prompt
   function passwordModal() {
     return vi.mocked(modals.dispatchModal).mock.calls.at(-1)[0] as Modal
   }
-  return { document, onLoaded, passwordModal }
+  return { document, onLoaded, onPasswordCancelled, passwordModal, modals }
 }
 
 describe('usePdfDocument', () => {
@@ -97,18 +99,35 @@ describe('usePdfDocument', () => {
     consoleError.mockRestore()
   })
 
-  it('explains the empty viewer when the password prompt was cancelled', async () => {
+  it('reports a cancelled password prompt, without an error', async () => {
     const { task } = createTask()
     vi.mocked(loadPdfDocument).mockImplementation((_data, { onPasswordRequest }) => {
       onPasswordRequest({ isRetry: false, submit: vi.fn(), cancel: () => task.destroy() })
       return task as never
     })
-    const { document, passwordModal } = setup()
+    const { document, onPasswordCancelled, passwordModal } = setup()
     const load = document.load(new ArrayBuffer(1))
     passwordModal().onCancel()
     await load
-    expect(document.isPasswordCancelled.value).toBe(true)
+    expect(task.destroy).toHaveBeenCalled()
+    expect(onPasswordCancelled).toHaveBeenCalled()
     expect(document.loadError.value).toBeUndefined()
+    expect(document.isLoading.value).toBe(false)
+  })
+
+  it('takes no empty password', () => {
+    const { task } = createTask()
+    vi.mocked(loadPdfDocument).mockImplementation((_data, { onPasswordRequest }) => {
+      onPasswordRequest({ isRetry: false, submit: vi.fn(), cancel: vi.fn() })
+      return task as never
+    })
+    const { document, passwordModal, modals } = setup()
+    document.load(new ArrayBuffer(1))
+    expect(passwordModal().confirmDisabled).toBe(true)
+    passwordModal().onInput('a', vi.fn())
+    expect(modals.updateModal).toHaveBeenLastCalledWith('modal', 'confirmDisabled', false)
+    passwordModal().onInput('', vi.fn())
+    expect(modals.updateModal).toHaveBeenLastCalledWith('modal', 'confirmDisabled', true)
   })
 
   it('reuses the password for documents rebuilt from the unlocked one', async () => {
@@ -135,18 +154,55 @@ describe('usePdfDocument', () => {
     )
   })
 
-  it('asks again with a hint after a wrong password', () => {
+  it('keeps the prompt open while PDF.js tries the password, with the error if it is wrong', async () => {
+    const { task, resolve } = createTask()
+    let request: PasswordRequest
+    vi.mocked(loadPdfDocument).mockImplementation((_data, { onPasswordRequest }) => {
+      request = { isRetry: false, submit: vi.fn(), cancel: vi.fn() }
+      onPasswordRequest(request)
+      return task as never
+    })
+    const { document, passwordModal, modals } = setup()
+    const load = document.load(new ArrayBuffer(1))
+    // The modal closes once the attempt resolves, see ModalWrapper of web-runtime.
+    const firstAttempt = passwordModal().onConfirm('wrong') as Promise<void>
+    expect(request.submit).toHaveBeenCalledWith('wrong')
+    // PDF.js asks again: the same modal shows the error, the attempt is rejected.
+    const retry = { isRetry: true, submit: vi.fn(), cancel: vi.fn() }
+    vi.mocked(loadPdfDocument).mock.calls[0][1].onPasswordRequest(retry)
+    await expect(firstAttempt).rejects.toBeUndefined()
+    expect(modals.dispatchModal).toHaveBeenCalledTimes(1)
+    expect(modals.updateModal).toHaveBeenLastCalledWith(
+      'modal',
+      'inputError',
+      'Invalid password. Please try again.'
+    )
+    // The next attempt goes to the new callbacks and resolves with the document.
+    const secondAttempt = passwordModal().onConfirm('right') as Promise<void>
+    expect(retry.submit).toHaveBeenCalledWith('right')
+    resolve({ id: 1 } as never)
+    await load
+    await expect(secondAttempt).resolves.toBeUndefined()
+    expect(document.getPassword()).toBe('right')
+  })
+
+  it('asks again with a hint when the remembered password does not fit', async () => {
     vi.mocked(loadPdfDocument).mockImplementation((_data, { onPasswordRequest }) => {
       onPasswordRequest({ isRetry: true, submit: vi.fn(), cancel: vi.fn() })
       return createTask().task as never
     })
-    const { document, passwordModal } = setup()
+    const { document, passwordModal, modals } = setup()
     document.load(new ArrayBuffer(1))
-    expect(passwordModal()).toEqual(
-      expect.objectContaining({
-        inputType: 'password',
-        message: 'Invalid password. Please try again.'
-      })
+    expect(passwordModal()).toEqual(expect.objectContaining({ inputType: 'password' }))
+    // Shown by OcTextInput only once it changes, so after the modal's first render.
+    await nextTick()
+    expect(modals.updateModal).toHaveBeenCalledWith(
+      'modal',
+      'inputError',
+      'Invalid password. Please try again.'
     )
+    // The error goes with the next attempt.
+    passwordModal().onInput('b', vi.fn())
+    expect(modals.updateModal).toHaveBeenCalledWith('modal', 'inputError', undefined)
   })
 })

@@ -1,12 +1,12 @@
 import { mock } from 'vitest-mock-extended'
-import type { EventBus } from 'pdfjs-dist/web/pdf_viewer.mjs'
+// pdf_viewer.mjs takes PDF.js from globalThis.pdfjsLib, which pdfjs-dist sets when imported.
+import 'pdfjs-dist'
+import { FindState, type EventBus } from 'pdfjs-dist/web/pdf_viewer.mjs'
 import { getComposableWrapper } from '@opencloud-eu/web-test-helpers'
 import { usePdfFindBar } from '../../../src/composables/usePdfFindBar'
 
-vi.mock('pdfjs-dist/web/pdf_viewer.mjs', () => ({ FindState: { FOUND: 0, NOT_FOUND: 1 } }))
-
 const OPTIONS = {
-  highlightAll: true,
+  highlightAll: false,
   caseSensitive: false,
   entireWord: false,
   matchDiacritics: false
@@ -37,6 +37,7 @@ function setup() {
 describe('usePdfFindBar', () => {
   it('searches with PDF.js and shows its result', () => {
     const { findBarState, emit, findEvents } = setup()
+    findBarState.openFindBar()
     findBarState.find('foo', OPTIONS, { type: 'again', findPrevious: true })
     expect(findEvents()[0][1]).toEqual({
       source: null,
@@ -45,7 +46,10 @@ describe('usePdfFindBar', () => {
       findPrevious: true,
       ...OPTIONS
     })
-    emit('updatefindcontrolstate', { state: 1, matchesCount: { current: 0, total: 0 } })
+    emit('updatefindcontrolstate', {
+      state: FindState.NOT_FOUND,
+      matchesCount: { current: 0, total: 0 }
+    })
     expect(findBarState.findResult.value).toEqual({ current: 0, total: 0, notFound: true })
     emit('updatefindmatchescount', { matchesCount: { current: 2, total: 7 } })
     expect(findBarState.findResult.value).toEqual({ current: 2, total: 7, notFound: true })
@@ -82,6 +86,29 @@ describe('usePdfFindBar', () => {
   })
 
   // E.g. Escape in the pages keeps the focus there, like in the PDF.js viewer.
+  it('keeps a search without matches as such while closed, for reopening', () => {
+    const { findBarState, emit } = setup()
+    findBarState.openFindBar()
+    findBarState.find('xyz', OPTIONS)
+    emit('updatefindcontrolstate', {
+      state: FindState.NOT_FOUND,
+      matchesCount: { current: 0, total: 0 }
+    })
+    findBarState.closeFindBar()
+    // What PDF.js reports for the closed find bar.
+    emit('updatefindcontrolstate', {
+      state: FindState.FOUND,
+      matchesCount: { current: 0, total: 0 }
+    })
+    expect(findBarState.findResult.value.notFound).toBe(true)
+    // Finding again while closed (Ctrl+G) still reports the new match.
+    emit('updatefindcontrolstate', {
+      state: FindState.FOUND,
+      matchesCount: { current: 2, total: 7 }
+    })
+    expect(findBarState.findResult.value).toEqual({ current: 2, total: 7, notFound: false })
+  })
+
   it('leaves the focus alone when closed from outside the find bar', () => {
     const { findBarState, onClose } = setup()
     findBarState.openFindBar()

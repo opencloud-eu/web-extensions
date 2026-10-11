@@ -15,6 +15,9 @@ export type CommentTarget = {
   focus?(): void
   /** Of editors, annotation elements have none. */
   isSelected: boolean
+  /** Of editors of saved annotations: the annotation's id, with its page. */
+  annotationElementId?: string | null
+  pageIndex?: number
 }
 
 export type CommentData = {
@@ -28,7 +31,8 @@ export type CommentData = {
   modificationDate?: string
   contentsObj?: { str: string; dir?: string }
   richText?: { str: string; html: unknown }
-  popupRef?: unknown
+  /** The author, of saved annotations only: PDF.js' editors have none. */
+  titleObj?: { str: string; dir?: string }
 }
 
 /** The annotation's element, also when PDF.js passes its comment button that comes right after it. */
@@ -43,6 +47,22 @@ export function getAnnotationElement({
 /** The plain comment text. Acrobat separates lines with carriage returns. */
 export function getCommentText({ contentsObj, richText }: CommentData) {
   return (contentsObj?.str || richText?.str || '').replace(/\r\n?/g, '\n')
+}
+
+/**
+ * Where a saved annotation is, if the comment is one's: its editor knows the id, PDF.js'
+ * popups only their elements. Undefined for new annotations.
+ */
+export function getAnnotationLocation(
+  target: Pick<CommentTarget, 'elementBeforePopup' | 'annotationElementId' | 'pageIndex'>
+) {
+  if (target.annotationElementId && target.pageIndex !== undefined) {
+    return { pageNumber: target.pageIndex + 1, id: target.annotationElementId }
+  }
+  const element = getAnnotationElement(target)
+  const pageNumber = Number(element?.closest<HTMLElement>('.page')?.dataset.pageNumber)
+  const id = element?.dataset.annotationId
+  return pageNumber && id ? { pageNumber, id } : undefined
 }
 
 export function getCommentDate({ modificationDate, creationDate }: CommentData) {
@@ -69,7 +89,8 @@ export function getCommentColor({ color }: CommentData) {
 /**
  * Where the popup of a comment goes on its page (in percent), like in the PDF.js viewer: next to
  * the comment button, but left of it if there is no room on the right of the page, or the list
- * of comments covers that side. Always within the viewer.
+ * of comments covers that side. Popups placed by PDF.js or the document keep their place, unless
+ * the list covers them, which is ours. Always within the viewer.
  */
 export function getCommentPopupPosition(
   target: Pick<
@@ -84,18 +105,27 @@ export function getCommentPopupPosition(
   viewerRect?: DOMRect
 ) {
   const [initialX, y] = target.commentPopupPosition
+  const parent = target.parentBoundingClientRect
+  const widthRatio = popupWidth / parent.width
   let x = initialX
-  if (target.hasDefaultPopupPosition()) {
-    const parent = target.parentBoundingClientRect
-    const widthRatio = popupWidth / parent.width
-    const right = parent.x + (x + widthRatio) * parent.width
-    if (
-      x + widthRatio > 1 ||
-      (listRect && right > listRect.left && parent.x + x * parent.width < listRect.right)
-    ) {
-      x -= widthRatio - target.commentButtonWidth
-    }
-    x = Math.max(x, ((viewerRect?.left ?? 0) - parent.x) / parent.width + 0.01)
+  function coversList() {
+    const left = parent.x + x * parent.width
+    return (
+      !!listRect &&
+      left + popupWidth > listRect.left &&
+      left < listRect.right &&
+      parent.y + y * parent.height < listRect.bottom
+    )
   }
+  const isDefault = target.hasDefaultPopupPosition()
+  if (isDefault && x + widthRatio > 1) {
+    x -= widthRatio - target.commentButtonWidth
+  }
+  if (coversList()) {
+    x = (listRect.left - parent.x) / parent.width - widthRatio - 0.01
+  } else if (!isDefault) {
+    return { left: `${100 * x}%`, top: `${100 * y}%` }
+  }
+  x = Math.max(x, ((viewerRect?.left ?? 0) - parent.x) / parent.width + 0.01)
   return { left: `${100 * x}%`, top: `${100 * y}%` }
 }

@@ -5,17 +5,13 @@
     toggle="#pdf-studio-comments-toggle"
     mode="manual"
     padding-size="remove"
-    :title="$gettext('Comments')"
+    :title="title"
     class="pdf-studio-comments ext:w-80"
     @show-drop="isShown = true"
     @hide-drop="onHide"
   >
-    <div class="ext:flex ext:items-center ext:gap-2 ext:px-4 ext:pt-3 ext:pb-2">
-      <h2
-        v-if="!isMobile"
-        class="ext:m-0 ext:text-base ext:font-semibold"
-        v-text="$gettext('Comments')"
-      />
+    <div v-if="!isMobile" class="ext:flex ext:items-center ext:gap-2 ext:px-4 ext:pt-3 ext:pb-2">
+      <h2 class="ext:m-0 ext:text-base ext:font-semibold" v-text="$gettext('Comments')" />
       <oc-tag
         class="pdf-studio-comments-count ext:tabular-nums"
         size="xsmall"
@@ -28,6 +24,7 @@
     <p
       v-if="!comments?.length"
       class="ext:m-0 ext:px-4 ext:pb-4 ext:text-sm ext:text-role-on-surface-variant"
+      :class="{ 'ext:pt-3': isMobile }"
       v-text="$gettext('No comments yet. Select an annotation and add a comment in its toolbar.')"
     />
     <oc-list
@@ -35,6 +32,7 @@
       ref="list"
       raw
       class="ext:flex ext:max-h-[60vh] ext:flex-col ext:gap-2 ext:overflow-y-auto ext:px-3 ext:pb-3"
+      :class="{ 'ext:pt-3': isMobile }"
     >
       <li v-for="comment in comments" :key="comment.id">
         <oc-button
@@ -43,7 +41,7 @@
             'ext:bg-role-surface-container ext:hover:bg-role-surface-container-high':
               comment.id !== selectedId
           }"
-          :aria-current="comment.id === selectedId"
+          :aria-current="comment.id === selectedId || undefined"
           :appearance="comment.id === selectedId ? 'filled' : 'raw-inverse'"
           :color-role="comment.id === selectedId ? 'secondaryContainer' : 'surface'"
           gap-size="small"
@@ -63,8 +61,9 @@
 </template>
 
 <script setup lang="ts">
-import { nextTick, ref, unref, useTemplateRef, watch } from 'vue'
+import { computed, nextTick, ref, unref, useTemplateRef, watch } from 'vue'
 import { useIsMobile } from '@opencloud-eu/design-system/composables'
+import { useGettext } from 'vue3-gettext'
 import { useEventListener } from '@vueuse/core'
 import { getCommentText, type CommentData } from '../helpers/comments'
 import PdfCommentMeta from './PdfCommentMeta.vue'
@@ -80,16 +79,24 @@ const emit = defineEmits<{
   close: []
 }>()
 
-// The drawer on phones has its own title.
+// The drawer on phones has its own title, the count goes in there.
 const { isMobile } = useIsMobile()
+const { $gettext } = useGettext()
+const title = computed(() =>
+  unref(isMobile) && comments
+    ? $gettext('Comments (%{count})', { count: String(comments.length) })
+    : $gettext('Comments')
+)
 
 const isShown = ref(false)
 const drop = useTemplateRef<{ show(options?: { noFocus?: boolean }): void; hide(): void }>('drop')
 const list = useTemplateRef<{ $el: HTMLElement }>('list')
 
 // Working with the comments on the page keeps the list, like the sidebar of the PDF.js viewer:
-// their popups, their buttons and the dialog to edit them.
-const COMMENT_ELEMENTS = '.pdf-studio-comment-popup, .annotationCommentButton, .oc-modal'
+// their popups, their buttons (or the annotations that are their own, e.g. sticky notes) and
+// the dialog to edit them.
+const COMMENT_ELEMENTS =
+  '.pdf-studio-comment-popup, .annotationCommentButton, .popupTriggerArea, .oc-modal'
 let isClickOnComment = false
 useEventListener(
   document,
