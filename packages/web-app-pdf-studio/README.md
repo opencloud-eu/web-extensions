@@ -45,8 +45,8 @@ Registers for `.pdf` files next to the built-in PDF viewer, so it is available v
 - Pages: delete and reorder pages from the sidebar, undo and redo like other changes.
 - Read-only access (e.g. view-only shares or links) shows the document without any editing tools.
 
-Changes are written into the PDF itself and saved via OpenCloud (save button, `Ctrl+S`,
-autosave). The file counts as changed right away, also while drawing or typing, and no longer
+Changes are written into the PDF itself and saved via OpenCloud (save button, `Ctrl+S`). There is
+no autosave: forms are often only filled in to print them, without changing the file. The file counts as changed right away, also while drawing or typing, and no longer
 once all annotations are undone (form values stay changed, PDF.js keeps them). The app follows the OpenCloud light and dark theme, pages keep
 their original colors. PDF.js' own texts (annotation toolbars, placeholders, labels for screen
 readers) are translated like the rest of the app.

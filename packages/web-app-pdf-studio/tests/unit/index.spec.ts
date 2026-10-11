@@ -31,4 +31,13 @@ describe('PDF Studio application', () => {
       expect.objectContaining({ fileContentOptions: { responseType: 'arraybuffer' } })
     )
   })
+
+  // Forms are often only filled in to print them.
+  it('saves only on request, without autosave', () => {
+    setupApp()
+    expect(AppWrapperRoute).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({ disableAutoSave: true })
+    )
+  })
 })

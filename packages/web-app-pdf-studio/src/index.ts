@@ -19,7 +19,9 @@ export default defineWebApplication({
         path: '/:driveAliasAndItem(.*)?',
         component: AppWrapperRoute(App, {
           applicationId,
-          fileContentOptions: { responseType: 'arraybuffer' }
+          fileContentOptions: { responseType: 'arraybuffer' },
+          // Forms are often only filled in to print them, an autosave would change the file.
+          disableAutoSave: true
         }),
         meta: {
           authContext: 'hybrid',
