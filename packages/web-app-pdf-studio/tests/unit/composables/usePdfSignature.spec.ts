@@ -7,21 +7,26 @@ import { getSavedSignatureParams, usePdfSignature } from '../../../src/composabl
 
 type SignatureModalAttrs = {
   canSave: boolean
+  pickImageFromCloud?: (onImage: (file: File) => void) => void
   onSave: (data: unknown, description: string, isSaved: boolean) => Promise<void>
   getFromImage: (file: File) => Promise<unknown>
 }
 
-function setup() {
+function setup({ isPublicLink = false } = {}) {
   const onChange = vi.fn()
   const onCancel = vi.fn()
   const storage = { isFull: computed(() => false), save: vi.fn().mockResolvedValue('uuid-1') }
+  const pickImageFromCloud = vi.fn()
   let signature: ReturnType<typeof usePdfSignature>
   let modals: ReturnType<typeof useModals>
-  getComposableWrapper(() => {
-    modals = useModals()
-    vi.mocked(modals.dispatchModal).mockImplementation((modal) => ({ ...modal, id: 'modal-1' }))
-    signature = usePdfSignature({ storage, onChange, onCancel })
-  })
+  getComposableWrapper(
+    () => {
+      modals = useModals()
+      vi.mocked(modals.dispatchModal).mockImplementation((modal) => ({ ...modal, id: 'modal-1' }))
+      signature = usePdfSignature({ storage, onChange, onCancel, pickImageFromCloud })
+    },
+    { pluginOptions: { piniaOptions: { authState: { publicLinkContextReady: isPublicLink } } } }
+  )
   // The signature dialog, or the one for its description
   function modal() {
     return vi.mocked(modals.dispatchModal).mock.calls[0][0] as Modal
@@ -51,6 +56,7 @@ function setup() {
     onChange,
     onCancel,
     storage,
+    pickImageFromCloud,
     updateModal: modals.updateModal
   }
 }
@@ -103,6 +109,16 @@ describe('usePdfSignature', () => {
     expect(updateModal).toHaveBeenLastCalledWith('modal-1', 'confirmDisabled', false)
     modal().onInput('Jane', setError)
     expect(updateModal).toHaveBeenLastCalledWith('modal-1', 'confirmDisabled', true)
+  })
+
+  it.each([
+    [false, true],
+    // The file picker only shows the shared files there.
+    [true, false]
+  ])('offers an image from the cloud (public link: %s): %s', (isPublicLink, isOffered) => {
+    const { manager, modalAttrs, uiManager, editor, pickImageFromCloud } = setup({ isPublicLink })
+    manager.getSignature({ uiManager, editor: editor as never })
+    expect(modalAttrs().pickImageFromCloud).toBe(isOffered ? pickImageFromCloud : undefined)
   })
 
   it('removes the empty signature when cancelled', () => {

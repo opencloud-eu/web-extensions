@@ -55,10 +55,21 @@
       </oc-text-input>
       <pdf-signature-image
         v-else
+        ref="signatureImage"
         v-model:data="imageData"
         v-model:file-name="imageName"
         :get-from-image="getFromImage"
       />
+      <oc-button
+        v-if="activeTab === 'image' && !imageData && pickImageFromCloud"
+        class="pdf-studio-signature-image-cloud ext:mx-8 ext:mb-4 ext:self-start"
+        appearance="raw"
+        no-hover
+        @click="pickImageFromCloud((file) => signatureImage?.useImage(file))"
+      >
+        <oc-icon name="cloud" fill-type="line" size-class="ext:size-4" />
+        <span v-text="$gettext('Or pick from cloud')" />
+      </oc-button>
     </div>
     <p
       v-if="signatureError"
@@ -90,6 +101,15 @@
             )
           "
         />
+        <oc-contextual-helper
+          v-else
+          :title="$gettext('Save signature')"
+          :text="
+            $gettext(
+              'Saved signatures are kept in this browser only, on this device. They are not available in other browsers or on other devices.'
+            )
+          "
+        />
       </oc-switch>
     </div>
   </div>
@@ -109,7 +129,8 @@ const {
   getFromText,
   getFromImage,
   onSave,
-  canSave = false
+  canSave = false,
+  pickImageFromCloud = undefined
 } = defineProps<{
   modal: Modal
   /** There's room to save the signature for reuse. */
@@ -118,9 +139,12 @@ const {
   getFromText: (text: string, style: CSSStyleDeclaration) => SignatureData | null
   getFromImage: (file: File) => Promise<SignatureData | null>
   onSave: (data: SignatureData, description: string, isSaved: boolean) => Promise<void> | void
+  /** An image of the signature from the cloud, like images of annotations. */
+  pickImageFromCloud?: (onImage: (file: File) => void) => void
 }>()
 
 const isSaved = ref(canSave)
+const signatureImage = useTemplateRef<InstanceType<typeof PdfSignatureImage>>('signatureImage')
 
 const emit = defineEmits<{ 'update:confirmDisabled': [value: boolean] }>()
 

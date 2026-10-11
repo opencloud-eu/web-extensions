@@ -81,4 +81,13 @@ describe('PdfSignatureImage', () => {
     expect(wrapper.props('data')).toEqual(expect.objectContaining({ width: 2 }))
     expect(wrapper.props('fileName')).toBe('second.png')
   })
+
+  it('takes an image from elsewhere, e.g. picked from the cloud', async () => {
+    const { wrapper, getFromImage } = createWrapper()
+    const file = new File(['x'], 'from-cloud.png')
+    wrapper.vm.useImage(file)
+    await flushPromises()
+    expect(getFromImage).toHaveBeenCalledWith(file)
+    expect(wrapper.props('fileName')).toBe('from-cloud.png')
+  })
 })

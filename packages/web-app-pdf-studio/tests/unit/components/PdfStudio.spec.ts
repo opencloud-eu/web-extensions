@@ -63,7 +63,8 @@ vi.mock('../../../src/composables/usePdfSaving', () => ({
   usePdfSaving: vi.fn()
 }))
 vi.mock('../../../src/composables/usePdfCloudImagePicker', () => ({
-  usePdfCloudImagePicker: vi.fn(() => ({ openPicker }))
+  usePdfCloudImagePicker: vi.fn(() => ({ openPicker })),
+  useCanPickImageFromCloud: () => ({ value: true })
 }))
 vi.mock('../../../src/composables/usePdfPrint', () => ({
   usePdfPrint: () => ({ isPrinting: ref(false), print: vi.fn() })

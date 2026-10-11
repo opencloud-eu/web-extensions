@@ -31,12 +31,12 @@
     :error-message="error"
     file-types="image/*"
     preview-icon="image"
-    @update:model-value="select"
+    @update:model-value="onSelect"
   />
 </template>
 
 <script setup lang="ts">
-import { ref, shallowRef, unref } from 'vue'
+import { ref, shallowRef } from 'vue'
 import { useGettext } from 'vue3-gettext'
 import type { SignatureData } from '../composables/usePdfSignature'
 
@@ -53,14 +53,23 @@ const { $gettext } = useGettext()
 const files = shallowRef<FileList>()
 const error = ref('')
 
+// The image being read, another one may be chosen in the meantime.
+let currentFile: File | undefined
+
 function clear() {
   files.value = undefined
+  currentFile = undefined
   data.value = null
   fileName.value = ''
 }
 
-async function select(selected: FileList | undefined) {
-  const file = selected?.[0]
+function onSelect(selected: FileList | undefined) {
+  useImage(selected?.[0])
+}
+
+/** An image from the device or the cloud. */
+async function useImage(file: File | undefined) {
+  currentFile = file
   data.value = null
   fileName.value = ''
   error.value = ''
@@ -68,8 +77,7 @@ async function select(selected: FileList | undefined) {
     return
   }
   const found = await getFromImage(file)
-  // Another image may have been chosen in the meantime.
-  if (unref(files)?.[0] !== file) {
+  if (currentFile !== file) {
     return
   }
   if (!found) {
@@ -79,4 +87,7 @@ async function select(selected: FileList | undefined) {
   data.value = found
   fileName.value = file.name
 }
+
+/** Takes an image from elsewhere, e.g. picked from the cloud. */
+defineExpose({ useImage })
 </script>

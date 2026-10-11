@@ -10,6 +10,7 @@ import type {
   usePdfSignatureStorage
 } from './usePdfSignatureStorage'
 import PdfSignatureModal from '../components/PdfSignatureModal.vue'
+import { useCanPickImageFromCloud } from './usePdfCloudImagePicker'
 
 /** Outline data as returned by PDF.js' SignatureEditor helpers, passed back as is. */
 export type SignatureData = NewSignatureData & {
@@ -68,15 +69,19 @@ export function getSavedSignatureParams({ lines, areContours, description, uuid 
 export function usePdfSignature({
   storage,
   onChange,
-  onCancel
+  onCancel,
+  pickImageFromCloud
 }: {
   storage: Pick<ReturnType<typeof usePdfSignatureStorage>, 'isFull' | 'save'>
   onChange: () => void
   /** No signature was added. */
   onCancel: () => void
+  /** Picks an image of the signature from the cloud, like images of annotations. */
+  pickImageFromCloud?: (onImage: (file: File) => void) => void
 }) {
   const { $gettext } = useGettext()
   const { dispatchModal, updateModal } = useModals()
+  const canPickFromCloud = useCanPickImageFromCloud()
 
   function getSignature({
     uiManager,
@@ -102,6 +107,7 @@ export function usePdfSignature({
           return bitmap ? editor.getFromImage(bitmap) : null
         },
         canSave: !unref(storage.isFull),
+        pickImageFromCloud: unref(canPickFromCloud) ? pickImageFromCloud : undefined,
         onSave: async (data: SignatureData, description: string, isSaved: boolean) => {
           // Without saving if it can't be saved, e.g. the browser blocks its storage.
           const uuid = isSaved

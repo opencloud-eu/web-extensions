@@ -190,7 +190,8 @@ const { signatureManager } = usePdfSignature({
   storage: signatureStorage,
   onChange: () => scheduleChangeCheck(),
   // Without a signature the tool is no use.
-  onCancel: () => leaveTool()
+  onCancel: () => leaveTool(),
+  pickImageFromCloud: (onImage) => openPicker(onImage)
 })
 const {
   commentManager,

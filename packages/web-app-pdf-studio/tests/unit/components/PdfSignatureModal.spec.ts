@@ -26,11 +26,13 @@ const imageSignature = signatureData(3)
 
 function createWrapper({
   imageData = imageSignature as SignatureData | null,
-  canSave = true
+  canSave = true,
+  pickImageFromCloud = undefined as ((onImage: (file: File) => void) => void) | undefined
 } = {}) {
   const props = {
     modal: mock<Modal>(),
     canSave,
+    pickImageFromCloud,
     getDrawnSignature: vi.fn(() => drawnSignature),
     getFromText: vi.fn<() => SignatureData | null>(() => textSignature),
     getFromImage: vi.fn().mockResolvedValue(imageData),
@@ -90,6 +92,25 @@ describe('PdfSignatureModal', () => {
     expect(confirmDisabled(wrapper)).toBe(false)
     await confirm(wrapper)
     expect(onSave).toHaveBeenCalledWith(imageSignature, 'sig.png', true)
+  })
+
+  it('creates a signature from an image picked from the cloud, below the image area', async () => {
+    const pickImageFromCloud = vi.fn((onImage: (file: File) => void) =>
+      onImage(new File(['x'], 'cloud.png'))
+    )
+    const { wrapper, getFromImage } = createWrapper({ pickImageFromCloud })
+    expect(wrapper.find('.pdf-studio-signature-image-cloud').exists()).toBe(false)
+    await wrapper.find('.pdf-studio-signature-tab-image').trigger('click')
+    await wrapper.find('.pdf-studio-signature-image-cloud').trigger('click')
+    await flushPromises()
+    expect(getFromImage).toHaveBeenCalledWith(expect.objectContaining({ name: 'cloud.png' }))
+    expect(description(wrapper).element.value).toBe('cloud.png')
+    expect(confirmDisabled(wrapper)).toBe(false)
+    // Not with an image chosen, nor without the picker (e.g. on public links).
+    expect(wrapper.find('.pdf-studio-signature-image-cloud').exists()).toBe(false)
+    const { wrapper: other } = createWrapper()
+    await other.find('.pdf-studio-signature-tab-image').trigger('click')
+    expect(other.find('.pdf-studio-signature-image-cloud').exists()).toBe(false)
   })
 
   it('can not be confirmed with an image without a signature', async () => {
@@ -171,6 +192,10 @@ describe('PdfSignatureModal', () => {
   describe('saving for reuse', () => {
     it('is on while there is room, and can be turned off', async () => {
       const { wrapper, onSave } = createWrapper()
+      // Where they are kept, the only hint while there is room.
+      const helpers = wrapper.findAllComponents({ name: 'OcContextualHelper' })
+      expect(helpers).toHaveLength(1)
+      expect(helpers[0].props('text')).toContain('kept in this browser only')
       await typeName(wrapper, 'Jane Doe')
       const toggle = wrapper.find('.pdf-studio-signature-save .oc-switch-btn')
       expect(toggle.attributes('aria-checked')).toBe('true')
@@ -184,9 +209,10 @@ describe('PdfSignatureModal', () => {
       expect(
         wrapper.find('.pdf-studio-signature-save .oc-switch-btn').attributes('disabled')
       ).toBeDefined()
-      expect(wrapper.findComponent({ name: 'OcContextualHelper' }).props('text')).toContain(
-        'limit of 5 saved signatures'
-      )
+      // Instead of the one about the browser, not both.
+      const helpers = wrapper.findAllComponents({ name: 'OcContextualHelper' })
+      expect(helpers).toHaveLength(1)
+      expect(helpers[0].props('text')).toContain('limit of 5 saved signatures')
       await typeName(wrapper, 'Jane Doe')
       await confirm(wrapper)
       expect(onSave).toHaveBeenCalledWith(textSignature, 'Jane Doe', false)

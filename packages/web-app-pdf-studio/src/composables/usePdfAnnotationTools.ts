@@ -1,9 +1,9 @@
-import { computed, toValue, type MaybeRefOrGetter } from 'vue'
+import { computed, toValue, type MaybeRefOrGetter, unref } from 'vue'
 import { useGettext } from 'vue3-gettext'
-import { useAuthStore } from '@opencloud-eu/web-pkg'
 import { AnnotationEditorParamsType, AnnotationEditorType } from 'pdfjs-dist'
 import { highlightColors, type HighlightColorName } from '../helpers/highlightColors'
 import type { SavedSignature } from './usePdfSignatureStorage'
+import { useCanPickImageFromCloud } from './usePdfCloudImagePicker'
 
 export type ToolSettingValue = string | number | boolean
 
@@ -65,12 +65,10 @@ export function usePdfAnnotationTools({
     )
   }
 
-  // On public links the file picker only shows the shared files, see
-  // https://github.com/opencloud-eu/web/issues/3631.
-  const authStore = useAuthStore()
+  const canPickFromCloud = useCanPickImageFromCloud()
   const imageSources = computed(() => [
     { id: 'device' as const, icon: 'image', label: $gettext('From this device') },
-    ...(!authStore.publicLinkContextReady
+    ...(unref(canPickFromCloud)
       ? [{ id: 'cloud' as const, icon: 'cloud', label: $gettext('From cloud') }]
       : [])
   ])
