@@ -239,13 +239,13 @@ const groups = computed<MenuGroup[]>(() =>
       items: [
         {
           id: 'rotate-cw',
-          icon: 'reset-right',
+          icon: 'clockwise',
           label: $gettext('Rotate clockwise'),
           handler: () => emit('rotate', 90)
         },
         {
           id: 'rotate-ccw',
-          icon: 'reset-left',
+          icon: 'anticlockwise',
           label: $gettext('Rotate counterclockwise'),
           handler: () => emit('rotate', -90)
         }

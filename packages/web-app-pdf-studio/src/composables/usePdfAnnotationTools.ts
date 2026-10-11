@@ -69,7 +69,7 @@ export function usePdfAnnotationTools({
   // https://github.com/opencloud-eu/web/issues/3631.
   const authStore = useAuthStore()
   const imageSources = computed(() => [
-    { id: 'device' as const, icon: 'upload', label: $gettext('From this device') },
+    { id: 'device' as const, icon: 'image', label: $gettext('From this device') },
     ...(!authStore.publicLinkContextReady
       ? [{ id: 'cloud' as const, icon: 'cloud', label: $gettext('From cloud') }]
       : [])

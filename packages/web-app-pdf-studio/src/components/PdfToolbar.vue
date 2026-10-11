@@ -2,12 +2,13 @@
   <div class="pdf-studio-toolbar ext:flex ext:items-center ext:border-b ext:border-b-role-border">
     <div
       ref="items"
-      class="pdf-studio-toolbar-items ext:flex ext:min-w-0 ext:grow ext:flex-wrap ext:items-center ext:justify-center ext:gap-x-0.5 ext:gap-y-0.5 ext:py-1 ext:*:shrink-0"
+      class="pdf-studio-toolbar-items ext:flex ext:min-w-0 ext:grow ext:flex-wrap ext:items-center ext:justify-center ext:gap-x-1 ext:gap-y-0.5 ext:py-1 ext:*:shrink-0"
     >
-      <div class="ext:inline-flex ext:items-center ext:gap-0.5">
+      <div class="ext:inline-flex ext:items-center ext:gap-1">
         <pdf-toolbar-button
           :label="$gettext('Toggle sidebar')"
-          :icon="isSidebarOpen ? 'sidebar-fold' : 'sidebar-unfold'"
+          icon="side-bar"
+          :fill-type="isSidebarOpen ? 'fill' : 'line'"
           :is-active="isSidebarOpen"
           class="pdf-studio-toggle-sidebar"
           @click="emit('toggleSidebar')"
@@ -15,7 +16,7 @@
         <pdf-toolbar-button
           ref="findToggle"
           :label="$gettext('Find in document')"
-          icon="search"
+          icon="seo"
           :is-active="isFindBarOpen"
           class="pdf-studio-toggle-find"
           @click="emit('toggleFindBar')"
@@ -230,7 +231,7 @@ const { $gettext } = useGettext()
 // The separator lies in the group's padding: hiding it at the start of a row (see below)
 // doesn't change any width, so it can't change where the groups wrap. In the color of borders.
 const groupClass =
-  'ext:relative ext:inline-flex ext:items-center ext:gap-0.5 ext:pl-[3px] ext:before:absolute ext:before:inset-y-0 ext:before:left-0 ext:before:w-px ext:before:bg-role-border ext:forced-colors:before:bg-[CanvasText] ext:data-row-start:before:hidden'
+  'ext:relative ext:inline-flex ext:items-center ext:gap-1 ext:pl-1 ext:before:absolute ext:before:inset-y-0 ext:before:left-0 ext:before:border-l ext:before:border-role-border ext:forced-colors:before:border-[CanvasText] ext:data-row-start:before:hidden'
 
 // Like in the PDF.js viewer.
 const canZoomIn = computed(() => scale < MAX_SCALE)
