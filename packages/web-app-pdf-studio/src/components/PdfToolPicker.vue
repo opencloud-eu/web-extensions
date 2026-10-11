@@ -38,9 +38,10 @@
         <li
           v-if="tool.settings && tool.mode === editorMode"
           class="pdf-studio-tool-picker-settings ext:-mt-1 ext:mb-1 ext:rounded-b-sm ext:border-4 ext:border-t-0 ext:border-role-secondary-container ext:p-3"
-          :aria-label="tool.settingsLabel"
         >
           <pdf-tool-settings
+            role="group"
+            :aria-label="tool.settingsLabel"
             :settings="tool.settings"
             :values="getValues(tool.settings)"
             @update="(type, value) => emit('updateParam', tool.mode, type, value)"

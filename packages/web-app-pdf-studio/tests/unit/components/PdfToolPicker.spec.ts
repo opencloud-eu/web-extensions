@@ -68,7 +68,7 @@ describe('PdfToolPicker', () => {
     )
     // The settings follow the entry of the active tool, as its sub menu.
     const settings = wrapper.find('.pdf-studio-tool-picker-settings')
-    expect(settings.attributes('aria-label')).toBe('Drawing settings')
+    expect(settings.find('[role="group"]').attributes('aria-label')).toBe('Drawing settings')
     expect(settings.element.previousElementSibling).toBe(
       wrapper.find('.pdf-studio-tool-picker-ink').element.closest('li')
     )

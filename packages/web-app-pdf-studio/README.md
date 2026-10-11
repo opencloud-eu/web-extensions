@@ -38,7 +38,7 @@ Registers for `.pdf` files next to the built-in PDF viewer, so it is available v
   image description. The settings of the active tool (color, size, thickness, …) change the
   selected annotation, or the annotations created from then on if none is selected.
 - Comments: like in Firefox, comment on selected text or add a comment to a highlight, drawing or
-  image via its toolbar. The comments tool lists all comments of the document, with their
+  image via its toolbar (PDF.js offers that for new drawings, texts and images, not for saved ones). The comments tool lists all comments of the document, with their
   authors. Comments are saved into the PDF. Existing ones (e.g. from Acrobat, also sticky notes)
   can be read; they can be edited and removed where PDF.js saves the change (highlights,
   drawings, text and images).

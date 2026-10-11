@@ -1,5 +1,5 @@
 import { computed, ref, shallowRef, toValue, unref, type MaybeRefOrGetter } from 'vue'
-import { until, useEventListener } from '@vueuse/core'
+import { until, useEventListener, useTimeoutFn } from '@vueuse/core'
 import {
   AnnotationEditorParamsType,
   AnnotationEditorType,
@@ -7,6 +7,9 @@ import {
 } from 'pdfjs-dist'
 import type { EventBus, PDFViewer } from 'pdfjs-dist/web/pdf_viewer.mjs'
 import { isCreatingSignature, isDrawing as isViewerDrawing } from '../helpers/pdfjsInternals'
+
+// PDF.js' move of the editor comes with two timeouts of 0 ms.
+const CARET_RESTORE_MS = 200
 
 export type EditingStates = {
   hasSomethingToUndo: boolean
@@ -154,9 +157,10 @@ export function usePdfEditing({
    * The strokes of a drawing are one annotation, which PDF.js adds to its storage only once the
    * drawing is finished, e.g. when leaving the tool. While drawing, it disables text selection.
    */
+  /** PDF.js disables text selection for drawing, and for dragging a selected annotation. */
   function isDrawing() {
     const pdfViewer = toValue(viewer)
-    return !!pdfViewer && isViewerDrawing(pdfViewer)
+    return !!pdfViewer && isViewerDrawing(pdfViewer) && !unref(uiManager)?.hasSelection
   }
 
   /**
@@ -204,17 +208,51 @@ export function usePdfEditing({
         return
       }
       editor.enterInEditMode()
+      const text = editor.div.querySelector<HTMLElement>('[contenteditable="true"]')
       if (caret && editor.div.contains(caret.startContainer)) {
         selection.removeAllRanges()
         selection.addRange(caret)
-        return
-      }
-      // PDF.js may have rebuilt the text in the meantime, typing goes on at its end then.
-      const text = editor.div.querySelector('[contenteditable="true"]')
-      if (text) {
+      } else if (text) {
+        // PDF.js may have rebuilt the text in the meantime, typing goes on at its end then.
         selection.selectAllChildren(text)
         selection.collapseToEnd()
       }
+      if (text) {
+        keepCaretAcrossMove(text)
+      }
+    }
+  }
+
+  /**
+   * PDF.js moves a committed editor in the DOM a moment later (for the tab order), which loses
+   * the focus for an instant and puts the caret at the start when it comes back. It comes back
+   * where it was: the text node survives the move, a range would collapse with it.
+   */
+  function keepCaretAcrossMove(text: HTMLElement) {
+    let caret: { node: Node; offset: number } | undefined
+    const track = () => {
+      const selection = document.getSelection()
+      if (selection?.anchorNode && text.contains(selection.anchorNode)) {
+        caret = { node: selection.anchorNode, offset: selection.anchorOffset }
+      }
+    }
+    const restore = () => {
+      if (caret && text.contains(caret.node)) {
+        const length = caret.node.textContent?.length ?? 0
+        document.getSelection()?.collapse(caret.node, Math.min(caret.offset, length))
+      }
+      stop()
+    }
+    track()
+    const stops = [
+      // selectionchange comes in a later task, a key typed right before the move shows only here.
+      useEventListener(text, 'input', track),
+      useEventListener(document, 'selectionchange', track),
+      useEventListener(text, 'focusin', restore),
+      useTimeoutFn(stop, CARET_RESTORE_MS).stop
+    ]
+    function stop() {
+      stops.forEach((stopOne) => stopOne())
     }
   }
 

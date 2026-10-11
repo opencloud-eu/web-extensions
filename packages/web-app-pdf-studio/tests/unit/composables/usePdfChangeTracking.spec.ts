@@ -161,6 +161,17 @@ describe('usePdfChangeTracking', () => {
     expect(onChange).toHaveBeenCalledTimes(1)
   })
 
+  it('counts a drawing from its first stroke, before the pointer is released', async () => {
+    vi.useFakeTimers()
+    const { doc } = createDocument()
+    const { onChange, root, state } = setup(doc)
+    // PDF.js starts the drawing with the pointer down.
+    root.dispatchEvent(new Event('pointerdown', { bubbles: true }))
+    state.isDrawing = true
+    await vi.runAllTimersAsync()
+    expect(onChange).toHaveBeenCalledTimes(1)
+  })
+
   it('marks the file as changed right away, the new content follows', async () => {
     vi.useFakeTimers()
     const { doc, state } = createDocument()
@@ -443,5 +454,63 @@ describe('usePdfChangeTracking', () => {
     await vi.advanceTimersByTimeAsync(1000)
     expect(mocks.saveDocument).toHaveBeenCalledTimes(1)
     expect(onChange).toHaveBeenCalledTimes(1)
+  })
+
+  it('marks the file as changed while a new image decodes, saving then waits for it', async () => {
+    vi.useFakeTimers()
+    const { doc, state, mocks } = createDocument()
+    const { tracking, onChange, content, root } = setup(doc)
+    const layer = document.createElement('div')
+    layer.className = 'annotationEditorLayer'
+    root.append(layer)
+    state.hash = 'a'
+    state.map.set('stamp', { annotationType: AnnotationEditorType.STAMP, bitmapId: null })
+    // PDF.js marks its layers while decoding, the file was chosen outside the app.
+    layer.classList.add('waiting')
+    await vi.advanceTimersByTimeAsync(0)
+    // E.g. closing the app asks about the change right away.
+    expect(onChange).toHaveBeenCalledTimes(1)
+    expect(onChange.mock.calls[0][0]).not.toBe(content)
+    // E.g. Ctrl+S: the save gets the image, not the copy.
+    const flush = tracking.flush()
+    await vi.advanceTimersByTimeAsync(500)
+    expect(mocks.saveDocument).not.toHaveBeenCalled()
+    state.map.set('stamp', { annotationType: AnnotationEditorType.STAMP, bitmapId: 'image' })
+    layer.classList.remove('waiting')
+    await vi.advanceTimersByTimeAsync(0)
+    expect(await flush).toBe(true)
+    expect(mocks.saveDocument).toHaveBeenCalledTimes(1)
+    expect(Array.from(new Uint8Array(onChange.mock.calls.at(-1)[0]))).toEqual([1, 2, 3])
+  })
+
+  it('does not wait while the image is still being chosen, e.g. in the file dialog', async () => {
+    vi.useFakeTimers()
+    const { doc, state, mocks } = createDocument()
+    const { tracking } = setup(doc, { isDirty: true })
+    state.hash = 'a'
+    state.map.set('stamp', { annotationType: AnnotationEditorType.STAMP, bitmapId: null })
+    expect(await tracking.flush()).toBe(false)
+    expect(mocks.saveDocument).not.toHaveBeenCalled()
+  })
+
+  it('gives up waiting for an image after a while, and checks again later', async () => {
+    vi.useFakeTimers()
+    const { doc, state, mocks } = createDocument()
+    const { tracking, root } = setup(doc, { isDirty: true })
+    const layer = document.createElement('div')
+    layer.className = 'annotationEditorLayer waiting'
+    root.append(layer)
+    await vi.advanceTimersByTimeAsync(0)
+    state.hash = 'a'
+    state.map.set('stamp', { annotationType: AnnotationEditorType.STAMP, bitmapId: null })
+    const flush = tracking.flush()
+    await vi.advanceTimersByTimeAsync(31_000)
+    expect(await flush).toBe(false)
+    expect(mocks.saveDocument).not.toHaveBeenCalled()
+    // Once the image is there, the next check writes it.
+    state.map.set('stamp', { annotationType: AnnotationEditorType.STAMP, bitmapId: 'image' })
+    layer.classList.remove('waiting')
+    await vi.advanceTimersByTimeAsync(1000)
+    expect(mocks.saveDocument).toHaveBeenCalledTimes(1)
   })
 })

@@ -166,6 +166,9 @@ describe('usePdfEditing', () => {
     viewer.viewer.classList.add('noUserSelect')
     expect(editing.isDrawing()).toBe(true)
     expect(editing.hasUnfinishedEdits()).toBe(true)
+    // Dragging a selected annotation looks the same to PDF.js' text selection.
+    uiManager.hasSelection = true
+    expect(editing.isDrawing()).toBe(false)
   })
 
   it('knows about a signature whose dialog is open, it cannot be saved yet', () => {
@@ -238,6 +241,43 @@ describe('usePdfEditing', () => {
     editing.commitEditing()
     expect(sandboxEvents).toHaveLength(1)
     document.body.innerHTML = ''
+  })
+
+  it('goes on typing where the text was left, also after PDF.js moved the editor', () => {
+    vi.useFakeTimers()
+    const { editing, uiManager } = setup()
+    const div = document.createElement('div')
+    const text = document.createElement('div')
+    text.contentEditable = 'true'
+    text.textContent = 'Start '
+    div.append(text)
+    document.body.append(div)
+    const editor = { div, enterInEditMode: vi.fn(() => text.focus()) }
+    uiManager.getActive.mockReturnValue(editor)
+    // The caret after "Start".
+    text.focus()
+    const selection = document.getSelection()
+    selection.collapse(text.firstChild, 5)
+    const resume = editing.commitEditing()
+    expect(uiManager.commitOrRemove).toHaveBeenCalled()
+    resume()
+    expect(editor.enterInEditMode).toHaveBeenCalled()
+    expect([selection.anchorNode, selection.anchorOffset]).toEqual([text.firstChild, 5])
+    // Typed on before the move, selectionchange reports it only later.
+    text.firstChild.textContent = 'Start x'
+    selection.collapse(text.firstChild, 7)
+    text.dispatchEvent(new Event('input', { bubbles: true }))
+    // PDF.js moves the editor in the DOM for the tab order: the focus goes and comes back.
+    text.blur()
+    const other = document.createElement('div')
+    document.body.append(other)
+    other.append(div)
+    selection.collapse(document.body, 0)
+    text.focus()
+    expect([selection.anchorNode, selection.anchorOffset]).toEqual([text.firstChild, 7])
+    vi.runAllTimers()
+    document.body.innerHTML = ''
+    vi.useRealTimers()
   })
 
   it('finishes text being typed and drawings on all pages', () => {

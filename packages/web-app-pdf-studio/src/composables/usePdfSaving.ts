@@ -109,6 +109,11 @@ export function usePdfSaving({
   async function save({ goOnTyping = false } = {}) {
     // Text being typed or a drawing is only part of the document once finished.
     const resumeTyping = editing.commitEditing()
+    // Saving with the keyboard while writing is a habit, the writing goes on right away: keys
+    // pressed while the save runs would otherwise reach the page instead of the text.
+    if (goOnTyping) {
+      resumeTyping()
+    }
     try {
       // Also lets the scripts finish what committing the field started, e.g. formatting it.
       await scripting.dispatchWillSave()
@@ -124,11 +129,6 @@ export function usePdfSaving({
       }
     } catch (e) {
       showSaveError(e as Error)
-    } finally {
-      // Saving with the keyboard while writing is a habit, the writing goes on.
-      if (goOnTyping) {
-        resumeTyping()
-      }
     }
   }
 

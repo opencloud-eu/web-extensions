@@ -131,10 +131,14 @@ describe('usePdfSaving', () => {
       consoleError.mockRestore()
     })
 
-    it('goes on typing after saving with the keyboard', async () => {
-      const { saving, resumeTyping } = setup()
+    it('goes on typing right away when saving with the keyboard', async () => {
+      const { saving, resumeTyping, tracking } = setup()
       await saving.save({ goOnTyping: true })
       expect(resumeTyping).toHaveBeenCalled()
+      // Before the save runs, keys pressed meanwhile belong to the text.
+      expect(resumeTyping.mock.invocationCallOrder[0]).toBeLessThan(
+        vi.mocked(tracking.flush).mock.invocationCallOrder[0]
+      )
     })
 
     it.each([

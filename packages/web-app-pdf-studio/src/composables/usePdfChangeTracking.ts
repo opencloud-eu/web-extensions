@@ -1,5 +1,5 @@
-import { toValue, type MaybeRefOrGetter } from 'vue'
-import { useEventListener, useTimeoutFn } from '@vueuse/core'
+import { ref, toValue, unref, type MaybeRefOrGetter } from 'vue'
+import { until, useEventListener, useMutationObserver, useTimeoutFn } from '@vueuse/core'
 import { AnnotationEditorType, type PDFDocumentProxy } from 'pdfjs-dist'
 
 /** PDF.js can't serialize an annotation, e.g. because of a bug of PDF.js. */
@@ -9,6 +9,8 @@ const CHECK_DELAY_MS = 300
 // Writing a large file takes a moment, so changes in quick succession are collected longer.
 const LARGE_FILE_BYTES = 50_000_000
 const LARGE_FILE_CHECK_DELAY_MS = 1000
+// A new image is there once its bitmap is decoded, one save waits for it that long at most.
+const IMAGE_LOAD_TIMEOUT_MS = 30_000
 
 /**
  * Turns edits in PDF.js' annotation storage (form values and annotation editors) into
@@ -189,8 +191,17 @@ export function usePdfChangeTracking({
   }
 
   function hasPendingChanges() {
-    const { hash, error } = getChanges()
-    return hash !== undefined || !!error
+    const { hash, error, isImageLoading } = getChanges()
+    return hash !== undefined || !!error || isImageLoading
+  }
+
+  // PDF.js marks its editor layers as waiting while it decodes a new image.
+  const isImageDecoding = ref(false)
+
+  /** Resolves to true once the image is decoded, false if that takes too long. */
+  async function waitForImage(doc: PDFDocumentProxy) {
+    await until(isImageDecoding).toBe(false, { timeout: IMAGE_LOAD_TIMEOUT_MS })
+    return !unref(isImageDecoding) && doc === toValue(pdfDocument)
   }
 
   async function writeChanges(): Promise<boolean> {
@@ -202,10 +213,14 @@ export function usePdfChangeTracking({
       throw error
     }
     if (hash === undefined) {
-      // Checked again once the image is there, nothing else reports it.
+      // PDF.js can't save an image without its bitmap, so saving waits for it. Not while the
+      // image is still being chosen (the file dialog is open): checked again later.
       if (isImageLoading) {
-        startCheckTimer()
-        return false
+        if (!unref(isImageDecoding) || !(await waitForImage(doc))) {
+          startCheckTimer()
+          return false
+        }
+        return writeChanges()
       }
       // A change undone before it was written: a copy marked the file as changed (see
       // markChanged()), the content of the storage as it is takes its place again, which may be
@@ -312,7 +327,25 @@ export function usePdfChangeTracking({
       markChanged()
     }
   })
-  // After PDF.js' own handling on window: dragging an annotation looks like drawing until then.
+  // A new image: PDF.js asks for the file with an input of its own, outside of the app, and marks
+  // its layers as waiting while the image decodes. That is the change, it counts right away.
+  useMutationObserver(
+    root,
+    (mutations) => {
+      if (!mutations.some(({ target }) => (target as Element).matches('.annotationEditorLayer'))) {
+        return
+      }
+      const isDecoding = !!toValue(root)?.querySelector('.annotationEditorLayer.waiting')
+      if (isDecoding !== unref(isImageDecoding)) {
+        isImageDecoding.value = isDecoding
+        scheduleCheck()
+      }
+    },
+    { subtree: true, attributes: true, attributeFilter: ['class'] }
+  )
+
+  // After PDF.js' own handling on window. Drawing counts from the first stroke, PDF.js stores it
+  // once the pointer is released.
   const { start: checkDrawing } = useTimeoutFn(
     () => {
       if (toValue(isEnabled) && isTracking && isDrawing()) {
@@ -322,7 +355,7 @@ export function usePdfChangeTracking({
     0,
     { immediate: false }
   )
-  useEventListener(root, 'pointerup', () => checkDrawing())
+  useEventListener(root, ['pointerdown', 'pointerup'], () => checkDrawing())
 
   /**
    * Whether a copy marked the file as changed since the last call, so a save in between (e.g.
