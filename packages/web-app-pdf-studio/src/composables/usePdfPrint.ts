@@ -43,11 +43,13 @@ export function usePdfPrint({
     isUnmounted = true
   })
 
+  /** A page as image, rendered on `canvas`, which all pages share like in the PDF.js viewer. */
   async function renderPage(
     doc: PDFDocumentProxy,
     pageNumber: number,
     storage: PDFDocumentProxy['annotationStorage']['print'],
-    isPortrait: boolean
+    isPortrait: boolean,
+    canvas: HTMLCanvasElement
   ) {
     const page = await doc.getPage(pageNumber)
     const { width, height } = page.getViewport({ scale: 1 })
@@ -55,30 +57,27 @@ export function usePdfPrint({
     // fit the paper.
     const rotation = width <= height === isPortrait ? page.rotate : page.rotate - 90
     const viewport = page.getViewport({ scale: PRINT_DPI / 72, rotation })
-    const canvas = document.createElement('canvas')
     canvas.width = Math.floor(viewport.width)
     canvas.height = Math.floor(viewport.height)
-    let blob: Blob
-    try {
-      await page.render({
-        canvas,
-        viewport,
-        intent: 'print',
-        annotationMode: AnnotationMode.ENABLE_STORAGE,
-        printAnnotationStorage: storage
-      }).promise
-      blob = await new Promise<Blob>((resolve, reject) => {
-        canvas.toBlob((b) => (b ? resolve(b) : reject(new Error('Rendering page failed'))))
-      })
-    } finally {
-      // Frees the canvas memory right away, long documents have many.
-      canvas.width = 0
-      canvas.height = 0
-    }
+    await page.render({
+      canvas,
+      viewport,
+      intent: 'print',
+      annotationMode: AnnotationMode.ENABLE_STORAGE,
+      printAnnotationStorage: storage
+    }).promise
+    const blob = await new Promise<Blob>((resolve, reject) => {
+      canvas.toBlob((b) => (b ? resolve(b) : reject(new Error('Rendering page failed'))))
+    })
     const img = document.createElement('img')
+    // Loaded is enough for printing, like in the PDF.js viewer, decoding each one isn't.
+    const isLoaded = new Promise((resolve, reject) => {
+      img.onload = resolve
+      img.onerror = reject
+    })
     img.src = URL.createObjectURL(blob)
     try {
-      await img.decode()
+      await isLoaded
     } catch (e) {
       // Not in the container yet, so cleanup() wouldn't revoke it.
       URL.revokeObjectURL(img.src)
@@ -131,16 +130,20 @@ export function usePdfPrint({
           isCancelled = true
         }
       })
+    const canvas = document.createElement('canvas')
     try {
       for (
         let pageNumber = 1;
         pageNumber <= doc.numPages && !isCancelled && !isUnmounted;
         pageNumber++
       ) {
-        container.append(await renderPage(doc, pageNumber, storage, isPortrait))
+        container.append(await renderPage(doc, pageNumber, storage, isPortrait, canvas))
         preparedPages.value = pageNumber
       }
     } finally {
+      // Frees the canvas memory right away.
+      canvas.width = 0
+      canvas.height = 0
       if (progressModal) {
         removeModal(progressModal.id)
       }

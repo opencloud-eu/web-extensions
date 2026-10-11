@@ -64,8 +64,16 @@ type DocumentState = {
 }
 
 // Each step keeps a whole file, so only as many undo steps as fit into this. The redo steps come
-// from undone ones, so there are at most as many of them.
+// from undone ones, so there are at most as many of them. Phones and tablets have far less memory
+// for a tab (iOS Safari gives up around 1.5 GB, the document itself needs some of it).
 const MAX_HISTORY_BYTES = 200_000_000
+const MAX_HISTORY_BYTES_TOUCH = 50_000_000
+
+function getHistoryBudget() {
+  return window.matchMedia?.('(pointer: coarse)').matches
+    ? MAX_HISTORY_BYTES_TOUCH
+    : MAX_HISTORY_BYTES
+}
 
 /** What to focus on the page after a page action, see PdfThumbnail. */
 export type PageAction = { pageNumber: number; focusTarget: string }
@@ -112,7 +120,8 @@ export function usePdfPageOperations({
   /** Drops the oldest steps beyond the budget, the latest one stays. */
   function limitHistory() {
     let bytes = unref(undoStack).reduce((sum, { content }) => sum + content.byteLength, 0)
-    while (unref(undoStack).length > 1 && bytes > MAX_HISTORY_BYTES) {
+    const budget = getHistoryBudget()
+    while (unref(undoStack).length > 1 && bytes > budget) {
       bytes -= unref(undoStack)[0].content.byteLength
       undoStack.value = unref(undoStack).slice(1)
     }

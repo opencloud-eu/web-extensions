@@ -6,9 +6,6 @@ import { AnnotationEditorType, type PDFDocumentProxy } from 'pdfjs-dist'
 class SerializeError extends Error {}
 
 const CHECK_DELAY_MS = 300
-// Writing a large file takes a moment, so changes in quick succession are collected longer.
-const LARGE_FILE_BYTES = 50_000_000
-const LARGE_FILE_CHECK_DELAY_MS = 1000
 // A new image is there once its bitmap is decoded, one save waits for it that long at most.
 const IMAGE_LOAD_TIMEOUT_MS = 30_000
 
@@ -78,8 +75,7 @@ export function usePdfChangeTracking({
           onError(error)
         }
       }),
-    () =>
-      toValue(content).byteLength > LARGE_FILE_BYTES ? LARGE_FILE_CHECK_DELAY_MS : CHECK_DELAY_MS,
+    CHECK_DELAY_MS,
     { immediate: false }
   )
 

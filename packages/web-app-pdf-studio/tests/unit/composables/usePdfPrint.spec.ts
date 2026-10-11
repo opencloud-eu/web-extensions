@@ -42,7 +42,15 @@ describe('usePdfPrint', () => {
     vi.spyOn(HTMLCanvasElement.prototype, 'toBlob').mockImplementation((callback) =>
       callback(new Blob())
     )
-    vi.spyOn(HTMLImageElement.prototype, 'decode').mockResolvedValue()
+    // The page images load right away.
+    const src = Object.getOwnPropertyDescriptor(HTMLImageElement.prototype, 'src')
+    vi.spyOn(HTMLImageElement.prototype, 'src', 'set').mockImplementation(function (
+      this: HTMLImageElement,
+      value: string
+    ) {
+      src.set.call(this, value)
+      queueMicrotask(() => this.onload?.(new Event('load')))
+    })
     vi.spyOn(URL, 'createObjectURL').mockImplementation(() => `blob:page-${++urls}`)
     vi.spyOn(URL, 'revokeObjectURL').mockImplementation(() => {})
     vi.stubGlobal('print', printDialog)

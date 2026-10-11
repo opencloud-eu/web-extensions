@@ -210,6 +210,28 @@ describe('usePdfPageOperations', () => {
     })
   })
 
+  it('keeps fewer steps on touch devices, they have far less memory for a tab', async () => {
+    vi.stubGlobal('matchMedia', (query: string) => ({ matches: query === '(pointer: coarse)' }))
+    function content60mb() {
+      return mock<ArrayBuffer>({ byteLength: 60_000_000 })
+    }
+    const { operations, content, extractPages } = setup()
+    content.value = content60mb()
+    extractPages.mockImplementation(() => {
+      const extracted = mock<Uint8Array>()
+      const copy = mock<Uint8Array<ArrayBuffer>>()
+      Object.defineProperty(copy, 'buffer', { value: content60mb() })
+      extracted.slice.mockReturnValue(copy)
+      return Promise.resolve(extracted)
+    })
+    // 60 MB per step: on a desktop three fit, on a phone one.
+    await operations.deletePage(1)
+    await operations.deletePage(1)
+    await operations.undo()
+    expect(operations.undoStates.value.hasSomethingToUndo).toBe(false)
+    vi.unstubAllGlobals()
+  })
+
   it('tells the new thumbnails what to focus after a keyboard action', async () => {
     const { operations } = setup()
     const moving = operations.movePage(1, 2, true)
