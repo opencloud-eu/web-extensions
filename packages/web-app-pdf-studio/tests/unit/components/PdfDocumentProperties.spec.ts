@@ -1,6 +1,4 @@
 import { nextTick } from 'vue'
-import { mock } from 'vitest-mock-extended'
-import type { Modal } from '@opencloud-eu/web-pkg'
 import { defaultPlugins, mount } from '@opencloud-eu/web-test-helpers'
 import PdfDocumentProperties from '../../../src/components/PdfDocumentProperties.vue'
 
@@ -9,7 +7,6 @@ type Props = InstanceType<typeof PdfDocumentProperties>['$props']
 function createWrapper(props: Partial<Props> = {}) {
   return mount(PdfDocumentProperties, {
     props: {
-      modal: mock<Modal>(),
       fileName: 'a.pdf',
       properties: { pageCount: 1, isLinearized: false },
       ...props
@@ -18,7 +15,7 @@ function createWrapper(props: Partial<Props> = {}) {
   })
 }
 
-function rows(properties: Partial<Props['properties']>, fileSize?: number) {
+function rows(properties: Partial<NonNullable<Props['properties']>>, fileSize?: number) {
   const wrapper = createWrapper({
     fileName: 'form.pdf',
     fileSize,
@@ -64,7 +61,7 @@ describe('PdfDocumentProperties', () => {
 
   it('groups the fields like the PDF.js viewer', () => {
     const wrapper = createWrapper()
-    expect(wrapper.findAll('.oc-section-title').map((title) => title.text())).toEqual([
+    expect(wrapper.findAll('h3').map((title) => title.text())).toEqual([
       'File',
       'Description',
       'PDF'
@@ -82,6 +79,12 @@ describe('PdfDocumentProperties', () => {
     wrapper.vm.$language.current = 'de'
     await nextTick()
     expect(wrapper.findAll('dd').at(-2).text()).toBe('215,9 × 279,4 mm (portrait)')
+  })
+
+  it('shows a loader until the document is loaded', () => {
+    const wrapper = createWrapper({ properties: undefined })
+    expect(wrapper.find('dl').exists()).toBe(false)
+    expect(wrapper.findComponent({ name: 'OcLoader' }).exists()).toBe(true)
   })
 
   it('shows sizes without a standard name with the orientation only', () => {

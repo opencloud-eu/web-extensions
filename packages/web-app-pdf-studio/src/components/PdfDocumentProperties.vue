@@ -1,41 +1,38 @@
 <template>
-  <div class="pdf-studio-document-properties ext:flex ext:flex-col ext:gap-3">
-    <oc-section
+  <oc-loader v-if="!properties" :aria-label="$gettext('Loading document properties')" />
+  <div v-else class="pdf-studio-document-properties ext:flex ext:flex-col ext:gap-4 ext:p-2">
+    <section
       v-for="section in sections"
       :key="section.id"
-      :title="section.title"
-      :icon="section.icon"
-      title-tag="h3"
+      class="ext:rounded-xl ext:bg-role-surface-container ext:px-4 ext:py-3"
     >
-      <dl
-        class="ext:m-0 ext:grid ext:grid-cols-[minmax(0,10rem)_minmax(0,1fr)] ext:gap-x-4 ext:gap-y-2 ext:text-sm"
+      <h3
+        class="ext:mt-0 ext:mb-2 ext:flex ext:items-center ext:gap-2 ext:text-sm ext:font-semibold"
       >
-        <template v-for="row in section.rows" :key="row.label">
-          <dt class="ext:break-words ext:text-role-on-surface-variant" v-text="row.label" />
-          <dd
-            class="ext:m-0 ext:whitespace-pre-line ext:break-words"
-            dir="auto"
-            v-text="row.value || '–'"
-          />
-        </template>
-      </dl>
-    </oc-section>
+        <oc-icon :name="section.icon" fill-type="line" size-class="ext:size-4" />
+        <span v-text="section.title" />
+      </h3>
+      <oc-definition-list
+        class="ext:[&_dd]:break-words ext:[&_dd]:whitespace-pre-line ext:[&_dd]:[unicode-bidi:plaintext]"
+        :items="section.items"
+      />
+    </section>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, unref } from 'vue'
 import { useGettext } from 'vue3-gettext'
-import { formatDateFromJSDate, formatFileSize, type Modal } from '@opencloud-eu/web-pkg'
+import { formatDateFromJSDate, formatFileSize } from '@opencloud-eu/web-pkg'
 import type { DocumentProperties } from '../helpers/documentProperties'
 
 const {
-  properties,
+  properties = undefined,
   fileName,
   fileSize = undefined
 } = defineProps<{
-  modal: Modal
-  properties: DocumentProperties
+  /** Not until the document is loaded. */
+  properties?: DocumentProperties
   fileName: string
   fileSize?: number
 }>()
@@ -49,7 +46,7 @@ function formatDate(date: Date | undefined) {
 
 // The unit follows the browser locale like in the PDF.js viewer, the numbers the language.
 const pageSize = computed(() => {
-  const size = properties.pageSize
+  const size = properties?.pageSize
   if (!size) {
     return ''
   }
@@ -59,49 +56,54 @@ const pageSize = computed(() => {
   return `${format(size.width)} × ${format(size.height)} ${size.unit} (${details})`
 })
 
-// The fields of the PDF.js viewer's document properties, in its groups. The labels have the
-// same width in all of them, so the values line up.
-const sections = computed(() => [
-  {
-    id: 'file',
-    title: $gettext('File'),
-    icon: 'file',
-    rows: [
-      { label: $gettext('File name'), value: fileName },
-      {
-        label: $gettext('File size'),
-        value: fileSize === undefined ? '' : formatFileSize(fileSize, language.current)
-      }
-    ]
-  },
-  {
-    id: 'description',
-    title: $gettext('Description'),
-    icon: 'information',
-    rows: [
-      { label: $gettext('Title'), value: properties.title },
-      { label: $gettext('Author'), value: properties.author },
-      { label: $gettext('Subject'), value: properties.subject },
-      { label: $gettext('Keywords'), value: properties.keywords },
-      { label: $gettext('Creation date'), value: formatDate(properties.creationDate) },
-      { label: $gettext('Modification date'), value: formatDate(properties.modificationDate) },
-      { label: $gettext('Application'), value: properties.creator }
-    ]
-  },
-  {
-    id: 'pdf',
-    title: $gettext('PDF'),
-    icon: 'file-pdf-2',
-    rows: [
-      { label: $gettext('PDF producer'), value: properties.producer },
-      { label: $gettext('PDF version'), value: properties.version },
-      { label: $gettext('Page count'), value: String(properties.pageCount) },
-      { label: $gettext('Page size'), value: unref(pageSize) },
-      {
-        label: $gettext('Fast web view'),
-        value: properties.isLinearized ? $gettext('Yes') : $gettext('No')
-      }
-    ]
+function item(term: string, definition: string | undefined) {
+  return { term, definition: definition || '–' }
+}
+
+// The fields of the PDF.js viewer's document properties, in its groups.
+const sections = computed(() => {
+  if (!properties) {
+    return []
   }
-])
+  return [
+    {
+      id: 'file',
+      title: $gettext('File'),
+      icon: 'file',
+      items: [
+        item($gettext('File name'), fileName),
+        item(
+          $gettext('File size'),
+          fileSize === undefined ? '' : formatFileSize(fileSize, language.current)
+        )
+      ]
+    },
+    {
+      id: 'description',
+      title: $gettext('Description'),
+      icon: 'information',
+      items: [
+        item($gettext('Title'), properties.title),
+        item($gettext('Author'), properties.author),
+        item($gettext('Subject'), properties.subject),
+        item($gettext('Keywords'), properties.keywords),
+        item($gettext('Creation date'), formatDate(properties.creationDate)),
+        item($gettext('Modification date'), formatDate(properties.modificationDate)),
+        item($gettext('Application'), properties.creator)
+      ]
+    },
+    {
+      id: 'pdf',
+      title: $gettext('PDF'),
+      icon: 'file-pdf-2',
+      items: [
+        item($gettext('PDF producer'), properties.producer),
+        item($gettext('PDF version'), properties.version),
+        item($gettext('Page count'), String(properties.pageCount)),
+        item($gettext('Page size'), unref(pageSize)),
+        item($gettext('Fast web view'), properties.isLinearized ? $gettext('Yes') : $gettext('No'))
+      ]
+    }
+  ]
+})
 </script>
