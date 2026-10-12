@@ -43,7 +43,13 @@ export function createScripting() {
     })
   return {
     async createSandbox(data: unknown) {
-      ;(await sandbox)?.create(data)
+      const instance = await sandbox
+      // PDF.js goes on without scripting then, otherwise it would wait for the scripts, e.g.
+      // forever when printing.
+      if (!instance) {
+        throw new Error('PDF form scripts are not available')
+      }
+      instance.create(data)
     },
     async dispatchEventInSandbox(event: unknown) {
       const instance = await sandbox

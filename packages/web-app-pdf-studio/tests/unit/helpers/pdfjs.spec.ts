@@ -1,5 +1,5 @@
 import { getDocument, GlobalWorkerOptions, PasswordResponses } from 'pdfjs-dist'
-import { loadPdfDocument, pdfjsAssetUrls } from '../../../src/helpers/pdfjs'
+import { createScripting, loadPdfDocument, pdfjsAssetUrls } from '../../../src/helpers/pdfjs'
 
 vi.mock('pdfjs-dist', async (importOriginal) => ({
   ...(await importOriginal<typeof import('pdfjs-dist')>()),
@@ -41,6 +41,14 @@ describe('pdfjs helpers', () => {
       expect(updatePassword).toHaveBeenCalledWith('secret')
       request.cancel()
       expect(task.destroy).toHaveBeenCalled()
+    })
+  })
+
+  describe('createScripting', () => {
+    // PDF.js would wait for the scripts otherwise, e.g. forever when printing.
+    it('fails creating the sandbox if the scripts are not available, e.g. due to the CSP', async () => {
+      vi.spyOn(console, 'warn').mockImplementation(() => {})
+      await expect(createScripting().createSandbox({})).rejects.toThrow()
     })
   })
 })
