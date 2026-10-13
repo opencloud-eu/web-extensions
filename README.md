@@ -6,6 +6,7 @@ This repository contains a collection of [OpenCloud Web](https://github.com/open
 
 ## Apps
 
+- [web-app-apollon](./packages/web-app-apollon/)
 - [web-app-arcade](./packages/web-app-arcade/)
 - [web-app-bpmn](./packages/web-app-bpmn/)
 - [web-app-calculator](./packages/web-app-calculator/)

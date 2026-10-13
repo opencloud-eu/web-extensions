@@ -18,6 +18,12 @@ overrides:
   lodash-es: ^4.18.0
   '@node-minify/core>glob': ^10.5.0
   adm-zip: ^0.6.0
+  # Apollon holds React Flow at 12.11.x: 12.12.0 ignores touch pointers on the pane
+  # in its multi-selection mode, so tapping empty canvas no longer clears the
+  # selection. Keep in step with the pin in ls1intum/Apollon's pnpm-workspace.yaml.
+  '@tumaet/apollon>@xyflow/react': 12.11.1
 
 allowBuilds:
   '@parcel/watcher': true
+  # jspdf transitive (optional Apollon export); postinstall only prints a notice
+  'core-js': false
