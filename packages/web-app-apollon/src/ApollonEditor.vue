@@ -7,7 +7,7 @@ import { computed, onBeforeUnmount, onMounted, ref, unref, watch, type PropType 
 import { storeToRefs } from 'pinia'
 import type * as Y from 'yjs'
 import type { Awareness } from 'y-protocols/awareness'
-import { ApollonEditor, paletteControl, zoomControl } from '@tumaet/apollon'
+import { ApollonEditor } from '@tumaet/apollon'
 import '@tumaet/apollon/style.css'
 import { useThemeStore } from '@opencloud-eu/web-pkg'
 
@@ -31,7 +31,6 @@ onMounted(() => {
   editor = new ApollonEditor(container, {
     readonly: props.isReadOnly,
     dataTheme: unref(dataTheme),
-    controls: [paletteControl(), zoomControl()],
     collaboration: {
       ydoc: props.ydoc,
       awareness: props.awareness,
