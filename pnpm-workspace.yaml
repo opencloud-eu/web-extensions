@@ -21,7 +21,7 @@ overrides:
   # Apollon holds React Flow at 12.11.x: 12.12.0 ignores touch pointers on the pane
   # in its multi-selection mode, so tapping empty canvas no longer clears the
   # selection. Keep in step with the pin in ls1intum/Apollon's pnpm-workspace.yaml.
-  '@xyflow/react': 12.11.1
+  '@tumaet/apollon>@xyflow/react': 12.11.1
 
 allowBuilds:
   '@parcel/watcher': true
