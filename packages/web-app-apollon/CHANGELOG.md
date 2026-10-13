@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.1](https://github.com/opencloud-eu/web-extensions/releases/tag/apollon-v1.0.1) - 2026-10-13
+
+### 🐛 Bug Fixes
+
+- Show the app icon in the "New" menu and the file list [[#627](https://github.com/opencloud-eu/web-extensions/pull/627)]
+
 ## [1.0.0](https://github.com/opencloud-eu/web-extensions/releases/tag/apollon-v1.0.0) - 2026-10-13
 
 ### ✨ Features

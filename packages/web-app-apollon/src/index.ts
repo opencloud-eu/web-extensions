@@ -35,8 +35,7 @@ export default defineWebApplication({
     const appInfo: ApplicationInformation = {
       name: $gettext('Apollon'),
       id: applicationId,
-      icon: 'organization-chart',
-      iconFillType: 'none',
+      icon: 'flow-chart',
       defaultExtension: 'apollon',
       extensions: [
         {
