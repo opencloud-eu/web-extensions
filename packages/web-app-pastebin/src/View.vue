@@ -96,13 +96,11 @@ import {
   Resource,
   SpaceResource,
   isLinkShare,
-  isPublicSpaceResource,
-  urlJoin
+  isPublicSpaceResource
 } from '@opencloud-eu/web-client'
 import {
   queryItemAsString,
   useClientService,
-  useConfigStore,
   useMessages,
   useResourcesStore,
   useRouteQuery,
@@ -120,6 +118,7 @@ import {
   loadRevisionFiles,
   scrollToFile,
   FILE_EXTENSION,
+  getPublicPastebinUrl,
   type PastebinManifest
 } from './utils'
 import { useDeletePastebin } from './composables/useDeletePastebin'
@@ -139,7 +138,6 @@ const resourcesStore = useResourcesStore()
 const sharesStore = useSharesStore()
 const clientService = useClientService()
 const { showMessage } = useMessages()
-const configStore = useConfigStore()
 const router = useRouter()
 const { deletePastebin: dispatchDeletePastebin } = useDeletePastebin()
 const isAuthenticated = computed(() => !isPublicSpaceResource(space))
@@ -192,8 +190,7 @@ const publicLink = computed(() => {
 // Resolve share URL once and keep it stable even if the store resets
 watch(publicLink, (link) => {
   if (shareUrl.value || !link) return
-  const token = link.webUrl.split('/').pop()
-  shareUrl.value = urlJoin(configStore.serverUrl, 'pastebin', 'view', 'public', token)
+  shareUrl.value = getPublicPastebinUrl(router, link.webUrl)
 })
 
 const { copy: copyToClipboard, copied: shareCopied } = useClipboard({

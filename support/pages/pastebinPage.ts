@@ -34,7 +34,7 @@ export class PastebinPage {
   async createPastebin(opts: {
     title?: string
     files: { name: string; content: string }[]
-  }): Promise<{ password: string }> {
+  }): Promise<{ password: string; copiedLink: string }> {
     if (opts.title) {
       await this.page.getByLabel('Title').fill(opts.title)
     }
@@ -54,9 +54,9 @@ export class PastebinPage {
     // Wait for the create button to be enabled (password validation may need to complete)
     const createButton = this.page.locator('button', { hasText: 'Create Pastebin' })
     await expect(createButton).toBeEnabled({ timeout: 5000 })
-    await createButton.click()
+    const clipboard = await this.clickAndReadClipboard(() => createButton.click())
     await expect(this.page).toHaveURL(/pastebin\/view\//)
-    return { password }
+    return { password, copiedLink: clipboard.split('\n')[0] }
   }
 
   // App wrapper
