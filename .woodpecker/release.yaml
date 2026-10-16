@@ -4,7 +4,7 @@ when:
 
 variables:
   - &node_image 'quay.io/opencloudeu/nodejs-ci:24@sha256:efb3ac3e7e7180aa24fec6f6811d7a59385798676a6a7081dc092faa0800951b'
-  - &alpine_image 'quay.io/opencloudeu/nodejs-alpine-ci:24@sha256:d0d21af0d1f50170a873967855840892cc38b498e2272592f933b458ee36d297'
+  - &alpine_image 'quay.io/opencloudeu/nodejs-alpine-ci:24@sha256:8c8a03f5a3b14031796a02419145bbebf3fa7d7783d2103ff6741182d4e147a4'
   - &release_image 'woodpeckerci/plugin-release:0.3.2@sha256:a045e18674319a2e3e534b5b674c100a0f01a9fc718dd03ab6732155b228e61b'
   - &docker_image 'woodpeckerci/plugin-docker-buildx:latest'
   - &extract_app_and_version
