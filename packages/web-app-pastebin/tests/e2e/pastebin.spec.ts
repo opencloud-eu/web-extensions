@@ -283,13 +283,14 @@ test.describe('public links', () => {
 
   test('public link works unauthenticated', async ({ browser }) => {
     await pastebin.navigateToPastebin()
-    const { password } = await pastebin.createPastebin({
+    const { password, copiedLink } = await pastebin.createPastebin({
       files: [{ name: 'public.txt', content: 'visible without login' }]
     })
 
-    // copy the share link via clipboard
+    // the link copied after creation is the same as the one from the header button
+    expect(copiedLink).toMatch(/\/pastebin\/view\/public\/[^/]+$/)
     const shareHref = await pastebin.getShareLinkHref()
-    expect(shareHref).toBeTruthy()
+    expect(shareHref).toBe(copiedLink)
 
     // open in a fresh unauthenticated browser context
     const freshContext = await browser.newContext({ ignoreHTTPSErrors: true })
