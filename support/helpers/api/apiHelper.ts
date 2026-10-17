@@ -105,3 +105,53 @@ export async function createUserWithGroups(groups: string[], username?: string, 
 
   return user
 }
+
+/**
+ * A public link to a file in the user's personal space, read-only ("view"), with the given
+ * password (the server may enforce one).
+ */
+export async function createPublicLink(
+  username: string,
+  password: string,
+  fileName: string,
+  linkPassword: string
+) {
+  const baseUrl = config.use.baseURL
+  const token = await getAdminToken(username, password)
+  const context = await request.newContext({ ignoreHTTPSErrors: true })
+  const headers = { Authorization: `Bearer ${token}` }
+  try {
+    const driveResponse = await context.get(`${baseUrl}/graph/v1.0/me/drive`, { headers })
+    if (!driveResponse.ok()) {
+      throw new Error(`Failed to get the drive of ${username}: ${driveResponse.status()}`)
+    }
+    const driveId = encodeURIComponent((await driveResponse.json()).id)
+    const propfind = await context.fetch(
+      `${baseUrl}/dav/spaces/${driveId}/${encodeURIComponent(fileName)}`,
+      {
+        method: 'PROPFIND',
+        headers: { ...headers, Depth: '0', 'Content-Type': 'application/xml' },
+        data: '<?xml version="1.0"?><d:propfind xmlns:d="DAV:" xmlns:oc="http://owncloud.org/ns"><d:prop><oc:fileid/></d:prop></d:propfind>'
+      }
+    )
+    const fileId = (await propfind.text()).match(/<oc:fileid>([^<]+)<\/oc:fileid>/)?.[1]
+    if (!propfind.ok() || !fileId) {
+      throw new Error(`File ${fileName} of ${username} not found: ${propfind.status()}`)
+    }
+    const response = await context.post(
+      `${baseUrl}/graph/v1beta1/drives/${driveId}/items/${encodeURIComponent(fileId)}/createLink`,
+      {
+        headers: { ...headers, 'Content-Type': 'application/json' },
+        data: { type: 'view', password: linkPassword }
+      }
+    )
+    if (!response.ok()) {
+      throw new Error(
+        `Failed to create a link for ${fileName}: ${response.status()} - ${await response.text()}`
+      )
+    }
+    return (await response.json()).link.webUrl as string
+  } finally {
+    await context.dispose()
+  }
+}
