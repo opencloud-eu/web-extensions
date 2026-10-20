@@ -96,7 +96,8 @@ import {
   MANIFEST_FILENAME,
   REVISIONS_DIR,
   DEFAULT_FILENAME,
-  FILE_EXTENSION
+  FILE_EXTENSION,
+  getPublicPastebinUrl
 } from './utils'
 
 const { $gettext } = useGettext()
@@ -215,14 +216,15 @@ const save = async () => {
         }
       })
 
+      const publicUrl = getPublicPastebinUrl(router, linkShare.webUrl)
       const clipboardText = linkShare.hasPassword
-        ? `${linkShare.webUrl}\nPassword: ${password.value}`
-        : linkShare.webUrl
+        ? `${publicUrl}\nPassword: ${password.value}`
+        : publicUrl
       await copy(clipboardText)
 
       showMessage({
         title: $gettext('Pastebin created and link copied to clipboard!'),
-        desc: linkShare.webUrl
+        desc: publicUrl
       })
     } catch (linkError) {
       console.error('Failed to create public link:', linkError)

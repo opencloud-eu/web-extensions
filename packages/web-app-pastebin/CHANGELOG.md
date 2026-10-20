@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.2.1](https://github.com/opencloud-eu/web-extensions/releases/tag/pastebin-v2.2.1) - 2026-10-14
+
+### 🐛 Bug Fixes
+
+- Copy the pastebin view link instead of the raw share link after creating a pastebin [[#629](https://github.com/opencloud-eu/web-extensions/pull/629)]
+
 ## [2.2.0](https://github.com/opencloud-eu/web-extensions/releases/tag/pastebin-v2.2.0) - 2026-10-07
 
 ### ✨ Features

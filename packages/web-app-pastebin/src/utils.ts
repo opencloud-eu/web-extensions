@@ -1,6 +1,6 @@
 import type { Resource, SpaceResource } from '@opencloud-eu/web-client'
 import type { WebDAV } from '@opencloud-eu/web-client/webdav'
-import { formatDateFromJSDate } from '@opencloud-eu/web-pkg'
+import { buildUrl, formatDateFromJSDate, useRouter } from '@opencloud-eu/web-pkg'
 
 export const PASTEBIN_BASE_PATH = '/.space/pastebin'
 export const MANIFEST_FILENAME = 'manifest.json'
@@ -29,6 +29,18 @@ export function slugify(text: string): string {
     .trim()
     .replace(/[^a-zA-Z0-9_-]/g, '-')
     .replace(/-+/g, '-')
+}
+
+export function getPublicLinkToken(webUrl: string): string {
+  return new URL(webUrl).pathname.split('/').filter(Boolean).pop()
+}
+
+export function getPublicPastebinUrl(router: ReturnType<typeof useRouter>, webUrl: string): string {
+  const { fullPath } = router.resolve({
+    name: 'pastebin-view',
+    params: { driveAliasAndItem: `public/${getPublicLinkToken(webUrl)}` }
+  })
+  return buildUrl(router, fullPath)
 }
 
 export function formatDate(date: string, language: string): string {
