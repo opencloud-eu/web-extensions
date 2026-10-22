@@ -302,7 +302,7 @@ importers:
         version: 4.0.1(vue@3.5.43(typescript@6.0.3))
       zod:
         specifier: ^4.0.0
-        version: 4.6.5
+        version: 4.6.7
 
   packages/web-app-importer:
     dependencies:
@@ -382,7 +382,7 @@ importers:
         version: 4.5.0
       zod:
         specifier: ^4.0.17
-        version: 4.6.5
+        version: 4.6.7
     devDependencies:
       vue:
         specifier: ^3.4.21
@@ -417,7 +417,7 @@ importers:
         version: 4.0.1(vue@3.5.43(typescript@6.0.3))
       zod:
         specifier: ^4.3.0
-        version: 4.6.5
+        version: 4.6.7
 
   packages/web-app-pastebin:
     dependencies:
@@ -5513,8 +5513,8 @@ packages:
   zimmerframe@1.1.5:
     resolution: {integrity: sha512-msJxIvYDYcoNL+PJsu+7qmpDWsYmAxTY+2TNYXXF0hzBzBk0BMecOqDOG/EckUoKCuKwObfbugIl8QpqHDXeFA==}
 
-  zod@4.6.5:
-    resolution: {integrity: sha512-v5l/aFXZQeai4awLbOpSoHecE9UiMrnfx75tEXLjNonXVARxQ5mOeipTjROUchszUNCqnE+hqAMujRsRHsut2Q==}
+  zod@4.6.7:
+    resolution: {integrity: sha512-g8W2D2kU6a8untc053fX1uVBKzM7yqAxW/3zwk83+6RyF2+SKOuV+c0wBDhUwzV1PaGapmZH+rmcUzPf+3CGwg==}
 
   zustand@4.5.7:
     resolution: {integrity: sha512-CHOUy7mu3lbD6o6LJLfllpjkzhHXSBlX8B9+qPddUsIfeF5S/UZ5q0kmCsnRqT1UHFQZchNFDDzMbQsuesHWlw==}
@@ -6929,7 +6929,7 @@ snapshots:
       luxon: 3.7.2
       uuid: 14.0.2
       webdav: 5.11.0
-      zod: 4.6.5
+      zod: 4.6.7
     transitivePeerDependencies:
       - debug
       - supports-color
@@ -7003,7 +7003,7 @@ snapshots:
       vue3-gettext: 4.0.1(vue@3.5.43(typescript@6.0.3))
       y-protocols: 1.0.7(yjs@13.6.33)
       yjs: 13.6.33
-      zod: 4.6.5
+      zod: 4.6.7
     transitivePeerDependencies:
       - '@75lb/nature'
       - '@farmfe/core'
@@ -11296,7 +11296,7 @@ snapshots:
 
   zimmerframe@1.1.5: {}
 
-  zod@4.6.5: {}
+  zod@4.6.7: {}
 
   zustand@4.5.7(@types/react@19.3.0)(react@19.3.0):
     dependencies:
