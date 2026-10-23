@@ -1,0 +1,3 @@
+directives:
+  worker-src:
+    - "'self'"
