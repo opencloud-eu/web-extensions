@@ -1,3 +1,4 @@
+import '@opencloud-eu/extension-sdk/tailwind.css'
 import { useGettext } from 'vue3-gettext'
 import {
   AppWrapperRoute,

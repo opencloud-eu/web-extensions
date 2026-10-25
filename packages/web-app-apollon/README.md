@@ -6,7 +6,8 @@ extension, can create new diagrams from the "New" menu, and opens read-only for 
 write access.
 
 A new diagram starts with a choice of diagram type (class, activity, use case, component,
-deployment and more). The type of an existing diagram cannot be changed.
+deployment and more) from a grouped, filterable gallery. The type of an existing diagram cannot
+be changed.
 
 ## File format
 
