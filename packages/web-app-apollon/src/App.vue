@@ -1,5 +1,5 @@
 <template>
-  <div class="apollon-app size-full">
+  <div class="apollon-app ext:size-full">
     <app-loading-spinner v-if="!ydoc || !awareness" />
     <ApollonEditor
       v-else-if="diagramExists"
@@ -10,7 +10,7 @@
     />
     <div
       v-else-if="isUnreadable || isReadOnly"
-      class="apollon-notice flex size-full items-center justify-center p-4 text-role-on-surface-variant"
+      class="apollon-notice ext:flex ext:size-full ext:items-center ext:justify-center ext:p-4 ext:text-role-on-surface-variant"
     >
       <span
         v-if="isUnreadable"

@@ -1,5 +1,5 @@
 <template>
-  <div ref="containerRef" class="apollon-editor size-full" />
+  <div ref="containerRef" class="apollon-editor ext:size-full" />
 </template>
 
 <script setup lang="ts">

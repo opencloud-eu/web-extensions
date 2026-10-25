@@ -1,17 +1,23 @@
 <template>
   <oc-card
-    tag="button"
-    type="button"
-    class="ext:flex ext:cursor-pointer ext:flex-col ext:overflow-hidden ext:border ext:bg-role-surface-container ext:text-left ext:hover:bg-role-surface-container-highest"
+    class="ext:relative ext:flex ext:flex-col ext:overflow-hidden ext:border ext:bg-role-surface-container ext:hover:bg-role-surface-container-highest"
     body-class="ext:flex ext:flex-col"
-    :aria-label="$gettext('Create %{name}', { name: entry.name })"
-    :data-diagram-type="entry.type"
   >
     <template #header>
       <inline-svg :src="entry.image" class="ext:h-20" aria-hidden="true" unique-ids />
     </template>
-    <span class="ext:font-semibold" v-text="entry.name" />
+    <h4 class="ext:my-0 ext:text-base">
+      <button
+        type="button"
+        class="ext:cursor-pointer ext:text-left ext:font-semibold ext:after:absolute ext:after:inset-0"
+        :aria-describedby="descriptionId"
+        :data-diagram-type="entry.type"
+        @click="emit('select', entry.type)"
+        v-text="entry.name"
+      />
+    </h4>
     <span
+      :id="descriptionId"
       class="ext:mt-1 ext:text-sm ext:text-role-on-surface-variant"
       v-text="entry.description"
     />
@@ -19,13 +25,18 @@
 </template>
 
 <script setup lang="ts">
-import { useGettext } from 'vue3-gettext'
+import { computed } from 'vue'
 import InlineSvg from 'vue-inline-svg'
+import type { UMLDiagramType } from '@tumaet/apollon'
 import type { DiagramTypeEntry } from './diagramTypes'
 
-defineProps<{
+const { entry } = defineProps<{
   entry: DiagramTypeEntry
 }>()
 
-const { $gettext } = useGettext()
+const emit = defineEmits<{
+  (e: 'select', type: UMLDiagramType): void
+}>()
+
+const descriptionId = computed(() => `apollon-diagram-type-${entry.type}-description`)
 </script>

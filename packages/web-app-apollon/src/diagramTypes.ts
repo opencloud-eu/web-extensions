@@ -1,17 +1,17 @@
 import type { UMLDiagramType } from '@tumaet/apollon'
-import activityDiagram from './assets/diagram-types/activity-diagram.svg'
-import bpmn from './assets/diagram-types/bpmn.svg'
-import classDiagram from './assets/diagram-types/class-diagram.svg'
-import communicationDiagram from './assets/diagram-types/communication-diagram.svg'
-import componentDiagram from './assets/diagram-types/component-diagram.svg'
-import deploymentDiagram from './assets/diagram-types/deployment-diagram.svg'
-import flowchart from './assets/diagram-types/flowchart.svg'
-import objectDiagram from './assets/diagram-types/object-diagram.svg'
-import petriNet from './assets/diagram-types/petri-net.svg'
-import reachabilityGraph from './assets/diagram-types/reachability-graph.svg'
-import sequentialFunctionChart from './assets/diagram-types/sequential-function-chart.svg'
-import syntaxTree from './assets/diagram-types/syntax-tree.svg'
-import useCaseDiagram from './assets/diagram-types/use-case-diagram.svg'
+import activityDiagram from './assets/diagram-types/activity-diagram.svg?no-inline'
+import bpmn from './assets/diagram-types/bpmn.svg?no-inline'
+import classDiagram from './assets/diagram-types/class-diagram.svg?no-inline'
+import communicationDiagram from './assets/diagram-types/communication-diagram.svg?no-inline'
+import componentDiagram from './assets/diagram-types/component-diagram.svg?no-inline'
+import deploymentDiagram from './assets/diagram-types/deployment-diagram.svg?no-inline'
+import flowchart from './assets/diagram-types/flowchart.svg?no-inline'
+import objectDiagram from './assets/diagram-types/object-diagram.svg?no-inline'
+import petriNet from './assets/diagram-types/petri-net.svg?no-inline'
+import reachabilityGraph from './assets/diagram-types/reachability-graph.svg?no-inline'
+import sequentialFunctionChart from './assets/diagram-types/sequential-function-chart.svg?no-inline'
+import syntaxTree from './assets/diagram-types/syntax-tree.svg?no-inline'
+import useCaseDiagram from './assets/diagram-types/use-case-diagram.svg?no-inline'
 
 export interface DiagramTypeEntry {
   type: UMLDiagramType
@@ -131,4 +131,31 @@ export function diagramTypeGroups($gettext: (msgid: string) => string): DiagramT
       ]
     }
   ]
+}
+
+function includesTerm(text: string, term: string) {
+  return text.toLowerCase().includes(term)
+}
+
+export function filterDiagramTypeGroups(
+  groups: DiagramTypeGroup[],
+  filterTerm: string
+): DiagramTypeGroup[] {
+  const term = filterTerm.trim().toLowerCase()
+  if (!term) {
+    return groups
+  }
+  return groups
+    .map((group) => {
+      if (includesTerm(group.title, term)) {
+        return group
+      }
+      return {
+        ...group,
+        types: group.types.filter(
+          ({ name, description }) => includesTerm(name, term) || includesTerm(description, term)
+        )
+      }
+    })
+    .filter((group) => group.types.length)
 }
