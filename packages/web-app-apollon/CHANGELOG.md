@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.0](https://github.com/opencloud-eu/web-extensions/releases/tag/apollon-v1.1.0) - 2026-10-26
+
+### ✨ Features
+
+- Grouped gallery with previews and a filter for picking the type of a new diagram [[#636](https://github.com/opencloud-eu/web-extensions/pull/636)]
+
 ## [1.0.1](https://github.com/opencloud-eu/web-extensions/releases/tag/apollon-v1.0.1) - 2026-10-13
 
 ### 🐛 Bug Fixes
