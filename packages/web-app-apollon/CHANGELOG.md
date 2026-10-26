@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.1.0](https://github.com/opencloud-eu/web-extensions/releases/tag/apollon-v1.1.0) - 2026-10-25
+## [1.1.0](https://github.com/opencloud-eu/web-extensions/releases/tag/apollon-v1.1.0) - 2026-10-26
 
 ### ✨ Features
 
