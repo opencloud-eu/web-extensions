@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.1.0](https://github.com/opencloud-eu/web-extensions/releases/tag/arcade-v3.1.0) - YYYY-MM-DD
+
+### ✨ Features
+
+- Ship the required CSP rules as `csp.yaml` [[#621](https://github.com/opencloud-eu/web-extensions/pull/621)]
+
 ## [3.0.0](https://github.com/opencloud-eu/web-extensions/releases/tag/arcade-v3.0.0) - 2026-07-16
 
 ### Breaking changes
