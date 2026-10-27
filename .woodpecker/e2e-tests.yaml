@@ -8,7 +8,7 @@ variables:
   - &node_image 'quay.io/opencloudeu/nodejs-ci:24@sha256:4133e457d46874781ab84cf74b61055eec921b486c44eb2e8881a80ca171cd1a'
   - &oc_image 'opencloudeu/opencloud-rolling:8.1.0@sha256:8fc64ca861739cc62095cd558814f2eba6a90acf5998d884e439b33a47875da8'
   - &yjs_image 'opencloudeu/yjs:1.1.0@sha256:99c6ce4688b06544c4e17cf149ceaefb90e2043d4e83d004c4f13c637a733dc4'
-  - &alpine_image 'quay.io/opencloudeu/nodejs-alpine-ci:24@sha256:d0d21af0d1f50170a873967855840892cc38b498e2272592f933b458ee36d297'
+  - &alpine_image 'quay.io/opencloudeu/nodejs-alpine-ci:24@sha256:8c8a03f5a3b14031796a02419145bbebf3fa7d7783d2103ff6741182d4e147a4'
   - &minio_mc_image 'minio/mc:RELEASE.2021-10-07T04-19-58Z@sha256:a1d9629e969a55e5b957dc7656c3ee893a95cf6c5733223fa0283b1f23f7142e'
   - &tika_image 'apache/tika:3.3.3.0@sha256:326b238b37904c94ff61fed87afe0af72e6a29fa715933b10af97b7d56f1d4cb'
 
