@@ -10,7 +10,7 @@ overrides:
   lodash-es: ^4.18.0
   '@node-minify/core>glob': ^10.5.0
   adm-zip: ^0.6.0
-  '@tumaet/apollon>@xyflow/react': 12.12.0
+  '@tumaet/apollon>@xyflow/react': 12.11.1
 
 importers:
 
@@ -87,7 +87,7 @@ importers:
     dependencies:
       '@tumaet/apollon':
         specifier: 5.4.0
-        version: 5.4.0(@types/react@19.3.0)(@xyflow/react@12.12.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(use-sync-external-store@1.7.0(react@19.3.1))(y-protocols@1.0.7(yjs@13.6.33))(yjs@13.6.33)
+        version: 5.4.0(@types/react@19.3.0)(@xyflow/react@12.11.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(use-sync-external-store@1.7.0(react@19.3.1))(y-protocols@1.0.7(yjs@13.6.33))(yjs@13.6.33)
       react:
         specifier: ^19.0.0
         version: 19.3.1
@@ -2120,7 +2120,7 @@ packages:
     resolution: {integrity: sha512-QJ4xcL0z6Ks1GUCpAbceqf99MQikagVrXfAvg9+fdBo87ByzYzuLG0kgIZaJHDy1rVF8Nf3kUwnTAiqqGslqbg==}
     engines: {node: '>=22.0.0'}
     peerDependencies:
-      '@xyflow/react': 12.12.0
+      '@xyflow/react': 12.11.1
       react: ^19.0.0
       react-dom: ^19.0.0
       y-protocols: ^1.0.6
@@ -2523,8 +2523,8 @@ packages:
     peerDependencies:
       vue: ^3.5.0
 
-  '@xyflow/react@12.12.0':
-    resolution: {integrity: sha512-74oXI0Rgm1Eu33cHQAd74J6oVgCH9mbFyTVQbsGgp2kmWwh0HdtBr2VP04z8mbPD+M/xO69nqG5dDEt7/EN2rQ==}
+  '@xyflow/react@12.11.1':
+    resolution: {integrity: sha512-L+zBoLGSXham0MnlY8QqjfR7/C5JNw0zxkaey5aZ5XmCgJBAdH4+WRIu8CR40d3l/BdU635V6YbhBK1jMo8/6Q==}
     peerDependencies:
       '@types/react': '>=17'
       '@types/react-dom': '>=17'
@@ -2538,9 +2538,6 @@ packages:
 
   '@xyflow/system@0.0.78':
     resolution: {integrity: sha512-lY0z2qP33fUhTva9Vaxrk0lqZta2pkbxB1trHAx1omnJqRtPvDlAQYV2r5fhS6AdpkulYmbNW0svy+A4/t4B/g==}
-
-  '@xyflow/system@0.0.83':
-    resolution: {integrity: sha512-a//eDjez3WZF47aaPTfVUDD0OINOq+WVwBZCRTqG+m0a5euX8EwlJ4jMY1Wxz0Ocj4xOeekJ70V22Pq0ll8RJw==}
 
   '@zip.js/zip.js@2.23.0':
     resolution: {integrity: sha512-K5obAqfrO7zhycnCupM9aaoZ9kx0SA0kv7+Z2oOUsdpWquv4s/Z4zyD7AdTqxrK3pgPM+ozaUi8kdRQbCWaIrQ==}
@@ -7884,14 +7881,14 @@ snapshots:
 
   '@tsconfig/node16@1.0.4': {}
 
-  '@tumaet/apollon@5.4.0(@types/react@19.3.0)(@xyflow/react@12.12.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(use-sync-external-store@1.7.0(react@19.3.1))(y-protocols@1.0.7(yjs@13.6.33))(yjs@13.6.33)':
+  '@tumaet/apollon@5.4.0(@types/react@19.3.0)(@xyflow/react@12.11.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(use-sync-external-store@1.7.0(react@19.3.1))(y-protocols@1.0.7(yjs@13.6.33))(yjs@13.6.33)':
     dependencies:
       '@base-ui/react': 1.8.0(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@chenglou/pretext': 0.0.9
       '@dnd-kit/core': 6.3.1(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@dnd-kit/sortable': 10.0.0(@dnd-kit/core@6.3.1(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react@19.3.1)
       '@dnd-kit/utilities': 3.2.2(react@19.3.1)
-      '@xyflow/react': 12.12.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      '@xyflow/react': 12.11.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@xyflow/system': 0.0.78
       lucide-react: 1.52.0(@types/react@19.3.0)(react@19.3.1)
       react: 19.3.1
@@ -8425,9 +8422,9 @@ snapshots:
     dependencies:
       vue: 3.5.44(typescript@6.0.3)
 
-  '@xyflow/react@12.12.0(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
+  '@xyflow/react@12.11.1(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
     dependencies:
-      '@xyflow/system': 0.0.83
+      '@xyflow/system': 0.0.78
       classcat: 5.0.5
       react: 19.3.1
       react-dom: 19.3.1(react@19.3.1)
@@ -8439,18 +8436,6 @@ snapshots:
       - immer
 
   '@xyflow/system@0.0.78':
-    dependencies:
-      '@types/d3-drag': 3.0.7
-      '@types/d3-interpolate': 3.0.4
-      '@types/d3-selection': 3.0.12
-      '@types/d3-transition': 3.0.9
-      '@types/d3-zoom': 3.0.9
-      d3-drag: 3.0.0
-      d3-interpolate: 3.0.1
-      d3-selection: 3.0.0
-      d3-zoom: 3.0.0
-
-  '@xyflow/system@0.0.83':
     dependencies:
       '@types/d3-drag': 3.0.7
       '@types/d3-interpolate': 3.0.4

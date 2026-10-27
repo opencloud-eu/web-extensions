@@ -24,6 +24,11 @@
       "enabled": false
     },
     {
+      "description": "Pinned on purpose, see comment in pnpm-workspace.yaml",
+      "matchDepNames": ["@tumaet/apollon>@xyflow/react"],
+      "enabled": false
+    },
+    {
       "matchPackageNames": ["/bpmn/", "diagram-js-minimap"],
       "groupName": "bpmn",
       "groupSlug": "bpmn"
