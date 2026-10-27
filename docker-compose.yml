@@ -104,7 +104,7 @@ services:
       - 'wait-for -it tika:9998 -t 300'
 
   tika:
-    image: apache/tika:3.3.1.0@sha256:90b7fa1dc018434075fce9e1d9b88b1e3d0ea6979d0cf86e116c79a8073ae973
+    image: apache/tika:3.3.3.0@sha256:326b238b37904c94ff61fed87afe0af72e6a29fa715933b10af97b7d56f1d4cb
     ports:
       - '9998:9998'
     restart: unless-stopped
