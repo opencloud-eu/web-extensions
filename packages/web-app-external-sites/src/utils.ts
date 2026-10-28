@@ -6,7 +6,7 @@ import {
   isExternalSite,
   ExternalSite
 } from './types'
-import { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
+import { RouteLocationRaw } from 'vue-router'
 
 // Helper function to check visibility requirements
 export const shouldDisplay = (visibilityConfig?: VisibilityControl): boolean => {
@@ -63,17 +63,16 @@ export const filterVisibleSites = (
 }
 
 // Route guard for visibility-based checking
-export const createVisibilityGuard = (visibilityConfig?: VisibilityControl) => {
-  return (
-    to: RouteLocationNormalized,
-    from: RouteLocationNormalized,
-    next: NavigationGuardNext
-  ) => {
-    if (shouldDisplay(visibilityConfig)) {
-      next()
-    } else {
-      next('/')
+export const createVisibilityGuard = (
+  visibilityConfig: VisibilityControl | undefined,
+  groupMembershipsLoaded: Promise<void>
+) => {
+  return async (): Promise<RouteLocationRaw | true> => {
+    if (visibilityConfig?.groups) {
+      await groupMembershipsLoaded
     }
+
+    return shouldDisplay(visibilityConfig) || '/'
   }
 }
 

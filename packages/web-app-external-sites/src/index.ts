@@ -13,6 +13,7 @@ import {
   flattenSites
 } from './utils'
 import { fallbackIconColor } from './iconColor'
+import { useGroupMemberships } from './composables/useGroupMemberships'
 
 import '@opencloud-eu/extension-sdk/tailwind.css'
 import App from './App.vue'
@@ -23,6 +24,7 @@ export default defineWebApplication({
     const { $gettext } = useGettext()
 
     const appId = 'external-sites'
+    const { groupMembershipsLoaded } = useGroupMemberships()
 
     const { sites, dashboards, defaultDashboard } =
       ExternalSitesConfigSchema.parse(applicationConfig)
@@ -41,7 +43,9 @@ export default defineWebApplication({
           title: name,
           patchCleanPath: true
         },
-        ...(visibility && { beforeEnter: createVisibilityGuard(visibility) })
+        ...(visibility && {
+          beforeEnter: createVisibilityGuard(visibility, groupMembershipsLoaded)
+        })
       })
     })
 
@@ -66,7 +70,9 @@ export default defineWebApplication({
           patchCleanPath: true,
           entryPoint
         },
-        ...(dashboard.visibility && { beforeEnter: createVisibilityGuard(dashboard.visibility) })
+        ...(dashboard.visibility && {
+          beforeEnter: createVisibilityGuard(dashboard.visibility, groupMembershipsLoaded)
+        })
       })
 
       // Create nested routes for embedded dashboard sites
@@ -89,7 +95,9 @@ export default defineWebApplication({
               title: site.name,
               patchCleanPath: true
             },
-            ...(site.visibility && { beforeEnter: createVisibilityGuard(site.visibility) })
+            ...(site.visibility && {
+              beforeEnter: createVisibilityGuard(site.visibility, groupMembershipsLoaded)
+            })
           })
         })
     })
