@@ -18,19 +18,19 @@ importers:
     devDependencies:
       '@opencloud-eu/eslint-config':
         specifier: ^8.0.0
-        version: 8.2.0(@typescript-eslint/eslint-plugin@8.71.1(@typescript-eslint/parser@8.71.1(eslint@10.13.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.13.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.13.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(vue-eslint-parser@10.4.1(eslint@10.13.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1))
+        version: 8.2.1(@typescript-eslint/eslint-plugin@8.71.1(@typescript-eslint/parser@8.71.1(eslint@10.13.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.13.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.13.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(vue-eslint-parser@10.4.1(eslint@10.13.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1))
       '@opencloud-eu/extension-sdk':
         specifier: ^8.1.0
-        version: 8.2.0(debug@4.4.3(supports-color@8.1.1))(node-fetch@3.3.2)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vitest@5.0.5(@types/node@24.19.2)(happy-dom@21.0.4)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)))(vue-tsc@3.3.13(typescript@6.0.3))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(debug@4.4.3(supports-color@8.1.1))(node-fetch@3.3.2)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vitest@5.0.5(@types/node@24.19.2)(happy-dom@21.0.4)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)))(vue-tsc@3.3.13(typescript@6.0.3))(vue@3.5.44(typescript@6.0.3))
       '@opencloud-eu/prettier-config':
         specifier: ^8.0.0
-        version: 8.2.0(prettier@3.9.10)
+        version: 8.2.1(prettier@3.9.10)
       '@opencloud-eu/tsconfig':
         specifier: ^8.0.0
-        version: 8.2.0
+        version: 8.2.1
       '@opencloud-eu/web-test-helpers':
         specifier: ^8.0.0
-        version: 8.2.0(88298c473a04fd465cc1267ae02b29e6)
+        version: 8.2.1(c070a6a6b88ecb12d7057646cd4578e1)
       '@playwright/test':
         specifier: ^1.50.1
         version: 1.64.1
@@ -100,10 +100,10 @@ importers:
     devDependencies:
       '@opencloud-eu/web-client':
         specifier: ^8.0.0
-        version: 8.2.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+        version: 8.2.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^8.0.0
-        version: 8.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       pinia:
         specifier: ^4.0.0
         version: 4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3))
@@ -142,7 +142,7 @@ importers:
         version: 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^8.0.0
-        version: 8.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
     devDependencies:
       vue:
         specifier: ^3.4.21
@@ -171,10 +171,10 @@ importers:
     devDependencies:
       '@opencloud-eu/web-client':
         specifier: ^8.0.0
-        version: 8.2.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+        version: 8.2.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^8.0.0
-        version: 8.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       vue:
         specifier: ^3.4.21
         version: 3.5.44(typescript@6.0.3)
@@ -190,10 +190,10 @@ importers:
     devDependencies:
       '@opencloud-eu/web-client':
         specifier: ^8.0.0
-        version: 8.2.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+        version: 8.2.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^8.0.0
-        version: 8.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       '@vueuse/core':
         specifier: ^15.0.0
         version: 15.0.0(vue@3.5.44(typescript@6.0.3))
@@ -208,10 +208,10 @@ importers:
     devDependencies:
       '@opencloud-eu/web-client':
         specifier: ^8.0.0
-        version: 8.2.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+        version: 8.2.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^8.0.0
-        version: 8.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       '@types/chromecast-caf-sender':
         specifier: ^1.0.8
         version: 1.0.11
@@ -226,13 +226,13 @@ importers:
     devDependencies:
       '@opencloud-eu/web-client':
         specifier: ^8.0.0
-        version: 8.2.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+        version: 8.2.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^8.0.0
-        version: 8.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       qs:
         specifier: ^6.11.2
-        version: 6.16.1
+        version: 6.17.0
       vue:
         specifier: ^3.4.21
         version: 3.5.44(typescript@6.0.3)
@@ -260,10 +260,10 @@ importers:
     devDependencies:
       '@opencloud-eu/web-client':
         specifier: ^8.0.0
-        version: 8.2.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+        version: 8.2.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^8.0.0
-        version: 8.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       '@types/react':
         specifier: ^19.0.0
         version: 19.3.0
@@ -290,10 +290,10 @@ importers:
     devDependencies:
       '@opencloud-eu/web-client':
         specifier: ^8.0.0
-        version: 8.2.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+        version: 8.2.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^8.0.0
-        version: 8.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       vue:
         specifier: ^3.4.21
         version: 3.5.44(typescript@6.0.3)
@@ -324,10 +324,10 @@ importers:
     devDependencies:
       '@opencloud-eu/web-client':
         specifier: ^8.0.0
-        version: 8.2.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+        version: 8.2.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^8.0.0
-        version: 8.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       '@uppy/core':
         specifier: ^6.0.0
         version: 6.3.0
@@ -349,10 +349,10 @@ importers:
     devDependencies:
       '@opencloud-eu/web-client':
         specifier: ^8.0.0
-        version: 8.2.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+        version: 8.2.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^8.0.0
-        version: 8.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       sass-embedded:
         specifier: ^1.98.0
         version: 1.106.1
@@ -367,10 +367,10 @@ importers:
     dependencies:
       '@opencloud-eu/web-client':
         specifier: ^8.0.0
-        version: 8.2.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+        version: 8.2.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^8.0.0
-        version: 8.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       '@protomaps/basemaps':
         specifier: ^5.7.0
         version: 5.7.2
@@ -398,13 +398,13 @@ importers:
     dependencies:
       '@opencloud-eu/design-system':
         specifier: ^7.0.0 || ^8.0.0
-        version: 8.2.0(@vue/compiler-sfc@3.5.44)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@vue/compiler-sfc@3.5.44)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       '@opencloud-eu/web-client':
         specifier: ^8.0.0
-        version: 8.2.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+        version: 8.2.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^8.0.0
-        version: 8.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
     devDependencies:
       pinia:
         specifier: ^4.0.0
@@ -430,10 +430,10 @@ importers:
     devDependencies:
       '@opencloud-eu/web-client':
         specifier: ^8.0.0
-        version: 8.2.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+        version: 8.2.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^8.0.0
-        version: 8.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       '@vueuse/core':
         specifier: ^15.0.0
         version: 15.0.0(vue@3.5.44(typescript@6.0.3))
@@ -451,7 +451,7 @@ importers:
     devDependencies:
       '@opencloud-eu/web-pkg':
         specifier: ^8.0.0
-        version: 8.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       '@vueuse/core':
         specifier: ^15.0.0
         version: 15.0.0(vue@3.5.44(typescript@6.0.3))
@@ -470,10 +470,10 @@ importers:
     devDependencies:
       '@opencloud-eu/web-client':
         specifier: ^8.0.0
-        version: 8.2.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+        version: 8.2.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^8.0.0
-        version: 8.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       uuid:
         specifier: ^14.0.0
         version: 14.0.3
@@ -1173,40 +1173,40 @@ packages:
   '@one-ini/wasm@0.2.1':
     resolution: {integrity: sha512-TUqERXGNTifZ9y2g3wPxQrw3HpHv/02DsW3D90T9x0hhonrL1ZqpSmNrU2XkoIq0fP1N6gZfVQzy2Fw1ZvGBNg==}
 
-  '@opencloud-eu/design-system@8.2.0':
-    resolution: {integrity: sha512-loQ6m3gRH3/H77E82uf+ssdcNQ+2XlqjquLAbZkAqTNP7JKORKD3sxshUIfAvp59BPb6zySDtMOTew6/aeQLDA==}
+  '@opencloud-eu/design-system@8.2.1':
+    resolution: {integrity: sha512-CfebvbFV93UvkuT9hMFQ6u5A1cD/8VGXtK1X7xjNzOqNZTZCqbGHHXRNQ/pgyI7vDXBBkH71MC9SV3CyjtSHDg==}
     peerDependencies:
       pinia: ^3.0.3 || ^4.0.0
 
-  '@opencloud-eu/eslint-config@8.2.0':
-    resolution: {integrity: sha512-x4BesRKiqMGXozbBgAywVAs30vhktzjLL3uWDSFP55s2BSPkdlhZ9mFpvyZ4ttx9ibHq6jy2c/lCzh536E0m5w==}
+  '@opencloud-eu/eslint-config@8.2.1':
+    resolution: {integrity: sha512-cYpVEIm5kQZQKxfl2snLkJXO4IuNAtrwwLuwQVk+tnGeFkdYArUTo8CeY1NWLCFkyxWHAdIjr+KudcXHeYKyNw==}
     peerDependencies:
       eslint: ^9.0.0 || ^10.0.0
 
-  '@opencloud-eu/extension-sdk@8.2.0':
-    resolution: {integrity: sha512-5UDOKR61r+ohAMBkFhHqGF2QV5C4VBcxVH/Or2JyA0aCOus8ebAsaLV2LR5S/A2noSDeWZciNGPYz69PV9KkXA==}
+  '@opencloud-eu/extension-sdk@8.2.1':
+    resolution: {integrity: sha512-gh0c/gOp2ZXJEOAuuHTaxy+X11vsBLrjTYmgAYqpHqW5iqCAkGXt+UXiTYJeVcKi9JIANKpqd5+T7sN/lziUlw==}
     peerDependencies:
       vite: ^7.2.0 || ^8.0.0
       vitest: ^4.0.0 || ^5.0.0
 
-  '@opencloud-eu/prettier-config@8.2.0':
-    resolution: {integrity: sha512-pmnq/DJKht4Y2vgWxUCXhkIU8ZpoRqzBva76eQwAIl23jLSt+w8eqRDt1RF0k590X64oNz01QP4MWn931r8ifg==}
+  '@opencloud-eu/prettier-config@8.2.1':
+    resolution: {integrity: sha512-2IWcFME/lCKEBrbtVfBeT+G9FjkeW1ankKOmrIaXPNzZJ4ar52EBuBWHaVHkpKMZprYi2kLcxPTUl+zmbWaVLQ==}
     peerDependencies:
       prettier: ^3.0.0
 
-  '@opencloud-eu/tsconfig@8.2.0':
-    resolution: {integrity: sha512-We4uPPBRHnBrhIeiBA8cU6+UvmLtbt2s1yIBAbNLBVpyAq5SP31fCVoePZykWr6K19mrVQ9BimIWY81SJjJuRg==}
+  '@opencloud-eu/tsconfig@8.2.1':
+    resolution: {integrity: sha512-AtvAOMVcVxXueHKuGaPd4cHOzh73wmisA+/tNNtYy0Arkyf8rzgNj10hPz4FfN066pP5ixPxptmPJVuFyDQ8nw==}
 
-  '@opencloud-eu/web-client@8.2.0':
-    resolution: {integrity: sha512-9wN7/Ipe3Bz1Y98oGHUMg4C4wJLoIuclKgQlrOINqXkcv9gmeHDItRw8qjzQOzbNz9Yt5pY2j+wHFhog3Lb7Hw==}
+  '@opencloud-eu/web-client@8.2.1':
+    resolution: {integrity: sha512-+oy0FmNRwcCG9zvG8pJ7flZFoeyzeSwfV0xYisY3xEMkT9BON0uNw/opx+FfL+C2DL2VRuZ55XNaC3qq1b8aIQ==}
 
-  '@opencloud-eu/web-pkg@8.2.0':
-    resolution: {integrity: sha512-ItxfeLawGC7vVLrHhpunIg1ycfIUnD93w73osLT6lfvhWcvUIrHjyYF+A0ciaIjSSRjF9uKFDqJtV847CmawAA==}
+  '@opencloud-eu/web-pkg@8.2.1':
+    resolution: {integrity: sha512-5rGVyqcuz02DQXZ4fnE4kajTId936pDAlAUyxE7ymGYPo+Gd2TTJa+tr/q1aEQaOcUP17DucTmrg6JfI2FdbmA==}
 
-  '@opencloud-eu/web-test-helpers@8.2.0':
-    resolution: {integrity: sha512-BM3lmowETRWDzsLLqA3sowGkEXqqUaFNhaqBK9/HYaUk5H44bbWy3Ehvy4SPqbrWaSffvp8lNIqUNlV7hJuQrA==}
+  '@opencloud-eu/web-test-helpers@8.2.1':
+    resolution: {integrity: sha512-FuqUMKsqhg+kmkx5JDdaqwwD9xf917mdRzNj892jJdfiPjQldOm1t7Ij1xYikvAmbodQHsEDV79ZY4rFxhKa5w==}
     peerDependencies:
-      '@opencloud-eu/web-pkg': ^8.2.0
+      '@opencloud-eu/web-pkg': ^8.2.1
       '@vue/test-utils': ^2.4.6
       vue: ^3.5.10
 
@@ -4582,8 +4582,8 @@ packages:
     resolution: {integrity: sha512-+Owyggi9IxT1ePKGafcI87ubSmxol6smwJ+RAHDQlx9+9cPwFWDiKFFCPuWhr9ignlGpZ9vDQLw67N4dcTVFEA==}
     engines: {node: '>=20'}
 
-  qs@6.16.1:
-    resolution: {integrity: sha512-5Px6J7rfHBAGUhNQ3es4YzcOdBBw0SDcVtThJml4RdnKw4tKs2epA0kPZ+K8X+WiHktT93RHVcQ/3ym5aTCgtg==}
+  qs@6.17.0:
+    resolution: {integrity: sha512-5LK5BZ2XDHMvcUJaf0CQ5HL3aVgKbpklvByC7qLSxYkfE8COEEbJg5xCHWCTqzqi0Gs4Jn5Mv5v3R38W6edscA==}
     engines: {node: '>=0.6'}
 
   quansync@0.2.11:
@@ -6884,7 +6884,7 @@ snapshots:
 
   '@one-ini/wasm@0.2.1': {}
 
-  '@opencloud-eu/design-system@8.2.0(@vue/compiler-sfc@3.5.44)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))':
+  '@opencloud-eu/design-system@8.2.1(@vue/compiler-sfc@3.5.44)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))':
     dependencies:
       '@emoji-mart/data': 1.2.1
       '@floating-ui/dom': 1.8.0
@@ -6916,7 +6916,7 @@ snapshots:
       - vue
       - webpack
 
-  '@opencloud-eu/eslint-config@8.2.0(@typescript-eslint/eslint-plugin@8.71.1(@typescript-eslint/parser@8.71.1(eslint@10.13.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.13.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.13.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(vue-eslint-parser@10.4.1(eslint@10.13.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1))':
+  '@opencloud-eu/eslint-config@8.2.1(@typescript-eslint/eslint-plugin@8.71.1(@typescript-eslint/parser@8.71.1(eslint@10.13.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.13.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.13.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(vue-eslint-parser@10.4.1(eslint@10.13.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1))':
     dependencies:
       '@typescript-eslint/parser': 8.71.1(eslint@10.13.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)
       eslint: 10.13.0(jiti@2.7.0)(supports-color@8.1.1)
@@ -6931,7 +6931,7 @@ snapshots:
       - supports-color
       - vue-eslint-parser
 
-  '@opencloud-eu/extension-sdk@8.2.0(debug@4.4.3(supports-color@8.1.1))(node-fetch@3.3.2)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vitest@5.0.5(@types/node@24.19.2)(happy-dom@21.0.4)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)))(vue-tsc@3.3.13(typescript@6.0.3))(vue@3.5.44(typescript@6.0.3))':
+  '@opencloud-eu/extension-sdk@8.2.1(debug@4.4.3(supports-color@8.1.1))(node-fetch@3.3.2)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vitest@5.0.5(@types/node@24.19.2)(happy-dom@21.0.4)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)))(vue-tsc@3.3.13(typescript@6.0.3))(vue@3.5.44(typescript@6.0.3))':
     dependencies:
       '@module-federation/vite': 1.14.2(debug@4.4.3(supports-color@8.1.1))(node-fetch@3.3.2)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue-tsc@3.3.13(typescript@6.0.3))
       '@tailwindcss/vite': 4.3.3(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))
@@ -6950,13 +6950,13 @@ snapshots:
       - vue
       - vue-tsc
 
-  '@opencloud-eu/prettier-config@8.2.0(prettier@3.9.10)':
+  '@opencloud-eu/prettier-config@8.2.1(prettier@3.9.10)':
     dependencies:
       prettier: 3.9.10
 
-  '@opencloud-eu/tsconfig@8.2.0': {}
+  '@opencloud-eu/tsconfig@8.2.1': {}
 
-  '@opencloud-eu/web-client@8.2.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
+  '@opencloud-eu/web-client@8.2.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
       '@casl/ability': 7.0.1
       '@microsoft/fetch-event-source': 2.0.1
@@ -6970,14 +6970,14 @@ snapshots:
       - debug
       - supports-color
 
-  '@opencloud-eu/web-pkg@8.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))':
+  '@opencloud-eu/web-pkg@8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))':
     dependencies:
       '@casl/ability': 7.0.1
       '@casl/vue': 3.0.1(@casl/ability@7.0.1)(vue@3.5.44(typescript@6.0.3))
       '@hocuspocus/provider': 4.7.0(y-protocols@1.0.7(yjs@13.6.33))(yjs@13.6.33)
       '@microsoft/fetch-event-source': 2.0.1
-      '@opencloud-eu/design-system': 8.2.0(@vue/compiler-sfc@3.5.44)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
-      '@opencloud-eu/web-client': 8.2.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@opencloud-eu/design-system': 8.2.1(@vue/compiler-sfc@3.5.44)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+      '@opencloud-eu/web-client': 8.2.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@tiptap/core': 3.31.4(@tiptap/pm@3.31.4)
       '@tiptap/extension-bubble-menu': 3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4)
       '@tiptap/extension-code-block-lowlight': 3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4)(highlight.js@11.12.0)(lowlight@3.3.0)
@@ -7028,7 +7028,7 @@ snapshots:
       p-queue: 9.3.3
       password-sheriff: 2.0.0
       pinia: 4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3))
-      qs: 6.16.1
+      qs: 6.17.0
       uuid: 14.0.3
       vue-concurrency: 5.0.3(vue@3.5.44(typescript@6.0.3))
       vue-inline-svg: 4.0.1(vue@3.5.44(typescript@6.0.3))
@@ -7064,13 +7064,13 @@ snapshots:
       - vue
       - webpack
 
-  '@opencloud-eu/web-test-helpers@8.2.0(88298c473a04fd465cc1267ae02b29e6)':
+  '@opencloud-eu/web-test-helpers@8.2.1(c070a6a6b88ecb12d7057646cd4578e1)':
     dependencies:
       '@casl/ability': 7.0.1
       '@casl/vue': 3.0.1(@casl/ability@7.0.1)(vue@3.5.44(typescript@6.0.3))
-      '@opencloud-eu/design-system': 8.2.0(@vue/compiler-sfc@3.5.44)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
-      '@opencloud-eu/web-client': 8.2.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
-      '@opencloud-eu/web-pkg': 8.2.0(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+      '@opencloud-eu/design-system': 8.2.1(@vue/compiler-sfc@3.5.44)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+      '@opencloud-eu/web-client': 8.2.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      '@opencloud-eu/web-pkg': 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       '@pinia/testing': 2.0.1(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))
       '@vue/test-utils': 2.5.1(@vue/compiler-dom@3.5.44)(@vue/server-renderer@3.5.44)(vue@3.5.44(typescript@6.0.3))
       axios: 1.20.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
@@ -10449,7 +10449,7 @@ snapshots:
     dependencies:
       hookified: 2.2.0
 
-  qs@6.16.1:
+  qs@6.17.0:
     dependencies:
       es-define-property: 1.0.1
       side-channel: 1.1.1
@@ -10982,7 +10982,7 @@ snapshots:
 
   union@0.5.0:
     dependencies:
-      qs: 6.16.1
+      qs: 6.17.0
 
   universalify@2.0.1: {}
 
