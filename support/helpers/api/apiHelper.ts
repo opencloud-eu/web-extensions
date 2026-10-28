@@ -98,10 +98,10 @@ export async function createUserWithGroups(groups: string[], username?: string, 
   const user =
     username && password ? await createUser(username, password) : await createRandomUser()
 
-  groups.forEach(async (group) => {
+  for (const group of groups) {
     const newGroup = await createGroup(group)
-    addUserToGroup(newGroup.id, user.id)
-  })
+    await addUserToGroup(newGroup.id, user.id)
+  }
 
   return user
 }
