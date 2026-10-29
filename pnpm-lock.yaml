@@ -21,7 +21,7 @@ importers:
         version: 8.2.1(@typescript-eslint/eslint-plugin@8.71.1(@typescript-eslint/parser@8.71.1(eslint@10.13.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.13.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.13.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(vue-eslint-parser@10.4.1(eslint@10.13.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1))
       '@opencloud-eu/extension-sdk':
         specifier: ^8.1.0
-        version: 8.2.1(debug@4.4.3(supports-color@8.1.1))(node-fetch@3.3.2)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vitest@5.0.5(@types/node@24.19.2)(happy-dom@21.0.4)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)))(vue-tsc@3.3.13(typescript@6.0.3))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(debug@4.4.3(supports-color@8.1.1))(node-fetch@3.3.2)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vitest@5.0.5(@types/node@26.6.6)(happy-dom@21.0.4)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)))(vue-tsc@3.3.13(typescript@6.0.3))(vue@3.5.44(typescript@6.0.3))
       '@opencloud-eu/prettier-config':
         specifier: ^8.0.0
         version: 8.2.1(prettier@3.9.10)
@@ -30,13 +30,13 @@ importers:
         version: 8.2.1
       '@opencloud-eu/web-test-helpers':
         specifier: ^8.0.0
-        version: 8.2.1(c070a6a6b88ecb12d7057646cd4578e1)
+        version: 8.2.1(064c8cf22392c33487fbfab2484d5ad3)
       '@playwright/test':
         specifier: ^1.50.1
         version: 1.64.1
       '@types/node':
-        specifier: 24.19.2
-        version: 24.19.2
+        specifier: 26.6.6
+        version: 26.6.6
       '@types/semver':
         specifier: ^7.7.1
         version: 7.8.0
@@ -60,7 +60,7 @@ importers:
         version: 4.3.3
       ts-node:
         specifier: ^10.9.2
-        version: 10.9.2(@types/node@24.19.2)(typescript@6.0.3)
+        version: 10.9.2(@types/node@26.6.6)(typescript@6.0.3)
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -69,13 +69,13 @@ importers:
         version: 14.0.3
       vite:
         specifier: ^8.0.3
-        version: 8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)
+        version: 8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)
       vitest:
         specifier: ^5.0.0
-        version: 5.0.5(@types/node@24.19.2)(happy-dom@21.0.4)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))
+        version: 5.0.5(@types/node@26.6.6)(happy-dom@21.0.4)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))
       vitest-mock-extended:
         specifier: ^5.0.0
-        version: 5.1.1(typescript@6.0.3)(vitest@5.0.5(@types/node@24.19.2)(happy-dom@21.0.4)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)))
+        version: 5.1.1(typescript@6.0.3)(vitest@5.0.5(@types/node@26.6.6)(happy-dom@21.0.4)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)))
       vue-tsc:
         specifier: ^3.2.6
         version: 3.3.13(typescript@6.0.3)
@@ -103,7 +103,7 @@ importers:
         version: 8.2.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^8.0.0
-        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       pinia:
         specifier: ^4.0.0
         version: 4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3))
@@ -142,7 +142,7 @@ importers:
         version: 4.2.3(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^8.0.0
-        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
     devDependencies:
       vue:
         specifier: ^3.4.21
@@ -174,7 +174,7 @@ importers:
         version: 8.2.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^8.0.0
-        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       vue:
         specifier: ^3.4.21
         version: 3.5.44(typescript@6.0.3)
@@ -193,7 +193,7 @@ importers:
         version: 8.2.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^8.0.0
-        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       '@vueuse/core':
         specifier: ^15.0.0
         version: 15.0.0(vue@3.5.44(typescript@6.0.3))
@@ -211,7 +211,7 @@ importers:
         version: 8.2.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^8.0.0
-        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       '@types/chromecast-caf-sender':
         specifier: ^1.0.8
         version: 1.0.11
@@ -229,7 +229,7 @@ importers:
         version: 8.2.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^8.0.0
-        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       qs:
         specifier: ^6.11.2
         version: 6.17.0
@@ -263,7 +263,7 @@ importers:
         version: 8.2.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^8.0.0
-        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       '@types/react':
         specifier: ^19.0.0
         version: 19.3.0
@@ -272,7 +272,7 @@ importers:
         version: 19.3.0(@types/react@19.3.0)
       vite-plugin-static-copy:
         specifier: ^4.0.0
-        version: 4.1.1(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))
+        version: 4.1.1(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))
       vue:
         specifier: ^3.4.21
         version: 3.5.44(typescript@6.0.3)
@@ -293,13 +293,13 @@ importers:
         version: 8.2.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^8.0.0
-        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       vue:
         specifier: ^3.4.21
         version: 3.5.44(typescript@6.0.3)
       vue-router:
         specifier: ^5.0.0
-        version: 5.4.0(@vue/compiler-sfc@3.5.44)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 5.4.0(@vue/compiler-sfc@3.5.44)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       vue3-gettext:
         specifier: ^4.0.0
         version: 4.0.1(vue@3.5.44(typescript@6.0.3))
@@ -327,7 +327,7 @@ importers:
         version: 8.2.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^8.0.0
-        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       '@uppy/core':
         specifier: ^6.0.0
         version: 6.3.0
@@ -352,7 +352,7 @@ importers:
         version: 8.2.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^8.0.0
-        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       sass-embedded:
         specifier: ^1.98.0
         version: 1.106.1
@@ -370,7 +370,7 @@ importers:
         version: 8.2.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^8.0.0
-        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       '@protomaps/basemaps':
         specifier: ^5.7.0
         version: 5.7.2
@@ -398,13 +398,13 @@ importers:
     dependencies:
       '@opencloud-eu/design-system':
         specifier: ^7.0.0 || ^8.0.0
-        version: 8.2.1(@vue/compiler-sfc@3.5.44)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@vue/compiler-sfc@3.5.44)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       '@opencloud-eu/web-client':
         specifier: ^8.0.0
         version: 8.2.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^8.0.0
-        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
     devDependencies:
       pinia:
         specifier: ^4.0.0
@@ -433,7 +433,7 @@ importers:
         version: 8.2.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^8.0.0
-        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       '@vueuse/core':
         specifier: ^15.0.0
         version: 15.0.0(vue@3.5.44(typescript@6.0.3))
@@ -451,7 +451,7 @@ importers:
     devDependencies:
       '@opencloud-eu/web-pkg':
         specifier: ^8.0.0
-        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       '@vueuse/core':
         specifier: ^15.0.0
         version: 15.0.0(vue@3.5.44(typescript@6.0.3))
@@ -473,7 +473,7 @@ importers:
         version: 8.2.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@opencloud-eu/web-pkg':
         specifier: ^8.0.0
-        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+        version: 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       uuid:
         specifier: ^14.0.0
         version: 14.0.3
@@ -2258,8 +2258,8 @@ packages:
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
 
-  '@types/node@24.19.2':
-    resolution: {integrity: sha512-93d49wCWJkCyN87MxLpNN6KXPCwFw7bVUg79mGUV1OS40JGWwVCr8n61DXCSqz7CV6/VfPkb7xec7uP2M+QHWQ==}
+  '@types/node@26.6.6':
+    resolution: {integrity: sha512-MzQj+8Kx3XI40OmUAE6Qoh58ZMNstNNMwn2nfd3qWsfe7nDNSqJNzes4njhz6AHwrSHOffSLwXU6yb474Q4aog==}
 
   '@types/pako@2.0.4':
     resolution: {integrity: sha512-VWDCbrLeVXJM9fihYodcLiIv0ku+AlOa/TQ1SvYOaBuyrSKgEcro95LJyIsJ4vSo6BXIxOKxiJAat04CmST9Fw==}
@@ -5109,8 +5109,8 @@ packages:
   ufo@1.6.4:
     resolution: {integrity: sha512-JFNbkD1Svwe0KvGi8GOeLcP4kAWQ609twvCdcHxq1oSL8svv39ZuSvajcD8B+5D0eL4+s1Is2D/O6KN3qcTeRA==}
 
-  undici-types@7.24.6:
-    resolution: {integrity: sha512-WRNW+sJgj5OBN4/0JpHFqtqzhpbnV0GuB+OozA9gCL7a993SmU+1JBZCzLNxYsbMfIeDL+lTsphD5jN5N+n0zg==}
+  undici-types@8.9.0:
+    resolution: {integrity: sha512-KTDyRTYX8sWmKXAikPHHSyc63CRPETMctyjKFupcC6OBLXT3xsN0e9aF7m+mIXutFWpUXuedtowG7iLOzp0kQg==}
 
   union@0.5.0:
     resolution: {integrity: sha512-N6uOhuW6zO95P3Mel2I2zMsbsanvvtgn6jVqJv4vbVcz/JN0OkL9suomjQGmWtxJQXOCqUJvquc1sMeNz/IwlA==}
@@ -6838,7 +6838,7 @@ snapshots:
       fs-extra: 9.1.0
       resolve: 1.22.8
 
-  '@module-federation/vite@1.14.2(debug@4.4.3(supports-color@8.1.1))(node-fetch@3.3.2)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue-tsc@3.3.13(typescript@6.0.3))':
+  '@module-federation/vite@1.14.2(debug@4.4.3(supports-color@8.1.1))(node-fetch@3.3.2)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue-tsc@3.3.13(typescript@6.0.3))':
     dependencies:
       '@module-federation/dts-plugin': 2.3.1(debug@4.4.3(supports-color@8.1.1))(node-fetch@3.3.2)(supports-color@8.1.1)(typescript@6.0.3)(vue-tsc@3.3.13(typescript@6.0.3))
       '@module-federation/runtime': 2.3.1(node-fetch@3.3.2)
@@ -6849,7 +6849,7 @@ snapshots:
       estree-walker: 3.0.3
       magic-string: 0.30.21
       pathe: 2.0.3
-      vite: 8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)
+      vite: 8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -6884,7 +6884,7 @@ snapshots:
 
   '@one-ini/wasm@0.2.1': {}
 
-  '@opencloud-eu/design-system@8.2.1(@vue/compiler-sfc@3.5.44)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))':
+  '@opencloud-eu/design-system@8.2.1(@vue/compiler-sfc@3.5.44)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))':
     dependencies:
       '@emoji-mart/data': 1.2.1
       '@floating-ui/dom': 1.8.0
@@ -6897,7 +6897,7 @@ snapshots:
       luxon: 3.7.2
       pinia: 4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3))
       vue-inline-svg: 4.0.1(vue@3.5.44(typescript@6.0.3))
-      vue-router: 5.4.0(@vue/compiler-sfc@3.5.44)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+      vue-router: 5.4.0(@vue/compiler-sfc@3.5.44)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       vue-select: 4.0.0-beta.6(vue@3.5.44(typescript@6.0.3))
       vue3-gettext: 4.0.1(vue@3.5.44(typescript@6.0.3))
     transitivePeerDependencies:
@@ -6931,14 +6931,14 @@ snapshots:
       - supports-color
       - vue-eslint-parser
 
-  '@opencloud-eu/extension-sdk@8.2.1(debug@4.4.3(supports-color@8.1.1))(node-fetch@3.3.2)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vitest@5.0.5(@types/node@24.19.2)(happy-dom@21.0.4)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)))(vue-tsc@3.3.13(typescript@6.0.3))(vue@3.5.44(typescript@6.0.3))':
+  '@opencloud-eu/extension-sdk@8.2.1(debug@4.4.3(supports-color@8.1.1))(node-fetch@3.3.2)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vitest@5.0.5(@types/node@26.6.6)(happy-dom@21.0.4)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)))(vue-tsc@3.3.13(typescript@6.0.3))(vue@3.5.44(typescript@6.0.3))':
     dependencies:
-      '@module-federation/vite': 1.14.2(debug@4.4.3(supports-color@8.1.1))(node-fetch@3.3.2)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue-tsc@3.3.13(typescript@6.0.3))
-      '@tailwindcss/vite': 4.3.3(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))
-      '@vitejs/plugin-basic-ssl': 2.3.0(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))
-      '@vitejs/plugin-vue': 6.0.9(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
-      vite: 8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)
-      vitest: 5.0.5(@types/node@24.19.2)(happy-dom@21.0.4)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))
+      '@module-federation/vite': 1.14.2(debug@4.4.3(supports-color@8.1.1))(node-fetch@3.3.2)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue-tsc@3.3.13(typescript@6.0.3))
+      '@tailwindcss/vite': 4.3.3(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))
+      '@vitejs/plugin-basic-ssl': 2.3.0(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))
+      '@vitejs/plugin-vue': 6.0.9(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+      vite: 8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)
+      vitest: 5.0.5(@types/node@26.6.6)(happy-dom@21.0.4)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -6970,13 +6970,13 @@ snapshots:
       - debug
       - supports-color
 
-  '@opencloud-eu/web-pkg@8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))':
+  '@opencloud-eu/web-pkg@8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))':
     dependencies:
       '@casl/ability': 7.0.1
       '@casl/vue': 3.0.1(@casl/ability@7.0.1)(vue@3.5.44(typescript@6.0.3))
       '@hocuspocus/provider': 4.7.0(y-protocols@1.0.7(yjs@13.6.33))(yjs@13.6.33)
       '@microsoft/fetch-event-source': 2.0.1
-      '@opencloud-eu/design-system': 8.2.1(@vue/compiler-sfc@3.5.44)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+      '@opencloud-eu/design-system': 8.2.1(@vue/compiler-sfc@3.5.44)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       '@opencloud-eu/web-client': 8.2.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       '@tiptap/core': 3.31.4(@tiptap/pm@3.31.4)
       '@tiptap/extension-bubble-menu': 3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4)
@@ -7032,7 +7032,7 @@ snapshots:
       uuid: 14.0.3
       vue-concurrency: 5.0.3(vue@3.5.44(typescript@6.0.3))
       vue-inline-svg: 4.0.1(vue@3.5.44(typescript@6.0.3))
-      vue-router: 5.4.0(@vue/compiler-sfc@3.5.44)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+      vue-router: 5.4.0(@vue/compiler-sfc@3.5.44)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       vue3-gettext: 4.0.1(vue@3.5.44(typescript@6.0.3))
       y-protocols: 1.0.7(yjs@13.6.33)
       yjs: 13.6.33
@@ -7064,20 +7064,20 @@ snapshots:
       - vue
       - webpack
 
-  '@opencloud-eu/web-test-helpers@8.2.1(c070a6a6b88ecb12d7057646cd4578e1)':
+  '@opencloud-eu/web-test-helpers@8.2.1(064c8cf22392c33487fbfab2484d5ad3)':
     dependencies:
       '@casl/ability': 7.0.1
       '@casl/vue': 3.0.1(@casl/ability@7.0.1)(vue@3.5.44(typescript@6.0.3))
-      '@opencloud-eu/design-system': 8.2.1(@vue/compiler-sfc@3.5.44)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+      '@opencloud-eu/design-system': 8.2.1(@vue/compiler-sfc@3.5.44)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       '@opencloud-eu/web-client': 8.2.1(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
-      '@opencloud-eu/web-pkg': 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+      '@opencloud-eu/web-pkg': 8.2.1(@floating-ui/dom@1.8.0)(@tiptap/extension-code-block@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@tiptap/extensions@3.31.4(@tiptap/core@3.31.4(@tiptap/pm@3.31.4))(@tiptap/pm@3.31.4))(@vue/compiler-sfc@3.5.44)(@vue/devtools-api@8.2.1)(debug@4.4.3(supports-color@8.1.1))(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.6)(rolldown@1.2.15)(supports-color@8.1.1)(typescript@6.0.3)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       '@pinia/testing': 2.0.1(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))
       '@vue/test-utils': 2.5.1(@vue/compiler-dom@3.5.44)(@vue/server-renderer@3.5.44)(vue@3.5.44(typescript@6.0.3))
       axios: 1.20.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       pinia: 4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3))
-      vitest-mock-extended: 5.1.1(typescript@6.0.3)(vitest@5.0.5(@types/node@24.19.2)(happy-dom@21.0.4)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)))
+      vitest-mock-extended: 5.1.1(typescript@6.0.3)(vitest@5.0.5(@types/node@26.6.6)(happy-dom@21.0.4)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)))
       vue: 3.5.44(typescript@6.0.3)
-      vue-router: 5.4.0(@vue/compiler-sfc@3.5.44)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
+      vue-router: 5.4.0(@vue/compiler-sfc@3.5.44)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))
       vue3-gettext: 4.0.1(vue@3.5.44(typescript@6.0.3))
     transitivePeerDependencies:
       - '@75lb/nature'
@@ -7583,12 +7583,12 @@ snapshots:
       '@tailwindcss/oxide-win32-arm64-msvc': 4.3.3
       '@tailwindcss/oxide-win32-x64-msvc': 4.3.3
 
-  '@tailwindcss/vite@4.3.3(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))':
+  '@tailwindcss/vite@4.3.3(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))':
     dependencies:
       '@tailwindcss/node': 4.3.3
       '@tailwindcss/oxide': 4.3.3
       tailwindcss: 4.3.3
-      vite: 8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)
+      vite: 8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)
 
   '@tiptap/core@3.31.4(@tiptap/pm@3.31.4)':
     dependencies:
@@ -7923,7 +7923,7 @@ snapshots:
 
   '@types/cors@2.8.19':
     dependencies:
-      '@types/node': 24.19.2
+      '@types/node': 26.6.6
 
   '@types/d3-array@3.2.2': {}
 
@@ -8064,9 +8064,9 @@ snapshots:
 
   '@types/json-schema@7.0.15': {}
 
-  '@types/node@24.19.2':
+  '@types/node@26.6.6':
     dependencies:
-      undici-types: 7.24.6
+      undici-types: 8.9.0
 
   '@types/pako@2.0.4':
     optional: true
@@ -8095,7 +8095,7 @@ snapshots:
 
   '@types/ws@8.18.2':
     dependencies:
-      '@types/node': 24.19.2
+      '@types/node': 26.6.6
 
   '@typescript-eslint/eslint-plugin@8.71.1(@typescript-eslint/parser@8.71.1(eslint@10.13.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3))(eslint@10.13.0(jiti@2.7.0)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)':
     dependencies:
@@ -8278,24 +8278,24 @@ snapshots:
       d3-selection: 3.0.0
       d3-transition: 3.0.1(d3-selection@3.0.0)
 
-  '@vitejs/plugin-basic-ssl@2.3.0(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))':
+  '@vitejs/plugin-basic-ssl@2.3.0(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))':
     dependencies:
-      vite: 8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)
+      vite: 8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)
 
-  '@vitejs/plugin-vue@6.0.9(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))':
+  '@vitejs/plugin-vue@6.0.9(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3))':
     dependencies:
       '@rolldown/pluginutils': 1.0.1
-      vite: 8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)
+      vite: 8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)
       vue: 3.5.44(typescript@6.0.3)
 
-  '@vitest/mocker@5.0.5(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))':
+  '@vitest/mocker@5.0.5(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       '@vitest/spy': 5.0.5
       estree-walker: 3.0.3
       magic-string: 1.4.3
     optionalDependencies:
-      vite: 8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)
+      vite: 8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)
 
   '@vitest/spy@5.0.5': {}
 
@@ -8630,7 +8630,7 @@ snapshots:
 
   buffer-image-size@0.6.4:
     dependencies:
-      '@types/node': 24.19.2
+      '@types/node': 26.6.6
 
   byte-length@1.0.2: {}
 
@@ -9127,7 +9127,7 @@ snapshots:
   engine.io@6.6.11(supports-color@8.1.1):
     dependencies:
       '@types/cors': 2.8.19
-      '@types/node': 24.19.2
+      '@types/node': 26.6.6
       '@types/ws': 8.18.2
       accepts: 1.3.8
       cookie: 0.7.2
@@ -9498,7 +9498,7 @@ snapshots:
 
   happy-dom@21.0.4:
     dependencies:
-      '@types/node': 24.19.2
+      '@types/node': 26.6.6
       '@types/whatwg-mimetype': 3.0.2
       '@types/ws': 8.18.2
       buffer-image-size: 0.6.4
@@ -10917,14 +10917,14 @@ snapshots:
     optionalDependencies:
       typescript: 6.0.3
 
-  ts-node@10.9.2(@types/node@24.19.2)(typescript@6.0.3):
+  ts-node@10.9.2(@types/node@26.6.6)(typescript@6.0.3):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.13
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
-      '@types/node': 24.19.2
+      '@types/node': 26.6.6
       acorn: 8.19.0
       acorn-walk: 8.3.5
       arg: 4.1.3
@@ -10978,7 +10978,7 @@ snapshots:
 
   ufo@1.6.4: {}
 
-  undici-types@7.24.6: {}
+  undici-types@8.9.0: {}
 
   union@0.5.0:
     dependencies:
@@ -10991,14 +10991,14 @@ snapshots:
       pathe: 2.0.3
       picomatch: 4.0.7
 
-  unplugin@3.4.0(rolldown@1.2.15)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)):
+  unplugin@3.4.0(rolldown@1.2.15)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)):
     dependencies:
       '@jridgewell/remapping': 2.3.5
       picomatch: 4.0.7
       webpack-virtual-modules: 0.6.2
     optionalDependencies:
       rolldown: 1.2.15
-      vite: 8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)
+      vite: 8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)
 
   uri-js@4.4.1:
     dependencies:
@@ -11082,15 +11082,15 @@ snapshots:
 
   vary@1.1.2: {}
 
-  vite-plugin-static-copy@4.1.1(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)):
+  vite-plugin-static-copy@4.1.1(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)):
     dependencies:
       chokidar: 3.6.0
       p-map: 7.0.8
       picocolors: 1.1.1
       tinyglobby: 0.2.17
-      vite: 8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)
+      vite: 8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)
 
-  vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0):
+  vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0):
     dependencies:
       lightningcss: 1.33.0
       picomatch: 4.0.7
@@ -11098,23 +11098,23 @@ snapshots:
       rolldown: 1.2.15
       tinyglobby: 0.2.17
     optionalDependencies:
-      '@types/node': 24.19.2
+      '@types/node': 26.6.6
       fsevents: 2.3.3
       jiti: 2.7.0
       sass: 1.106.1
       sass-embedded: 1.106.1
       terser: 5.36.0
 
-  vitest-mock-extended@5.1.1(typescript@6.0.3)(vitest@5.0.5(@types/node@24.19.2)(happy-dom@21.0.4)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))):
+  vitest-mock-extended@5.1.1(typescript@6.0.3)(vitest@5.0.5(@types/node@26.6.6)(happy-dom@21.0.4)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))):
     dependencies:
       ts-essentials: 10.2.1(typescript@6.0.3)
       typescript: 6.0.3
-      vitest: 5.0.5(@types/node@24.19.2)(happy-dom@21.0.4)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))
+      vitest: 5.0.5(@types/node@26.6.6)(happy-dom@21.0.4)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))
 
-  vitest@5.0.5(@types/node@24.19.2)(happy-dom@21.0.4)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)):
+  vitest@5.0.5(@types/node@26.6.6)(happy-dom@21.0.4)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)):
     dependencies:
       '@types/chai': 5.2.3
-      '@vitest/mocker': 5.0.5(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))
+      '@vitest/mocker': 5.0.5(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))
       chai: 6.3.0
       es-module-lexer: 2.3.2
       expect-type: 1.4.0
@@ -11125,10 +11125,10 @@ snapshots:
       tinybench: 6.2.2
       tinyexec: 1.3.1
       tinyglobby: 0.2.17
-      vite: 8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)
+      vite: 8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)
       why-is-node-running: 3.2.1
     optionalDependencies:
-      '@types/node': 24.19.2
+      '@types/node': 26.6.6
       happy-dom: 21.0.4
     transitivePeerDependencies:
       - msw
@@ -11175,7 +11175,7 @@ snapshots:
     dependencies:
       vue: 3.5.44(typescript@6.0.3)
 
-  vue-router@5.4.0(@vue/compiler-sfc@3.5.44)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3)):
+  vue-router@5.4.0(@vue/compiler-sfc@3.5.44)(pinia@4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3)))(rolldown@1.2.15)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))(vue@3.5.44(typescript@6.0.3)):
     dependencies:
       '@vue-macros/common': 3.1.4(vue@3.5.44(typescript@6.0.3))
       '@vue/devtools-api': 8.2.1
@@ -11191,13 +11191,13 @@ snapshots:
       picomatch: 4.0.7
       scule: 1.3.0
       tinyglobby: 0.2.17
-      unplugin: 3.4.0(rolldown@1.2.15)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))
+      unplugin: 3.4.0(rolldown@1.2.15)(vite@8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0))
       unplugin-utils: 0.3.2
       vue: 3.5.44(typescript@6.0.3)
     optionalDependencies:
       '@vue/compiler-sfc': 3.5.44
       pinia: 4.1.0(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.44(typescript@6.0.3))
-      vite: 8.3.5(@types/node@24.19.2)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)
+      vite: 8.3.5(@types/node@26.6.6)(jiti@2.7.0)(sass-embedded@1.106.1)(sass@1.106.1)(terser@5.36.0)
     transitivePeerDependencies:
       - '@farmfe/core'
       - '@rsbuild/core'
