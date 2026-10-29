@@ -35,12 +35,12 @@ export default defineWebApplication({
     const appInfo: ApplicationInformation = {
       name: $gettext('Excalidraw'),
       id: applicationId,
-      icon: 'resource-type-graphic',
-      iconFillType: 'fill',
+      icon: { name: 'excalidraw', color: '#6965db', fillType: 'fill' },
       defaultExtension: 'excalidraw',
       extensions: [
         {
           extension: 'excalidraw',
+          icon: { name: 'excalidraw', color: '#6965db', fillType: 'fill' },
           routeName: applicationId,
           newFileMenu: {
             menuTitle: () => $gettext('Whiteboard')
