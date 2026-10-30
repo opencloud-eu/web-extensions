@@ -1,0 +1,78 @@
+%PDF-1.7
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R /AcroForm << /Fields [6 0 R 7 0 R 12 0 R 13 0 R 14 0 R] /CO [14 0 R] /NeedAppearances true /DA (/Helv 12 Tf 0 g) /DR << /Font << /Helv 5 0 R >> >> >> >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R 4 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 5 0 R >> >> /Contents 8 0 R /Annots [6 0 R 7 0 R 12 0 R 13 0 R 14 0 R] >>
+endobj
+4 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 5 0 R >> >> /Contents 9 0 R >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Type /Annot /Subtype /Widget /FT /Tx /T (name) /V () /Rect [150 700 450 725] /F 4 /P 3 0 R /DA (/Helv 12 Tf 0 g) /MK << /BC [0 0 0] >> >>
+endobj
+7 0 obj
+<< /Type /Annot /Subtype /Widget /FT /Btn /T (agree) /V /Off /AS /Off /Rect [150 650 170 670] /F 4 /P 3 0 R /MK << /BC [0 0 0] /CA (4) >> /AP << /N << /Yes 10 0 R /Off 11 0 R >> >> >>
+endobj
+8 0 obj
+<< /Length 160 >>
+stream
+BT /F1 18 Tf 72 780 Td (PDF Studio form) Tj ET BT /F1 12 Tf 72 707 Td (Name:) Tj ET BT /F1 12 Tf 72 655 Td (Agree:) Tj ET BT /F1 12 Tf 72 605 Td (a + b =) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Length 42 >>
+stream
+BT /F1 18 Tf 72 780 Td (Second page) Tj ET
+endstream
+endobj
+10 0 obj
+<< /Type /XObject /Subtype /Form /BBox [0 0 20 20] /Length 44 >>
+stream
+0 g 4 4 m 9 2 l 16 16 l 15 17 l 9 5 l 5 7 l f
+endstream
+endobj
+11 0 obj
+<< /Type /XObject /Subtype /Form /BBox [0 0 20 20] /Length 0 >>
+stream
+
+endstream
+endobj
+12 0 obj
+<< /Type /Annot /Subtype /Widget /FT /Tx /T (a) /V () /Rect [150 600 200 620] /F 4 /P 3 0 R /DA (/Helv 12 Tf 0 g) /MK << /BC [0 0 0] >> >>
+endobj
+13 0 obj
+<< /Type /Annot /Subtype /Widget /FT /Tx /T (b) /V () /Rect [210 600 260 620] /F 4 /P 3 0 R /DA (/Helv 12 Tf 0 g) /MK << /BC [0 0 0] >> >>
+endobj
+14 0 obj
+<< /Type /Annot /Subtype /Widget /FT /Tx /T (sum) /V () /Ff 1 /Rect [270 600 340 620] /F 4 /P 3 0 R /DA (/Helv 12 Tf 0 g) /MK << /BC [0 0 0] >> /AA << /C << /S /JavaScript /JS (AFSimple_Calculate\("SUM", new Array\("a", "b"\)\);) >> >> >>
+endobj
+xref
+0 15
+0000000000 65535 f 
+0000000015 00000 n 
+0000000214 00000 n 
+0000000277 00000 n 
+0000000446 00000 n 
+0000000572 00000 n 
+0000000669 00000 n 
+0000000826 00000 n 
+0000001025 00000 n 
+0000001236 00000 n 
+0000001328 00000 n 
+0000001472 00000 n 
+0000001570 00000 n 
+0000001725 00000 n 
+0000001880 00000 n 
+trailer
+<< /Size 15 /Root 1 0 R >>
+startxref
+2135
+%%EOF
