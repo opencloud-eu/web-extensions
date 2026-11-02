@@ -23,9 +23,8 @@ export const useExtensions = ({ applicationConfig }: ApplicationSetupOptions) =>
   const authStore = useAuthStore()
   const themeStore = useThemeStore()
   const { currentTheme } = storeToRefs(themeStore)
-  const modals = useModals()
-  const { dispatchModal, removeModal } = modals
-  const { activeModal } = storeToRefs(modals)
+  const { dispatchModal, removeModal } = useModals()
+  let importModalId: string
 
   const resourcesStore = useResourcesStore()
   const { currentFolder } = storeToRefs(resourcesStore)
@@ -51,10 +50,13 @@ export const useExtensions = ({ applicationConfig }: ApplicationSetupOptions) =>
     }
   }
 
+  // only close the import modal, other modals (e.g. upload conflicts) may be on top
   uppyService.subscribe('addedForUpload', () => {
-    if (unref(activeModal)) {
-      removeModal(unref(activeModal).id)
+    if (!importModalId) {
+      return
     }
+    removeModal(importModalId)
+    importModalId = undefined
   })
 
   uppyService.subscribe('uploadCompleted', () => {
@@ -73,13 +75,15 @@ export const useExtensions = ({ applicationConfig }: ApplicationSetupOptions) =>
     const { Dashboard, OneDrive, GoogleDrive } = await getUppyPlugins()
     const renderDarkTheme = unref(currentTheme).isDark
 
-    dispatchModal({
+    const modal = dispatchModal({
       title: $gettext('Import files'),
       hideConfirmButton: true,
       onCancel: () => {
+        importModalId = undefined
         removeUppyPlugins()
       }
     })
+    importModalId = modal.id
 
     await nextTick()
 

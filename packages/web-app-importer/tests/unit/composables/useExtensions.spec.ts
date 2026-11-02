@@ -1,7 +1,13 @@
-import { ActionExtension, ApplicationSetupOptions, UppyService } from '@opencloud-eu/web-pkg'
+import {
+  ActionExtension,
+  ApplicationSetupOptions,
+  Modal,
+  UppyService,
+  useModals
+} from '@opencloud-eu/web-pkg'
 import { Resource } from '@opencloud-eu/web-client'
 import { defaultComponentMocks, getComposableWrapper } from '@opencloud-eu/web-test-helpers'
-import { mock, mockDeep } from 'vitest-mock-extended'
+import { DeepMockProxy, mock, mockDeep } from 'vitest-mock-extended'
 import { unref } from 'vue'
 import { useExtensions } from '../../../src/composables/useExtensions'
 
@@ -96,9 +102,50 @@ describe('importer action', () => {
         uppyService,
         supportedClouds,
         setup: async (instance) => {
+          vi.mocked(useModals().dispatchModal).mockReturnValue(mock<Modal>({ id: 'import' }))
           const action = (unref(instance)[0] as ActionExtension).action
           await action.handler()
           expect(uppyService.addPlugin).toHaveBeenCalledTimes(addPluginCalls)
+        }
+      })
+    })
+  })
+  describe('on files added for upload', () => {
+    function getAddedForUploadCallback(uppyService: DeepMockProxy<UppyService>) {
+      const [, callback] = uppyService.subscribe.mock.calls.find(
+        ([topic]) => topic === 'addedForUpload'
+      )
+      return callback
+    }
+
+    it('closes only the import modal', async () => {
+      const uppyService = mockDeep<UppyService>()
+      let done: Promise<void>
+      getWrapper({
+        uppyService,
+        setup: (instance) => {
+          done = (async () => {
+            const { dispatchModal, removeModal } = useModals()
+            vi.mocked(dispatchModal).mockReturnValue(mock<Modal>({ id: 'import' }))
+            await (unref(instance)[0] as ActionExtension).action.handler()
+
+            getAddedForUploadCallback(uppyService)()
+            getAddedForUploadCallback(uppyService)()
+
+            expect(removeModal).toHaveBeenCalledTimes(1)
+            expect(removeModal).toHaveBeenCalledWith('import')
+          })()
+        }
+      })
+      await done
+    })
+    it('closes no modal if the import modal is not open', () => {
+      const uppyService = mockDeep<UppyService>()
+      getWrapper({
+        uppyService,
+        setup: () => {
+          getAddedForUploadCallback(uppyService)()
+          expect(useModals().removeModal).not.toHaveBeenCalled()
         }
       })
     })
