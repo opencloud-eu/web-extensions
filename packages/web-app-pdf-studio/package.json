@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@vueuse/core": "^14.0.0",
-    "pdfjs-dist": "^6.4.299"
+    "pdfjs-dist": "^6.5.438"
   },
   "devDependencies": {
     "@opencloud-eu/design-system": "^8.1.0",

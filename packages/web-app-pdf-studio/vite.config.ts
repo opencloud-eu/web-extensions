@@ -6,8 +6,7 @@ import { viteStaticCopy } from 'vite-plugin-static-copy'
 // OpenCloud's CSP would block anyway. See src/helpers/pdfjs.ts for the lookup side.
 const pdfjsAssets = [
   'build/pdf.worker.min.mjs',
-  'build/pdf.sandbox.mjs',
-  'build/pdf.sandbox.mjs.map',
+  'build/pdf.sandbox.min.mjs',
   'cmaps',
   'standard_fonts',
   'iccs',

@@ -117,9 +117,6 @@ export function usePdfSaving({
     try {
       // Also lets the scripts finish what committing the field started, e.g. formatting it.
       await scripting.dispatchWillSave()
-      // The sandbox runs each event in a later task (see createScripting), its results belong to
-      // this save.
-      await new Promise((resolve) => setTimeout(resolve))
       const hasNewContent = await tracking.flush()
       // Everything is written now, no copy to look after when the save is done.
       tracking.takeChangeMarker()

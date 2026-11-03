@@ -12,9 +12,7 @@ export const MAX_SCALE = 25
 
 export const pdfjsAssetUrls = {
   worker: `${assetBaseUrl}pdf.worker.min.mjs`,
-  // Not the minified one: its short global names clash with variables of form scripts
-  // (e.g. `var f`), the PDF.js viewer uses this one as well.
-  sandbox: `${assetBaseUrl}pdf.sandbox.mjs`,
+  sandbox: `${assetBaseUrl}pdf.sandbox.min.mjs`,
   cMaps: `${assetBaseUrl}cmaps/`,
   standardFonts: `${assetBaseUrl}standard_fonts/`,
   iccs: `${assetBaseUrl}iccs/`,
@@ -29,9 +27,8 @@ type Sandbox = {
 }
 
 /**
- * The sandbox for form scripts, same as PDF.js' default. PDF.js forwards the sandbox' events
- * from a window listener it never removes when it creates the default itself, which would keep
- * every opened document in memory.
+ * The sandbox for form scripts, same as PDF.js' default. With its own, PDF.js leaves passing on
+ * the sandbox' events from window to us, see usePdfFormFieldCommit.
  */
 export function createScripting() {
   const sandbox: Promise<Sandbox | null> = import(/* @vite-ignore */ pdfjsAssetUrls.sandbox)

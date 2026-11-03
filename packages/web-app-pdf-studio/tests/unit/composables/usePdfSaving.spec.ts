@@ -105,22 +105,6 @@ describe('usePdfSaving', () => {
       expect(calls).toEqual(['willSave', 'flush', 'save', 'didSave'])
     })
 
-    // Form scripts commit fields and react to WillSave in a later task.
-    it('waits for the form scripts before writing the changes', async () => {
-      const { saving, tracking, scripting } = setup()
-      const calls: string[] = []
-      scripting.dispatchWillSave.mockImplementation(() => {
-        setTimeout(() => calls.push('scripts'))
-        return Promise.resolve()
-      })
-      tracking.flush.mockImplementation(() => {
-        calls.push('flush')
-        return Promise.resolve(true)
-      })
-      await saving.save()
-      expect(calls).toEqual(['scripts', 'flush'])
-    })
-
     it('does not save when the changes cannot be written', async () => {
       const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
       const { saving, tracking, onSave } = setup({ isDirty: true })
