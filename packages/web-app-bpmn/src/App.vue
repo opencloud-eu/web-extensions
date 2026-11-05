@@ -169,13 +169,6 @@ onBeforeUnmount(() => {
   bpmnInstance.value?.destroy()
 })
 
-watch(
-  () => props.resource,
-  () => {
-    importXml(props.currentContent)
-  }
-)
-
 watch(showProperties, async () => {
   const instance = bpmnInstance.value
   if (!instance || props.isReadOnly) {
