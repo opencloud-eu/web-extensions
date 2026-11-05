@@ -99,13 +99,6 @@ export default defineComponent({
       }
     )
 
-    watch(
-      () => props.resource,
-      () => {
-        loadCurrentContent()
-      }
-    )
-
     const postMessage = (
       payload:
         | { action: string; xml: string; autosave?: boolean }

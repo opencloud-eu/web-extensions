@@ -10,19 +10,28 @@ describe('Draw.io app', () => {
     const { wrapper } = createWrapper({ url })
     expect(wrapper.find('iFrame').attributes('src').startsWith(url)).toBeTruthy()
   })
+
+  it('does not reload the diagram when the resource gets replaced after a save', async () => {
+    const { wrapper, postMessageSpy } = createWrapper()
+    await wrapper.setProps({ resource: mock<Resource>({ id: '1', etag: 'etag-2' }) })
+    expect(postMessageSpy).not.toHaveBeenCalled()
+  })
 })
 
-function createWrapper({ url = '' }: { url?: string } = {}) {
-  return {
-    wrapper: mount(App, {
-      props: {
-        resource: mock<Resource>(),
-        applicationConfig: mock<AppConfigObject>({ url }),
-        currentContent: '',
-        isReadOnly: false,
-        isDirty: false
-      },
-      global: { plugins: [...defaultPlugins()] }
-    })
-  }
+function createWrapper({ url = 'https://foo.bar' }: { url?: string } = {}) {
+  const wrapper = mount(App, {
+    props: {
+      resource: mock<Resource>({ id: '1', etag: 'etag-1' }),
+      applicationConfig: mock<AppConfigObject>({ url }),
+      currentContent: '',
+      isReadOnly: false,
+      isDirty: false
+    },
+    global: { plugins: [...defaultPlugins()] }
+  })
+  const postMessageSpy = vi.fn()
+  Object.defineProperty(wrapper.find('iframe').element, 'contentWindow', {
+    value: { postMessage: postMessageSpy }
+  })
+  return { wrapper, postMessageSpy }
 }
