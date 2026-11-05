@@ -155,13 +155,13 @@ importers:
     dependencies:
       '@bpmn-io/properties-panel':
         specifier: ^3.28.0
-        version: 3.58.0
+        version: 3.58.1
       bpmn-js:
         specifier: ^18.6.3
         version: 18.31.1
       bpmn-js-properties-panel:
         specifier: ^5.34.0
-        version: 5.65.3(@bpmn-io/properties-panel@3.58.0)(bpmn-js@18.31.1)(camunda-bpmn-js-behaviors@1.18.0(bpmn-js@18.31.1)(camunda-bpmn-moddle@8.0.2)(zeebe-bpmn-moddle@2.0.0(moddle@8.2.1)))(diagram-js@15.28.0)
+        version: 5.65.3(@bpmn-io/properties-panel@3.58.1)(bpmn-js@18.31.1)(camunda-bpmn-js-behaviors@1.18.0(bpmn-js@18.31.1)(camunda-bpmn-moddle@8.0.2)(zeebe-bpmn-moddle@2.0.0(moddle@8.2.1)))(diagram-js@15.28.0)
       camunda-bpmn-moddle:
         specifier: ^8.0.0
         version: 8.0.2
@@ -571,8 +571,8 @@ packages:
     resolution: {integrity: sha512-On6hWdV9gwrXK/+VDqqllgbJtwSI4v98pA+3LhvcSKMMEy9IdlvcB8GntsPLg4ROLh4vrsu/o9opp/vIpdBSLA==}
     engines: {node: '>= 20'}
 
-  '@bpmn-io/feel-editor@2.8.0':
-    resolution: {integrity: sha512-Rhv19co5pMs2TVoTqXsHrBa+fogPFctVxo/89Wzre4HlinXsToFYO0JX+5Ehkbm+9ho8DiYL03Vi2XO9df88qA==}
+  '@bpmn-io/feel-editor@2.8.1':
+    resolution: {integrity: sha512-I0Dksrcd1oAAgwhbVgQ2quW+TPhdn8NCpplSTwrCLPF8ZvgR6FC+J1V04my1Z//qA2wwaQoxxFIOYKChfLqpZw==}
 
   '@bpmn-io/feel-lint@3.2.0':
     resolution: {integrity: sha512-f9xe7VNjdZ0kDzWeALmDEWXm7KtAzVSeLVESAhBZGxTbyGzbTGubRfl2cXMN+E/U0oFEcQDuxF0A1tD02DXiLw==}
@@ -597,8 +597,8 @@ packages:
   '@bpmn-io/lezer-feelers@1.0.0':
     resolution: {integrity: sha512-P0znH2SY85O7RmOr/FgveFiTREet9DSCf3nH3J/StkI5i7Q384o+GEeTmv58n91FlUknS20KE3T8Yk5Qmab+hg==}
 
-  '@bpmn-io/properties-panel@3.58.0':
-    resolution: {integrity: sha512-CUQ65MlH941tCL25ONvRn97KwLoxrqMpnh3G+fvmNmGDJId6jcdGrQE345JcwIxZvTuEW5TEiATq/NfR+HsEVQ==}
+  '@bpmn-io/properties-panel@3.58.1':
+    resolution: {integrity: sha512-gS3fYu/WERJRk46+wmlJQcXhI0lcABDA3/kkuL8rP5TVudV44i0+eSgrBu/DypI1ZEDLobwMtZfBClYbC/BSGg==}
 
   '@bpmn-io/semver-compat@0.1.0':
     resolution: {integrity: sha512-hIcW42Ku92MUioL6aknDbRoW1jK8ZEqIe8qZZ+d3cjitDO+PMEFFXj/sezJYIHMe8elu4CBz9qpjkV8WIVG9qw==}
@@ -5605,7 +5605,7 @@ snapshots:
       '@bpmn-io/lezer-feel': 3.0.1
       '@lezer/common': 1.5.3
 
-  '@bpmn-io/feel-editor@2.8.0':
+  '@bpmn-io/feel-editor@2.8.1':
     dependencies:
       '@bpmn-io/cm-theme': 0.2.2(@codemirror/state@6.7.6)(@codemirror/view@6.43.13)
       '@bpmn-io/feel-lint': 3.2.0
@@ -5678,9 +5678,9 @@ snapshots:
       '@lezer/highlight': 1.2.5
       '@lezer/lr': 1.4.10
 
-  '@bpmn-io/properties-panel@3.58.0':
+  '@bpmn-io/properties-panel@3.58.1':
     dependencies:
-      '@bpmn-io/feel-editor': 2.8.0
+      '@bpmn-io/feel-editor': 2.8.1
       '@bpmn-io/feelers-editor': 1.2.0
       '@codemirror/autocomplete': 6.20.3
       '@codemirror/commands': 6.11.1
@@ -8527,10 +8527,10 @@ snapshots:
 
   boolbase@1.0.0: {}
 
-  bpmn-js-properties-panel@5.65.3(@bpmn-io/properties-panel@3.58.0)(bpmn-js@18.31.1)(camunda-bpmn-js-behaviors@1.18.0(bpmn-js@18.31.1)(camunda-bpmn-moddle@8.0.2)(zeebe-bpmn-moddle@2.0.0(moddle@8.2.1)))(diagram-js@15.28.0):
+  bpmn-js-properties-panel@5.65.3(@bpmn-io/properties-panel@3.58.1)(bpmn-js@18.31.1)(camunda-bpmn-js-behaviors@1.18.0(bpmn-js@18.31.1)(camunda-bpmn-moddle@8.0.2)(zeebe-bpmn-moddle@2.0.0(moddle@8.2.1)))(diagram-js@15.28.0):
     dependencies:
       '@bpmn-io/extract-process-variables': 2.2.1
-      '@bpmn-io/properties-panel': 3.58.0
+      '@bpmn-io/properties-panel': 3.58.1
       array-move: 4.0.0
       bpmn-js: 18.31.1
       camunda-bpmn-js-behaviors: 1.18.0(bpmn-js@18.31.1)(camunda-bpmn-moddle@8.0.2)(zeebe-bpmn-moddle@2.0.0(moddle@8.2.1))
