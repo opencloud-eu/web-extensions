@@ -3,10 +3,13 @@ import { mock } from 'vitest-mock-extended'
 import { Resource } from '@opencloud-eu/web-client'
 import { AppConfigObject } from '@opencloud-eu/web-pkg'
 import { defaultPlugins, mount } from '@opencloud-eu/web-test-helpers'
+import { flushPromises } from '@vue/test-utils'
+
+const { importXMLMock } = vi.hoisted(() => ({ importXMLMock: vi.fn().mockResolvedValue({}) }))
 
 function createMockBpmnClass() {
   return class {
-    importXML = vi.fn().mockResolvedValue({})
+    importXML = importXMLMock
     saveSVG = vi.fn().mockResolvedValue({ svg: '<svg></svg>' })
     get = vi.fn().mockReturnValue({ zoom: vi.fn(), attachTo: vi.fn(), detach: vi.fn() })
     on = vi.fn()
@@ -69,15 +72,28 @@ describe('BPMN app', () => {
     const buttons = wrapper.findAll('.bpmn-toolbar button')
     expect(buttons.length).toBe(2)
   })
+
+  it('does not re-import the diagram when the resource changes after a save', async () => {
+    const { wrapper } = createWrapper({ currentContent: '<xml />' })
+    await flushPromises()
+    expect(importXMLMock).toHaveBeenCalledTimes(1)
+
+    await wrapper.setProps({ resource: mock<Resource>() })
+    await flushPromises()
+    expect(importXMLMock).toHaveBeenCalledTimes(1)
+  })
 })
 
-function createWrapper({ isReadOnly = false }: { isReadOnly?: boolean } = {}) {
+function createWrapper({
+  isReadOnly = false,
+  currentContent = ''
+}: { isReadOnly?: boolean; currentContent?: string } = {}) {
   return {
     wrapper: mount(App, {
       props: {
         resource: mock<Resource>(),
         applicationConfig: mock<AppConfigObject>(),
-        currentContent: '',
+        currentContent,
         isReadOnly,
         isDirty: false
       },
