@@ -10,7 +10,7 @@ This repository is a collection of [OpenCloud Web](https://github.com/opencloud-
 /
 ├── packages/              # All extensions (monorepo workspaces)
 │   └── web-app-*/         # Standalone apps/extensions (unzip, importer, maps, …)
-├── tests/                 # Shared test setup / workspace
+├── support/               # Shared e2e test helpers, fixtures and files to upload
 ├── dev/                   # Local development helpers
 ├── docker/                # Docker config
 ├── docker-compose.yml
@@ -23,7 +23,7 @@ Each extension under `packages/web-app-*/` typically contains:
 
 - `src/` – source code
 - `tests/unit/` – unit tests (mirroring the `src/` folder structure)
-- `tests/e2e/` – end-to-end tests for the extension
+- `tests/e2e/` – end-to-end tests for the extension, where it has any
 - `l10n/` – translations
 - `CHANGELOG.md` – per-app changelog (see [Versioning & Changelogs](#versioning--changelogs))
 - `package.json` – package-specific metadata, version and dependencies
@@ -125,14 +125,24 @@ When bumping an extension's version:
 - **File naming:** `{originalFileName}.spec.ts` (e.g. `src/composables/foo.ts` → `tests/unit/composables/foo.spec.ts`).
 - **Helpers:** Use `@opencloud-eu/web-test-helpers` for mounting components, mocking stores, etc. instead of rolling your own helpers.
 - **Snapshots:** Avoid snapshot tests, as they can be brittle and hard to maintain. Prefer explicit assertions that check specific behavior or output.
-- **Run:** `pnpm test:unit` (or `pnpm --filter web-app-<name> test:unit` for a single extension).
+- **Run:** `pnpm test:unit` (or `pnpm --filter ./packages/web-app-<name> test:unit` for a single extension; filter by path, since the package names don't all start with `web-app-`, e.g. `bpmn` or `draw-io`).
 
 ### End-to-End Tests
 
 - **Framework:** [Playwright](https://playwright.dev/)
-- **Location:** `tests/e2e/` inside each extension; configured by the root `playwright.config.ts`.
+- **Location:** `tests/e2e/` inside each extension, with shared helpers and fixtures in the root `support/`; configured by the root `playwright.config.ts`.
 - **Prerequisites:** Run `pnpm build` first, and start a local OpenCloud backend with `docker-compose up -d`.
 - **Run:** `pnpm test:e2e`
+
+---
+
+## GitHub Issues, Pull Requests and Commits
+
+- **Language** – GitHub content is written in English.
+- **AI assistance** – follow the org's [AI guideline](https://github.com/opencloud-eu/.github/blob/main/profile/AI_GUIDELINE.md). Authorship is for humans: never add `Co-authored-by` or similar trailers, or "Generated with ..." footers, for an AI tool. Instead, add an `Assisted-by: AGENT_NAME:MODEL_VERSION` trailer to commit messages, naming the agent and the model that were actually used (e.g. `Assisted-by: Claude Code:claude-opus-5-5`), and say in the pull request description which AI was used and how.
+- **Commits and PR titles** – conventional commit format, with the extension as scope where it fits, e.g. `fix(bpmn): keep view and selection on save`.
+- **Pull requests** – follow `.github/PULL_REQUEST_TEMPLATE.md`, assign the PR to its author (`gh pr create --assignee @me`) and set exactly one `Type:*` label.
+- **Issues** – use the templates in `.github/ISSUE_TEMPLATE/` and set the issue type (`Bug`, `Feature` or `Task`) with `gh issue create --type <type>`.
 
 ## Documentation
 
