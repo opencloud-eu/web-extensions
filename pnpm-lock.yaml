@@ -95,8 +95,8 @@ importers:
         specifier: ^19.0.0
         version: 19.3.1(react@19.3.1)
       vue-inline-svg:
-        specifier: ^4.0.1
-        version: 4.0.1(vue@3.5.44(typescript@6.0.3))
+        specifier: ^5.0.0
+        version: 5.0.0(vue@3.5.44(typescript@6.0.3))
     devDependencies:
       '@opencloud-eu/web-client':
         specifier: ^8.0.0
@@ -5318,6 +5318,11 @@ packages:
 
   vue-inline-svg@4.0.1:
     resolution: {integrity: sha512-yh92MOcTpL/yXj0MjI9JqQpI33nj5ewdddt6enunU8pBpy6JqrMXF+O4WI1DbckhLIoXzp6hSxkeqXDqpqtKXw==}
+    peerDependencies:
+      vue: ^3
+
+  vue-inline-svg@5.0.0:
+    resolution: {integrity: sha512-oP4FmRxpwL3oNsq/17JHLEwkgVyRSmvZeTVnsnT7PSz5TdZeL1eq20/WKl/d66OsViCZAKOoZ6wu8FqP8r80yQ==}
     peerDependencies:
       vue: ^3
 
@@ -11083,6 +11088,10 @@ snapshots:
       - supports-color
 
   vue-inline-svg@4.0.1(vue@3.5.44(typescript@6.0.3)):
+    dependencies:
+      vue: 3.5.44(typescript@6.0.3)
+
+  vue-inline-svg@5.0.0(vue@3.5.44(typescript@6.0.3)):
     dependencies:
       vue: 3.5.44(typescript@6.0.3)
 
