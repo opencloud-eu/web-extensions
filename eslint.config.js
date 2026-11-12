@@ -1,3 +1,4 @@
 import openCloudConfig from '@opencloud-eu/eslint-config'
 
-export default [...openCloudConfig]
+// Module federation writes temp files into every package while building.
+export default [{ ignores: ['**/.__mf__temp/**', '**/dist/**'] }, ...openCloudConfig]
