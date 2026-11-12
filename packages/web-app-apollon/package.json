@@ -15,7 +15,7 @@
     "@tumaet/apollon": "5.5.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "vue-inline-svg": "^4.0.1"
+    "vue-inline-svg": "^5.0.0"
   },
   "devDependencies": {
     "@opencloud-eu/web-client": "^8.0.0",
