@@ -345,7 +345,7 @@ importers:
     dependencies:
       vanilla-jsoneditor:
         specifier: ^3.0.0
-        version: 3.13.0(@typescript-eslint/types@8.71.1)
+        version: 3.13.1(@typescript-eslint/types@8.71.1)
     devDependencies:
       '@opencloud-eu/web-client':
         specifier: ^8.0.0
@@ -5194,8 +5194,8 @@ packages:
   v8-compile-cache-lib@3.0.1:
     resolution: {integrity: sha512-wa7YjyUGfNZngI/vtK0UHAN+lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB+VfufLh3JlF2KdTK3xg==}
 
-  vanilla-jsoneditor@3.13.0:
-    resolution: {integrity: sha512-u9C+D8Ocgr39Gnsfu7USjilfKssqbDqZehMdE0qbwIFnZFdNwkU4iKeEvJxvYbmlVi/sMLxMTrU14PhtXVyiZg==}
+  vanilla-jsoneditor@3.13.1:
+    resolution: {integrity: sha512-6U/eD+clhhqlbt/G3CSEg6xn76cNKAAKh9ucUcLFbPRC7pG5igqcmp08TzpU1j77Kvp7TESABdTFzHekan0g1Q==}
 
   vanilla-picker@2.12.3:
     resolution: {integrity: sha512-qVkT1E7yMbUsB2mmJNFmaXMWE2hF8ffqzMMwe9zdAikd8u2VfnsVY2HQcOUi2F38bgbxzlJBEdS1UUhOXdF9GQ==}
@@ -11015,7 +11015,7 @@ snapshots:
 
   v8-compile-cache-lib@3.0.1: {}
 
-  vanilla-jsoneditor@3.13.0(@typescript-eslint/types@8.71.1):
+  vanilla-jsoneditor@3.13.1(@typescript-eslint/types@8.71.1):
     dependencies:
       '@codemirror/autocomplete': 6.20.3
       '@codemirror/commands': 6.11.1
