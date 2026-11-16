@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.2.0](https://github.com/opencloud-eu/web-extensions/releases/tag/maps-v3.2.0) - YYYY-MM-DD
+
+### ✨ Features
+
+- Ship the required CSP rules as `csp.yaml`, the rule for the default tile server as `csp.defaults.yaml` and the rule for the default PMTiles font glyphs as `csp.protomaps-fonts.yaml` [[#621](https://github.com/opencloud-eu/web-extensions/pull/621)]
+
 ## [3.1.1](https://github.com/opencloud-eu/web-extensions/releases/tag/maps-v3.1.1) - 2026-09-30
 
 ### 🔒 Security

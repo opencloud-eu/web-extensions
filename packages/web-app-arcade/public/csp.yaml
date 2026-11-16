@@ -1,0 +1,9 @@
+directives:
+  worker-src:
+    - "'self'"
+    - 'blob:'
+  script-src:
+    - "'unsafe-eval'"
+    - 'blob:'
+  connect-src:
+    - 'data:'
