@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.1](https://github.com/opencloud-eu/web-extensions/releases/tag/apollon-v1.1.1) - 2026-11-17
+
+### 📦️ Dependencies
+
+- Update dependency @tumaet/apollon to v5.5.0 [[#645](https://github.com/opencloud-eu/web-extensions/pull/645)]
+
 ## [1.1.0](https://github.com/opencloud-eu/web-extensions/releases/tag/apollon-v1.1.0) - 2026-10-26
 
 ### ✨ Features

@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.2](https://github.com/opencloud-eu/web-extensions/releases/tag/bpmn-v1.1.2) - 2026-11-17
+
+### 🐛 Bug Fixes
+
+- Keep the view and selection when saving [[#662](https://github.com/opencloud-eu/web-extensions/pull/662)]
+
 ## [1.1.1](https://github.com/opencloud-eu/web-extensions/releases/tag/bpmn-v1.1.1) - 2026-10-07
 
 ### 📦️ Dependencies

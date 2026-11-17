@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.2.1](https://github.com/opencloud-eu/web-extensions/releases/tag/draw-io-v2.2.1) - 2026-11-17
+
+### 🐛 Bug Fixes
+
+- Keep the zoom and selection when saving [[#661](https://github.com/opencloud-eu/web-extensions/pull/661)]
+
 ## [2.2.0](https://github.com/opencloud-eu/web-extensions/releases/tag/draw-io-v2.2.0) - 2026-08-19
 
 ### ✨ Features
