@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.0.2](https://github.com/opencloud-eu/web-extensions/releases/tag/importer-v2.0.2) - 2026-11-17
+
+### 🐛 Bug Fixes
+
+- Only close the importer's own modal when files are added for upload [[#657](https://github.com/opencloud-eu/web-extensions/pull/657)]
+
 ## [2.0.1](https://github.com/opencloud-eu/web-extensions/releases/tag/importer-v2.0.1) - 2026-10-07
 
 ### 📦️ Dependencies

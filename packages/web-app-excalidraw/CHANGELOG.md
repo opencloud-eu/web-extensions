@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.0](https://github.com/opencloud-eu/web-extensions/releases/tag/excalidraw-v1.2.0) - 2026-11-17
+
+### ✨ Features
+
+- Use the Excalidraw logo as app icon [[#612](https://github.com/opencloud-eu/web-extensions/pull/612)]
+
 ## [1.1.0](https://github.com/opencloud-eu/web-extensions/releases/tag/excalidraw-v1.1.0) - 2026-10-08
 
 ### ✨ Features
