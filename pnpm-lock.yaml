@@ -543,7 +543,7 @@ importers:
         version: 5.7.2
       '@tmcw/togeojson':
         specifier: ^7.0.0
-        version: 7.1.3
+        version: 7.1.4
       maplibre-gl:
         specifier: ^6.0.0
         version: 6.18.0
@@ -2280,8 +2280,8 @@ packages:
       y-protocols: ^1.0.1
       yjs: ^13.5.38
 
-  '@tmcw/togeojson@7.1.3':
-    resolution: {integrity: sha512-26QL68Q2Zzkmj0J6uZm5FbZPQ9V/qOC3x6/FR7BMnulPVMK3hRu+MZXJHYYJMi8ygcPfOKjhK0UGf3qdTswLLA==}
+  '@tmcw/togeojson@7.1.4':
+    resolution: {integrity: sha512-plPYr+qhVPoRPy7HwbptxPm8r4meK4KzdfLjJXGTxOONir/gIp9oFs5IqSaJLTmpT1/SUD3LLBGBMdg3S540pg==}
 
   '@transloadit/prettier-bytes@2.0.0':
     resolution: {integrity: sha512-GYzxSL3y9XlhwamBLkHT1y2jFrRsHkZZ1jNctn8NeMNyTtIbMK1Qf0f1koHkDdW+MwOUowCmpm8zP6ZpQ36G5w==}
@@ -8032,7 +8032,7 @@ snapshots:
       y-protocols: 1.0.7(yjs@13.6.33)
       yjs: 13.6.33
 
-  '@tmcw/togeojson@7.1.3': {}
+  '@tmcw/togeojson@7.1.4': {}
 
   '@transloadit/prettier-bytes@2.0.0': {}
 
