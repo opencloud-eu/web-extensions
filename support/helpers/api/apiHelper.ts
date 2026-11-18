@@ -1,7 +1,6 @@
 import { request } from '@playwright/test'
 import { getAdminToken } from './getToken'
 import config from '../../../playwright.config'
-import { v4 as uuidv4 } from 'uuid'
 
 const API_USERS_URL = config.use.baseURL + '/graph/v1.0/users'
 const API_GROUPS_URL = config.use.baseURL + '/graph/v1.0/groups'
@@ -36,7 +35,7 @@ export async function createUser(username: string, password: string) {
 }
 
 export async function createRandomUser() {
-  const uniquePrefix = uuidv4().substring(0, 8)
+  const uniquePrefix = crypto.randomUUID().substring(0, 8)
   return await createUser(`Alice-${uniquePrefix}`, '123')
 }
 

@@ -34,7 +34,6 @@
     "tailwindcss": "^4.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.3",
-    "uuid": "^14.0.0",
     "vite": "^8.0.3",
     "vitest": "^5.0.0",
     "vitest-mock-extended": "^6.0.0",
