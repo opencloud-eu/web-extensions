@@ -17,7 +17,6 @@ import {
 import { computed, unref } from 'vue'
 import { useGettext } from 'vue3-gettext'
 import { extractNameWithoutExtension, urlJoin } from '@opencloud-eu/web-client'
-import * as uuid from 'uuid'
 import * as zip from '@zip.js/zip.js'
 import workerUrl from '@zip.js/zip.js/dist/zip-web-worker.js?worker&url'
 
@@ -86,7 +85,7 @@ export const useUnzipAction = ({ applicationConfig }: ApplicationSetupOptions) =
       }
 
       const folder = await createRootFolder({ space, resources })
-      const uploadId = uuid.v4()
+      const uploadId = crypto.randomUUID()
 
       // unzip and convert to UppyFile's
       const promises = entries
