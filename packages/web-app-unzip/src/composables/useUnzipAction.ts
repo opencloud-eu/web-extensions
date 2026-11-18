@@ -27,7 +27,7 @@ const DEFAULT_MAX_ARCHIVE_SIZE_MB = 64 // in mb
 // uppy's convention for directory-upload metadata on the file object. mirrors the
 // (non-exported) FileWithPath in web/packages/web-pkg/src/services/uppy/uppyService.ts.
 // uppyService.getRelativeFilePath reads .relativePath from file.data.
-type FileWithPath = Blob & { relativePath?: string }
+type FileWithPath = File & { relativePath?: string }
 
 export const useUnzipAction = ({ applicationConfig }: ApplicationSetupOptions) => {
   const { $gettext, current: currentLanguage } = useGettext()
@@ -93,14 +93,19 @@ export const useUnzipAction = ({ applicationConfig }: ApplicationSetupOptions) =
         .filter(({ filename }) => !filename.endsWith('/'))
         .map<Promise<OcMinimalUppyFile | void>>((result) => {
           const writer = new zip.BlobWriter()
-          return (result as zip.FileEntry).getData(writer).then((data) => {
+          return (result as zip.FileEntry).getData(writer).then((blob) => {
             const path = dirname(result.filename)
             const name = path === '.' ? result.filename : result.filename.substring(path.length + 1)
+
+            // Blob has no lastModified, web would send mtime=NaN which the server rejects
+            const data: FileWithPath = new File([blob], name, {
+              lastModified: result.lastModDate?.getTime() || Date.now()
+            })
 
             if (path !== '.') {
               // attach relativePath to the data blob so uppyService preserves
               // the subfolder structure when uploading the extracted files.
-              ;(data as FileWithPath).relativePath = urlJoin(path, name)
+              data.relativePath = urlJoin(path, name)
             }
 
             return {

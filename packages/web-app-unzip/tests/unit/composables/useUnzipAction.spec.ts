@@ -1,4 +1,9 @@
-import { AppConfigObject, ApplicationSetupOptions, useMessages } from '@opencloud-eu/web-pkg'
+import {
+  AppConfigObject,
+  ApplicationSetupOptions,
+  OcMinimalUppyFile,
+  useMessages
+} from '@opencloud-eu/web-pkg'
 import { Resource, SpaceResource } from '@opencloud-eu/web-client'
 import { GetFileContentsResponse } from '@opencloud-eu/web-client/webdav'
 import { defaultComponentMocks, getComposableWrapper } from '@opencloud-eu/web-test-helpers'
@@ -126,10 +131,12 @@ describe('unzip action', () => {
       })
     })
     it('adds extracted files to the uppy upload queue and closes the zip reader eventually', () => {
-      const zipBlob = new Blob()
+      const zipBlob = new Blob(['content'])
+      const lastModDate = new Date('2026-01-02T03:04:05Z')
       const zipEntry = mock<zip.Entry>({
         encrypted: false,
         filename: 'filename',
+        lastModDate,
         getData: () => Promise.resolve<any>(zipBlob)
       })
 
@@ -142,8 +149,12 @@ describe('unzip action', () => {
           await unref(action).handler({ space, resources: [resource] })
 
           expect($uppyService.addFiles).toHaveBeenCalledWith([
-            expect.objectContaining({ data: zipBlob, name: zipEntry.filename })
+            expect.objectContaining({ name: zipEntry.filename })
           ])
+          const data = ($uppyService.addFiles.mock.calls[0][0][0] as OcMinimalUppyFile).data as File
+          expect(data).toBeInstanceOf(File)
+          expect(data.lastModified).toBe(lastModDate.getTime())
+          expect(data.size).toBe(zipBlob.size)
           expect($uppyService.setUploadFolder).toHaveBeenCalledWith(expect.anything(), rootFolder)
           expect(closeMock).toHaveBeenCalledTimes(1)
         }
